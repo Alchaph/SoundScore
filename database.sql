@@ -37,26 +37,64 @@ CREATE TABLE IF NOT EXISTS songs (
     CONSTRAINT fk_posts_artist FOREIGN KEY (fk_artist) REFERENCES artists(id)
 );
 
-CREATE TABLE IF NOT EXISTS posts (
+CREATE TABLE IF NOT EXISTS posts_genre
+(
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     likes BIGINT(20) NOT NULL,
     dislikes BIGINT(20) NOT NULL,
     fk_user BIGINT(20) NOT NULL,
-    fk_song BIGINT(20) DEFAULT NULL,
-    fk_artist BIGINT(20) DEFAULT NULL,
     fk_genre BIGINT(20) DEFAULT NULL,
     CONSTRAINT fk_posts_users FOREIGN KEY (fk_user) REFERENCES users(id),
-    CONSTRAINT fk_posts_songs FOREIGN KEY (fk_song) REFERENCES songs(id),
-    CONSTRAINT fk_posts_artists FOREIGN KEY (fk_artist) REFERENCES artists(id),
     CONSTRAINT fk_posts_genre FOREIGN KEY (fk_genre) REFERENCES genres(id)
 );
 
-CREATE TABLE IF NOT EXISTS comments (
+CREATE TABLE IF NOT EXISTS posts_artist
+(
+    id        BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    likes     BIGINT(20) NOT NULL,
+    dislikes  BIGINT(20) NOT NULL,
+    fk_user   BIGINT(20) NOT NULL,
+    fk_artist BIGINT(20) DEFAULT NULL,
+    CONSTRAINT fk_posts_users FOREIGN KEY (fk_user) REFERENCES users (id),
+    CONSTRAINT fk_posts_artists FOREIGN KEY (fk_artist) REFERENCES artists (id)
+);
+CREATE TABLE IF NOT EXISTS posts_songs
+(
+    id       BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    likes    BIGINT(20) NOT NULL,
+    dislikes BIGINT(20) NOT NULL,
+    fk_user  BIGINT(20) NOT NULL,
+    fk_song  BIGINT(20) DEFAULT NULL,
+    CONSTRAINT fk_posts_users FOREIGN KEY (fk_user) REFERENCES users (id),
+    CONSTRAINT fk_posts_songs FOREIGN KEY (fk_song) REFERENCES songs (id)
+);
+
+CREATE TABLE IF NOT EXISTS comments_songs (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     message VARCHAR(2000) NOT NULL,
     fk_post BIGINT(20) NOT NULL,
     fk_user BIGINT(20) NOT NULL,
-    CONSTRAINT fk_comments_posts FOREIGN KEY (fk_post) REFERENCES posts(id),
+    CONSTRAINT fk_comments_posts FOREIGN KEY (fk_post) REFERENCES posts_songs(id),
     CONSTRAINT fk_comments_user FOREIGN KEY (fk_user) REFERENCES users(id)
+);
+CREATE TABLE IF NOT EXISTS comments_genre
+(
+    id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    title   VARCHAR(255)  NOT NULL,
+    message VARCHAR(2000) NOT NULL,
+    fk_post BIGINT(20)    NOT NULL,
+    fk_user BIGINT(20)    NOT NULL,
+    CONSTRAINT fk_comments_posts FOREIGN KEY (fk_post) REFERENCES posts_genre(id),
+    CONSTRAINT fk_comments_user FOREIGN KEY (fk_user) REFERENCES users (id)
+);
+CREATE TABLE IF NOT EXISTS comments_artists
+(
+    id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    title   VARCHAR(255)  NOT NULL,
+    message VARCHAR(2000) NOT NULL,
+    fk_post BIGINT(20)    NOT NULL,
+    fk_user BIGINT(20)    NOT NULL,
+    CONSTRAINT fk_comments_posts FOREIGN KEY (fk_post) REFERENCES posts_artist(id),
+    CONSTRAINT fk_comments_user FOREIGN KEY (fk_user) REFERENCES users (id)
 );
