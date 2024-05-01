@@ -13,3 +13,8 @@
   #### Commit:
 - Commit Message should be a short description of the Changes
 - Control Commit-Files after unecesary Files
+- Commit messages should have following strucutre:
+    - SHORT_INFO: e.g. "fix", "feat", "docs"
+    - MESSAGE: e.g. "add POST operation to user controller"
+    - Structure commit message: SHORT_INFO: MESSAGE
+    - Example: "docs: add conditions for git commit messages"
