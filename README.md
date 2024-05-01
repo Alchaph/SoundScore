@@ -2,14 +2,14 @@
 ## Timo, Marc, Damian & Nevio
 
 ### Git
-- Jeden Tag mindestens 1 Commit.
+- At least 1 commit everyday.
   
-  Push:
-- Pull branch from Main in your Branch
+  #### Push:
+- Pull branch from Main to your Branch
 - Fix Conflict
-- [Senior] checks Code (Review)
-- Push Branch in Main
+- "Senior" checks Code (Review)
+- Push Branch to Main
   
-  Commit:
-- Commit Message short description of the Changes
+  #### Commit:
+- Commit Message should be a short description of the Changes
 - Control Commit-Files after unecesary Files
