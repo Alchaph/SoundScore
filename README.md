@@ -1,4 +1,4 @@
-# SoundScore
+![SoundScore](logo.jpg "Logo SoundScore")
 ## Timo, Marc, Damian & Nevio
 
 ### Git
