@@ -1,4 +1,4 @@
-# BrawlNet
+# SoundScore
 ## Timo, Marc, Damian & Nevio
 
 ### Git
