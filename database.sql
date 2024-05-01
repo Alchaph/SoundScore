@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS brawlnet;
+CREATE DATABASE IF NOT EXISTS sound;
 
-USE brawlnet;
+USE sound;
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(500) NOT NULL,
@@ -11,80 +11,44 @@ CREATE TABLE IF NOT EXISTS user (
     created DATETIME DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS rarity (
+CREATE TABLE IF NOT EXISTS genres (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    icon VARCHAR(255) NOT NULL
+    description VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS gadgets (
+CREATE TABLE IF NOT EXISTS artists (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    description VARCHAR(1000) NOT NULL,
-    icon VARCHAR(255) NOT NULL
+    description VARCHAR(2000) NOT NULL,
+    image VARCHAR(255) DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS starpower (
+CREATE TABLE IF NOT EXISTS songs (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    description VARCHAR(1000) NOT NULL,
-    icon VARCHAR(255) NOT NULL
+    title VARCHAR(255) NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    link VARCHAR(1000) NOT NULL,
+    fk_genre BIGINT(20) NOT NULL,
+    fk_artist BIGINT(20) NOT NULL,
+    CONSTRAINT fk_posts_genre FOREIGN KEY (fk_genre) REFERENCES genres(id),
+    CONSTRAINT fk_posts_artist FOREIGN KEY (fk_artist) REFERENCES artists(id)
 );
 
-CREATE TABLE IF NOT EXISTS equipment (
+CREATE TABLE IF NOT EXISTS posts (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    description VARCHAR(1000) NOT NULL,
-    icon VARCHAR(255) NOT NULL,
-    fk_rarity BIGINT(20) NOT NULL,
-    CONSTRAINT fk_equipment_rarity FOREIGN KEY (fk_rarity) REFERENCES rarity(id)
+    likes BIGINT(20) NOT NULL,
+    dislikes BIGINT(20) NOT NULL,
+    fk_user BIGINT(20) NOT NULL,
+    fk_song BIGINT(20) NOT NULL,
+    CONSTRAINT fk_posts_users FOREIGN KEY (fk_user) REFERENCES users(id),
+    CONSTRAINT fk_posts_songs FOREIGN KEY (fk_song) REFERENCES songs(id)
 );
 
-CREATE TABLE IF NOT EXISTS skins (
+CREATE TABLE IF NOT EXISTS comments (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    icon VARCHAR(255) NOT NULL,
-    image VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS brawler (
-    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    fk_rarity BIGINT(20) NOT NULL,
-    fk_skin BIGINT(20) DEFAULT 1,
-    CONSTRAINT fk_brawler_rarity FOREIGN KEY (fk_rarity) REFERENCES rarity(id),
-    CONSTRAINT fk_brawler_skins FOREIGN KEY (fk_skin) REFERENCES skins(id)
-);
-
-CREATE TABLE IF NOT EXISTS brawler_starpower (
-    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    fk_brawler BIGINT(20) NOT NULL,
-    fk_starpower BIGINT(20) NOT NULL,
-    CONSTRAINT fk_brawler_starpower_brawler FOREIGN KEY (fk_brawler) REFERENCES brawler(id),
-    CONSTRAINT fk_brawler_starpower_starpower FOREIGN KEY (fk_starpower) REFERENCES starpower(id)
-);
-
-CREATE TABLE IF NOT EXISTS brawler_gadget (
-    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    fk_brawler BIGINT(20) NOT NULL,
-    fk_gadget BIGINT(20) NOT NULL,
-    CONSTRAINT fk_brawler_gadget_brawler FOREIGN KEY (fk_brawler) REFERENCES brawler(id),
-    CONSTRAINT fk_brawler_gadget_gadget FOREIGN KEY (fk_gadget) REFERENCES gadgets(id)
-);
-
-CREATE TABLE IF NOT EXISTS brawler_equipment (
-    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    fk_brawler BIGINT(20) NOT NULL,
-    fk_equipment BIGINT(20) NOT NULL,
-    CONSTRAINT fk_brawler_equipment_brawler FOREIGN KEY (fk_brawler) REFERENCES brawler(id),
-    CONSTRAINT fk_brawler_equipment_equipment FOREIGN KEY (fk_equipment) REFERENCES equipment(id)
-);
-
-CREATE TABLE IF NOT EXISTS brawler_skins (
-    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    fk_brawler BIGINT(20) NOT NULL,
-    fk_skin BIGINT(20) NOT NULL,
-    CONSTRAINT fk_brawler_skins_brawler FOREIGN KEY (fk_brawler) REFERENCES brawler(id),
-    CONSTRAINT fk_brawler_skins_skins FOREIGN KEY (fk_skin) REFERENCES skins(id)
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(2000) NOT NULL,
+    fk_post BIGINT(20) NOT NULL,
+    CONSTRAINT fk_comments_posts FOREIGN KEY (fk_post) REFERENCES posts(id)
 );
