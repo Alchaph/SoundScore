@@ -3,16 +3,13 @@
 
 ### Git
 - Jeden Tag mindestens 1 Commit.
-- Syntax: *feat/fix: Beschreibung*
-
-#### Ablauf
-feature:
-1. pull
-2. solve conflicts
-3. commit & push to remote
-4. merge branch to main
-
-bugfix:
-1. pull
-2. solve conflicts
-3. commit & push to remote
+  
+  Push:
+- Pull branch from Main in your Branch
+- Fix Conflict
+- [Senior] checks Code (Review)
+- Push Branch in Main
+  
+  Commit:
+- Commit Message short description of the Changes
+- Control Commit-Files after unecesary Files
