@@ -1,7 +1,7 @@
 # Compiled class file
 *.class
 
-client/node_modules/*
+./client/node_modules/*
 
 # Log file
 *.log
