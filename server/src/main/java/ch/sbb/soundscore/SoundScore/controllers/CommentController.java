@@ -23,7 +23,7 @@ public class CommentController {
     public Comment deleteComment(@PathVariable Long id) {
         return commentService.deleteComment(id);
     }
-    @PutMapping("/update")
+    @PutMapping("/edit")
     public Comment updateComment(@RequestBody Comment comment) {
         return commentService.updateComment(comment);
     }
