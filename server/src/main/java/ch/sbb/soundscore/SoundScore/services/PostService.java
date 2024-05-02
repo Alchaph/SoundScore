@@ -33,11 +33,13 @@ public class PostService {
         postRepository.deleteById((long) id);
     }
 
-    public void likePost(Long id) {
-        Post post = postRepository.findById(id).orElse(null);
-        if (post != null) {
+    public void likeOrDislikePost(Long id, boolean like) {
+        Post post = postRepository.findById(id).orElseThrow();
+        if (like) {
             post.setLikes(post.getLikes() + 1);
-            postRepository.save(post);
+        } else {
+            post.setDislikes(post.getDislikes() + 1);
         }
+        postRepository.save(post);
     }
 }

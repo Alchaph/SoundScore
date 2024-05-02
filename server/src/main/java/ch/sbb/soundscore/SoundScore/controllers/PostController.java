@@ -37,8 +37,8 @@ public class PostController {
     }
 
     @PostMapping("/post/{id}/like")
-    public void likePost(@PathVariable Long id) {
-        postService.likePost(id);
+    public void likeOrDislikePost(@PathVariable Long id, @PathVariable boolean like) {
+        postService.likeOrDislikePost(id, like);
     }
 
 }
