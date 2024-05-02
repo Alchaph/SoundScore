@@ -16,28 +16,28 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/post")
+    @GetMapping("/get/all")
     public List<Post> allPosts() {
         return this.postService.allPosts();
     }
 
-    @PostMapping("/post")
+    @PostMapping("/create")
     public Long newPost(@RequestBody Post post) {
         return postService.newPost(post);
     }
 
-    @PutMapping("/post/{id}")
+    @PutMapping("/edit/{id}")
     public void updatePost(@RequestBody Post post, @PathVariable Long id) {
         postService.updatePost(post, id);
     }
 
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deletePost(@PathVariable int id) {
         postService.deletePost(id);
     }
 
-    @PostMapping("/post/{id}/like")
-    public void likeOrDislikePost(@PathVariable Long id, @PathVariable boolean like) {
+    @PostMapping("/{id}/like")
+    public void likeOrDislikePost(@PathVariable Long id, @RequestParam boolean like) {
         postService.likeOrDislikePost(id, like);
     }
 

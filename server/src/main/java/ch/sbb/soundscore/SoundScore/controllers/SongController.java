@@ -17,18 +17,22 @@ public class SongController {
     public Song createSong(@RequestBody Song song) {
         return songService.createSong(song);
     }
+
     @PutMapping("/edit")
     public Song updateSong(@RequestBody Song song) {
         return songService.editSong(song);
     }
+
     @DeleteMapping("/delete/{id}")
     public Song deleteSong(@PathVariable Long id) {
         return songService.deleteSong(id);
     }
+
     @GetMapping("/get/{id}")
     public Song getSongById(@PathVariable Long id) {
         return songService.getSongById(id);
     }
+
     @GetMapping("/get/all")
     public Iterable<Song> getAllSongs() {
         return songService.getAllSongs();
