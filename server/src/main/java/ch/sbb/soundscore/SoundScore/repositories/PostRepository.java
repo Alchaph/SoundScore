@@ -9,5 +9,16 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+    @Query("SELECT p FROM Post p WHERE p.fk_song IS NOT NULL ORDER BY p.likes - p.dislikes ASC")
+    List<Post> getLeaderBoardSongs();
+
+    @Query("SELECT p FROM Post p WHERE p.fk_genre IS NOT NULL ORDER BY p.likes - p.dislikes ASC")
+    List<Post> getLeaderBoardGenres();
+
+    @Query("SELECT p FROM Post p WHERE p.fk_artist IS NOT NULL ORDER BY p.likes - p.dislikes ASC")
+    List<Post> getLeaderBoardArtists();
+
+    @Query("SELECT p FROM Post p ORDER BY p.likes - p.dislikes ASC")
+    List<Post> getPostRanking();
 
 }
