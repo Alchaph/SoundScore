@@ -1,8 +1,7 @@
-package ch.sbb.soundscore.SoundScore.controller;
+package ch.sbb.soundscore.SoundScore.controllers;
 
 import ch.sbb.soundscore.SoundScore.entities.Genre;
-import ch.sbb.soundscore.SoundScore.service.GenreService;
-import org.springframework.context.annotation.Profile;
+import ch.sbb.soundscore.SoundScore.services.GenreService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package ch.sbb.soundscore.SoundScore.repository;
+package ch.sbb.soundscore.SoundScore.repositories;
 
 import ch.sbb.soundscore.SoundScore.entities.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
