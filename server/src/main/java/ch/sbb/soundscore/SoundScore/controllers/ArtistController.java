@@ -2,7 +2,6 @@ package ch.sbb.soundscore.SoundScore.controllers;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.services.ArtistService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class ArtistController {
         return artistService.createArtist(artist);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/edit")
     public Artist updateArtist(@RequestBody Artist artist) {
         return artistService.updateArtist(artist);
     }

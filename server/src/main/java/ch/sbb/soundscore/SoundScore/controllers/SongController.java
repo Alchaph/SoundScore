@@ -4,6 +4,8 @@ import ch.sbb.soundscore.SoundScore.entities.Song;
 import ch.sbb.soundscore.SoundScore.services.SongService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/songs")
 public class SongController {
@@ -34,7 +36,7 @@ public class SongController {
     }
 
     @GetMapping("/get/all")
-    public Iterable<Song> getAllSongs() {
+    public List<Song> getAllSongs() {
         return songService.getAllSongs();
     }
 
