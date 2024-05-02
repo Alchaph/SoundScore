@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/genres")
 public class GenreController {
 
     private final GenreService genreService;
