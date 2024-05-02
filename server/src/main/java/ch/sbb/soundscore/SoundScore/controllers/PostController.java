@@ -36,8 +36,8 @@ public class PostController {
         postService.deletePost(id);
     }
 
-    @PostMapping("/{id}/like")
-    public void likeOrDislikePost(@PathVariable Long id, @RequestParam boolean like) {
+    @PostMapping("/like/{id}")
+    public void likeOrDislikePost(@PathVariable Long id, @RequestBody boolean like) {
         postService.likeOrDislikePost(id, like);
     }
 
