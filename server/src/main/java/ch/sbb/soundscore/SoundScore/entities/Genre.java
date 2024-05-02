@@ -1,4 +1,4 @@
-package entities;
+package ch.sbb.soundscore.SoundScore.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
