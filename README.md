@@ -1,8 +1,8 @@
-![SoundScore](logo.jpg "Logo SoundScore")
+![SoundScore](logo.png "Logo SoundScore")
 ## Timo, Marc, Damian & Nevio
 
 ### Git
-- At least 1 commit everyday.
+- At least 1 commit every day.
   
   #### Push:
 - Pull branch from Main to your Branch
@@ -12,8 +12,8 @@
   
   #### Commit:
 - Commit Message should be a short description of the Changes
-- Control Commit-Files after unecesary Files
-- Commit messages should have following strucutre:
+- Control Commit-Files after unnecessary Files
+- Commit messages should have the following structure:
     - SHORT_INFO: e.g. "fix", "feat", "docs"
     - MESSAGE: e.g. "add POST operation to user controller"
     - Structure commit message: SHORT_INFO: MESSAGE
