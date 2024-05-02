@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommentController {
     private final CommentService commentService;
 
@@ -23,7 +24,7 @@ public class CommentController {
     public Comment deleteComment(@PathVariable Long id) {
         return commentService.deleteComment(id);
     }
-    @PutMapping("/update")
+    @PutMapping("/edit")
     public Comment updateComment(@RequestBody Comment comment) {
         return commentService.updateComment(comment);
     }
