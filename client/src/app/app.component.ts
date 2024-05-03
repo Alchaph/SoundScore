@@ -11,7 +11,7 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'client';
 
-  constructor(private http: HttpClient) {
+  constructor() {
 
   }
 }

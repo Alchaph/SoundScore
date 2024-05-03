@@ -1,1 +1,40 @@
+<app-head-nav-bar></app-head-nav-bar>
+<div id="main">
+  <div id="top">
+    <div id="filler"></div>
+    <div id="titles">
+      <p class="categorie">Artist</p>
+      <p class="categorie">Genre</p>
+      <p class="categorie">Song</p>
+    </div>
+    <div id="button">
+      <button mat-fab color="primary" id="addButton">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div id="middle">
+    <div id="all">
+      <button mat-fab color="primary" class="buttonSwitch">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <div id="content">
+        @for (post of posts; track $index) {
+          <div id="post">
+            <img id="postImage" [src]="post.image" alt="image" class="image">
+            <div id="postTextBox">
+            <p id="postText">{{post.content}}</p>
+            </div>
+          </div>
+        }
+      </div>
+      <button mat-fab color="primary" class="buttonSwitch">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div id="bottom">
+
+  </div>
+</div>
 
