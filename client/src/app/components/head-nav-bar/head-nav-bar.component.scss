@@ -9,8 +9,10 @@ html, body {
 
 @media only screen and (max-width: 600px) {
   #headText {
-    font-size: 2em !important;
-    margin-left: 10px !important;
+    font-size: 1.5em !important;
+  }
+  #text {
+    width: 47% !important;
   }
   #head {
     flex-direction: row !important;
@@ -38,6 +40,48 @@ html, body {
   #right {
     width: 30% !important;
     margin-left: 5% !important;
+  }
+  #addButton {
+    margin-right: 20px;
+    margin-top: 20px;
+    height: 2em;
+    width: 8em;
+  }
+
+  #content {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  #main {
+    width: 100%;
+  }
+
+  #top, #middle, #bottom {
+    width: 100%;
+  }
+
+  .categorie {
+    font-size: 0.8em;
+  }
+
+  .buttonSwitch {
+    font-size: 0.8em;
+  }
+
+  #postImage {
+    width: 100%;
+  }
+
+  #postText {
+    font-size: 0.8em;
+  }
+  #logo {
+    width: 80% !important;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
   }
 
 }
