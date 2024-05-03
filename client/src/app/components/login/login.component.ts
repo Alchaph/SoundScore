@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -10,6 +10,12 @@ import {RouterLink} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+  constructor() { }
+
+  ngOnInit(): void {
+
+  }
 
 }
