@@ -15,21 +15,29 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public List<Genre> allGenres() {
+
+    public Genre createGenre(Genre genre) {
+        return genreRepository.save(genre);
+    }
+
+    public Genre editGenre(Genre genre) {
+        return genreRepository.save(genre);
+    }
+
+    public Genre deleteGenre(Long id) {
+        Genre genre = genreRepository.findById(id).orElse(null);
+        if (genre != null) {
+            genreRepository.delete(genre);
+        }
+        return genre;
+    }
+
+    public Genre getGenreById(Long id) {
+        return genreRepository.findById(id).orElse(null);
+    }
+
+    public List<Genre> getAllGenres() {
         return genreRepository.findAll();
     }
 
-    public Long newGenre(Genre genre) {
-        genreRepository.save(genre);
-        return genre.getId();
-    }
-
-    public void updateGenre(Genre genre, Long id) {
-        genre.setId(id);
-        genreRepository.save(genre);
-    }
-
-    public void deleteGenre(int id) {
-        genreRepository.deleteById((long) id);
-    }
 }

@@ -21,8 +21,8 @@ public class ArtistController {
     }
 
     @PutMapping("/edit")
-    public Artist updateArtist(@RequestBody Artist artist) {
-        return artistService.updateArtist(artist);
+    public Artist editArtist(@RequestBody Artist artist) {
+        return artistService.editArtist(artist);
     }
 
     @DeleteMapping("/delete/{id}")

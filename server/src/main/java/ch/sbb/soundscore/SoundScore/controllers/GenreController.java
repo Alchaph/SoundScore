@@ -18,21 +18,26 @@ public class GenreController {
 
     @GetMapping("/get/all")
     public List<Genre> allGenres() {
-        return this.genreService.allGenres();
+        return this.genreService.getAllGenres();
+    }
+
+    @GetMapping("/get/{id}")
+    public Genre getGenre(@PathVariable Long id) {
+        return genreService.getGenreById(id);
     }
 
     @PostMapping("/create")
-    public Long newGenre(@RequestBody Genre name) {
-        return genreService.newGenre(name);
+    public Genre createGenre(@RequestBody Genre name) {
+        return genreService.createGenre(name);
     }
 
-    @PutMapping("/edit/{id}")
-    public void updateGenre(@RequestBody Genre genre, @PathVariable Long id) {
-        genreService.updateGenre(genre, id);
+    @PutMapping("/edit")
+    public Genre updateGenre(@RequestBody Genre genre) {
+        return genreService.editGenre(genre);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteGenre(@PathVariable int id) {
-        genreService.deleteGenre(id);
+    public Genre deleteGenre(@PathVariable Long id) {
+        return genreService.deleteGenre(id);
     }
 }

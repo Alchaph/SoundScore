@@ -27,12 +27,12 @@ public class CommentController {
 
     @PutMapping("/edit")
     public Comment updateComment(@RequestBody Comment comment) {
-        return commentService.updateComment(comment);
+        return commentService.editComment(comment);
     }
 
     @GetMapping("/get/{id}")
     public Comment getComment(@PathVariable Long id) {
-        return commentService.getComment(id);
+        return commentService.getCommentById(id);
     }
 
     @GetMapping("/get/commentsByPostId/{postId}")
