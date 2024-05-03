@@ -79,7 +79,7 @@ public class PostControllerTest {
         Post post = new Post();
         post.setId(1L);
 
-        mockMvc.perform(put("/api/posts/edit/1")
+        mockMvc.perform(put("/api/posts/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(post)))
                 .andExpect(status().isOk());

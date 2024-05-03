@@ -1,28 +1,55 @@
-<header>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <div id="head">
-    <div id="fillerHead">
-      <img [src]="picture" id="avatar">
-      <p id="name">{{name}}</p>
+<!--<header>-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--  <div id="head">-->
+<!--    <div id="fillerHead">-->
+<!--      <img [src]="picture" id="avatar">-->
+<!--      <p id="name">{{name}}</p>-->
+<!--    </div>-->
+<!--    <div id="text">-->
+<!--      <p id="headText">SoundSource</p>-->
+<!--    </div>-->
+<!--    <div id="right">-->
+<!--      <div id="language">-->
+<!--        <mat-form-field class="example-full-width">-->
+<!--          <mat-label>Language</mat-label>-->
+<!--          <mat-select [formControl]="lang" [placeholder]="currentLang">-->
+<!--            @for (lang of langs; track $index) {-->
+<!--              <mat-option value="{{lang}}">{{lang | language}}</mat-option>-->
+<!--            }-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+<!--      <div id="logo">-->
+<!--        <mat-icon class="headLogo" [routerLink]="['leaderboard']">leaderboard</mat-icon>-->
+<!--        <mat-icon class="headLogo" (click)="logout()">power_settings_new</mat-icon>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</header>-->
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="toolbar">
+    <div class="toolbarLeftSide">
+      <button [matMenuTriggerFor]="menu" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button routerLink="leaderBoard" mat-menu-item>Leaderboard</button>
+        <button [matMenuTriggerFor]="languageMenu" mat-menu-item>Languages</button>
+        <mat-menu #languageMenu="matMenu" xPosition="before">
+          @for (lang of langs; track $index) {
+            <p mat-menu-item (click)="service.setLanguage(lang)">{{ lang | language }}
+            </p>
+          }
+        </mat-menu>
+        <button (click)="logout()" mat-menu-item>Logout</button>
+      </mat-menu>
     </div>
-    <div id="text">
-      <p id="headText">SoundSource</p>
+    <div class="toolbarMiddle">
+      <span>Sound Score</span>
+      <span class="fill-remaining-space"></span>
     </div>
-    <div id="right">
-      <div id="language">
-        <mat-form-field class="example-full-width">
-          <mat-label>Language</mat-label>
-          <mat-select [formControl]="lang" [placeholder]="currentLang">
-            @for (lang of langs; track $index) {
-              <mat-option value="{{lang}}">{{lang | language}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div id="logo">
-        <mat-icon class="headLogo" [routerLink]="['leaderboard']">leaderboard</mat-icon>
-        <mat-icon class="headLogo" (click)="logout()">power_settings_new</mat-icon>
-      </div>
+    <div class="toolbarRightSide">
+      <img [src]="">
     </div>
-  </div>
-</header>
+  </mat-toolbar-row>
+</mat-toolbar>

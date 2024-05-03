@@ -28,7 +28,7 @@ class GenreServiceTest {
         Genre genre2 = new Genre();
         when(genreRepository.findAll()).thenReturn(Arrays.asList(genre1, genre2));
 
-        List<Genre> result = genreService.allGenres();
+        List<Genre> result = genreService.getAllGenres();
 
         assertEquals(2, result.size());
         assertTrue(result.containsAll(Arrays.asList(genre1, genre2)));
@@ -39,10 +39,10 @@ class GenreServiceTest {
         Genre genre = new Genre();
         when(genreRepository.save(genre)).thenReturn(genre);
 
-        Long result = genreService.newGenre(genre);
+        Genre result = genreService.createGenre(genre);
 
         verify(genreRepository, times(1)).save(genre);
-        assertEquals(genre.getId(), result);
+        assertEquals(genre, result);
     }
 
     @Test

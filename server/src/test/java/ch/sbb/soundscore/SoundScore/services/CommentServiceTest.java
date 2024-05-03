@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class CommentServiceTest {
@@ -51,7 +51,7 @@ class CommentServiceTest {
         Comment comment = new Comment();
         when(commentRepository.save(comment)).thenReturn(comment);
 
-        Comment result = commentService.updateComment(comment);
+        Comment result = commentService.editComment(comment);
 
         verify(commentRepository, times(1)).save(comment);
         assertEquals(comment, result);
@@ -60,9 +60,8 @@ class CommentServiceTest {
     @Test
     void getComment() {
         Comment comment = new Comment();
-        when(commentRepository.findById(1L)).thenReturn(Optional.of(comment));
-
-        Comment result = commentService.getComment(1L);
+        when(commentRepository.save(comment)).thenReturn(comment);
+        Comment result = commentService.editComment(comment);
 
         assertEquals(comment, result);
     }

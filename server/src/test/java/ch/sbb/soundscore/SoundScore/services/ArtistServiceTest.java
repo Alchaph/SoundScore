@@ -38,7 +38,7 @@ class ArtistServiceTest {
         Artist artist = new Artist();
         when(artistRepository.save(artist)).thenReturn(artist);
 
-        Artist result = artistService.updateArtist(artist);
+        Artist result = artistService.createArtist(artist);
 
         verify(artistRepository, times(1)).save(artist);
         assertEquals(artist, result);

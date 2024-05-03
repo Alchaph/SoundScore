@@ -6,7 +6,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {tokenInterceptor} from "./Interceptors/TokenInterceptor";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor]))],
+  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor])), provideAnimationsAsync()],
 };

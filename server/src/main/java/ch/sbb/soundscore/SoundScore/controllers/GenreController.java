@@ -17,13 +17,13 @@ public class GenreController {
     }
 
     @GetMapping("/get/all")
-    public List<Genre> allGenres() {
-        return this.genreService.allGenres();
+    public List<Genre> getAllGenres() {
+        return this.genreService.getAllGenres();
     }
 
     @PostMapping("/create")
-    public Long newGenre(@RequestBody Genre name) {
-        return genreService.newGenre(name);
+    public Genre createGenre(@RequestBody Genre name) {
+        return genreService.createGenre(name);
     }
 
     @PutMapping("/edit")
@@ -34,5 +34,10 @@ public class GenreController {
     @DeleteMapping("/delete/{id}")
     public Genre deleteGenre(@PathVariable Long id) {
         return genreService.deleteGenre(id);
+    }
+
+    @GetMapping("/get/{id}")
+    public Genre getGenreById(@PathVariable Long id) {
+        return genreService.getGenreById(id);
     }
 }

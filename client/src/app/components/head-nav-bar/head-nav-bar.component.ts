@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {environment} from "../../../environments/environments";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {LanguageService} from "../../services/language/language.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {TranslateService} from "@ngx-translate/core";
+import {LanguageService} from "../../services/languageService/language.service";
+import {Router, RouterLink} from "@angular/router";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {MatInput} from "@angular/material/input";
 import {MatSelect} from "@angular/material/select";
 import {LanguagePipe} from "../../pipes/language/language.pipe";
 import {MatIcon} from "@angular/material/icon";
+import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
+import {MatIconButton} from "@angular/material/button";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -24,27 +26,32 @@ import {MatIcon} from "@angular/material/icon";
     MatLabel,
     MatIcon,
     RouterLink,
-    LanguagePipe
+    LanguagePipe,
+    MatToolbarRow,
+    MatToolbar,
+    MatIconButton,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    NgForOf
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
 })
-export class HeadNavBarComponent implements OnInit{
+export class HeadNavBarComponent implements OnInit {
 
-  currentLang = this.service.getLanguage();
+  currentLang: string;
   lang = new FormControl('');
   langs = this.service.getLanguages()
-
   picture = '';
-
   name = 'Herbert';
 
 
   constructor(
-              // private translateService: TranslateService,
-              private service: LanguageService,
-              private router: Router) {
-
+    // private translateService: TranslateService,
+    protected service: LanguageService,
+    private router: Router) {
+    this.currentLang = this.service.getLanguage();
     // this.lang.valueChanges.subscribe((value) => {
     //   if (value) {
     //     this.service.setLanguage(value);
@@ -52,6 +59,7 @@ export class HeadNavBarComponent implements OnInit{
     //   }
     // });
   }
+
 
   logout() {
     this.router.navigate(['']);
