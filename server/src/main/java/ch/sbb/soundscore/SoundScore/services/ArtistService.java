@@ -18,7 +18,7 @@ public class ArtistService {
         return artistRepository.save(artist);
     }
 
-    public Artist updateArtist(Artist artist) {
+    public Artist editArtist(Artist artist) {
         return artistRepository.save(artist);
     }
 

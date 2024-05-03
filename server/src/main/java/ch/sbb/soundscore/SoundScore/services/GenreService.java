@@ -15,13 +15,9 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public List<Genre> allGenres() {
-        return genreRepository.findAll();
-    }
 
-    public Long newGenre(Genre genre) {
-        genreRepository.save(genre);
-        return genre.getId();
+    public Genre createGenre(Genre genre) {
+        return genreRepository.save(genre);
     }
 
     public Genre editGenre(Genre genre) {
@@ -35,4 +31,13 @@ public class GenreService {
         }
         return genre;
     }
+
+    public Genre getGenreById(Long id) {
+        return genreRepository.findById(id).orElse(null);
+    }
+
+    public List<Genre> getAllGenres() {
+        return genreRepository.findAll();
+    }
+
 }

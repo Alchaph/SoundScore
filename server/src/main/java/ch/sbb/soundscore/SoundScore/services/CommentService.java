@@ -26,11 +26,11 @@ public class CommentService {
         return comment;
     }
 
-    public Comment updateComment(Comment comment) {
+    public Comment editComment(Comment comment) {
         return commentRepository.save(comment);
     }
 
-    public Comment getComment(Long id) {
+    public Comment getCommentById(Long id) {
         return commentRepository.findById(id).orElse(null);
     }
 

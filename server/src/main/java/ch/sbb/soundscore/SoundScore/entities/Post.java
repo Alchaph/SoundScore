@@ -14,6 +14,9 @@ public class Post {
     @Id
     @GeneratedValue
     private Long id;
+    private String title;
+    private String content;
+    private String image;
     private Long likes;
     private Long dislikes;
     @ManyToOne
