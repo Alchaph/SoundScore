@@ -1,0 +1,51 @@
+{
+  "LOGIN": {
+    "FORM": {
+      "EMAIL": "Klicke hier für E-Mail",
+      "PASSWORD": "Gebe dein Passwort ein",
+      "LOGINBUTTON": "Drücke hier zum Anmelden",
+      "REGISTERBUTTON": "Hier klicken zum Registrieren",
+      "ROLEID": "Deine Rolle hier"
+    },
+    "PAGETITLE": "Ding für Noten"
+  },
+  "SUBJECTLIST": {
+    "PAGETITLE": "Alle Sachen",
+    "DELETECONFIRMATION": {
+      "TITLE": "Weg",
+      "CONFIRMATIONTEXT1": "Bist du sicher?",
+      "CONFIRMATIONTEXT2": "Stopp! Alles weg.",
+      "CONFIRMATIONTEXT3": "Willst du das?",
+      "CONFIRMATIONTEXT4": "Stopp! Keine Rückkehr.",
+      "SAVEBUTTON": "Speichern",
+      "CANCELBUTTON": "Abbrechen"
+    },
+    "TABLE": {
+      "SUBJECTNAME": "Name",
+      "AVERAGEGRADE": "Durchschnitt",
+      "ACTIONS": "Was tun",
+      "EDITBUTTON": "Ändern",
+      "DELETEBUTTON": "Weg"
+    },
+    "ADDBUTTON": "Hinzufügen"
+  },
+  "GRADES_PAGE": {
+    "PAGETITLE": "Noten",
+    "BACKBUTTON": "Zurück",
+    "ADDBUTTON": "Note hinzufügen",
+    "GRADELIST": {
+      "TITLE": "Noten für {{subjectName}}",
+      "GRADE": "Note",
+      "DATE": "Datum",
+      "ACTIONS": "Was tun",
+      "EDITBUTTON": "Ändern",
+      "DELETEBUTTON": "Weg"
+    },
+    "EDITGRADE": {
+      "GRADETITLE": "Note",
+      "DATETITLE": "Datum",
+      "CANCELBUTTON": "Abbrechen",
+      "SAVEBUTTON": "Speichern"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+    "LOGIN": {
+      "FORM": {
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "LOGINBUTTON": "Login",
+        "REGISTERBUTTON": "Register",
+        "ROLEID": "Role"
+      },
+      "PAGETITLE": "Grade management"
+    },
+    "SUBJECTLIST": {
+      "PAGETITLE": "All subjects",
+      "DELETECONFIRMATION": {
+        "TITLE": "Delete subject",
+        "CONFIRMATIONTEXT1": "Are you sure you want to delete this subject?",
+        "CONFIRMATIONTEXT2": "Warning! Deleting this subject will also delete all associated grades.",
+        "CONFIRMATIONTEXT3": "Are you sure you want to delete this grade?",
+        "CONFIRMATIONTEXT4": "Warning! Deleting this grade will final delete this grade.",
+        "SAVEBUTTON": "Save",
+        "CANCELBUTTON": "Cancel"
+      },
+      "TABLE": {
+        "SUBJECTNAME": "Subject name",
+        "AVERAGEGRADE": "Average grade",
+        "ACTIONS": "Actions",
+        "EDITBUTTON": "Edit",
+        "DELETEBUTTON": "Delete"
+      },
+      "ADDBUTTON": "Add Subject"
+    },
+    "GRADES_PAGE": {
+      "PAGETITLE": "Grades",
+      "BACKBUTTON": "Back",
+      "ADDBUTTON": "Add Grade",
+      "GRADELIST": {
+        "TITLE": "Grades for {{SUBJECTNAME}}",
+        "GRADE": "Grade",
+        "DATE": "Date",
+        "ACTIONS": "Actions",
+        "EDITBUTTON": "Edit",
+        "DELETEBUTTON": "Delete"
+      },
+      "EDITGRADE": {
+        "GRADETITLE": "Grade",
+        "DATETITLE": "Date",
+        "CANCELBUTTON": "Cancel",
+        "SAVEBUTTON": "Save"
+      }
+    }
+}

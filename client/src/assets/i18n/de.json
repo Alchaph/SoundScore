@@ -1,0 +1,51 @@
+{
+    "LOGIN": {
+      "FORM": {
+        "EMAIL": "Email",
+        "PASSWORD": "Passwort",
+        "LOGINBUTTON": "Anmelden",
+        "REGISTERBUTTON": "Registrieren",
+        "ROLEID": "Rolle"
+      },
+      "PAGETITLE": "Notenverwaltung"
+    },
+    "SUBJECTLIST": {
+      "PAGETITLE": "Alle Fächer",
+      "DELETECONFIRMATION": {
+        "TITLE": "Fach Löschen",
+        "CONFIRMATIONTEXT1": "Möchten Sie dieses Fach wirklich löschen?",
+        "CONFIRMATIONTEXT2": "Achtung! Durch das Löschen dieses Fachs werden auch alle zugehörigen Noten gelöscht.",
+        "CONFIRMATIONTEXT3": "Möchten Sie diese Note wirklich löschen?",
+        "CONFIRMATIONTEXT4": "Achtung! Durch das Löschen dieser Note wird sie endgültig gelöscht.",
+        "SAVEBUTTON": "Speichern",
+        "CANCELBUTTON": "Abbrechen"
+      },
+      "TABLE": {
+        "SUBJECTNAME": "Fachname",
+        "AVERAGEGRADE": "Durchschnittsnote",
+        "ACTIONS": "Aktionen",
+        "EDITBUTTON": "Bearbeiten",
+        "DELETEBUTTON": "Löschen"
+      },
+      "ADDBUTTON": "Fach Hinzufügen"
+    },
+    "GRADES_PAGE": {
+      "PAGETITLE": "Noten",
+      "BACKBUTTON": "Zurück",
+      "ADDBUTTON": "Note Hinzufügen",
+      "GRADELIST": {
+        "TITLE": "Noten für {{subjectName}}",
+        "GRADE": "Note",
+        "DATE": "Datum",
+        "ACTIONS": "Aktionen",
+        "EDITBUTTON": "Bearbeiten",
+        "DELETEBUTTON": "Löschen"
+      },
+      "EDITGRADE": {
+        "GRADETITLE": "Note",
+        "DATETITLE": "Datum",
+        "CANCELBUTTON": "Abbrechen",
+        "SAVEBUTTON": "Speichern"
+      }
+    }
+}

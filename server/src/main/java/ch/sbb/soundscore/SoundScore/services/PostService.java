@@ -24,13 +24,14 @@ public class PostService {
         return post.getId();
     }
 
-    public void updatePost(Post post, Long id) {
-        post.setId(id);
-        postRepository.save(post);
+    public Post editPost(Post post) {
+        return postRepository.save(post);
     }
 
-    public void deletePost(int id) {
-        postRepository.deleteById((long) id);
+    public Post deletePost(int id) {
+        Post post = postRepository.findById((long) id).orElseThrow();
+        postRepository.delete(post);
+        return post;
     }
 
     public void likeOrDislikePost(Long id, boolean like) {
