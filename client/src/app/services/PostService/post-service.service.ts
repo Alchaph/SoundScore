@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Post} from "../../models/Post";
+import {PostOut} from "../../models/PostOut";
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +12,22 @@ export class PostServiceService {
   }
 
   createPost(post: Post) {
-    return this.http.post('http://localhost:8080/posts/create', post);
+    return this.http.post('http://localhost:8080/api/posts/create', post);
   }
 
   updatePost(post: Post) {
-    return this.http.put('http://localhost:8080/posts/update', post);
+    return this.http.put('http://localhost:8080/api/posts/update', post);
   }
 
   deletePost(id: number) {
-    return this.http.delete('http://localhost:8080/posts/delete/' + id);
+    return this.http.delete('http://localhost:8080/api/posts/delete/' + id);
   }
 
   getPosts() {
-    return this.http.get<Post[]>('http://localhost:8080/posts/all');
+    return this.http.get<PostOut[]>('http://localhost:8080/api/posts/get/all');
   }
 
   getPost(id: number) {
-    return this.http.get<Post>('http://localhost:8080/posts/get/' + id);
+    return this.http.get<PostOut>('http://localhost:8080/api/posts/get/' + id);
   }
 }

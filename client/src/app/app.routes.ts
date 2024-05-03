@@ -10,11 +10,10 @@ import {EditPostComponent} from "./components/edit-post/edit-post.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'login/home', component: HomeComponent },
-  { path: 'login/home/addPost', component: AddPostComponent },
-  { path: 'login/home/leaderBoard', component: LeaderBoardComponent },
-  { path: 'login/home/settings', component: SettingsComponent },
-  { path: 'login/home/usersPosts', component: UsersPostsComponent },
-  { path: 'login/home/usersPosts/editPost', component: EditPostComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'home/addPost', component: AddPostComponent },
+  { path: 'home/leaderBoard', component: LeaderBoardComponent },
+  { path: 'home/settings', component: SettingsComponent },
+  { path: 'home/usersPosts', component: UsersPostsComponent },
+  { path: 'home/usersPosts/editPost', component: EditPostComponent },
 ];
