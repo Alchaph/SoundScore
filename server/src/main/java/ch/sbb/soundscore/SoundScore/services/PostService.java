@@ -37,10 +37,17 @@ public class PostService {
     public void likeOrDislikePost(Long id, boolean like) {
         Post post = postRepository.findById(id).orElseThrow();
         if (like) {
-            post.setLikes(post.getLikes() + 1);
+            if (post.getLikes() != null){
+                post.setLikes(post.getLikes() + 1);
+            } else {
+                post.setLikes(1L);
+            }
         } else {
-            post.setDislikes(post.getDislikes() + 1);
-        }
+            if (post.getDislikes() != null){
+                post.setDislikes(post.getDislikes() + 1);
+            } else {
+                post.setDislikes(1L);
+            }        }
         postRepository.save(post);
     }
 }
