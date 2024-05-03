@@ -45,6 +45,7 @@ html, body {
  width: 100%;
 }
 #fillerHead {
+  width: 28%;
   display: flex;
   justify-content: space-evenly;
   align-content: center;
@@ -84,7 +85,6 @@ html, body {
 
 #deleteFieldButtons{
   display: flex;
-  justify-content: space-evenly;
   flex-direction: row;
   padding-top: 40px;
 }
@@ -92,6 +92,7 @@ html, body {
   border-radius: 50%;
   width: 4.5em;
   height: 4.5em;
+  margin-left: -40%;
 }
 
 #head {
@@ -105,9 +106,6 @@ html, body {
   align-content: center;
   justify-content: space-between;
   align-items: center;
-}
-#fillerHead {
-  width: 15%;
 }
 #right {
   display: flex;
@@ -159,6 +157,7 @@ html, body {
     font-size: 1.5em;
     font-weight: bold;
     font-family: Arial, sans-serif;
+    margin-left: -40%;
 }
 #titel {
   display: flex;
@@ -216,6 +215,13 @@ html, body {
   display: flex;
   justify-content: flex-start;
   padding-left: 20px;
+}
+#borders {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  width: 10%;
+  display: flex;
+  justify-content: center;
 }
 .average {
   width: 50%;

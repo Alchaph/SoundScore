@@ -22,9 +22,9 @@ import {MatIcon} from "@angular/material/icon";
     MatSelect,
     MatOption,
     MatLabel,
-    LanguagePipe,
     MatIcon,
-    RouterLink
+    RouterLink,
+    LanguagePipe
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
