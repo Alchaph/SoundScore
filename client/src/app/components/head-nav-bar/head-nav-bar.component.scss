@@ -42,7 +42,13 @@ html, body {
 
 }
 #text {
-
+ width: 100%;
+}
+#fillerHead {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
 }
 
 
@@ -82,13 +88,18 @@ html, body {
   flex-direction: row;
   padding-top: 40px;
 }
+#avatar {
+  border-radius: 50%;
+  width: 4.5em;
+  height: 4.5em;
+}
 
 #head {
   width: 100wh;
-  background-color: darkblue;
+  background-color: #576cca;
   padding: 0;
   margin: 0;
-  height: 4em;
+  height: 5em;
   display: flex;
   text-align: center;
   align-content: center;
@@ -101,7 +112,7 @@ html, body {
 #right {
   display: flex;
   flex-direction: row;
-  width: 15%;
+  width: 28%;
 }
 #language {
   width: 65%;
@@ -115,14 +126,14 @@ html, body {
   cursor: pointer;
 }
 #logo {
-  width: 35%;
+  width: 65%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-content: center;
   align-items: center;
 
 }
-#headLogo {
+.headLogo {
   font-size: 50px;
   height: 50px;
   width: 50px;
@@ -139,6 +150,15 @@ html, body {
   font-size: 3em;
   font-weight: bold;
   font-family: Arial, sans-serif;
+}
+#name {
+    color: white;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
 }
 #titel {
   display: flex;

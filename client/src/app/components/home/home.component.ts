@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [
+    HeadNavBarComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
