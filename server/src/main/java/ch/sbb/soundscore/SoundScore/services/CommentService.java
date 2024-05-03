@@ -5,7 +5,6 @@ import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -36,6 +35,6 @@ public class CommentService {
     }
 
     public List<Comment> getCommentsByPostId(Long postId) {
-        return commentRepository.findAll().stream().filter(comment -> comment.getFk_post().getId().equals(postId)).collect(Collectors.toList());
+        return commentRepository.findAllByFk_post(postId);
     }
 }
