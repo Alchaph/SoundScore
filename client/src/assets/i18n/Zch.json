@@ -1,0 +1,51 @@
+{
+    "LOGIN": {
+        "FORM": {
+            "EMAIL": "E-Mail",
+            "PASSWORD": "Passwort",
+            "LOGINBUTTON": "Aamälde",
+            "REGISTERBUTTON": "Registriere",
+            "ROLEID": "Rool"
+        },
+        "PAGETITLE": "Noteverwaltig"
+    },
+    "SUBJECTLIST": {
+        "PAGETITLE": "Alli Fächer",
+        "DELETECONFIRMATION": {
+            "TITLE": "Fach läsche",
+            "CONFIRMATIONTEXT1": "Wetsch du das Fach wirklich läsche?",
+            "CONFIRMATIONTEXT2": "Achtig! Wenn du das Fach läschesch, wird au alli zugehöörigi Note geläscht.",
+            "CONFIRMATIONTEXT3": "Wetsch du däi Note wirklich läsche?",
+            "CONFIRMATIONTEXT4": "Achtig! Wenn du däi Note läschesch, isch sie für immer weg.",
+            "SAVEBUTTON": "Speichere",
+            "CANCELBUTTON": "Abbreche"
+        },
+        "TABLE": {
+            "SUBJECTNAME": "Fachname",
+            "AVERAGEGRADE": "Durchschnittsnot",
+            "ACTIONS": "Aktione",
+            "EDITBUTTON": "Bearbeite",
+            "DELETEBUTTON": "Lösche"
+        },
+        "ADDBUTTON": "Fach hinzuefüege"
+    },
+    "GRADES_PAGE": {
+        "PAGETITLE": "Note",
+        "BACKBUTTON": "Zrugg",
+        "ADDBUTTON": "Note hinzuefüege",
+        "GRADELIST": {
+            "TITLE": "Note für {{subjectName}}",
+            "GRADE": "Note",
+            "DATE": "Datum",
+            "ACTIONS": "Aktione",
+            "EDITBUTTON": "Bearbeite",
+            "DELETEBUTTON": "Lösche"
+        },
+        "EDITGRADE": {
+            "GRADETITLE": "Note",
+            "DATETITLE": "Datum",
+            "CANCELBUTTON": "Abbreche",
+            "SAVEBUTTON": "Speichere"
+        }
+    }
+}

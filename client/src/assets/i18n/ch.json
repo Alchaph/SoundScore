@@ -1,0 +1,51 @@
+{
+  "LOGIN": {
+    "FORM": {
+      "EMAIL": "电子邮件",
+      "PASSWORD": "密码",
+      "LOGINBUTTON": "登录",
+      "REGISTERBUTTON": "注册",
+      "ROLEID": "角色"
+    },
+    "PAGETITLE": "成绩管理"
+  },
+  "SUBJECTLIST": {
+    "PAGETITLE": "所有科目",
+    "DELETECONFIRMATION": {
+      "TITLE": "删除科目",
+      "CONFIRMATIONTEXT1": "您确定要删除此科目吗？",
+      "CONFIRMATIONTEXT2": "注意！删除此科目将同时删除所有相关的成绩。",
+      "CONFIRMATIONTEXT3": "您确定要删除这个成绩吗？",
+      "CONFIRMATIONTEXT4": "注意！删除此成绩将永久删除。",
+      "SAVEBUTTON": "保存",
+      "CANCELBUTTON": "取消"
+    },
+    "TABLE": {
+      "SUBJECTNAME": "科目名称",
+      "AVERAGEGRADE": "平均成绩",
+      "ACTIONS": "操作",
+      "EDITBUTTON": "编辑",
+      "DELETEBUTTON": "删除"
+    },
+    "ADDBUTTON": "添加科目"
+  },
+  "GRADES_PAGE": {
+    "PAGETITLE": "成绩",
+    "BACKBUTTON": "返回",
+    "ADDBUTTON": "添加成绩",
+    "GRADELIST": {
+      "TITLE": "{{subjectName}} 的成绩",
+      "GRADE": "成绩",
+      "DATE": "日期",
+      "ACTIONS": "操作",
+      "EDITBUTTON": "编辑",
+      "DELETEBUTTON": "删除"
+    },
+    "EDITGRADE": {
+      "GRADETITLE": "成绩",
+      "DATETITLE": "日期",
+      "CANCELBUTTON": "取消",
+      "SAVEBUTTON": "保存"
+    }
+  }
+}

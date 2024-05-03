@@ -1,0 +1,51 @@
+{
+  "LOGIN": {
+    "FORM": {
+      "EMAIL": "Correo electrónico",
+      "PASSWORD": "Contraseña",
+      "LOGINBUTTON": "Iniciar sesión",
+      "REGISTERBUTTON": "Registrarse",
+      "ROLEID": "Rol"
+    },
+    "PAGETITLE": "Gestión de Notas"
+  },
+  "SUBJECTLIST": {
+    "PAGETITLE": "Todas las Materias",
+    "DELETECONFIRMATION": {
+      "TITLE": "Eliminar Materia",
+      "CONFIRMATIONTEXT1": "¿Estás seguro de que deseas eliminar esta materia?",
+      "CONFIRMATIONTEXT2": "¡Atención! Al eliminar esta materia también se eliminarán todas las notas relacionadas.",
+      "CONFIRMATIONTEXT3": "¿Estás seguro de que deseas eliminar esta nota?",
+      "CONFIRMATIONTEXT4": "¡Atención! Al eliminar esta nota, se eliminará definitivamente.",
+      "SAVEBUTTON": "Guardar",
+      "CANCELBUTTON": "Cancelar"
+    },
+    "TABLE": {
+      "SUBJECTNAME": "Nombre de la Materia",
+      "AVERAGEGRADE": "Nota Promedio",
+      "ACTIONS": "Acciones",
+      "EDITBUTTON": "Editar",
+      "DELETEBUTTON": "Eliminar"
+    },
+    "ADDBUTTON": "Agregar Materia"
+  },
+  "GRADES_PAGE": {
+    "PAGETITLE": "Notas",
+    "BACKBUTTON": "Volver",
+    "ADDBUTTON": "Agregar Nota",
+    "GRADELIST": {
+      "TITLE": "Notas para {{subjectName}}",
+      "GRADE": "Nota",
+      "DATE": "Fecha",
+      "ACTIONS": "Acciones",
+      "EDITBUTTON": "Editar",
+      "DELETEBUTTON": "Eliminar"
+    },
+    "EDITGRADE": {
+      "GRADETITLE": "Nota",
+      "DATETITLE": "Fecha",
+      "CANCELBUTTON": "Cancelar",
+      "SAVEBUTTON": "Guardar"
+    }
+  }
+}

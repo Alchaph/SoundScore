@@ -1,0 +1,51 @@
+{
+  "LOGIN": {
+    "FORM": {
+      "EMAIL": "📧",
+      "PASSWORD": "🔑",
+      "LOGINBUTTON": "🔓",
+      "REGISTERBUTTON": "📝",
+      "ROLEID": "👥"
+    },
+    "PAGETITLE": "📊"
+  },
+  "SUBJECTLIST": {
+    "PAGETITLE": "📚",
+    "DELETECONFIRMATION": {
+      "TITLE": "🗑️",
+      "CONFIRMATIONTEXT1": "🤔❓",
+      "CONFIRMATIONTEXT2": "⚠️! 🚫📝",
+      "CONFIRMATIONTEXT3": "🤔❓",
+      "CONFIRMATIONTEXT4": "⚠️! 🚫📝",
+      "SAVEBUTTON": "💾",
+      "CANCELBUTTON": "❌"
+    },
+    "TABLE": {
+      "SUBJECTNAME": "📝",
+      "AVERAGEGRADE": "📊",
+      "ACTIONS": "🎬",
+      "EDITBUTTON": "✏️",
+      "DELETEBUTTON": "❌"
+    },
+    "ADDBUTTON": "➕"
+  },
+  "GRADES_PAGE": {
+    "PAGETITLE": "📊",
+    "BACKBUTTON": "⬅️",
+    "ADDBUTTON": "➕",
+    "GRADELIST": {
+      "TITLE": "📝 {{subjectName}}",
+      "GRADE": "📝",
+      "DATE": "📅",
+      "ACTIONS": "🎬",
+      "EDITBUTTON": "✏️",
+      "DELETEBUTTON": "❌"
+    },
+    "EDITGRADE": {
+      "GRADETITLE": "📝",
+      "DATETITLE": "📅",
+      "CANCELBUTTON": "❌",
+      "SAVEBUTTON": "💾"
+    }
+  }
+}

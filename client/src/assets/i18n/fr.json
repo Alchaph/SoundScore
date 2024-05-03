@@ -1,0 +1,51 @@
+{
+    "LOGIN": {
+      "FORM": {
+        "EMAIL": "Email",
+        "PASSWORD": "Mot de passe",
+        "LOGINBUTTON": "Connexion",
+        "REGISTERBUTTON": "Inscription",
+        "ROLE": "Rôle"
+      },
+      "PAGETITLE": "Gestion des notes"
+    },
+    "SUBJECTLIST": {
+      "PAGETITLE": "Toutes les matières",
+      "DELETECONFIRMATION": {
+        "TITLE": "Supprimer la matière",
+        "CONFIRMATIONTEXT1": "Êtes-vous sûr de vouloir supprimer cette matière ?",
+        "CONFIRMATIONTEXT2": "Attention ! La suppression de cette matière entraînera également la suppression de toutes les notes associées.",
+        "CONFIRMATIONTEXT3": "Êtes-vous sûr de vouloir supprimer cette matière ?",
+        "CONFIRMATIONTEXT4": "Attention ! La suppression de cette matière entraînera également la suppression de toutes les notes associées.",
+        "SAVEBUTTON": "Enregistrer",
+        "CANCELBUTTON": "Annuler"
+      },
+      "TABLE": {
+        "SUBJECTNAME": "Nom de la matière",
+        "AVERAGEGRADE": "Moyenne des notes",
+        "ACTIONS": "Actions",
+        "EDITBUTTON": "Modifier",
+        "DELETEBUTTON": "Supprimer"
+      },
+      "ADDBUTTON": "Ajouter une matière"
+    },
+    "GRADES_PAGE": {
+      "pageTitle": "Notes",
+      "BACKBUTTON": "retour",
+      "ADDBUTTON": "Ajouter une note",
+      "GRADELIST": {
+        "TITLE": "Notes pour {{subjectName}}",
+        "GRADE": "Note",
+        "DATE": "Date",
+        "ACTIONS": "Actions",
+        "EDITBUTTON": "Modifier",
+        "DELETEBUTTON": "Supprimer"
+      },
+      "EDITGRADE": {
+        "GRADETITLE": "Note",
+        "DATETITLE": "Date",
+        "CANCELBUTTON": "Annuler",
+        "SAVEBUTTON": "Enregistrer"
+      }
+    }
+}

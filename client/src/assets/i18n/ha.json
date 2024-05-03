@@ -1,0 +1,51 @@
+{
+  "LOGIN": {
+    "FORM": {
+      "EMAIL": "3m41l",
+      "PASSWORD": "p455w0rd",
+      "LOGINBUTTON": "l0g1n s3ss10n",
+      "REGISTERBUTTON": "r3g1str3r",
+      "ROLEID": "r01"
+    },
+    "PAGETITLE": "N073nv3rw4ltung"
+  },
+  "SUBJECTLIST": {
+    "PAGETITLE": "4ll3 F4ch3r",
+    "DELETECONFIRMATION": {
+      "TITLE": "F4ch l053n",
+      "CONFIRMATIONTEXT1": "M0chst du das F4ch wirklich l053n?",
+      "CONFIRMATIONTEXT2": "4ch7ung! Durch das L053n d3s F4chs w3rd3n auch all3 zug3hörig3n N0t3n g3löscht.",
+      "CONFIRMATIONTEXT3": "M0chst du dies3 N0t3 wirklich l053n?",
+      "CONFIRMATIONTEXT4": "4ch7ung! Durch das L053n dies3r N0t3 w1rd s13 3ndgült1g g3löscht.",
+      "SAVEBUTTON": "Sp31ch3rn",
+      "CANCELBUTTON": "4bbr31ch3n"
+    },
+    "TABLE": {
+      "SUBJECTNAME": "F4chnam3",
+      "AVERAGEGRADE": "Durchschnittsn0t3",
+      "ACTIONS": "Akt10n3n",
+      "EDITBUTTON": "B34rbe1t3n",
+      "DELETEBUTTON": "Löschen"
+    },
+    "ADDBUTTON": "F4ch H1nzufüg3n"
+  },
+  "GRADES_PAGE": {
+    "PAGETITLE": "N0t3n",
+    "BACKBUTTON": "Zurück",
+    "ADDBUTTON": "N0t3 H1nzu3füg3n",
+    "GRADELIST": {
+      "TITLE": "N0t3n für {{subjectName}}",
+      "GRADE": "N0t3",
+      "DATE": "D4tum",
+      "ACTIONS": "Akt10n3n",
+      "EDITBUTTON": "B34rbe1t3n",
+      "DELETEBUTTON": "Löschen"
+    },
+    "EDITGRADE": {
+      "GRADETITLE": "N0t3",
+      "DATETITLE": "D4tum",
+      "CANCELBUTTON": "4bbr31ch3n",
+      "SAVEBUTTON": "Sp31ch3rn"
+    }
+  }
+}
