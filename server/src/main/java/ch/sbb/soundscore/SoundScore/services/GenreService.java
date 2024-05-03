@@ -24,12 +24,15 @@ public class GenreService {
         return genre.getId();
     }
 
-    public void updateGenre(Genre genre, Long id) {
-        genre.setId(id);
-        genreRepository.save(genre);
+    public Genre editGenre(Genre genre) {
+        return genreRepository.save(genre);
     }
 
-    public void deleteGenre(int id) {
-        genreRepository.deleteById((long) id);
+    public Genre deleteGenre(Long id) {
+        Genre genre = genreRepository.findById(id).orElse(null);
+        if (genre != null) {
+            genreRepository.delete(genre);
+        }
+        return genre;
     }
 }
