@@ -5,6 +5,7 @@ import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {MatFabButton} from "@angular/material/button";
 import {Post} from "../../models/Post";
+import {PostOut} from "../../models/PostOut";
 
 
 @Component({
