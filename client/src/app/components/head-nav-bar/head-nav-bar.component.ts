@@ -1,37 +1,56 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environments";
-import {FormControl} from "@angular/forms";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {LanguageService} from "../../services/language/language.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
+import {MatInput} from "@angular/material/input";
+import {MatSelect} from "@angular/material/select";
+import {LanguagePipe} from "../../pipes/language/language.pipe";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-head-nav-bar',
   standalone: true,
-  imports: [],
+  imports: [
+    MatFormField,
+    ReactiveFormsModule,
+    MatAutocompleteTrigger,
+    MatInput,
+    MatSelect,
+    MatOption,
+    MatLabel,
+    LanguagePipe,
+    MatIcon,
+    RouterLink
+  ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
 })
-export class HeadNavBarComponent {
+export class HeadNavBarComponent implements OnInit{
 
-  title = 'GradeSystem';
   currentLang = this.service.getLanguage();
   lang = new FormControl('');
   langs = this.service.getLanguages()
 
-  anzMessages = 0;
+  picture = '';
+
+  name = 'Herbert';
 
 
-  constructor(private translateService: TranslateService,
+  constructor(
+              // private translateService: TranslateService,
               private service: LanguageService,
               private router: Router) {
 
-    this.lang.valueChanges.subscribe((value) => {
-      if (value) {
-        this.service.setLanguage(value);
-        this.ngOnInit()
-      }
-    });
+    // this.lang.valueChanges.subscribe((value) => {
+    //   if (value) {
+    //     this.service.setLanguage(value);
+    //     this.ngOnInit()
+    //   }
+    // });
   }
 
   logout() {
@@ -39,13 +58,19 @@ export class HeadNavBarComponent {
     sessionStorage.clear();
   }
 
-  ngOnInit() {
-    this.translateService.addLangs(environment.languages);
-    const lang = this.service.getLanguage();
-    this.setLanguage(lang);
+  ngOnInit(): void {
+    fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')
+      .then(response => response.json())
+      .then(data => this.picture = data[0].url);
   }
 
-  setLanguage(lang: string) {
-    this.translateService.use(lang);
-  }
+  // ngOnInit() {
+  //   this.translateService.addLangs(environment.languages);
+  //   const lang = this.service.getLanguage();
+  //   this.setLanguage(lang);
+  // }
+  //
+  // setLanguage(lang: string) {
+  //   this.translateService.use(lang);
+  // }
 }
