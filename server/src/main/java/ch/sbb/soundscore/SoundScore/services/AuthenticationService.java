@@ -35,7 +35,7 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setEmail(input.getEmail());
         user.setCreated(input.getCreated());
-        user.setFk_artist(input.getFk_artist());
+        user.setArtist(input.getArtist());
         user.setEnabled(true);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);

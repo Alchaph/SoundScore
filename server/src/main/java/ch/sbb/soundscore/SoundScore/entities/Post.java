@@ -20,20 +20,20 @@ public class Post {
     private Long likes;
     private Long dislikes;
     @ManyToOne
-    private User fk_user;
+    private User user;
     @ManyToOne
-    private Genre fk_genre;
+    private Genre genre;
     @ManyToOne
-    private Artist fk_artist;
+    private Artist artist;
     @ManyToOne
-    private Song fk_song;
+    private Song song;
 
-    public Post(Long likes, Long dislikes, User fk_user, Genre fk_genre, Artist fk_artist, Song fk_song) {
+    public Post(Long likes, Long dislikes, User user, Genre genre, Artist artist, Song song) {
         this.likes = likes;
         this.dislikes = dislikes;
-        this.fk_user = fk_user;
-        this.fk_genre = fk_genre;
-        this.fk_artist = fk_artist;
-        this.fk_song = fk_song;
+        this.user = user;
+        this.genre = genre;
+        this.artist = artist;
+        this.song = song;
     }
 }

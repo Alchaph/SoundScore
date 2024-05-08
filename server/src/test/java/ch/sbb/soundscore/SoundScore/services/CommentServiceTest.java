@@ -79,7 +79,7 @@ class CommentServiceTest {
         Comment comment1 = new Comment("nice", "hi", post, user);
         Comment comment2 = new Comment("nice", "hello", post, user);
         List<Comment> comments = Arrays.asList(comment1, comment2);
-        when(commentRepository.findAllByFk_post(1L)).thenReturn(comments);
+        when(commentRepository.findAllBypost(1L)).thenReturn(comments);
 
         List<Comment> result = commentService.getCommentsByPostId(1L);
 
