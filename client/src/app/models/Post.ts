@@ -1,13 +1,17 @@
+import {Genre} from "./Genre";
+import {Artist} from "./Artist";
+import {Song} from "./Song";
+import {User} from "./User";
 
 export interface Post {
-  id: number;
+  id?: number;
   likes: number;
   dislikes: number;
   title: string;
   content: string;
   image: string;
-  fk_user: number;
-  fk_genre: number;
-  fk_artist: number;
-  fk_song: number;
+  creator: User
+  genre?: Genre
+  artist?: Artist
+  song?: Song
 }

@@ -11,7 +11,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -33,7 +33,8 @@ import {NgForOf} from "@angular/common";
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    NgForOf
+    NgForOf,
+    NgOptimizedImage
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
