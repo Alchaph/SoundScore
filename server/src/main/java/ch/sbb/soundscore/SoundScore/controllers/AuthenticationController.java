@@ -2,6 +2,7 @@ package ch.sbb.soundscore.SoundScore.controllers;
 
 
 import ch.sbb.soundscore.SoundScore.Response.LoginResponse;
+import ch.sbb.soundscore.SoundScore.dtos.LoginDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
 import ch.sbb.soundscore.SoundScore.services.JwtService;
@@ -32,8 +33,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody User user) {
-        UserDetails authenticatedUser = authenticationService.authenticate(user);
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginDto loginDto) {
+        UserDetails authenticatedUser = authenticationService.authenticate(loginDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);

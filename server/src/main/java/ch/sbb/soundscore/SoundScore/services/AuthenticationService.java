@@ -2,6 +2,7 @@ package ch.sbb.soundscore.SoundScore.services;
 
 
 
+import ch.sbb.soundscore.SoundScore.dtos.LoginDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,14 +43,14 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public UserDetails authenticate(User input) {
+    public UserDetails authenticate(LoginDto loginDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getUsername(),
-                        input.getPassword()
+                        loginDto.getUsername(),
+                        loginDto.getPassword()
                 )
         );
-        return userRepository.findByUsername(input.getUsername())
+        return userRepository.findByUsername(loginDto.getUsername())
                 .orElseThrow();
     }
 
