@@ -1,1 +1,16 @@
-<p>leader-board works!</p>
+<app-head-nav-bar></app-head-nav-bar>
+<mat-tab-group>
+  <mat-tab label="Overall"> Content 1 </mat-tab>
+  <mat-tab label="Song"> Content 2 </mat-tab>
+  <mat-tab label="Artist"> Content 3 </mat-tab>
+  <mat-tab label="Genre">
+    <mat-list>
+      @for (genre of genreLeaderBoard; track $index){
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h4 mat-line>{{$index + 1}} {{genre.genre?.name}}</h4>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-tab>
+</mat-tab-group>

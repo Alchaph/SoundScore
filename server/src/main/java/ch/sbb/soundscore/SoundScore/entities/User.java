@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private Date created;
     @ManyToOne
     @Nullable
-    private Artist fk_artist;
+    private Artist artist;
     @Column(nullable = false)
     private boolean isAccountNonExpired;
     @Column(nullable = false)
@@ -38,13 +38,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private boolean isEnabled;
 
-    public User(String username, String password, String email, String tel, Date created, Artist fk_artist) {
+    public User(String username, String password, String email, String tel, Date created, Artist artist) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.tel = tel;
         this.created = created;
-        this.fk_artist = fk_artist;
+        this.artist = artist;
     }
 
     @Override

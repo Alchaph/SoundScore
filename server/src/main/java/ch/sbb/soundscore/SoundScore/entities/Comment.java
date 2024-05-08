@@ -17,14 +17,14 @@ public class Comment {
     private String title;
     private String message;
     @ManyToOne
-    private Post fk_post;
+    private Post post;
     @ManyToOne
-    private User fk_user;
+    private User user;
 
-    public Comment(String title, String message, Post fk_post, User fk_user) {
+    public Comment(String title, String message, Post post, User user) {
         this.title = title;
         this.message = message;
-        this.fk_post = fk_post;
-        this.fk_user = fk_user;
+        this.post = post;
+        this.user = user;
     }
 }

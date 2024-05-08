@@ -18,15 +18,15 @@ public class Song {
     private String image;
     private String link;
     @ManyToOne
-    private Genre fk_genre;
+    private Genre genre;
     @ManyToOne
-    private Artist fk_artist;
+    private Artist artist;
 
-    public Song(String title, String image, String link, Genre fk_genre, Artist fk_artist) {
+    public Song(String title, String image, String link, Genre genre, Artist artist) {
         this.title = title;
         this.image = image;
         this.link = link;
-        this.fk_genre = fk_genre;
-        this.fk_artist = fk_artist;
+        this.genre = genre;
+        this.artist = artist;
     }
 }
