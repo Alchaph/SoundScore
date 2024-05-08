@@ -43,9 +43,7 @@ export class LeaderBoardComponent implements OnInit{
       this.songLeaderBoard = data;
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Post[]) => {
-
       this.genreLeaderBoard = data
-      console.log(this.genreLeaderBoard)
     });
   }
 
