@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Post} from "../../models/Post";
-import {PostOut} from "../../models/PostOut";
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +23,10 @@ export class PostServiceService {
   }
 
   getPosts() {
-    return this.http.get<PostOut[]>('http://localhost:8080/api/posts/get/all');
+    return this.http.get<Post[]>('http://localhost:8080/api/posts/get/all');
   }
 
   getPost(id: number) {
-    return this.http.get<PostOut>('http://localhost:8080/api/posts/get/' + id);
+    return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id);
   }
 }
