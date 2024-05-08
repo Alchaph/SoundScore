@@ -11,22 +11,42 @@ export class GenreServiceService {
   }
 
   createGenre(genre: Genre) {
-    return this.http.post('http://localhost:8080/genres/create', genre);
+    return this.http.post('http://localhost:8080/genres/create', genre, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   updateGenre(genre: Genre) {
-    return this.http.put('http://localhost:8080/genres/update', genre);
+    return this.http.put('http://localhost:8080/genres/update', genre, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   deleteGenre(id: number) {
-    return this.http.delete('http://localhost:8080/genres/delete/' + id);
+    return this.http.delete('http://localhost:8080/genres/delete/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getGenres() {
-    return this.http.get<Genre[]>('http://localhost:8080/genres/all');
+    return this.http.get<Genre[]>('http://localhost:8080/genres/all', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getGenre(id: number) {
-    return this.http.get<Genre>('http://localhost:8080/genres/get/' + id);
+    return this.http.get<Genre>('http://localhost:8080/genres/get/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 }

@@ -11,22 +11,42 @@ export class ArtistServiceService {
   }
 
   createArtist(artist: Artist) {
-    return this.http.post('http://localhost:8080/artist/create', artist);
+    return this.http.post('http://localhost:8080/artist/create', artist, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   updateArtist(artist: Artist) {
-    return this.http.put('http://localhost:8080/artist/update', artist);
+    return this.http.put('http://localhost:8080/artist/update', artist, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   deleteArtist(id: number) {
-    return this.http.delete('http://localhost:8080/artist/delete/' + id);
+    return this.http.delete('http://localhost:8080/artist/delete/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getArtists() {
-    return this.http.get<Artist[]>('http://localhost:8080/artist/all');
+    return this.http.get<Artist[]>('http://localhost:8080/artist/all', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getArtist(id: number) {
-    return this.http.get<Artist>('http://localhost:8080/artist/get/' + id);
+    return this.http.get<Artist>('http://localhost:8080/artist/get/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 }

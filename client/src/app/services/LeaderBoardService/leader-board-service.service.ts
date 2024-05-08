@@ -11,18 +11,34 @@ export class LeaderBoardServiceService {
   }
 
   getLeaderBoard() {
-    return this.http.get<Post>('http://localhost:8080/leaderboard/all');
+    return this.http.get<Post>('http://localhost:8080/leaderboard/all', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getLeaderBoardByGenre() {
-    return this.http.get<Post>('http://localhost:8080/leaderboard/genre');
+    return this.http.get<Post>('http://localhost:8080/leaderboard/genre', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getLeaderBoardByArtist() {
-    return this.http.get<Post>('http://localhost:8080/leaderboard/artist');
+    return this.http.get<Post>('http://localhost:8080/leaderboard/artist', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getLeaderBoardBySong() {
-    return this.http.get<Post>('http://localhost:8080/leaderboard/song');
+    return this.http.get<Post>('http://localhost:8080/leaderboard/song', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 }

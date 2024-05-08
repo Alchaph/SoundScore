@@ -11,7 +11,11 @@ export class PostServiceService {
   }
 
   createPost(post: Post) {
-    return this.http.post('http://localhost:8080/api/posts/create', post);
+    return this.http.post('http://localhost:8080/api/posts/create', post, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   updatePost(post: Post) {
@@ -23,7 +27,11 @@ export class PostServiceService {
   }
 
   getPosts() {
-    return this.http.get<Post[]>('http://localhost:8080/api/posts/get/all');
+    return this.http.get<Post[]>('http://localhost:8080/api/posts/get/all', {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 
   getPost(id: number) {
