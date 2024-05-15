@@ -2,7 +2,6 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Comment;
 import ch.sbb.soundscore.SoundScore.entities.Post;
-import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
