@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { Comment } from '../../models/Comment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentServiceService {
+export class CommentService {
 
   constructor(private http: HttpClient) {
   }
@@ -33,15 +34,15 @@ export class CommentServiceService {
     });
   }
 
-  getComments() {
-    return this.http.get<Comment[]>('http://localhost:8080/comments/all', {
+  getCommentsOfPost(postId: number) {
+    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/'+postId, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
     });
   }
 
-  getComment(id: number) {
+  getCommentById(id: number) {
     return this.http.get<Comment>('http://localhost:8080/comments/get/' + id, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
