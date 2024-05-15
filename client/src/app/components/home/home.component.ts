@@ -1408,6 +1408,12 @@ export class HomeComponent implements OnInit {
     },
   ];
 
+  visiblePostsGenre: Post[] = [];
+  invisiblePostsGenre: Post[] = [];
+
+  visiblePostsSong: Post[] = [];
+  invisiblePostsSong: Post[] = [];
+
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
       console.log(data)
@@ -1423,7 +1429,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  leftSlide() {
+  leftSlideArtist() {
     console.log("Right Slide")
     const post = this.invisiblePostsArtist[0];
     this.invisiblePostsArtist.shift();
@@ -1434,7 +1440,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  rightSlide() {
+  rightSlideArtist() {
     console.log("Left Slide")
     const post = this.invisiblePostsArtist[this.invisiblePostsArtist.length - 1];
     this.invisiblePostsArtist.pop();
@@ -1443,6 +1449,50 @@ export class HomeComponent implements OnInit {
     if (postOut) {
       this.invisiblePostsArtist.unshift(postOut);
     }
+  }
+
+    leftSlideGenre() {
+      console.log("Right Slide")
+      const post = this.invisiblePostsGenre[0];
+      this.invisiblePostsGenre.shift();
+      this.visiblePostsGenre.unshift(post);
+      const postOut = this.visiblePostsGenre.pop();
+      if (postOut) {
+        this.invisiblePostsGenre.push(postOut);
+      }
+    }
+
+    rightSlideGenre() {
+      console.log("Left Slide")
+      const post = this.invisiblePostsGenre[this.invisiblePostsGenre.length - 1];
+      this.invisiblePostsGenre.pop();
+      this.visiblePostsGenre.push(post);
+      const postOut = this.visiblePostsGenre.shift();
+      if (postOut) {
+        this.invisiblePostsGenre.unshift(postOut);
+      }
+    }
+
+      leftSlideSong() {
+        console.log("Right Slide")
+        const post = this.invisiblePostsSong[0];
+        this.invisiblePostsSong.shift();
+        this.visiblePostsSong.unshift(post);
+        const postOut = this.visiblePostsSong.pop();
+        if (postOut) {
+          this.invisiblePostsSong.push(postOut);
+        }
+      }
+
+      rightSlideSong() {
+        console.log("Left Slide")
+        const post = this.invisiblePostsSong[this.invisiblePostsSong.length - 1];
+        this.invisiblePostsSong.pop();
+        this.visiblePostsSong.push(post);
+        const postOut = this.visiblePostsSong.shift();
+        if (postOut) {
+          this.invisiblePostsSong.unshift(postOut);
+        }
   }
 
 

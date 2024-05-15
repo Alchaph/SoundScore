@@ -10,7 +10,7 @@
       <mat-tab label="Artist">
         <div class="middle">
           <div class="all">
-            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlide()">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlideArtist()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <div class="content">
@@ -41,7 +41,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlide()">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlideArtist()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
@@ -50,12 +50,12 @@
       <mat-tab label="Genre">
         <div class="middle">
           <div class="all">
-            <button mat-fab color="primary" class="buttonSwitch">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlideGenre()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <div class="content">
               <div class="posts-container">
-                @for (post of posts; track $index){
+                @for (post of visiblePostsGenre; track $index){
                   <div class="post-card" [routerLink]="['/home/post/',post.id]">
                     @if (post.image){
                       <img [src]="post.image" alt="{{post.title}}" class="post-image">
@@ -81,7 +81,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" class="buttonSwitch">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlideGenre()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
@@ -90,12 +90,12 @@
       <mat-tab label="Song">
         <div class="middle">
           <div class="all">
-            <button mat-fab color="primary" class="buttonSwitch">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlideSong()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <div class="content">
               <div class="posts-container">
-                @for (post of posts; track $index){
+                @for (post of visiblePostsSong; track $index){
                   <div class="post-card" [routerLink]="['/home/post/',post.id]">
                     @if (post.image){
                       <img [src]="post.image" alt="{{post.title}}" class="post-image">
@@ -121,7 +121,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" class="buttonSwitch">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlideSong()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
