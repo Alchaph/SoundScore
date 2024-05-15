@@ -6,10 +6,8 @@ import {Post} from "../../models/Post";
   providedIn: 'root'
 })
 export class PostService {
-
   constructor(private http: HttpClient) {
   }
-
   createPost(post: Post) {
     return this.http.post('http://localhost:8080/api/posts/create', post, {
       headers: {

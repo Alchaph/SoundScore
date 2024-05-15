@@ -48,68 +48,9 @@ export class HomeComponent implements OnInit {
 
   posts: Post[] = [];
 
-// {
-//   likes: 1,
-//   dislikes: 1,
-//   title: 'Cardi B Goat',
-//   content: 'test',
-//   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUQuWuiVupvr6lctXQnPjxrik229AYnLkA&s',
-//   user: {
-//     username: 'test',
-//     email: 'test',
-//     password: 'test',
-//     tel: 'test',
-//     created: 'test'
-//   },
-//   artist: {
-//     name: 'test',
-//     description: 'test',
-//     image: 'test'
-//   }
-// },
-// {
-//   likes: 1,
-//     dislikes: 1,
-//   title: 'Fornite GOATED',
-//   content: 'test',
-//   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUQuWuiVupvr6lctXQnPjxrik229AYnLkA&s',
-//   user: {
-//   username: 'test',
-//     email: 'test',
-//     password: 'test',
-//     tel: 'test',
-//     created: 'test'
-// },
-//   artist: {
-//     name: 'test',
-//       description: 'test',
-//       image: 'test'
-//   }
-// },
-// {
-//   likes: 1,
-//     dislikes: 1,
-//   title: 'Da GAS',
-//   content: 'test',
-//   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUQuWuiVupvr6lctXQnPjxrik229AYnLkA&s',
-//   user: {
-//   username: 'test',
-//     email: 'test',
-//     password: 'test',
-//     tel: 'test',
-//     created: 'test'
-// },
-//
-//   artist: {
-//     name: 'test',
-//       description: 'test',
-//       image: 'test'
-//   }
-// }
-
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
-      console.log(data)
+      // console.log(data)
       this.posts = data;
     });
   }
