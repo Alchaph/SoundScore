@@ -4,7 +4,9 @@
     @if (post.image) {
       <img [src]="post.image" alt="{{post.title}}" class="post-image">
     } @else {
-      <img src="https://media.istockphoto.com/id/586383746/photo/beautiful-young-businesswoman-with-crossed-hands-showing-stop-gesture.jpg?s=612x612&w=0&k=20&c=tlRdUPet3y_5fP2cp7V9393uj4KMSpe7TQ2IgBazWOA=" alt="Placeholder Image" class="post-image">
+      <img
+        src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg"
+        alt="Placeholder Image" class="post-image">
     }
     <div class="post-content">
       <h1>{{ post.title }}</h1>
@@ -16,16 +18,32 @@
       @if (post.genre || post.artist || post.song) {
         <div class="post-tags">
           @if (post.genre) {
-          <span>Genre: {{ post.genre.name }}</span>
+            <span>Genre: {{ post.genre.name }}</span>
           }
           @if (post.artist) {
             <span>Artist: {{ post.artist.name }}</span>
           }
-            @if (post.song) {
-              <span>Song: {{ post.song.title }}</span>
-            }
+          @if (post.song) {
+            <span>Song: {{ post.song.title }}</span>
+          }
         </div>
       }
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>Comments</h2>
+    @for (comment of comments; track $index) {
+      <div class="comment">
+        <h3>{{ comment.title }}</h3>
+        <p>{{ comment.message }}</p>
+      </div>
+    }
+    <div class="comment-form">
+      <h3>Add a Comment</h3>
+      <input type="text" placeholder="Title" [(ngModel)]="newComment.title">
+      <textarea placeholder="Message" [(ngModel)]="newComment.message"></textarea>
+      <button (click)="addComment()">Submit</button>
     </div>
   </div>
 }
