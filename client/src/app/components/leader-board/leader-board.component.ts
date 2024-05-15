@@ -23,29 +23,27 @@ import {MatDivider} from "@angular/material/divider";
   styleUrl: './leader-board.component.scss'
 })
 export class LeaderBoardComponent implements OnInit{
-  overallLeaderBoard: Post[] = [];
-  artistLeaderBoard: Post[] = [];
-  songLeaderBoard: Post[] = [];
-  genreLeaderBoard: Post[] = [];
+  overallLeaderBoard: (String | undefined)[] = [];
+  artistLeaderBoard:(String | undefined)[] = [];
+  songLeaderBoard: (String | undefined)[] = [];
+  genreLeaderBoard: (String | undefined)[] = [];
 
   constructor(private leaderBoardService: LeaderBoardService) {
   }
 
   ngOnInit(): void {
     this.leaderBoardService.getLeaderBoard().subscribe((data: Post[]) => {
-      this.overallLeaderBoard = data;
-
+      console.log(data)
+      this.overallLeaderBoard = (data.map(post => post?.title + ' by ' + post?.user?.username));
     });
     this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Post[]) => {
-      this.artistLeaderBoard = data;
+      this.artistLeaderBoard = Array.from(new Set(data.map(post => post.artist?.name)));
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Post[]) => {
-      this.songLeaderBoard = data;
+      this.songLeaderBoard = Array.from(new Set(data.map(post => post.song?.title + " by " + post.artist?.name)));
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Post[]) => {
-      this.genreLeaderBoard = data
-      console.log(data)
+      this.genreLeaderBoard = Array.from(new Set(data.map(post => post.genre?.name)));
     });
   }
-
 }

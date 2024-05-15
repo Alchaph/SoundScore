@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     title: 'Cardi B Goat',
     content: 'test',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUQuWuiVupvr6lctXQnPjxrik229AYnLkA&s',
-    creator: {
+    user: {
       username: 'test',
       email: 'test',
       password: 'test',
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
       title: 'Fornite GOATED',
       content: 'test',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUQuWuiVupvr6lctXQnPjxrik229AYnLkA&s',
-      creator: {
+      user: {
         username: 'test',
         email: 'test',
         password: 'test',
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
       title: 'Da GAS',
       content: 'test',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUQuWuiVupvr6lctXQnPjxrik229AYnLkA&s',
-      creator: {
+      user: {
         username: 'test',
         email: 'test',
         password: 'test',

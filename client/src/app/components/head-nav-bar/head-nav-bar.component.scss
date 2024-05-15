@@ -257,6 +257,9 @@
     justify-content: center;
     align-items: center
   }
+  .toolbarMiddle :hover {
+    cursor: pointer;
+  }
 
   .toolbarRightSide {
     width: 33vw;
