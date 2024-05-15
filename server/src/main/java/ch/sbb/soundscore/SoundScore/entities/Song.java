@@ -14,7 +14,10 @@ public class Song {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(unique = true)
     private String title;
+
     private String image;
     private String link;
     @ManyToOne
