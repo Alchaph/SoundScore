@@ -44,6 +44,7 @@ export class LeaderBoardComponent implements OnInit{
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Post[]) => {
       this.genreLeaderBoard = data
+      console.log(data)
     });
   }
 
