@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.services;
 
+import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,11 @@ public class UserService {
         userRepository.findAll().forEach(users::add);
 
         return users;
+    }
+
+    public User registerArtist(User user, Artist artist) {
+        user.setArtist(artist);
+
+        return userRepository.save(user);
     }
 }
