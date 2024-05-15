@@ -12,6 +12,7 @@ import {PostComponent} from "./components/post/post.component";
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  {path: 'home/post/:postId', component: PostComponent},
   { path: 'home/addPost', component: AddPostComponent },
   {path: 'home/post/:postId', component: PostComponent},
   { path: 'home/leaderBoard', component: LeaderBoardComponent },

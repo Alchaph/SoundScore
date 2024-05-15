@@ -2,11 +2,16 @@ import {Artist} from "./Artist";
 
 
 export interface User {
-  id?: number;
+  id: number;
   username: string;
-  password: string;
   email: string;
-  tel: string;
-  created: string;
+  password: string;
+  created_at: Date;
+  updated_at: Date;
+  enabled: boolean;
+  authorities: any;
+  accountNonLocked: boolean;
+  credentialsNonExpired: boolean;
+  accountNonExpired: boolean;
   artist?: Artist;
 }

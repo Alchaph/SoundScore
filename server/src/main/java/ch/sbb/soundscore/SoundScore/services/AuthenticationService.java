@@ -1,13 +1,11 @@
 package ch.sbb.soundscore.SoundScore.services;
 
-
-
-import ch.sbb.soundscore.SoundScore.dtos.LoginDto;
+import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
+import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,29 +27,24 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signup(User input) {
+    public User signup(RegisterUserDto input) {
         User user = new User();
-        user.setUsername(input.getUsername());
-        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setUserName(input.getFullName());
         user.setEmail(input.getEmail());
-        user.setCreated(input.getCreated());
-        user.setArtist(input.getArtist());
-        user.setEnabled(true);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+
         return userRepository.save(user);
     }
 
-    public UserDetails authenticate(LoginDto loginDto) {
+    public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginDto.getUsername(),
-                        loginDto.getPassword()
+                        input.getEmail(),
+                        input.getPassword()
                 )
         );
-        return userRepository.findByUsername(loginDto.getUsername())
+
+        return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
-
 }
