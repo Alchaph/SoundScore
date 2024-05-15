@@ -21,7 +21,7 @@
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
-      <img [ngSrc]="this.picture" class="catPic" alt="No cats :(" [mat-menu-trigger-for]="userMenu">
+      <img [src]="this.picture" class="catPic" alt="No cats :(" [mat-menu-trigger-for]="userMenu">
       <mat-menu #userMenu="matMenu">
         <button routerLink="/home/usersPosts" mat-menu-item>Profile</button>
         <button routerLink="/home/settings" mat-menu-item>Settings</button>

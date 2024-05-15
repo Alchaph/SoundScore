@@ -33,14 +33,15 @@
 .filler {
   width: 10%;
 }
-#content {
+.content {
   width: 100%;
   display: flex;
   justify-content: center;
   align-content: center;
   padding: 10px;
+  overflow-x: hidden;
 }
-#middle {
+.middle {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -48,10 +49,74 @@
   align-content: center;
   width: 100%;
 }
-#all {
+.all {
   display: flex;
   flex-direction: row;
   align-items: center;
   align-content: center;
-  width: 45%;
+  width: 67%;
 }
+
+.posts-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+#slide {
+  width: 100%;
+}
+
+.post-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.post-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.post-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.post-content {
+  padding: 15px;
+}
+
+.post-content h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.post-content p {
+  font-size: 1em;
+  color: #333;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.post-tags {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.post-tags span {
+  display: block;
+}
+
