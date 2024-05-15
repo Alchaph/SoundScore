@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      tel: ['', Validators.required, Validators.pattern('^[0-9]*$')],
       artistName: [''],
       artistGenre: ['']
     });
@@ -36,7 +35,6 @@ export class SettingsComponent implements OnInit {
         username: user.username,
         password: user.password,
         email: user.email,
-        tel: user.tel ?? "",
         artistName: user.artist?.name ?? "",
         artistGenre: user.artist?.description ?? ""
       });

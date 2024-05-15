@@ -35,6 +35,10 @@ export class PostService {
   }
 
   getPost(id: number) {
-    return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id);
+    return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 }
