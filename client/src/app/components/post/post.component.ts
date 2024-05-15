@@ -21,12 +21,14 @@ export class PostComponent implements OnInit {
   post: Post | undefined;
   comments: Comment[] = [];
   //TODO add user id and comment id
-  newComment: Comment = {title: '', message: '', fk_post: 0, fk_user: 1 }
   postId = Number(this.route.snapshot.paramMap.get('postId'));
 
+  //TODO MAKE IT WORK
+  newComment: Comment = {title: '', message: '', post: null, user: null }
   constructor(private route: ActivatedRoute, private postService: PostService, private commentService : CommentService) { }
 
   ngOnInit(): void {
+    console.log(this.newComment)
     this.postService.getPost(this.postId).subscribe((post) => {
       this.post = post;
     });
@@ -36,7 +38,10 @@ export class PostComponent implements OnInit {
     });
   }
   addComment(): void {
-    //TODO still doesn't work
+    if (!this.newComment.title || !this.newComment.message) {
+      return;
+    }
+    //TODO add user id
     this.commentService.createComment(this.newComment).subscribe(comment => {
       this.comments.push(<Comment>comment);
       this.newComment.title = '';
