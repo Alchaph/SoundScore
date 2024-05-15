@@ -19,7 +19,7 @@ public class User implements UserDetails {
     private Integer id;
 
     @Column(nullable = false)
-    private String fullName;
+    private String userName;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -86,8 +86,8 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setEmail(String email) {
@@ -110,8 +110,8 @@ public class User implements UserDetails {
         return id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUserName() {
+        return userName;
     }
 
     public String getEmail() {
