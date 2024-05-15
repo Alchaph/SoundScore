@@ -10,7 +10,7 @@ export interface Post {
   title: string;
   content: string;
   image: string;
-  creator: User
+  user: User
   genre?: Genre
   artist?: Artist
   song?: Song
