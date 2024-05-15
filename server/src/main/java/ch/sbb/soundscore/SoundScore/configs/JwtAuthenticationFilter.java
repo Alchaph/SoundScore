@@ -1,12 +1,10 @@
 package ch.sbb.soundscore.SoundScore.configs;
 
-
 import ch.sbb.soundscore.SoundScore.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,6 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -51,12 +50,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             final String jwt = authHeader.substring(7);
-            final String userName = jwtService.extractUsername(jwt);
+            final String userEmail = jwtService.extractUsername(jwt);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            if (userName != null && authentication == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
+            if (userEmail != null && authentication == null) {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -67,15 +66,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
-                } else {
-                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                    return;
                 }
             }
 
             filterChain.doFilter(request, response);
         } catch (Exception exception) {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }

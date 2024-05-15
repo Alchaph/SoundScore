@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequestMapping("/users")
 @RestController
-@RequestMapping("/api/user")
 public class UserController {
-    UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -23,19 +23,16 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<User> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         User currentUser = (User) authentication.getPrincipal();
+
         return ResponseEntity.ok(currentUser);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public ResponseEntity<List<User>> allUsers() {
-        List<User> users = userService.allUsers();
-        return ResponseEntity.ok(users);
-    }
+        List <User> users = userService.allUsers();
 
-    @GetMapping("/getUserNames")
-    public ResponseEntity<List<String>> allUserNames() {
-        List<String> users = userService.allUsers().stream().map(User::getUsername).toList();
         return ResponseEntity.ok(users);
     }
 }
