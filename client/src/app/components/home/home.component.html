@@ -1,37 +1,138 @@
 <app-head-nav-bar></app-head-nav-bar>
 <div id="main">
   <div id="top">
-    <div id="filler"></div>
-    <div id="titles">
-      <p class="categorie">Artist</p>
-      <p class="categorie">Genre</p>
-      <p class="categorie">Song</p>
-    </div>
-    <div id="button">
-      <button mat-fab color="primary" id="addButton" [routerLink]="['addPost']">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-  </div>
-  <div id="middle">
-    <div id="all">
-      <button mat-fab color="primary" class="buttonSwitch">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
-      <div id="content">
-        @for (post of posts; track $index) {
-          <div id="post">
-            <img id="postImage" [src]="post.image" alt="image" class="image">
-            <div id="postTextBox">
-              <p id="postText">{{post.content}}</p>
+<!--    <div id="titles">-->
+<!--      <p class="categorie">Artist</p>-->
+<!--      <p class="categorie">Genre</p>-->
+<!--      <p class="categorie">Song</p>-->
+<!--    </div>-->
+    <mat-tab-group id="slide">
+      <mat-tab label="Artist">
+        <div class="middle">
+          <div class="all">
+            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlide()">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <div class="content">
+              <div class="posts-container">
+                @for (post of visiblePostsArtist; track $index){
+                  <div class="post-card" [routerLink]="['/home/post/',post.id]">
+                    @if (post.image){
+                      <img [src]="post.image" alt="{{post.title}}" class="post-image">
+                    }@else {
+                      <img src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg" alt="Placeholder Image" class="post-image">
+                    }
+                    <div class="post-content">
+                      <h2>{{ post.title }}</h2>
+                      <p>{{ post.content }}</p>
+                      <div class="post-meta">
+                        <span>By {{ post.user.username }}</span>
+                        <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
+                      </div>
+                      @if (post.genre || post.artist || post.song){
+                        <div class="post-tags">
+                          @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+                          @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+                          @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
             </div>
+            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlide()">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
           </div>
-        }
-      </div>
-      <button mat-fab color="primary" class="buttonSwitch">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Genre">
+        <div class="middle">
+          <div class="all">
+            <button mat-fab color="primary" class="buttonSwitch">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <div class="content">
+              <div class="posts-container">
+                @for (post of posts; track $index){
+                  <div class="post-card" [routerLink]="['/home/post/',post.id]">
+                    @if (post.image){
+                      <img [src]="post.image" alt="{{post.title}}" class="post-image">
+                    }@else {
+                      <img src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg" alt="Placeholder Image" class="post-image">
+                    }
+                    <div class="post-content">
+                      <h2>{{ post.title }}</h2>
+                      <p>{{ post.content }}</p>
+                      <div class="post-meta">
+                        <span>By {{ post.user.username }}</span>
+                        <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
+                      </div>
+                      @if (post.genre || post.artist || post.song){
+                        <div class="post-tags">
+                          @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+                          @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+                          @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+            <button mat-fab color="primary" class="buttonSwitch">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Song">
+        <div class="middle">
+          <div class="all">
+            <button mat-fab color="primary" class="buttonSwitch">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <div class="content">
+              <div class="posts-container">
+                @for (post of posts; track $index){
+                  <div class="post-card" [routerLink]="['/home/post/',post.id]">
+                    @if (post.image){
+                      <img [src]="post.image" alt="{{post.title}}" class="post-image">
+                    }@else {
+                      <img src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg" alt="Placeholder Image" class="post-image">
+                    }
+                    <div class="post-content">
+                      <h2>{{ post.title }}</h2>
+                      <p>{{ post.content }}</p>
+                      <div class="post-meta">
+                        <span>By {{ post.user.username }}</span>
+                        <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
+                      </div>
+                      @if (post.genre || post.artist || post.song){
+                        <div class="post-tags">
+                          @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+                          @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+                          @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+            <button mat-fab color="primary" class="buttonSwitch">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div id="button">
+    <button mat-fab color="primary" id="addButton" [routerLink]="['addPost']">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
   <div id="bottom">
   </div>

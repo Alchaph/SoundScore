@@ -16,6 +16,10 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {NgOptimizedImage} from "@angular/common";
+import {MatDivider} from "@angular/material/divider";
+import {MatLine} from "@angular/material/core";
+import {MatList, MatListItem} from "@angular/material/list";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 
 @Component({
@@ -36,7 +40,13 @@ import {NgOptimizedImage} from "@angular/common";
     NgOptimizedImage,
     MatCardContent,
     MatCardActions,
-    MatButton
+    MatButton,
+    MatDivider,
+    MatLine,
+    MatList,
+    MatListItem,
+    MatTab,
+    MatTabGroup
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -46,13 +56,1393 @@ export class HomeComponent implements OnInit {
   constructor(private postService: PostService) {
   }
 
-  posts: Post[] = [];
+  posts: Post[] = [
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    // Post 2
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+  ];
+
+  visiblePostsArtist: Post[] = [
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 132',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    // Post 2
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },{
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },{
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+  ]; // First = Left, Last = Right
+  invisiblePostsArtist: Post[] = [
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    // Post 2
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    // Post 2
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 1,
+      likes: 10,
+      dislikes: 2,
+      title: 'Mock Post 1',
+      content: 'This is the content for Mock Post 1',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 1,
+        username: 'testUser1',
+        email: 'test1@example.com',
+        password: 'testPassword1',
+        created_at: new Date('2022-01-01'),
+        updated_at: new Date('2022-01-01'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 1,
+        name: 'Genre 1',
+        description: 'This is Genre 1'
+      },
+      artist: {
+        id: 1,
+        name: 'testArtist1',
+        description: 'This is test artist 1',
+        image: 'https://example.com/artist1.jpg'
+      },
+      song: {
+        id: 1,
+        title: 'Song 1',
+        image: 'https://example.com/song1.jpg',
+        link: 'https://example.com/song1.mp3',
+        genre: {
+          id: 1,
+          name: 'Genre 1',
+          description: 'This is Genre 1'
+        },
+        artist: {
+          id: 1,
+          name: 'testArtist1',
+          description: 'This is test artist 1',
+          image: 'https://example.com/artist1.jpg'
+        }
+      }
+    },
+    // Post 2
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+    {
+      id: 2,
+      likes: 20,
+      dislikes: 4,
+      title: 'Mock Post 2',
+      content: 'This is the content for Mock Post 2',
+      image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
+      user: {
+        id: 2,
+        username: 'testUser2',
+        email: 'test2@example.com',
+        password: 'testPassword2',
+        created_at: new Date('2022-02-02'),
+        updated_at: new Date('2022-02-02'),
+        enabled: true,
+        authorities: [],
+        accountNonLocked: true,
+        credentialsNonExpired: true,
+        accountNonExpired: true,
+      },
+      genre: {
+        id: 2,
+        name: 'Genre 2',
+        description: 'This is Genre 2'
+      },
+      artist: {
+        id: 2,
+        name: 'testArtist2',
+        description: 'This is test artist 2',
+        image: 'https://example.com/artist2.jpg'
+      },
+      song: {
+        id: 2,
+        title: 'Song 2',
+        image: 'https://example.com/song2.jpg',
+        link: 'https://example.com/song2.mp3',
+        genre: {
+          id: 2,
+          name: 'Genre 2',
+          description: 'This is Genre 2'
+        },
+        artist: {
+          id: 2,
+          name: 'testArtist2',
+          description: 'This is test artist 2',
+          image: 'https://example.com/artist2.jpg'
+
+        }
+      }
+    },
+  ];
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
-      // console.log(data)
+      console.log(data)
       this.posts = data;
+      for (let i = 0; i < data.length; i++) {
+        if (i < 5) {
+          console.log(i)
+          this.visiblePostsArtist.push(data[i]);
+        } else {
+          this.invisiblePostsArtist.push(data[i]);
+        }
+      }
     });
+  }
+
+  leftSlide() {
+    console.log("Right Slide")
+    const post = this.invisiblePostsArtist[0];
+    this.invisiblePostsArtist.shift();
+    this.visiblePostsArtist.unshift(post);
+    const postOut = this.visiblePostsArtist.pop();
+    if (postOut) {
+      this.invisiblePostsArtist.push(postOut);
+    }
+  }
+
+  rightSlide() {
+    console.log("Left Slide")
+    const post = this.invisiblePostsArtist[this.invisiblePostsArtist.length - 1];
+    this.invisiblePostsArtist.pop();
+    this.visiblePostsArtist.push(post);
+    const postOut = this.visiblePostsArtist.shift();
+    if (postOut) {
+      this.invisiblePostsArtist.unshift(postOut);
+    }
   }
 
 
