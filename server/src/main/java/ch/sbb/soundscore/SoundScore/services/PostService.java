@@ -19,6 +19,9 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public Post getPost(Long id) {
+        return postRepository.findById(id).orElseThrow();
+    }
     public Long newPost(Post post) {
         postRepository.save(post);
         return post.getId();

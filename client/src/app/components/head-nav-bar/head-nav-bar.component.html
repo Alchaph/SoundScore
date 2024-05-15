@@ -23,8 +23,8 @@
     <div class="toolbarRightSide">
       <img [ngSrc]="this.picture" class="catPic" alt="No cats :(" [mat-menu-trigger-for]="userMenu">
       <mat-menu #userMenu="matMenu">
-        <button routerLink="usersPosts" mat-menu-item>Profile</button>
-        <button routerLink="settings" mat-menu-item>Settings</button>
+        <button routerLink="/home/usersPosts" mat-menu-item>Profile</button>
+        <button routerLink="/home/settings" mat-menu-item>Settings</button>
       </mat-menu>
     </div>
   </mat-toolbar-row>

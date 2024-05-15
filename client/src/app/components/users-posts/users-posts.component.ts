@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {PostService} from "../../services/PostService/post.service";
-import {Post} from "../../models/Post";
+import { Post } from '../../models/Post';
+import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -15,14 +15,13 @@ import {RouterLink} from "@angular/router";
   styleUrl: './users-posts.component.scss'
 })
 export class UsersPostsComponent implements OnInit {
-    posts: Post[] = [];
-    constructor(private postService: PostService) {
-    }
+  posts: Post[] = [];
+  constructor(private postService: PostService) {}
 
-    ngOnInit() {
-      this.postService.getPosts().subscribe(posts => {
-        this.posts = posts;
-      });
-    }
+  ngOnInit() {
+    this.postService.getPosts().subscribe((posts) => {
+      this.posts = posts;
+    });
+  }
 
 }
