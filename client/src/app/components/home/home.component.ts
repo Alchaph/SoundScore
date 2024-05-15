@@ -4,7 +4,7 @@ import {MatButtonToggle} from "@angular/material/button-toggle";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {MatButton, MatFabButton} from "@angular/material/button";
-import {PostServiceService} from "../../services/PostService/post-service.service";
+import {PostService} from "../../services/PostService/post.service";
 import {Post} from "../../models/Post";
 import {
   MatCard, MatCardActions,
@@ -43,7 +43,7 @@ import {NgOptimizedImage} from "@angular/common";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private postService: PostServiceService) {
+  constructor(private postService: PostService) {
   }
 
   posts: Post[] = [];
