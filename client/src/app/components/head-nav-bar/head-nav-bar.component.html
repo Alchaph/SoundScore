@@ -13,7 +13,6 @@
             </p>
           }
         </mat-menu>
-        <button (click)="logout()" mat-menu-item>Logout</button>
       </mat-menu>
     </div>
     <div class="toolbarMiddle">
@@ -25,6 +24,7 @@
       <mat-menu #userMenu="matMenu">
         <button routerLink="/home/usersPosts" mat-menu-item>Profile</button>
         <button routerLink="/home/settings" mat-menu-item>Settings</button>
+        <button (click)="logout()" mat-menu-item>Logout</button>
       </mat-menu>
     </div>
   </mat-toolbar-row>
