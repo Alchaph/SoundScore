@@ -1,1 +1,27 @@
-<p>settings works!</p>
+<app-head-nav-bar></app-head-nav-bar>
+  <div class="settings-container">
+  <h2>User Settings</h2>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" formControlName="username">
+    </div>
+    <div class="password-container">
+      <label for="password">Password:</label>
+      <input id="password" type="password" formControlName="password">
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email">
+    </div>
+    <div>
+      <label for="artistName">Artist Name:</label>
+      <input id="artistName" formControlName="artistName">
+    </div>
+    <div>
+      <label for="artistGenre">Artist Genre:</label>
+      <input id="artistGenre" formControlName="artistGenre">
+    </div>
+    <button type="submit">Save</button>
+  </form>
+</div>

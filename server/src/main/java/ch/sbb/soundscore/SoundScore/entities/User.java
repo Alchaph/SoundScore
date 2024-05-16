@@ -1,55 +1,66 @@
 package ch.sbb.soundscore.SoundScore.entities;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints ={
+        @UniqueConstraint(columnNames = {"artist_id"})
+})
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private String tel;
-    private Date created;
-    @ManyToOne
-    @Nullable
-    private Artist fk_artist;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private boolean isAccountNonExpired;
-    @Column(nullable = false)
-    private boolean isAccountNonLocked;
-    @Column(nullable = false)
-    private boolean isCredentialsNonExpired;
-    @Column(nullable = false)
-    private boolean isEnabled;
+    private Integer id;
 
-    public User(String username, String password, String email, String tel, Date created, Artist fk_artist) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.tel = tel;
-        this.created = created;
-        this.fk_artist = fk_artist;
-    }
+    @Column(nullable = false)
+    private String userName;
+
+    @Column(unique = true, length = 100, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
@@ -70,5 +81,51 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    // Getters and setters
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 }
