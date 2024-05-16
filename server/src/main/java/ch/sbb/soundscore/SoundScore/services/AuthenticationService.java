@@ -6,7 +6,6 @@ import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.ArtistRepositories;
-import ch.sbb.soundscore.SoundScore.repositories.ArtistRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +36,7 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         User user = new User();
-        user.setUserName(input.getFullName());
+        user.setUsername(input.getUsername());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
 

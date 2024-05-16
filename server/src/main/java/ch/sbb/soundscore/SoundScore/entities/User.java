@@ -21,7 +21,7 @@ public class User implements UserDetails {
     private Integer id;
 
     @Column(nullable = false)
-    private String userName;
+    private String username;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -46,22 +46,7 @@ public class User implements UserDetails {
         return List.of();
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -85,12 +70,28 @@ public class User implements UserDetails {
 
     // Getters and setters
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public String getUsername() {
+        return email;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setEmail(String email) {
@@ -111,10 +112,6 @@ public class User implements UserDetails {
 
     public Integer getId() {
         return id;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public String getEmail() {

@@ -5,29 +5,19 @@
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
       <mat-card-content>
-        <mat-form-field>
-          <mat-label>Enter your username</mat-label>
-          <input formControlName="username" matInput>
-        </mat-form-field>
         @if (isRegister) {
           <mat-form-field>
-            <mat-label>Enter your email</mat-label>
-            <input formControlName="email" matInput>
-          </mat-form-field>
-          <mat-form-field>
-            <ngx-mat-input-tel
-              [preferredCountries]="['ch', 'at', 'de']"
-              [enablePlaceholder]="true"
-              [enableSearch]="true"
-              name="phone"
-              formControlName="phone"
-              placeholder="Phone number"
-            ></ngx-mat-input-tel>
+            <mat-label>Enter your Username</mat-label>
+            <input formControlName="username" matInput>
           </mat-form-field>
         }
         <mat-form-field>
+          <mat-label>Enter your email</mat-label>
+          <input formControlName="email" matInput>
+        </mat-form-field>
+        <mat-form-field>
           <mat-label>Enter your password</mat-label>
-          <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput>
+          <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput>
           <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button
                   matSuffix>
             <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
