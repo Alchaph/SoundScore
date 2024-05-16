@@ -11,7 +11,7 @@ export class CommentService {
   }
 
   createComment(comment: Comment) {
-    return this.http.post('http://localhost:8080/comments/create', comment, {
+    return this.http.post('http://localhost:8080/api/comments/create', comment, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
@@ -19,7 +19,7 @@ export class CommentService {
   }
 
   updateComment(comment: Comment) {
-    return this.http.put('http://localhost:8080/comments/update', comment, {
+    return this.http.put('http://localhost:8080/api/comments/update', comment, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
@@ -27,7 +27,7 @@ export class CommentService {
   }
 
   deleteComment(id: number) {
-    return this.http.delete('http://localhost:8080/comments/delete/' + id, {
+    return this.http.delete('http://localhost:8080/api/comments/delete/' + id, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
@@ -43,7 +43,7 @@ export class CommentService {
   }
 
   getCommentById(id: number) {
-    return this.http.get<Comment>('http://localhost:8080/comments/get/' + id, {
+    return this.http.get<Comment>('http://localhost:8080/api/comments/get/' + id, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
