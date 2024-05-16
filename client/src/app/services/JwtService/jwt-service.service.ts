@@ -26,7 +26,7 @@ export class JwtServiceService {
   }
 
   public getUsers(){
-    return this.http.get<User[]>('http://localhost:8080/api/user/users', {
+    return this.http.get<User[]>('http://localhost:8080/users/users', {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
@@ -34,7 +34,7 @@ export class JwtServiceService {
   }
 
   public getMe(){
-    return this.http.get<User>('http://localhost:8080/api/user/me', {
+    return this.http.get<User>('http://localhost:8080/users/me', {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
