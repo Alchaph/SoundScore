@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { Comment } from '../../models/Comment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentServiceService {
+export class CommentService {
 
   constructor(private http: HttpClient) {
   }
 
   createComment(comment: Comment) {
-    return this.http.post('http://localhost:8080/comments/create', comment, {
+    return this.http.post('http://localhost:8080/api/comments/create', comment, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
@@ -18,7 +19,7 @@ export class CommentServiceService {
   }
 
   updateComment(comment: Comment) {
-    return this.http.put('http://localhost:8080/comments/update', comment, {
+    return this.http.put('http://localhost:8080/api/comments/update', comment, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
@@ -26,23 +27,23 @@ export class CommentServiceService {
   }
 
   deleteComment(id: number) {
-    return this.http.delete('http://localhost:8080/comments/delete/' + id, {
+    return this.http.delete('http://localhost:8080/api/comments/delete/' + id, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
     });
   }
 
-  getComments() {
-    return this.http.get<Comment[]>('http://localhost:8080/comments/all', {
+  getCommentsOfPost(postId: number) {
+    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/'+postId, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
     });
   }
 
-  getComment(id: number) {
-    return this.http.get<Comment>('http://localhost:8080/comments/get/' + id, {
+  getCommentById(id: number) {
+    return this.http.get<Comment>('http://localhost:8080/api/comments/get/' + id, {
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }

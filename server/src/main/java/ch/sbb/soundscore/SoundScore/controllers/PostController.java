@@ -20,7 +20,10 @@ public class PostController {
     public List<Post> allPosts() {
         return this.postService.allPosts();
     }
-
+    @GetMapping("/get/{id}")
+    public Post getPost(@PathVariable Long id) {
+        return postService.getPost(id);
+    }
     @PostMapping("/create")
     public Long newPost(@RequestBody Post post) {
         return postService.newPost(post);

@@ -1,6 +1,5 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
-import ch.sbb.soundscore.SoundScore.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;

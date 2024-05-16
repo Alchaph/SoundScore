@@ -35,6 +35,6 @@ public class CommentService {
     }
 
     public List<Comment> getCommentsByPostId(Long postId) {
-        return commentRepository.findAllByFk_post(postId);
+        return commentRepository.findAllBypost(postId);
     }
 }

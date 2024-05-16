@@ -1,27 +1,32 @@
 package ch.sbb.soundscore.SoundScore.services;
 
-
+import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class UserService {
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public void add(User user) {
-        userRepository.save(user);
+    public List<User> allUsers() {
+        List<User> users = new ArrayList<>();
+
+        userRepository.findAll().forEach(users::add);
+
+        return users;
     }
 
+    public User registerArtist(User user, Artist artist) {
+        user.setArtist(artist);
 
-    public List<User> allUsers() {
-        return userRepository.findAll();
+        return userRepository.save(user);
     }
 }

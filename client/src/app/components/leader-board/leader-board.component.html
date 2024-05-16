@@ -1,1 +1,37 @@
-<p>leader-board works!</p>
+<app-head-nav-bar></app-head-nav-bar>
+<mat-tab-group>
+  <mat-tab label="Overall">  <mat-list>
+    @for (entry of overallLeaderBoard; track $index){
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4 mat-line>{{$index + 1}}. {{entry}}</h4>
+      </mat-list-item>
+    }
+  </mat-list> </mat-tab>
+  <mat-tab label="Song"> <mat-list>
+    @for (entry of songLeaderBoard; track $index){
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4 mat-line>{{$index + 1}}. {{entry}}</h4>
+      </mat-list-item>
+    }
+  </mat-list> </mat-tab>
+  <mat-tab label="Artist"> <mat-list>
+    @for (entry of artistLeaderBoard; track $index){
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4 mat-line>{{$index + 1}}. {{entry}}</h4>
+      </mat-list-item>
+    }
+  </mat-list> </mat-tab>
+  <mat-tab label="Genre">
+    <mat-list>
+      @for (entry of genreLeaderBoard; track $index){
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h4 mat-line>{{$index + 1}}. {{entry}}</h4>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-tab>
+</mat-tab-group>
