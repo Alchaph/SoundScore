@@ -11,17 +11,17 @@ export class JwtServiceService {
   }
 
   public login(email: string, password: string){
-    return this.http.post('http://localhost:8080/api/auth/login', {
+    return this.http.post<{token: string, expiresIn: number}>('http://localhost:8080/auth/login', {
       email: email,
       password: password
     });
   }
 
-  public register(email: string, password: string, roleID: number){
-    return this.http.post('http://localhost:8080/api/auth/signup', {
+  public register(email: string, password: string, username: string){
+    return this.http.post('http://localhost:8080/auth/signup', {
       email: email,
       password: password,
-      roleID: roleID
+      username: username
     });
   }
 
