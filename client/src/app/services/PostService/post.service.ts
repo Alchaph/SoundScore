@@ -5,11 +5,9 @@ import {Post} from "../../models/Post";
 @Injectable({
   providedIn: 'root'
 })
-export class PostServiceService {
-
+export class PostService {
   constructor(private http: HttpClient) {
   }
-
   createPost(post: Post) {
     return this.http.post('http://localhost:8080/api/posts/create', post, {
       headers: {
@@ -35,6 +33,10 @@ export class PostServiceService {
   }
 
   getPost(id: number) {
-    return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id);
+    return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    });
   }
 }
