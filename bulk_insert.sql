@@ -36,25 +36,6 @@ VALUES
     (14, 'Led Zeppelin', 'An English rock band formed in London in 1968. The group consisted of guitarist Jimmy Page, singer Robert Plant, bassist and keyboardist John Paul Jones, and drummer John Bonham.', 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Led_Zeppelin_1977.jpg'),
     (15, 'Queen', 'British rock band formed in London in 1970. Their classic line-up was Freddie Mercury, Brian May, Roger Taylor, and John Deacon.', 'https://upload.wikimedia.org/wikipedia/en/1/1d/Queen_%28crest%29.png');
 
--- Inserting data into the users table
-INSERT INTO users (id, username, password, email, tel, artist_id, is_enabled, is_credentials_non_expired, is_account_non_expired, is_account_non_locked)
-VALUES
-    (1, 'user1', 'password1', 'user1@example.com', '+1234567890', 1, true, true, true, true),
-    (2, 'user2', 'password2', 'user2@example.com', NULL, NULL, true, true, true, true),
-    (3, 'user3', 'password3', 'user3@example.com', NULL, 3, true, true, true, true),
-    (4, 'user4', 'password4', 'user4@example.com', NULL, NULL, true, true, true, true),
-    (5, 'user5', 'password5', 'user5@example.com', NULL, 2, true, true, true, true),
-    (6, 'user6', 'password6', 'user6@example.com', NULL, 5, true, true, true, true),
-    (7, 'user7', 'password7', 'user7@example.com', NULL, NULL, true, true, true, true),
-    (8, 'user8', 'password8', 'user8@example.com', NULL, 8, true, true, true, true),
-    (9, 'user9', 'password9', 'user9@example.com', NULL, 7, true, true, true, true),
-    (10, 'user10', 'password10', 'user10@example.com', NULL, NULL, true, true, true, true),
-    (11, 'user11', 'password11', 'user11@example.com', NULL, 11, true, true, true, true),
-    (12, 'user12', 'password12', 'user12@example.com', NULL, 9, true, true, true, true),
-    (13, 'user13', 'password13', 'user13@example.com', NULL, 12, true, true, true, true),
-    (14, 'user14', 'password14', 'user14@example.com', NULL, 6, true, true, true, true),
-    (15, 'user15', 'password15', 'user15@example.com', NULL, NULL, true, true, true, true);
-
 -- Inserting data into the songs table
 INSERT INTO songs (id, title, image, link, genre_id, artist_id)
 VALUES

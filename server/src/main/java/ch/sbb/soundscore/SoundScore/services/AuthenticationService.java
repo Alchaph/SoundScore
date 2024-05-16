@@ -1,8 +1,12 @@
 package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
+import ch.sbb.soundscore.SoundScore.dtos.RegisterArtistDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
+import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.repositories.ArtistRepositories;
+import ch.sbb.soundscore.SoundScore.repositories.ArtistRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,17 +17,21 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserRepository userRepository;
 
+    private final ArtistRepositories artistRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationService(
             UserRepository userRepository,
+            ArtistRepositories artistRepository,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder
     ) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.artistRepository = artistRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -46,5 +54,14 @@ public class AuthenticationService {
 
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
+    }
+
+    public Artist signupArtist(RegisterArtistDto input) {
+        Artist artist = new Artist();
+        artist.setName(input.getName());
+        artist.setDescription(input.getDescription());
+        artist.setImage(input.getImage());
+
+        return artistRepository.save(artist);
     }
 }

@@ -10,7 +10,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints ={
+        @UniqueConstraint(columnNames = {"artist_id"})
+})
 @Entity
 public class User implements UserDetails {
     @Id
@@ -36,6 +38,7 @@ public class User implements UserDetails {
     private Date updatedAt;
 
     @ManyToOne
+    @JoinColumn(name = "artist_id")
     private Artist artist;
 
     @Override
