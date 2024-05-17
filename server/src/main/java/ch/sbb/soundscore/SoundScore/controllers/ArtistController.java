@@ -35,7 +35,7 @@ public class ArtistController {
         return artistService.getArtistById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/get/all")
     public List<Artist> getAllArtists() {
         return artistService.getAllArtists();
     }
