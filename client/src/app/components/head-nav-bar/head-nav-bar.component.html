@@ -5,7 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="leaderBoard">Leaderboard</button>
+        <button routerLink="leaderBoard" mat-menu-item>Leaderboard</button>
         <button [matMenuTriggerFor]="languageMenu" mat-menu-item>Languages</button>
         <mat-menu #languageMenu="matMenu" xPosition="before">
           @for (lang of langs; track $index) {
@@ -13,7 +13,6 @@
             </p>
           }
         </mat-menu>
-        <button (click)="logout()" mat-menu-item>Logout</button>
       </mat-menu>
     </div>
     <div class="toolbarMiddle">
@@ -21,10 +20,11 @@
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
-      <img [matMenuTriggerFor]="userMenu" [src]="this.picture" alt="No cats :(" class="catPic">
+      <img [src]="this.picture" class="catPic" alt="No cats :(" [mat-menu-trigger-for]="userMenu">
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item routerLink="/home/usersPosts">Profile</button>
-        <button mat-menu-item routerLink="/home/settings">Settings</button>
+        <button routerLink="/home/usersPosts" mat-menu-item>Profile</button>
+        <button routerLink="/home/settings" mat-menu-item>Settings</button>
+        <button (click)="logout()" mat-menu-item>Logout</button>
       </mat-menu>
     </div>
   </mat-toolbar-row>
