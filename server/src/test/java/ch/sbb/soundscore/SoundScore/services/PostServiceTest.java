@@ -62,7 +62,7 @@ Post post = new Post();
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
         doNothing().when(postRepository).delete(post);
 
-        Post result = postService.deletePost(1);
+        Post result = postService.deletePost(1L);
 
         verify(postRepository, times(1)).delete(post);
         assertEquals(post, result);

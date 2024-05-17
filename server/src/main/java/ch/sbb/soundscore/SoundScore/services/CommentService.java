@@ -21,6 +21,7 @@ public class CommentService {
     public Comment deleteComment(Long id) {
         Comment comment = commentRepository.findById(id).orElse(null);
         if (comment != null) {
+            commentRepository.deleteChildren(comment);
             commentRepository.delete(comment);
         }
         return comment;
