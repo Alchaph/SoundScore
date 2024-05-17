@@ -80,10 +80,7 @@ export class LoginComponent {
   register() {
     if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
       this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe((data) => {
-        this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
-          localStorage.setItem('token', data.token);
-          this.router.navigate(['/home']);
-        });
+        this.login();
       });
     }
   }

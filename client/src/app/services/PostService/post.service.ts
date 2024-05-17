@@ -40,4 +40,12 @@ export class PostService {
       }
     });
   }
+  likeOrDislikePost(post: Post, like: boolean) {
+    return this.http.post('http://localhost:8080/api/posts/like/' + post.id, like , {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+
+  }
 }

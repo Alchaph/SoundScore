@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../models/User";
 
@@ -10,14 +10,14 @@ export class JwtServiceService {
   constructor(private http: HttpClient) {
   }
 
-  public login(email: string, password: string){
-    return this.http.post<{token: string, expiresIn: number}>('http://localhost:8080/auth/login', {
+  public login(email: string, password: string) {
+    return this.http.post<{ token: string, expiresIn: number }>('http://localhost:8080/auth/login', {
       email: email,
       password: password
     });
   }
 
-  public register(email: string, password: string, username: string){
+  public register(email: string, password: string, username: string) {
     return this.http.post('http://localhost:8080/auth/signup', {
       email: email,
       password: password,
@@ -25,7 +25,7 @@ export class JwtServiceService {
     });
   }
 
-  public getUsers(){
+  public getUsers() {
     return this.http.get<User[]>('http://localhost:8080/users/users', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -33,7 +33,7 @@ export class JwtServiceService {
     });
   }
 
-  public getMe(){
+  public getMe() {
     return this.http.get<User>('http://localhost:8080/users/me', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
