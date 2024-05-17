@@ -25,7 +25,7 @@ public class PostController {
         return postService.getPost(id);
     }
     @PostMapping("/create")
-    public Long newPost(@RequestBody Post post) {
+    public Post newPost(@RequestBody Post post) {
         return postService.newPost(post);
     }
 

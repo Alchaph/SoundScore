@@ -19,9 +19,8 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public Long newPost(Post post) {
-        postRepository.save(post);
-        return post.getId();
+    public Post newPost(Post post) {
+        return postRepository.save(post);
     }
 
     public Post editPost(Post post) {
@@ -33,23 +32,26 @@ public class PostService {
         postRepository.delete(post);
         return post;
     }
+
     public Post getPost(Long id) {
         return postRepository.findById(id).orElseThrow();
     }
+
     public void likeOrDislikePost(Long id, boolean like) {
         Post post = postRepository.findById(id).orElseThrow();
         if (like) {
-            if (post.getLikes() != null){
+            if (post.getLikes() != null) {
                 post.setLikes(post.getLikes() + 1);
             } else {
                 post.setLikes(1L);
             }
         } else {
-            if (post.getDislikes() != null){
+            if (post.getDislikes() != null) {
                 post.setDislikes(post.getDislikes() + 1);
             } else {
                 post.setDislikes(1L);
-            }        }
+            }
+        }
         postRepository.save(post);
     }
 }

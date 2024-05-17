@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {User} from "../../models/User";
-import {ArtistServiceService} from "../../services/ArtistService/artist-service.service";
+import {ArtistService} from "../../services/ArtistService/artist.service";
 import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
 import {MatIcon} from "@angular/material/icon";
 
@@ -19,7 +19,7 @@ import {MatIcon} from "@angular/material/icon";
 })
 export class SettingsComponent implements OnInit {
   userForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistServiceService) {
+  constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService) {
     this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],

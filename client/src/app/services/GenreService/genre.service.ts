@@ -1,49 +1,49 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { Comment } from '../../models/Comment';
+import {Genre} from "../../models/Genre";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentService {
+export class GenreService {
 
   constructor(private http: HttpClient) {
   }
 
-  createComment(comment: Comment) {
-    return this.http.post('http://localhost:8080/api/comments/create', comment, {
+  createGenre(genre: Genre) {
+    return this.http.post('http://localhost:8080/api/genres/create', genre, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  updateComment(comment: Comment) {
-    return this.http.put('http://localhost:8080/api/comments/update', comment, {
+  updateGenre(genre: Genre) {
+    return this.http.put('http://localhost:8080/api/genres/update', genre, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  deleteComment(id: number) {
-    return this.http.delete('http://localhost:8080/api/comments/delete/' + id, {
+  deleteGenre(id: number) {
+    return this.http.delete('http://localhost:8080/api/genres/delete/' + id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  getCommentsOfPost(postId: number) {
-    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/'+postId, {
+  getGenres() {
+    return this.http.get<Genre[]>('http://localhost:8080/api/genres/get/all', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  getCommentById(id: number) {
-    return this.http.get<Comment>('http://localhost:8080/api/comments/get/' + id, {
+  getGenre(id: number) {
+    return this.http.get<Genre>('http://localhost:8080/api/genres/get/' + id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
