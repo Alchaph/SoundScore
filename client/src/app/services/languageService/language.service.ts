@@ -8,10 +8,7 @@ import {environment} from "../../../environments/environments";
 export class LanguageService {
 
   constructor() { }
-
   language = 'de'
-
-
   public getLanguages(): string[] {
     return environment.languages;
   }

@@ -1,20 +1,20 @@
 <div class="card-container">
-  <mat-card style="width: 50vw">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>{{ isRegister ? 'Register' : 'Login' }}</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
       <mat-card-content>
+        <mat-form-field>
+          <mat-label>Enter your email</mat-label>
+          <input formControlName="email" matInput>
+        </mat-form-field>
         @if (isRegister) {
           <mat-form-field>
             <mat-label>Enter your Username</mat-label>
             <input formControlName="username" matInput>
           </mat-form-field>
         }
-        <mat-form-field>
-          <mat-label>Enter your email</mat-label>
-          <input formControlName="email" matInput>
-        </mat-form-field>
         <mat-form-field>
           <mat-label>Enter your password</mat-label>
           <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput>
@@ -39,7 +39,7 @@
         <button color="primary" mat-raised-button
                 type="submit">{{ isRegister ? 'Register' : 'Login' }}
         </button>
-        <p (click)="changeForm()">{{ isRegister ? 'Bereits ein Konto?' : 'Noch kein Konto?' }}</p>
+        <p (click)="changeForm()">{{ isRegister ? 'Already registered?' : 'No Account?' }}</p>
       </mat-card-actions>
     </form>
   </mat-card>

@@ -14,7 +14,7 @@ export class LeaderBoardService {
   getLeaderBoard() :Observable<Post[]> {
     return this.http.get<Post[]>('http://localhost:8080/api/leaderboard/all', {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
@@ -22,7 +22,7 @@ export class LeaderBoardService {
   getLeaderBoardByGenre() {
     return this.http.get<Post[]>('http://localhost:8080/api/leaderboard/genre', {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
@@ -30,7 +30,7 @@ export class LeaderBoardService {
   getLeaderBoardByArtist() {
     return this.http.get<Post[]>('http://localhost:8080/api/leaderboard/artist', {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
@@ -38,7 +38,7 @@ export class LeaderBoardService {
   getLeaderBoardBySong() {
     return this.http.get<Post[]>('http://localhost:8080/api/leaderboard/song', {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }

@@ -1,49 +1,49 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { Comment } from '../../models/Comment';
+import {Song} from "../../models/Song";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentService {
+export class SongService {
 
   constructor(private http: HttpClient) {
   }
 
-  createComment(comment: Comment) {
-    return this.http.post('http://localhost:8080/api/comments/create', comment, {
+  createSong(song: Song) {
+    return this.http.post('http://localhost:8080/api/songs/create', song, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  updateComment(comment: Comment) {
-    return this.http.put('http://localhost:8080/api/comments/update', comment, {
+  updateSong(song: Song) {
+    return this.http.put('http://localhost:8080/api/songs/update', song, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  deleteComment(id: number) {
-    return this.http.delete('http://localhost:8080/api/comments/delete/' + id, {
+  deleteSong(id: number) {
+    return this.http.delete('http://localhost:8080/api/songs/delete/' + id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  getCommentsOfPost(postId: number) {
-    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/'+postId, {
+  getSongs() {
+    return this.http.get<Song[]>('http://localhost:8080/api/songs/get/all', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  getCommentById(id: number) {
-    return this.http.get<Comment>('http://localhost:8080/api/comments/get/' + id, {
+  getSong(id: number) {
+    return this.http.get<Song>('http://localhost:8080/api/songs/get/' + id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
