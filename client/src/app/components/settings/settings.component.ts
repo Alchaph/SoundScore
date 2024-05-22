@@ -5,6 +5,11 @@ import {User} from "../../models/User";
 import {ArtistServiceService} from "../../services/ArtistService/artist-service.service";
 import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
 import {MatIcon} from "@angular/material/icon";
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatButton} from "@angular/material/button";
+import {MatLabel} from "@angular/material/form-field";
+import {MatHint} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +17,12 @@ import {MatIcon} from "@angular/material/icon";
   imports: [
     HeadNavBarComponent,
     ReactiveFormsModule,
-    MatIcon
+    MatIcon,
+    MatFormField,
+    MatInput,
+    MatButton,
+    MatLabel,
+    MatHint
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'

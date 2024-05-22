@@ -1,45 +1,28 @@
+/* styles.css */
 .settings-container {
   max-width: 600px;
-  margin: 0 auto;
-  padding: 1em;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 20px;
 }
 
-form div {
-  margin-bottom: 1em;
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5em;
-}
-
-input {
-  width: 96.7%;
-  padding: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+.button-container {
+  display: flex;
+  justify-content: center;
 }
 
 button {
-  display: block;
-  width: 99%;
-  padding: 0.7em;
-  background-color: mediumseagreen;
-  border: none;
-  border-radius: 3px;
-  color: white;
-  font-size: 1em;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
+  width: 100%;
+  max-width: 200px;
 }
