@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {PostService} from "../../services/PostService/post.service";
 import {FormsModule} from "@angular/forms";
 import {CommentService} from "../../services/CommentService/comment.service";
@@ -10,6 +10,8 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-post',
@@ -19,7 +21,8 @@ import {MatIcon} from "@angular/material/icon";
     FormsModule,
     MatIconButton,
     MatIcon,
-    MatButton
+    MatButton,
+    RouterLink
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -38,6 +41,7 @@ export class PostComponent implements OnInit {
               private postService: PostService,
               private commentService: CommentService,
               private jwtService: JwtServiceService,
+              private location: Location
   ) {
     this.post = {} as Post;
     this.newComment = {} as Comment;
@@ -56,6 +60,10 @@ export class PostComponent implements OnInit {
     this.jwtService.getMe().subscribe((user) => {
       this.activeUser = user;
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   likePost(): void {
@@ -134,4 +142,6 @@ export class PostComponent implements OnInit {
       });
     }
   }
+
+  protected readonly parent = parent;
 }
