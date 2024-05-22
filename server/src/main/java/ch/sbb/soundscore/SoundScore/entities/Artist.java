@@ -1,9 +1,6 @@
 package ch.sbb.soundscore.SoundScore.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +14,13 @@ public class Artist {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(unique = true)
     private String name;
+
     private String description;
+
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
     public Artist(String image, String description, String name) {

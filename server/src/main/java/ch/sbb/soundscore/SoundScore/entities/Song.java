@@ -14,8 +14,12 @@ public class Song {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(unique = true)
     private String title;
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
+    @Column(columnDefinition = "LONGTEXT")
     private String link;
     @ManyToOne
     private Genre genre;

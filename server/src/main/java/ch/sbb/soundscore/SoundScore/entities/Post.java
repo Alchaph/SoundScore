@@ -16,6 +16,7 @@ public class Post {
     private Long id;
     private String title;
     private String content;
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
     private Long likes;
     private Long dislikes;

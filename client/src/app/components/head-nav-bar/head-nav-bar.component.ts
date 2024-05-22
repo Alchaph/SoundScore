@@ -64,7 +64,7 @@ export class HeadNavBarComponent implements OnInit {
 
   logout() {
     this.router.navigate(['']);
-    sessionStorage.clear();
+    localStorage.clear();
   }
 
   ngOnInit(): void {

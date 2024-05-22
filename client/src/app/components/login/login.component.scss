@@ -1,0 +1,22 @@
+
+
+.card-container{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-card-content{
+    display: flex;
+    flex-direction: column;
+  }
+  mat-card-actions{
+    display: flex;
+    justify-content: space-between;
+    color: #99c3ff;
+  }
+  p:hover{
+    cursor: pointer;
+  }
+}
+
+

@@ -1,0 +1,97 @@
+<app-head-nav-bar></app-head-nav-bar>
+<button mat-button color="primary" (click)="goBack()">❮ Go Back</button>
+@if (post) {
+  <div class="post-container">
+    @if (post.image) {
+      <img [src]="post.image" alt="{{post.title}}" class="post-image">
+    } @else {
+      <img
+        src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg"
+        alt="Placeholder Image" class="post-image">
+    }
+    <div class="post-content">
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.content }}</p>
+      <div class="post-meta">
+        <span>By {{ post.user.username }}</span>
+        <div  class="like-dislike-container">
+          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>
+          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
+          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>
+        </div>
+      </div>
+      @if (post.genre || post.artist || post.song) {
+        <div class="post-tags">
+          @if (post.genre) {
+            <span>Genre: {{ post.genre.name }}</span>
+          }
+          @if (post.artist) {
+            <span>Artist: {{ post.artist.name }}</span>
+          }
+          @if (post.song) {
+            <span>Song: {{ post.song.title }}</span>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="comments-section">
+
+    <h2>Comments</h2>
+    @for (comment of comments; track $index) {
+      <div class="comment">
+        <div class="comment-content" style="width: 90%">
+          <h3>{{ comment.title }}</h3>
+          <p>{{ comment.message }}</p>
+        </div>
+        <div class="comment-actions">
+          <div class="comment-owner-actions">
+            @if (comment.user.id === activeUser.id && comment.id) {
+              <mat-icon (click)="currentAction = 'Edit your'; focusedComment = comment" class="comment-icon">edit
+              </mat-icon>
+              <mat-icon (click)="deleteComment(comment)" class="comment-icon">delete</mat-icon>
+
+            }
+          </div>
+          <mat-icon (click)="currentAction='Reply to'; focusedComment = comment" class="comment-icon">reply</mat-icon>
+        </div>
+      </div>
+      @for (reply of replies; track $index) {
+        @if (reply.comment && reply.comment.id === comment.id) {
+          <div class="reply">
+            <div class="reply-icon">
+              <mat-icon>subdirectory_arrow_right</mat-icon>
+            </div>
+            <div class="comment reply-comment">
+              <div class="comment-content" style="width: 90%">
+                <h3>{{ reply.title }}</h3>
+                <p>{{ reply.message }}</p>
+              </div>
+              <div class="comment-actions">
+                <div class="comment-owner-actions">
+                  @if (reply.user.id === activeUser.id && reply.id) {
+                    <mat-icon (click)="currentAction = 'Edit your'; focusedComment = reply" class="comment-icon">edit
+                    </mat-icon>
+                    <mat-icon (click)="deleteComment(reply)" class="comment-icon">delete</mat-icon>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        }
+      }
+    }
+    <div class="comment-form">
+      <h3>{{ currentAction }} a Comment</h3>
+      <input type="text" placeholder="Title" [(ngModel)]="newComment.title">
+      <textarea placeholder="Message" [(ngModel)]="newComment.message"></textarea>
+      <button (click)="handleAction()">Submit</button>
+      @if (currentAction !== 'Add') {
+        <button (click)="currentAction = 'Add'">Cancel</button>
+      }
+    </div>
+  </div>
+}
