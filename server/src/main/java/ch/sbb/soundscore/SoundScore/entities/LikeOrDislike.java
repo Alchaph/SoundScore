@@ -6,32 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "likes_and_dislikes")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Comment {
+public class LikeOrDislike {
     @Id
     @GeneratedValue
     private Long id;
-
-    private String title;
-    private String message;
-
     @ManyToOne
     private Post post;
-
     @ManyToOne
     private User user;
+    private boolean isLike;
 
-    @ManyToOne()
-    private Comment comment;
-
-    public Comment(String title, String message, Post post, User user, Comment comment) {
-        this.title = title;
-        this.message = message;
+    public LikeOrDislike(Post post, User user, boolean isLike) {
         this.post = post;
         this.user = user;
-        this.comment = comment;
+        this.isLike = isLike;
     }
 }

@@ -1,7 +1,10 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
 import ch.sbb.soundscore.SoundScore.entities.Post;
+import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.PostService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class PostController {
         return postService.getPost(id);
     }
     @PostMapping("/create")
-    public Long newPost(@RequestBody Post post) {
+    public Post newPost(@RequestBody Post post) {
         return postService.newPost(post);
     }
 
@@ -35,13 +38,15 @@ public class PostController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Post deletePost(@PathVariable int id) {
+    public Post deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
     }
 
     @PostMapping("/like/{id}")
-    public void likeOrDislikePost(@PathVariable Long id, @RequestBody boolean like) {
-        postService.likeOrDislikePost(id, like);
+    public boolean likeOrDislikePost(@PathVariable Long id, @RequestBody boolean like) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return postService.likeOrDislikePost(id, like, currentUser);
     }
 
 }

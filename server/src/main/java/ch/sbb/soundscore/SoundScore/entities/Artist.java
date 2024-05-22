@@ -20,6 +20,7 @@ public class Artist {
 
     private String description;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
     public Artist(String image, String description, String name) {

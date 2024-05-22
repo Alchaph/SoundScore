@@ -1,111 +1,148 @@
 import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {PostService} from "../../services/PostService/post.service";
 import {FormsModule} from "@angular/forms";
 import {CommentService} from "../../services/CommentService/comment.service";
-import { Comment } from '../../models/Comment';
+import {Comment} from '../../models/Comment';
+import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {User} from "../../models/User";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-post',
   standalone: true,
   imports: [
     HeadNavBarComponent,
-    FormsModule
+    FormsModule,
+    MatIconButton,
+    MatIcon,
+    MatButton,
+    RouterLink
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
 export class PostComponent implements OnInit {
-  post: Post | undefined;
-  comments: Comment[] = [];
-  //TODO add user id and comment id
-  postId = Number(this.route.snapshot.paramMap.get('postId'));
+  post: Post;
+  comments: Comment[] = []
+  replies: Comment[] = []
+  newComment: Comment;
+  activeUser: User;
+  postId: number = Number(this.route.snapshot.paramMap.get('postId'));
+  currentAction: 'Add' | 'Edit your' | 'Reply to' = 'Add';
+  focusedComment?: Comment;
 
-  //TODO MAKE IT WORK
-  newComment: Comment = {title: '', message: '', post: {
-  id: 1,
-  likes: 10,
-  dislikes: 2,
-  title: 'Mock Post 1',
-  content: 'This is the content for Mock Post 1',
-  image: 'https://th.bing.com/th/id/OIP.CzLbCJ3jBeiNRJ1hPyeG2gHaHP?w=174&h=180&c=7&r=0&o=5&pid=1.7',
-  user: {
-    id: 1,
-    username: 'testUser1',
-    email: 'test1@example.com',
-    password: 'testPassword1',
-    created_at: new Date('2022-01-01'),
-    updated_at: new Date('2022-01-01'),
-    enabled: true,
-    authorities: [],
-    accountNonLocked: true,
-    credentialsNonExpired: true,
-    accountNonExpired: true,
-  },
-  genre: {
-    id: 1,
-    name: 'Genre 1',
-    description: 'This is Genre 1'
-  },
-  artist: {
-    id: 1,
-    name: 'testArtist1',
-    description: 'This is test artist 1',
-    image: 'https://example.com/artist1.jpg'
-  },
-  song: {
-    id: 1,
-    title: 'Song 1',
-    image: 'https://example.com/song1.jpg',
-    link: 'https://example.com/song1.mp3',
-    genre: {
-      id: 1,
-      name: 'Genre 1',
-      description: 'This is Genre 1'
-    },
-    artist: {
-      id: 1,
-      name: 'testArtist1',
-      description: 'This is test artist 1',
-      image: 'https://example.com/artist1.jpg'
-    }
-}
-    }, user: {
-      id: 1,
-      username: 'testUser1',
-      email: 'test1@example.com',
-      password: 'testPassword1',
-      created_at: new Date('2022-01-01'),
-      updated_at: new Date('2022-01-01'),
-      enabled: true,
-      authorities: [],
-      accountNonLocked: true,
-      credentialsNonExpired: true,
-      accountNonExpired: true,
-    } }
-  constructor(private route: ActivatedRoute, private postService: PostService, private commentService : CommentService) { }
+
+  constructor(private route: ActivatedRoute,
+              private postService: PostService,
+              private commentService: CommentService,
+              private jwtService: JwtServiceService,
+              private location: Location
+  ) {
+    this.post = {} as Post;
+    this.newComment = {} as Comment;
+    this.activeUser = {} as User;
+  }
+
 
   ngOnInit(): void {
-    console.log(this.newComment)
     this.postService.getPost(this.postId).subscribe((post) => {
       this.post = post;
     });
     this.commentService.getCommentsOfPost(this.postId).subscribe((comments) => {
-      this.comments = comments;
-      console.log(comments)
+      this.comments = comments.filter(c => !c.comment);
+      this.replies = comments.filter(c => c.comment);
+    });
+    this.jwtService.getMe().subscribe((user) => {
+      this.activeUser = user;
     });
   }
-  addComment(): void {
+
+  goBack() {
+    this.location.back();
+  }
+
+  likePost(): void {
+    this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
+      if (data) {
+        this.post.likes++;
+      } else {
+        this.post.likes--;
+      }
+    });
+  }
+
+  dislikePost(): void {
+    this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
+      if (data) {
+        this.post.dislikes++;
+      } else {
+        this.post.dislikes--;
+      }
+    });
+  }
+
+  handleAction(): void {
     if (!this.newComment.title || !this.newComment.message) {
       return;
     }
-    //TODO add user id
+    this.newComment.post = this.post;
+    this.newComment.user = this.activeUser;
+    if (this.currentAction === 'Add') {
+      this.addComment();
+    } else if (this.currentAction === 'Edit your') {
+      if (this.focusedComment) {
+        this.newComment.comment = this.focusedComment.comment;
+      }
+      this.editComment();
+    }
+    if (this.currentAction === 'Reply to') {
+      this.replyToComment();
+    }
+    this.newComment = {} as Comment;
+    this.focusedComment = undefined;
+    this.currentAction = 'Add';
+  }
+
+  addComment(): void {
     this.commentService.createComment(this.newComment).subscribe(comment => {
-      this.comments.push(<Comment>comment);
-      this.newComment.title = '';
-      this.newComment.message = '';
+      if (comment.comment) {
+        this.replies.push(<Comment>comment);
+      } else {
+        this.comments.push(<Comment>comment);
+      }
     });
+  }
+
+  replyToComment(): void {
+    this.newComment.comment = this.focusedComment;
+    this.commentService.createComment(this.newComment).subscribe(comment => {
+      this.replies.push(<Comment>comment);
+    });
+  }
+
+  editComment(): void {
+    if (this.focusedComment && this.focusedComment.id) {
+      this.newComment.id = this.focusedComment.id;
+      this.commentService.updateComment(this.newComment).subscribe(comment => {
+        this.comments = this.comments.map(c => c.id === comment.id ? comment : c);
+        this.replies = this.replies.map(c => c.id === comment.id ? comment : c);
+      });
+    }
+  }
+
+
+  deleteComment(comment: Comment): void {
+    if (comment.id) {
+      this.commentService.deleteComment(comment.id).subscribe(() => {
+        this.comments = this.comments.filter(c => c.id !== comment.id);
+        this.replies = this.replies.filter(c => c.id !== comment.id);
+      });
+    }
   }
 }

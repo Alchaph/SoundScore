@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Post} from "../../models/Post";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,10 @@ import {Post} from "../../models/Post";
 export class PostService {
   constructor(private http: HttpClient) {
   }
-  createPost(post: Post) {
-    return this.http.post('http://localhost:8080/api/posts/create', post, {
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>('http://localhost:8080/api/posts/create', post, {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
@@ -27,7 +28,7 @@ export class PostService {
   getPosts() {
     return this.http.get<Post[]>('http://localhost:8080/api/posts/get/all', {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
@@ -35,8 +36,16 @@ export class PostService {
   getPost(id: number) {
     return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id, {
       headers: {
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
+  }
+  likeOrDislikePost(post: Post, like: boolean) {
+    return this.http.post('http://localhost:8080/api/posts/like/' + post.id, like , {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+
   }
 }
