@@ -1416,11 +1416,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
-      console.log(data)
+      // console.log(data)
       this.posts = data;
       for (let i = 0; i < data.length; i++) {
         if (i < 5) {
-          console.log(i)
+          // console.log(i)
           this.visiblePostsArtist.push(data[i]);
         } else {
           this.invisiblePostsArtist.push(data[i]);
@@ -1430,7 +1430,7 @@ export class HomeComponent implements OnInit {
   }
 
   leftSlideArtist() {
-    console.log("Right Slide")
+    // console.log("Right Slide")
     const post = this.invisiblePostsArtist[0];
     this.invisiblePostsArtist.shift();
     this.visiblePostsArtist.unshift(post);
@@ -1441,7 +1441,7 @@ export class HomeComponent implements OnInit {
   }
 
   rightSlideArtist() {
-    console.log("Left Slide")
+    // console.log("Left Slide")
     const post = this.invisiblePostsArtist[this.invisiblePostsArtist.length - 1];
     this.invisiblePostsArtist.pop();
     this.visiblePostsArtist.push(post);
@@ -1452,7 +1452,7 @@ export class HomeComponent implements OnInit {
   }
 
     leftSlideGenre() {
-      console.log("Right Slide")
+      // console.log("Right Slide")
       const post = this.invisiblePostsGenre[0];
       this.invisiblePostsGenre.shift();
       this.visiblePostsGenre.unshift(post);
@@ -1463,7 +1463,7 @@ export class HomeComponent implements OnInit {
     }
 
     rightSlideGenre() {
-      console.log("Left Slide")
+      // console.log("Left Slide")
       const post = this.invisiblePostsGenre[this.invisiblePostsGenre.length - 1];
       this.invisiblePostsGenre.pop();
       this.visiblePostsGenre.push(post);
@@ -1474,7 +1474,7 @@ export class HomeComponent implements OnInit {
     }
 
       leftSlideSong() {
-        console.log("Right Slide")
+        // console.log("Right Slide")
         const post = this.invisiblePostsSong[0];
         this.invisiblePostsSong.shift();
         this.visiblePostsSong.unshift(post);
