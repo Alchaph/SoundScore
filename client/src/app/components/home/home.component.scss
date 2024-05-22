@@ -12,6 +12,9 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+.slide {
+  transition: transform 0.5s ease-out;
+}
 #titles {
   display: flex;
   width: 80%;
