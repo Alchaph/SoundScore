@@ -17,6 +17,7 @@ import {Post} from "../../models/Post";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {PostService} from "../../services/PostService/post.service";
 import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-post',
@@ -61,13 +62,18 @@ export class AddPostComponent implements AfterViewInit {
     imageUrl: new FormControl(''),
     songOrGenreOrArtist: new FormControl<Song | Artist | Genre | null>(null)
   })
+  imageType: string = "Image";
+  gifSearchString: string = ""
+  tenorKey: string = " AIzaSyB2mAvrM-f9yduZfFsVgysJnX5ATx1zon0"
+  gifs: { id: number, title: string, media_formats: { gif: { url: string } } }[] = []
 
   constructor(private songService: SongService,
               private genreService: GenreService,
               private artistService: ArtistService,
               private jwtService: JwtServiceService,
               private postService: PostService,
-              private router: Router) {
+              private router: Router,
+              private http: HttpClient) {
     this.songService.getSongs().subscribe(data => this.allSongs = data)
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.artistService.getArtists().subscribe(data => this.allArtists = data)
@@ -78,9 +84,19 @@ export class AddPostComponent implements AfterViewInit {
       const imgElement: HTMLImageElement = this.uploadedImage.nativeElement;
       this.imageHeight = imgElement.height
       this.imageWidth = imgElement.width
-      console.log(this.imageHeight, this.imageWidth)
     }
   }
+
+
+  searchGif(): void {
+    this.http.get<{
+      results: { id: number, title: string, media_formats: { gif: { url: string } } }[]
+    }>(`https://tenor.googleapis.com/v2/search?q=${this.gifSearchString}&key=${this.tenorKey}&client_key=my_test_app&limit=8`).subscribe(data => {
+      this.gifs = data.results
+      this.formGroup.controls.imageUrl.setValue(this.gifs[0].media_formats.gif.url)
+    })
+  }
+
 
   createPost(): void {
     this.jwtService.getMe().subscribe(data => {
@@ -96,6 +112,4 @@ export class AddPostComponent implements AfterViewInit {
       this.postService.createPost(newPost).subscribe((data) => this.router.navigate(['/home/post/' + data.id]))
     })
   }
-
-  protected readonly innerHeight = innerHeight;
 }

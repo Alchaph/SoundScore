@@ -37,6 +37,7 @@ export class PostComponent implements OnInit {
   currentAction: 'Add' | 'Edit your' | 'Reply to' = 'Add';
   focusedComment?: Comment;
 
+
   constructor(private route: ActivatedRoute,
               private postService: PostService,
               private commentService: CommentService,
@@ -67,23 +68,25 @@ export class PostComponent implements OnInit {
   }
 
   likePost(): void {
-    this.postService.likeOrDislikePost(this.post, true).subscribe((data) =>{
+    this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
       if (data) {
         this.post.likes++;
-      }else {
+      } else {
         this.post.likes--;
       }
     });
   }
+
   dislikePost(): void {
-    this.postService.likeOrDislikePost(this.post, false).subscribe((data) =>{
+    this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
       if (data) {
         this.post.dislikes++;
-      }else {
+      } else {
         this.post.dislikes--;
       }
     });
   }
+
   handleAction(): void {
     if (!this.newComment.title || !this.newComment.message) {
       return;
@@ -142,6 +145,4 @@ export class PostComponent implements OnInit {
       });
     }
   }
-
-  protected readonly parent = parent;
 }
