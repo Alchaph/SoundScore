@@ -14,14 +14,30 @@
         <input formControlName="content" matInput>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Image Url</mat-label>
-        <input formControlName="imageUrl" matInput>
+        <mat-label>Image Type</mat-label>
+        <mat-select [(ngModel)]="imageType" [ngModelOptions]="{standalone: true}" name="imageType" value="Image">
+          <mat-option [value]="'Image'">Image</mat-option>
+          <mat-option [value]="'Gif'">Gif</mat-option>
+        </mat-select>
       </mat-form-field>
-      <img #uploadedImage
-           [src]="formGroup.controls.imageUrl.value"
-           alt="No image :(" mat-card-image>
+      @if (imageType === 'Gif') {
+        <mat-form-field>
+          <mat-label>Search for Gifs</mat-label>
+          <input (input)="searchGif()" [(ngModel)]="gifSearchString" [ngModelOptions]="{standalone: true}"
+                 name="gifSearchString" matInput>
+        </mat-form-field>
+        @if (gifSearchString) {
+          <img class="gif-preview"  [src]="gifs[0].media_formats.gif.url" mat-card-image>
+        }
+      } @else {
+        <mat-form-field>
+          <mat-label>Image Url</mat-label>
+          <input formControlName="imageUrl" matInput>
+        </mat-form-field>
+        <img #uploadedImage [src]="formGroup.controls.imageUrl.value" mat-card-image>
+      }
       <mat-form-field>
-        <mat-label>Type</mat-label>
+        <mat-label>Post Type</mat-label>
         <mat-select [(ngModel)]="showedType" [ngModelOptions]="{standalone: true}" name="showedType">
           <mat-option [value]="'Song'">Song</mat-option>
           <mat-option [value]="'Genre'">Genre</mat-option>
