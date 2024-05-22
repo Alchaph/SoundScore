@@ -62,11 +62,11 @@ public class PostService {
             if (post.getDislikes() != null) {
                 if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
                     likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
-                    post.setLikes(post.getLikes() - 1);
+                    post.setDislikes(post.getDislikes() - 1);
                 } else {
                     likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
                     added = true;
-                    post.setLikes(post.getLikes() + 1);
+                    post.setDislikes(post.getDislikes() + 1);
                 }            } else {
                 post.setDislikes(1L);
             }
