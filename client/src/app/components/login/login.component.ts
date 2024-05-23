@@ -17,6 +17,7 @@ import {MatIcon} from "@angular/material/icon";
 import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,8 @@ import {Router} from "@angular/router";
     MatHint,
     MatError,
     NgxMatInputTelComponent,
-    FormsModule
+    FormsModule,
+    TranslateModule
 
   ],
   templateUrl: './login.component.html',
@@ -78,10 +80,7 @@ export class LoginComponent {
   register() {
     if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
       this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe((data) => {
-        this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
-          sessionStorage.setItem('token', data.token);
-          this.router.navigate(['/home']);
-        });
+        this.login();
       });
     }
   }
@@ -89,7 +88,7 @@ export class LoginComponent {
   login() {
     if (this.registerForm.controls.password.valid && this.registerForm.controls.email.valid) {
       this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
-        sessionStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
         this.router.navigate(['/home']);
       });
     }
