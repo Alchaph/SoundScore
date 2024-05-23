@@ -44,6 +44,13 @@
   padding: 10px;
   overflow-x: hidden;
 }
+.content2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+}
 .middle {
   display: flex;
   flex-direction: row;
@@ -51,6 +58,19 @@
   align-items: center;
   align-content: center;
   width: 100%;
+}
+.middle2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  overflow-x: hidden;
+  align-items: center;
+  margin-left: -10px;
+}
+.invisibleButton {
+  display: none;
 }
 .all {
   display: flex;
@@ -68,6 +88,10 @@
 }
 #slide {
   width: 100%;
+}
+
+.slide {
+  transition: transform 0.5s ease-in-out;
 }
 
 .post-card {
