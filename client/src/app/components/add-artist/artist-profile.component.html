@@ -1,0 +1,42 @@
+<app-head-nav-bar>
+</app-head-nav-bar>
+<body>
+  @if (user && user.artist) {
+    <h1>Your Songs</h1>
+    <div class="posts-container">
+      @for (song of artistSongs; track $index) {
+        <div class="post-card">
+          @if (song.image) {
+            <img [src]="song.image" alt="{{song.title}}" class="post-image">
+          }
+          <div class="post-content">
+            <h3 mat-line (click)="openLink(song?.link)">{{ song.title }}
+              <span>By {{ user.artist.name }}</span>
+            </h3>
+            <div class="post-meta">
+            </div>
+            <p>{{ song.genre.name }}</p>
+            <span>Genre: {{ song.genre.description }}</span>
+            <span class="actions-container">
+              <button mat-icon-button (click)="openLink(song?.link)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="openLink(song?.link)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (user) {
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Artist Registration</mat-card-title>
+        <p>Register as an artist to upload your music
+         <br> and get discovered by fans.</p>
+        <button mat-raised-button color="primary" routerLink="/artist-registration">Register as Artist</button>
+      </mat-card-content>
+    </mat-card>
+  }
+</body>

@@ -60,9 +60,15 @@ export class SettingsComponent implements OnInit {
   }
   onUserSettingsSubmit(): void {
     if (this.userForm.invalid || this.userForm.value.password !== this.userForm.value.confirmPassword) {
+      console.error("Invalid form or passwords dont match");
       return;
     }
-    this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.password).subscribe(() => {
+    this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.password).subscribe((response) => {
+      console.log(response)
+      if (response === false) {
+        console.error("old Password is incorrect");
+        return;
+      }
       this.jwtService.getMe().subscribe((user: User) => {
         user.email = this.userForm.value.email;
         user.password = this.userForm.value.password;

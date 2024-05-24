@@ -5,7 +5,6 @@ import ch.sbb.soundscore.SoundScore.dtos.RegisterArtistDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.entities.Artist;
-import ch.sbb.soundscore.SoundScore.repositories.ArtistRepositories;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -64,8 +63,8 @@ public class AuthenticationService {
         return artistRepository.save(artist);
     }
     public boolean verifyPassword(String email, String password) {
-        return passwordEncoder.matches(password, userRepository.findByEmail(email)
-                .map(User::getPassword)
-                .orElseThrow());
+//        System.out.println(userRepository.findByEmail(email).map(User::getPassword).orElseThrow());
+//        System.out.println(passwordEncoder.encode(password));
+        return passwordEncoder.encode(password).equals(userRepository.findByEmail(email).map(User::getPassword).orElseThrow());
     }
 }
