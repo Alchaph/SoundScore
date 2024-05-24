@@ -3,6 +3,11 @@
   <div id="top">
     <mat-tab-group id="slide" (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Artist">
+        @if (visiblePosts.length == 0) {
+          <div class="no-posts">
+            <h1 class="no-posts-text">No Posts Found</h1>
+          </div>
+        }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
             <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
@@ -40,9 +45,19 @@
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
+        </div>
+        <div class="button">
+          <button class="Btn" [routerLink]="['addPost']">
+            <mat-icon>add</mat-icon>
+          </button>
         </div>
       </mat-tab>
       <mat-tab label="Genre">
+        @if (visiblePosts.length == 0) {
+          <div class="no-posts">
+            <h1 class="no-posts-text">No Posts Found</h1>
+          </div>
+        }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
             <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
@@ -81,8 +96,18 @@
             </button>
           </div>
         </div>
+        <div class="button">
+          <button class="Btn" [routerLink]="['addPost']">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
       </mat-tab>
       <mat-tab label="Song">
+        @if (visiblePosts.length == 0) {
+          <div class="no-posts">
+            <h1 class="no-posts-text">No Posts Found</h1>
+          </div>
+        }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
             <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
@@ -121,13 +146,13 @@
             </button>
           </div>
         </div>
+        <div class="button">
+          <button class="Btn" [routerLink]="['addPost']">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
       </mat-tab>
     </mat-tab-group>
-  </div>
-  <div id="button">
-    <button mat-fab color="primary" id="addButton" [routerLink]="['addPost']">
-      <mat-icon>add</mat-icon>
-    </button>
   </div>
   <div id="bottom">
   </div>
