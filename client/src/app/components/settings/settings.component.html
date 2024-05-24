@@ -30,8 +30,8 @@
           <mat-hint>Choose a strong password</mat-hint>
         </mat-form-field>
 
-        <div class="button-container">
-          <button mat-raised-button color="primary" type="submit">Save</button>
+        <div class="button-container" >
+          <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Save</button>
         </div>
       </form>
     </div>
@@ -40,8 +40,6 @@
     <div class="settings-container mat-elevation-z8">
       <h2>Artist Settings</h2>
       <form [formGroup]="userForm" (ngSubmit)="onUserSettingsSubmit()">
-
-
         <div class="button-container">
           <button mat-raised-button color="primary" type="submit">Save</button>
         </div>

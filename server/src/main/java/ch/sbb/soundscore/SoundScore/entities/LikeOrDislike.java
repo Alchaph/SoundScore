@@ -17,6 +17,7 @@ public class LikeOrDislike {
     @GeneratedValue
     private Long id;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
