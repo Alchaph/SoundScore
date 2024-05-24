@@ -67,8 +67,8 @@ export class AddPostComponent implements AfterViewInit, OnInit {
     imageUrl: FormControl,
     songOrGenreOrArtist: FormControl<Song | Artist | Genre | null>
   }> = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-    content: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+    content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]),
     imageUrl: new FormControl(''),
     songOrGenreOrArtist: new FormControl<Song | Artist | Genre | null>(null, [Validators.required])
   })
