@@ -127,6 +127,7 @@ export class HomeComponent implements OnInit {
   leftSlide() {
     const post = this.invisiblePosts[0];
     const postsContainer = document.querySelector('.posts-container') as HTMLElement;
+    console.log(postsContainer)
     if (postsContainer) {
       postsContainer.classList.add('slide');
       postsContainer.style.transform = 'translateX(+320px)';
