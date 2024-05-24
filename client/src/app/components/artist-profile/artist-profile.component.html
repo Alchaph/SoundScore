@@ -1,5 +1,4 @@
-<app-head-nav-bar>
-</app-head-nav-bar>
+<app-head-nav-bar></app-head-nav-bar>
 <body>
   @if (artist) {
     <h1>{{ artist.name }}'s Songs</h1>
@@ -38,10 +37,10 @@
         <button mat-raised-button color="primary" routerLink="/artist-registration">Register as Artist</button>
       </mat-card-content>
     </mat-card>
-  } @else if (artist && user && user.artist && user.artist.id && user.artist.id !== artist.id) {
+  } @else if (artist && user && user.artist && user.artist.id && user.artist.id !== artist) {
     <mat-card>
       <mat-card-content>
-        <mat-card-title>Quiet here</mat-card-title>
+        <mat-card-title>Quiet here</mat-card-title>1
         <p>This Artist hasn't uploaded yet
         </p>
       </mat-card-content>

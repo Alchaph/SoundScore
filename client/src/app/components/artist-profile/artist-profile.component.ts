@@ -1,3 +1,4 @@
+import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Component} from "@angular/core";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
@@ -7,7 +8,6 @@ import {MatLine} from "@angular/material/core";
 import {User} from "../../models/User";
 import {Artist} from "../../models/Artist";
 import {Song} from "../../models/Song";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {SongService} from "../../services/SongService/song.service";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
@@ -17,7 +17,6 @@ import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
   selector: 'app-add-artist',
   standalone: true,
   imports: [
-    HeadNavBarComponent,
     MatCard,
     MatCardContent,
     MatCardTitle,
@@ -26,7 +25,7 @@ import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
     MatIcon,
     MatLine,
     MatIconButton,
-    HeadNavBarComponent
+    HeadNavBarComponent,
   ],
   templateUrl: './artist-profile.component.html',
   styleUrl: './artist-profile.component.ts'
