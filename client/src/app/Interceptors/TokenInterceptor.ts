@@ -1,4 +1,4 @@
-import {HttpInterceptorFn} from "@angular/common/http";
+import { HttpInterceptorFn } from "@angular/common/http";
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const methods = ['GET', 'POST', 'PUT', 'DELETE'];
