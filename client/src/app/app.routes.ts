@@ -8,6 +8,7 @@ import {SettingsComponent} from "./components/settings/settings.component";
 import {UsersPostsComponent} from "./components/users-posts/users-posts.component";
 import {EditPostComponent} from "./components/edit-post/edit-post.component";
 import {PostComponent} from "./components/post/post.component";
+import {AddArtistComponent} from "./components/add-artist/add-artist.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -19,4 +20,5 @@ export const routes: Routes = [
   { path: 'home/settings', component: SettingsComponent },
   { path: 'home/usersPosts', component: UsersPostsComponent },
   { path: 'home/usersPosts/editPost', component: EditPostComponent },
+  { path: 'home/addArtist', component: AddArtistComponent },
 ];
