@@ -5,7 +5,6 @@ import ch.sbb.soundscore.SoundScore.dtos.RegisterArtistDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.entities.Artist;
-import ch.sbb.soundscore.SoundScore.repositories.ArtistRepositories;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
