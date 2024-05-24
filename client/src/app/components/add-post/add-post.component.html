@@ -73,7 +73,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <button color="primary" mat-raised-button>{{ post ? 'Edit' : 'Create' }} Post</button>
+      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ post ? 'Edit' : 'Create' }} Post</button>
     </form>
   </mat-card-content>
 </div>

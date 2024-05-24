@@ -59,12 +59,4 @@ export class JwtServiceService {
       }
     });
   }
-
-  public deleteUser() {
-    return this.http.delete('http://localhost:8080/users/delete', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
-  }
 }
