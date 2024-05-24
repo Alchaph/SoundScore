@@ -35,6 +35,23 @@
     }
   }
 }
+.neon {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: .1em;
+  color: white;
+  text-shadow: 0 0 5px white,
+  0 0 10px white,
+  0 0 20px white,
+  0 0 40px white,
+  0 0 60px white,
+  0 0 90px white,
+  0 0 120px white,
+  0 0 160px white;
+}
 .bg {
   width: 100%;
   height: 9%;
