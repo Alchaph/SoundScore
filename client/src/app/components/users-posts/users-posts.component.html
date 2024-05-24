@@ -1,11 +1,12 @@
 <app-head-nav-bar></app-head-nav-bar>
 <div class="posts-container">
-  @for (post of posts; track $index){
-    <div class="post-card" [routerLink]="['/home/post/',post.id]">
-      @if (post.image){
-        <img [src]="post.image" alt="{{post.title}}" class="post-image">
-      }@else {
-        <img src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg" alt="Placeholder Image" class="post-image">
+  @for (post of posts; track $index) {
+    <div class="post-card">
+      @if (post.image) {
+        <img [routerLink]="['/home/post/',post.id]" [src]="post.image" alt="{{post.title}}" class="post-image">
+      } @else {
+        <img src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg" alt="Placeholder Image"
+             class="post-image">
       }
       <div class="post-content">
         <h2>{{ post.title }}</h2>
@@ -14,11 +15,21 @@
           <span>By {{ post.user.username }}</span>
           <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
         </div>
-        @if (post.genre || post.artist || post.song){
-          <div class="post-tags">
-            @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-            @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-            @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+        @if ((post.genre || post.artist || post.song) && post.id) {
+          <div class="post-meta">
+            @if (post.genre) {
+              <span>Genre: {{ post.genre.name }}</span>
+            }
+            @if (post.artist) {
+              <span>Artist: {{ post.artist.name }}</span>
+            }
+            @if (post.song) {
+              <span>Song: {{ post.song.title }}</span>
+            }
+            <span class="actions-container">
+              <mat-icon (click)="deletePost(post)">delete</mat-icon>
+              <mat-icon [routerLink]="['/home/addPost']" [queryParams]="{post: JSON.stringify(post)}">edit</mat-icon>
+            </span>
           </div>
         }
       </div>
