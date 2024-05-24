@@ -10,9 +10,6 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatLabel} from "@angular/material/form-field";
 import {MatHint} from "@angular/material/form-field";
-import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {MatIconModule} from "@angular/material/icon";
-import {MatSuffix} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-settings',
@@ -25,23 +22,17 @@ import {MatSuffix} from "@angular/material/form-field";
     MatInput,
     MatButton,
     MatLabel,
-    MatHint,
-    MatTabGroup,
-    MatTab,
-    MatIconModule,
-    MatSuffix
+    MatHint
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
   userForm: FormGroup;
-  hide = true;
   constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService) {
     this.userForm = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       artistName: [''],
       artistGenre: ['']
@@ -51,23 +42,16 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.jwtService.getMe().subscribe((user: User) => {
       this.userForm.patchValue({
+        username: user.username,
+        password: user.password,
         email: user.email,
         artistName: user.artist?.name ?? "",
         artistGenre: user.artist?.description ?? ""
       });
     });
   }
-  onUserSettingsSubmit(): void {
-    if (this.userForm.invalid || this.userForm.value.password !== this.userForm.value.confirmPassword) {
-      return;
-    }
-    this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.password).subscribe(() => {
-      this.jwtService.getMe().subscribe((user: User) => {
-        user.email = this.userForm.value.email;
-        user.password = this.userForm.value.password;
-        this.jwtService.updateUser(user).subscribe();
-      });
-    });
+  onSubmit(): void {
+
   }
 
 }
