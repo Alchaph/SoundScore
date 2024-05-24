@@ -16,15 +16,19 @@
   display: flex;
   flex-direction: column;
 }
+
 .post-card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 
 .post-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
+}
+
+.post-image:hover {
+  cursor: pointer;
 }
 
 .post-content {
@@ -57,4 +61,14 @@
 
 .post-tags span {
   display: block;
+}
+
+.actions-container {
+  width: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-icon {
+  cursor: pointer;
 }
