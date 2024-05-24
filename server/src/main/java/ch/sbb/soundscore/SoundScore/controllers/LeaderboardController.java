@@ -1,9 +1,6 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
-import ch.sbb.soundscore.SoundScore.entities.Genre;
 import ch.sbb.soundscore.SoundScore.entities.Post;
-import ch.sbb.soundscore.SoundScore.entities.Song;
 import ch.sbb.soundscore.SoundScore.services.LeaderboardService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +19,17 @@ public class LeaderboardController {
     }
 
     @GetMapping("/song")
-    public List<Song> getSongRanking() {
+    public List<Post> getSongRanking() {
         return leaderboardService.getSongRanking();
     }
 
     @GetMapping("/genre")
-    public List<Genre> getGenreRanking() {
+    public List<Post> getGenreRanking() {
         return leaderboardService.getGenreRanking();
     }
 
     @GetMapping("/artist")
-    public List<Artist> getArtistRanking() {
+    public List<Post> getArtistRanking() {
         return leaderboardService.getArtistRanking();
     }
 

@@ -1,9 +1,6 @@
 package ch.sbb.soundscore.SoundScore.services;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
-import ch.sbb.soundscore.SoundScore.entities.Genre;
 import ch.sbb.soundscore.SoundScore.entities.Post;
-import ch.sbb.soundscore.SoundScore.entities.Song;
 import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +15,15 @@ public class LeaderboardService {
         this.postRepository = postRepository;
     }
 
-    public List<Song> getSongRanking() {
+    public List<Post> getSongRanking() {
         return postRepository.getLeaderBoardSongs();
     }
 
-    public List<Genre> getGenreRanking() {
+    public List<Post> getGenreRanking() {
         return postRepository.getLeaderBoardGenres();
     }
 
-    public List<Artist> getArtistRanking() {
+    public List<Post> getArtistRanking() {
         return postRepository.getLeaderBoardArtists();
     }
 
