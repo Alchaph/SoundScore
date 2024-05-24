@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Artist} from "../../models/Artist";
-import {User} from "../../models/User";
 
 @Injectable({
   providedIn: 'root'
@@ -49,9 +48,5 @@ export class ArtistService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
-  }
-
-  updateUser(user: User) {
-
   }
 }

@@ -10,7 +10,10 @@ import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
 import ch.sbb.soundscore.SoundScore.services.JwtService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("auth")
 @RestController
@@ -48,11 +51,6 @@ public class AuthenticationController {
         Artist registeredUser = authenticationService.signupArtist(registerUserDto);
 
         return ResponseEntity.ok(registeredUser);
-    }
-
-    @PostMapping("/verify-password")
-    public ResponseEntity<Boolean> verifyPassword(@RequestBody LoginUserDto user) {
-        return ResponseEntity.ok(authenticationService.verifyPassword(user.getEmail(), user.getPassword()));
     }
 
 
