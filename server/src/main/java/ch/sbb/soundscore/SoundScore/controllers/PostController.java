@@ -48,4 +48,5 @@ public class PostController {
         User currentUser = (User) authentication.getPrincipal();
         return postService.likeOrDislikePost(id, like, currentUser);
     }
+
 }

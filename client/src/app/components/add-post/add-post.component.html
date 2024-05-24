@@ -1,12 +1,10 @@
 <app-head-nav-bar></app-head-nav-bar>
 <div class="settings-container">
   <mat-card-header>
-    {{
-      post ? 'Edit your Post' : 'Create your own Post'
-    }}
+    Create your own Post
   </mat-card-header>
   <mat-card-content>
-    <form (ngSubmit)="savePost()" [formGroup]="formGroup">
+    <form (ngSubmit)="createPost()" [formGroup]="formGroup">
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input formControlName="title" matInput>
@@ -29,7 +27,7 @@
                  name="gifSearchString" matInput>
         </mat-form-field>
         @if (gifSearchString) {
-          <img class="gif-preview" [src]="gifs[0].media_formats.gif.url" mat-card-image>
+          <img class="gif-preview"  [src]="gifs[0].media_formats.gif.url" mat-card-image>
         }
       } @else {
         <mat-form-field>
@@ -49,14 +47,9 @@
       <mat-form-field>
         <mat-label>{{ showedType }}</mat-label>
         <mat-select formControlName="songOrGenreOrArtist">
-          @if (post && (post.genre && showedType === 'Genre' || post.song && showedType === 'Song' || post.artist && showedType === 'Artist')) {
-            <mat-option
-              [value]="post.genre ?? post.song ?? post.artist">{{ post.genre?.name ?? post.song?.title ?? post.artist?.name }}
-            </mat-option>
-          }
           @switch (showedType) {
             @case ('Song') {
-              @for (song of allSongs ; track $index) {
+              @for (song of allSongs; track $index) {
                 <mat-option [value]="song">{{ song.title }}</mat-option>
               }
             }
@@ -73,7 +66,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <button color="primary" mat-raised-button>{{ post ? 'Edit' : 'Create' }} Post</button>
+      <button color="primary" mat-raised-button>Create Post</button>
     </form>
   </mat-card-content>
 </div>

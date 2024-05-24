@@ -7,9 +7,6 @@ import {MatList, MatListItem} from "@angular/material/list";
 import {MatLine} from "@angular/material/core";
 import {MatDivider} from "@angular/material/divider";
 import {RouterLink} from "@angular/router";
-import {Song} from "../../models/Song";
-import {Artist} from "../../models/Artist";
-import {Genre} from "../../models/Genre";
 
 @Component({
   selector: 'app-leader-board',
@@ -29,9 +26,9 @@ import {Genre} from "../../models/Genre";
 })
 export class LeaderBoardComponent implements OnInit{
   overallLeaderBoard: (Post | undefined)[] = [];
-  artistLeaderBoard:(Artist | undefined)[] = [];
-  songLeaderBoard: (Song | undefined)[] = [];
-  genreLeaderBoard: (Genre | undefined)[] = [];
+  artistLeaderBoard:(Post | undefined)[] = [];
+  songLeaderBoard: (Post | undefined)[] = [];
+  genreLeaderBoard: (Post | undefined)[] = [];
 
   constructor(private leaderBoardService: LeaderBoardService) {
   }
@@ -40,13 +37,13 @@ export class LeaderBoardComponent implements OnInit{
     this.leaderBoardService.getLeaderBoard().subscribe((data: Post[]) => {
       this.overallLeaderBoard = data;
     });
-    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
+    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Post[]) => {
       this.artistLeaderBoard = Array.from(new Set(data));
     });
-    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
+    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Post[]) => {
       this.songLeaderBoard = Array.from(new Set(data));
     });
-    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
+    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Post[]) => {
       this.genreLeaderBoard = Array.from(new Set(data));
     });
   }
