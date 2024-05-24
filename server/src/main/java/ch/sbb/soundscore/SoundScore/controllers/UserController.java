@@ -1,7 +1,8 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
+
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

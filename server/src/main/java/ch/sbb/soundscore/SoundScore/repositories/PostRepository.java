@@ -1,9 +1,10 @@
 package ch.sbb.soundscore.SoundScore.repositories;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
-import ch.sbb.soundscore.SoundScore.entities.Genre;
+
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.Song;
+import ch.sbb.soundscore.SoundScore.entities.Artist;
+import ch.sbb.soundscore.SoundScore.entities.Genre;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

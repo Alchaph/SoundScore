@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.repositories;
 
+
 import ch.sbb.soundscore.SoundScore.entities.Genre;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

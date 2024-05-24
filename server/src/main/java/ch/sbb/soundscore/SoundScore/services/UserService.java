@@ -1,7 +1,8 @@
 package ch.sbb.soundscore.SoundScore.services;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
+
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

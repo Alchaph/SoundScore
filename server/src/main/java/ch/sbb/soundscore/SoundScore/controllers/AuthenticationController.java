@@ -5,8 +5,9 @@ import ch.sbb.soundscore.SoundScore.dtos.LoginResponse;
 import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterArtistDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
-import ch.sbb.soundscore.SoundScore.entities.Artist;
+
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
 import ch.sbb.soundscore.SoundScore.services.JwtService;
 import org.springframework.http.ResponseEntity;

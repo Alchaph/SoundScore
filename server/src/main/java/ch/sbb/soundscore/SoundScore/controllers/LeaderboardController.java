@@ -1,9 +1,10 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
-import ch.sbb.soundscore.SoundScore.entities.Genre;
+
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.Song;
+import ch.sbb.soundscore.SoundScore.entities.Artist;
+import ch.sbb.soundscore.SoundScore.entities.Genre;
 import ch.sbb.soundscore.SoundScore.services.LeaderboardService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

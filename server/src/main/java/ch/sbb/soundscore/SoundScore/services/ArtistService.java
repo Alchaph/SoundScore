@@ -1,8 +1,8 @@
 package ch.sbb.soundscore.SoundScore.services;
 
+
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.repositories.ArtistRepository;
-import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
