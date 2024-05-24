@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Table(name = "posts")
 @Entity
@@ -21,12 +23,16 @@ public class Post {
     private Long likes;
     private Long dislikes;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Genre genre;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Song song;
 
     public Post(Long likes, Long dislikes, User user, Genre genre, Artist artist, Song song) {

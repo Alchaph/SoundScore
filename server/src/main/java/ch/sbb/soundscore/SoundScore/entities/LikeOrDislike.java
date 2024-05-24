@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "likes_and_dislikes")
@@ -17,6 +19,7 @@ public class LikeOrDislike {
     @ManyToOne
     private Post post;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     private boolean isLike;
 
