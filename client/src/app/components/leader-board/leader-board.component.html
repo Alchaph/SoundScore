@@ -1,35 +1,43 @@
 <app-head-nav-bar></app-head-nav-bar>
 <mat-tab-group>
-  <mat-tab label="Top Posts" >  <mat-list>
-    @for (entry of overallLeaderBoard; track $index){
+  <mat-tab label="Top Posts">
+    <mat-list>
+      @for (entry of overallLeaderBoard; track $index) {
         <mat-divider></mat-divider>
         <mat-list-item>
-          <h4 mat-line [routerLink]="['/home/post/',entry?.id]" >{{$index + 1}}. {{entry?.title}} by {{entry?.user?.username}}</h4>
+          <h4 mat-line [routerLink]="['/home/post/',entry?.id]">{{ $index + 1 }}. {{ entry?.title }}
+            by {{ entry?.user?.username }}</h4>
         </mat-list-item>
-    }
-  </mat-list> </mat-tab>
-  <mat-tab label="Song"> <mat-list>
-    @for (entry of songLeaderBoard; track $index){
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4 mat-line (click)="openLink(entry?.song?.link)">{{$index + 1}}. {{entry?.song?.title}} by {{entry?.artist?.name}}</h4>
-      </mat-list-item>
-    }
-  </mat-list> </mat-tab>
-  <mat-tab label="Artist"> <mat-list>
-    @for (entry of artistLeaderBoard; track $index){
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4 mat-line (click)="openLink(entry?.artist?.image)">{{$index + 1}}. {{entry?.artist?.name}}</h4>
-      </mat-list-item>
-    }
-  </mat-list> </mat-tab>
+      }
+    </mat-list>
+  </mat-tab>
+  <mat-tab label="Song">
+    <mat-list>
+      @for (song of songLeaderBoard; track $index) {
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h4 mat-line (click)="openLink(song?.link)">{{ $index + 1 }}. {{ song?.title }}
+            by {{ song?.artist?.name }}</h4>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-tab>
+  <mat-tab label="Artist">
+    <mat-list>
+      @for (artist of artistLeaderBoard; track $index) {
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h4 mat-line (click)="openLink(artist?.image)">{{ $index + 1 }}. {{ artist?.name }}</h4>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-tab>
   <mat-tab label="Genre">
     <mat-list>
-      @for (entry of genreLeaderBoard; track $index){
+      @for (genre of genreLeaderBoard; track $index) {
         <mat-divider></mat-divider>
         <mat-list-item>
-          <h4 mat-line>{{$index + 1}}. {{entry?.genre?.name}}</h4>
+          <h4 mat-line>{{ $index + 1 }}. {{ genre?.name }}</h4>
         </mat-list-item>
       }
     </mat-list>
