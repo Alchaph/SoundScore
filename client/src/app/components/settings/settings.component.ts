@@ -13,6 +13,7 @@ import {MatHint} from "@angular/material/form-field";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSuffix} from "@angular/material/form-field";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -37,7 +38,7 @@ import {MatSuffix} from "@angular/material/form-field";
 export class SettingsComponent implements OnInit {
   userForm: FormGroup;
   hide = true;
-  constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService) {
+  constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = this.formBuilder.group({
       oldPassword: ['', Validators.required],
       password: ['', Validators.required],
@@ -68,6 +69,12 @@ export class SettingsComponent implements OnInit {
         this.jwtService.updateUser(user).subscribe();
       });
     });
+  }
+
+  deleteUser(): void {
+    this.jwtService.deleteUser().subscribe();
+    this.router.navigate(['']);
+    localStorage.clear();
   }
 
 }
