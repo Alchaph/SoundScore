@@ -1,6 +1,6 @@
 package ch.sbb.soundscore.SoundScore.repositories;
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
+
 import ch.sbb.soundscore.SoundScore.entities.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
