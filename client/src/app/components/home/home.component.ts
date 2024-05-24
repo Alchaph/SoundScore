@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit {
   constructor(private postService: PostService) {
   }
 
+  isButtonDisabled = false;
   visiblePosts: Post[] = []; // First = Left, Last = Right
   invisiblePosts: Post[] = [];
 
@@ -76,6 +77,13 @@ export class HomeComponent implements OnInit {
         break;
 
     }
+  }
+
+  disableButton() {
+    this.isButtonDisabled = true;
+    setTimeout(() => {
+      this.isButtonDisabled = false;
+    }, 600);
   }
 
   init(id: string) {
@@ -125,6 +133,7 @@ export class HomeComponent implements OnInit {
   }
 
   leftSlide() {
+    this.disableButton();
     const post = this.invisiblePosts[0];
     const postsContainer = document.querySelector('.posts-container') as HTMLElement;
     console.log(postsContainer)
@@ -145,6 +154,7 @@ export class HomeComponent implements OnInit {
   }
 
   rightSlide() {
+    this.disableButton();
     const post = this.invisiblePosts[this.invisiblePosts.length - 1];
     const postsContainer = document.querySelector('.posts-container') as HTMLElement;
     if (postsContainer) {
