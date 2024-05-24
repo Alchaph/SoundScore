@@ -37,4 +37,12 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+    public User deleteUser(Long id) {
+        User user = userRepository.findById(Math.toIntExact(id)).orElse(null);
+        if (user != null) {
+            userRepository.delete(user);
+        }
+        return user;
+    }
 }

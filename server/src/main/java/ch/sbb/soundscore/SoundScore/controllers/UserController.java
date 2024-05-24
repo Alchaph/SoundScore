@@ -49,4 +49,12 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(user));
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<User> deleteUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+
+        return ResponseEntity.ok(userService.deleteUser(currentUser.getId()));
+    }
 }
