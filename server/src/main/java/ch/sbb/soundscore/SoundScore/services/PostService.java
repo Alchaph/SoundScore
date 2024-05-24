@@ -33,8 +33,7 @@ public class PostService {
     }
 
     public Post deletePost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow();
-        postRepository.deleteLikes(post);
+        Post post = postRepository.findById((long) id).orElseThrow();
         postRepository.delete(post);
         return post;
     }
@@ -68,8 +67,7 @@ public class PostService {
                     likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
                     added = true;
                     post.setDislikes(post.getDislikes() + 1);
-                }
-            } else {
+                }            } else {
                 post.setDislikes(1L);
             }
         }

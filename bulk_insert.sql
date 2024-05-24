@@ -1,6 +1,3 @@
-INSERT INTO users (id, created_at, email, password, updated_at, username, artist_id)
-VALUES
-    (200, '2024-05-22 11:24:30.459000', 't@t', '$2a$10$tWXbD0JbNWKU79AYVi06/.MipMBIFIoIX0R3zig4871grWon1atAq', '2024-05-22 11:24:30.459000', 't', NULL);
 -- Inserting data into the genres table
 INSERT INTO genres (id, name, description)
 VALUES
@@ -85,3 +82,7 @@ VALUES
     (9, 'Memories', 'This song takes me back.', 9, 200),
     (10, 'Epic guitar solo', 'One of the best solos of all time.', 10, 200),
     (11, 'Soulful', 'This song speaks to the heart.', 10, 200);
+
+INSERT INTO users (id, created_at, email, password, updated_at, username, artist_id)
+VALUES
+    (200, '2024-05-22 11:24:30.459000', 't@t', '$2a$10$tWXbD0JbNWKU79AYVi06/.MipMBIFIoIX0R3zig4871grWon1atAq', '2024-05-22 11:24:30.459000', 't', NULL)

@@ -88,8 +88,8 @@ export class HomeComponent implements OnInit {
           case "artist":
             if (data[i].artist) {
               if (counter < 5) {
-                this.visiblePosts.push(data[i]);
-                counter++;
+              this.visiblePosts.push(data[i]);
+              counter++;
               } else {
                 this.invisiblePosts.push(data[i]);
               }

@@ -40,4 +40,23 @@ export class JwtServiceService {
       }
     });
   }
+
+  public verifyPassword(email: string, password: string) {
+    return this.http.post('http://localhost:8080/auth/verify-password', {
+      email: email,
+      password: password
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
+
+  public updateUser(user: User) {
+    return this.http.put<User>('http://localhost:8080/users/update-user', user, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
 }
