@@ -54,19 +54,19 @@ VALUES
     (13, 'Sweet Child o Mine', 'https://upload.wikimedia.org/wikipedia/en/b/bf/Guns_N_Roses_-_Sweet_Child_o%27_Mine.png', 'https://www.youtube.com/watch?v=1w7OgIMMRc4', 12, 3),
     (14, 'Bohemian Like You', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Bohemian_like_you_cover.jpg', 'https://www.youtube.com/watch?v=ElJ6dJ4i8vM', 14, 1);
 
-INSERT INTO posts (id, content, image, title, likes, dislikes, user_id, genre_id, artist_id, song_id)
+-- Inserting data into the posts table
+INSERT INTO posts (id, likes, dislikes, user_id, genre_id, artist_id, song_id)
 VALUES
-    (1, 'Content for post 1', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 1', 10, 2, 200, NULL, NULL, 1),
-    (2, 'Content for post 2', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 2', 5, 1, 200, NULL, 2, NULL),
-    (3, 'Content for post 3', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 3', 8, 3, 200, NULL, NULL, 3),
-    (4, 'Content for post 4', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 4', 12, 4, 200, NULL, NULL, 5),
-    (5, 'Content for post 5', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 5', 6, 0, 200, 1, NULL, NULL),
-    (6, 'Content for post 6', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 6', 15, 2, 200, NULL, NULL, 6),
-    (7, 'Content for post 7', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 7', 8, 3, 200, NULL, 14, NULL),
-    (8, 'Content for post 8', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 8', 20, 1, 200, NULL, NULL, 7),
-    (9, 'Content for post 9', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 9', 10, 5, 200, NULL, 14, NULL),
-    (10, 'Content for post 10', 'https://static.wikia.nocookie.net/bttf/images/2/2c/Michael_Jackson.jpg/revision/latest?cb=20220625105913', 'Title 10', 30, 3, 200, NULL, NULL, 10);
-
+    (1, 10, 2, 200, NULL, NULL, 1),
+    (2, 5, 1, 200, NULL, 2, NULL),
+    (3, 8, 3, 200, NULL, NULL, 3),
+    (4, 12, 4, 200, NULL, NULL, 5),
+    (5, 6, 0, 200, 1, NULL, NULL),
+    (6, 15, 2, 200, NULL, NULL, 6),
+    (7, 8, 3, 200, NULL, 14, NULL),
+    (8, 20, 1, 200, NULL, NULL, 7),
+    (9, 10, 5, 200, NULL, 14, NULL),
+    (10, 30, 3, 200, NULL, NULL, 10);
 
 -- Inserting data into the comments table
 INSERT INTO comments (id, title, message, post_id, user_id)
@@ -82,3 +82,7 @@ VALUES
     (9, 'Memories', 'This song takes me back.', 9, 200),
     (10, 'Epic guitar solo', 'One of the best solos of all time.', 10, 200),
     (11, 'Soulful', 'This song speaks to the heart.', 10, 200);
+
+INSERT INTO users (id, created_at, email, password, updated_at, username, artist_id)
+VALUES
+    (200, '2024-05-22 11:24:30.459000', 't@t', '$2a$10$tWXbD0JbNWKU79AYVi06/.MipMBIFIoIX0R3zig4871grWon1atAq', '2024-05-22 11:24:30.459000', 't', NULL)
