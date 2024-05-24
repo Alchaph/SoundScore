@@ -26,7 +26,7 @@ VALUES
     (4, 'Johnny Cash', 'American singer, songwriter, musician, and actor. He is one of the best-selling music artists of all time.', 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Johnny_Cash_billboard_1969.jpg'),
     (5, 'Beyoncé', 'American singer, songwriter, actress, and record producer. She is regarded as one of the greatest artists of all time.', 'https://upload.wikimedia.org/wikipedia/commons/4/44/Beyonce_-_Formation_World_Tour%2C_Sydney_%2829%29.jpg'),
     (6, 'Louis Armstrong', 'American trumpeter, composer, vocalist, and actor who was among the most influential figures in jazz.', 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Louis_Armstrong2.jpg'),
-    (7, 'Daft Punk', 'French electronic music duo consisting of Thomas Bangalter and Guy-Manuel de Homem-Christo. They are considered one of the most successful electronic music groups of all time.', 'https'),
+    (7, 'Daft Punk', 'French electronic music duo consisting of Thomas Bangalter and Guy-Manuel de Homem-Christo. They are considered one of the most successful electronic music groups of all time.', 'https://upload.wikimedia.org/wikipedia/en/a/ae/Daftpunklapremiere2010.jpg'),
     (8, 'Miles Davis', 'American jazz trumpeter, bandleader, and composer. He is among the most influential and acclaimed figures in the history of jazz and 20th-century music.', 'https://upload.wikimedia.org/wikipedia/commons/8/83/Miles_Davis_by_Palumbo.jpg'),
     (9, 'David Bowie', 'English singer, songwriter, and actor. He was a leading figure in the music industry and is regarded as one of the most influential musicians of the 20th century.', 'https://upload.wikimedia.org/wikipedia/commons/2/24/David_Bowie_1974.jpg'),
     (10, 'Bob Marley', 'Jamaican singer, songwriter, and musician. He is considered one of the pioneers of reggae music and one of the greatest musicians of all time.', 'https://upload.wikimedia.org/wikipedia/commons/5/56/Bob_Marley_Milan_1980.jpg'),
@@ -42,53 +42,47 @@ VALUES
     (1, 'Thriller', 'https://cdn.vox-cdn.com/thumbor/4x3I5wJGdZqHjQeb4TZlSU7Yc8g=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/13365433/mj.png', 'https://www.youtube.com/watch?v=sOnqjkJTMaA', 2, 1),
     (2, 'Hey Jude', 'https://faroutmagazine.co.uk/static/uploads/1/2019/10/WhatsApp-Image-2020-04-11-at-12.07.30.jpeg', 'https://www.youtube.com/watch?v=A_MjCqQoLLA', 1, 2),
     (3, 'Lose Yourself', 'https://upload.wikimedia.org/wikipedia/en/d/d6/Lose_Yourself.jpg', 'https://www.youtube.com/watch?v=_Yhyp-_hX2s', 3, 3),
-    (4, 'Bohemian Rhapsody', 'https://ichef.bbci.co.uk/news/976/cpsprodpb/4B19/production/_86352291_bohemianrhapsody.jpg', 'https://www.youtube.com/watch?v=fJ9rUzIMcZQ', 1, 2),
-    (5, 'Smells Like Teen Spirit', 'https://i.scdn.co/image/ab67616d0000b273e175a19e530c898d167d39bf', 'https://www.youtube.com/watch?v=hTWKbfoikeg', 1, 3),
-    (6, 'Imagine', 'https://upload.wikimedia.org/wikipedia/en/1/1d/John_Lennon_-_Imagine_John_Lennon.jpg', 'https://www.youtube.com/watch?v=VOgFZfRVaww', 2, 2),
-    (7, 'Hotel California', 'https://upload.wikimedia.org/wikipedia/en/4/49/Hotelcalifornia.jpg', 'https://www.youtube.com/watch?v=1GNiIKqoZf4', 1, 14),
-    (8, 'Billie Jean', 'https://upload.wikimedia.org/wikipedia/en/c/c5/BillieJean.jpg', 'https://www.youtube.com/watch?v=Zi_XLOBDo_Y', 2, 1),
-    (9, 'Stairway to Heaven', 'https://upload.wikimedia.org/wikipedia/en/2/2a/Stairway_to_Heaven_by_Led_Zeppelin_single.png', 'https://www.youtube.com/watch?v=xbhCPt6PZIU', 1, 14),
-    (10, 'Shape of You', 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b8/Ed_Sheeran_-_Shape_of_You_%28Official_Single_Cover%29.png/220px-Ed_Sheeran_-_Shape_of_You_%28Official_Single_Cover%29.png', 'https://www.youtube.com/watch?v=JGwWNGJdvx8', 2, NULL),
-    (11, 'Smells Like Teen Spirit', 'https://upload.wikimedia.org/wikipedia/en/6/62/Nirvana_-_Nevermind_album_cover.jpg', 'https://www.youtube.com/watch?v=hTWKbfoikeg', 1, 15),
-    (12, 'Yesterday', 'https://upload.wikimedia.org/wikipedia/en/a/a4/TheBeatles%28album%29cover.jpg', 'https://www.youtube.com/watch?v=huNlTk1lGEI', 2, 2),
-    (13, 'Let It Be', 'https://upload.wikimedia.org/wikipedia/en/2/20/LetItBe.jpg', 'https://www.youtube.com/watch?v=ajCYQL8ouqw', 1, 2),
-    (14, 'Sweet Child o Mine', 'https://upload.wikimedia.org/wikipedia/en/b/bf/Guns_N_Roses_-_Sweet_Child_o%27_Mine.png', 'https://www.youtube.com/watch?v=1w7OgIMMRc4', 12, NULL),
-    (15, 'Bohemian Like You', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Bohemian_like_you_cover.jpg', 'https://www.youtube.com/watch?v=ElJ6dJ4i8vM', 14, NULL);
+    (4, 'Bohemian Rhapsody', 'https://ichef.bbci.co.uk/news/976/cpsprodpb/4B19/production/_86352291_bohemianrhapsody.jpg', 'https://www.youtube.com/watch?v=fJ9rUzIMcZQ', 1, 15),
+    (5, 'Imagine', 'https://upload.wikimedia.org/wikipedia/en/1/1d/John_Lennon_-_Imagine_John_Lennon.jpg', 'https://www.youtube.com/watch?v=VOgFZfRVaww', 2, 2),
+    (6, 'Hotel California', 'https://upload.wikimedia.org/wikipedia/en/4/49/Hotelcalifornia.jpg', 'https://www.youtube.com/watch?v=1GNiIKqoZf4', 1, 6),
+    (7, 'Billie Jean', 'https://upload.wikimedia.org/wikipedia/en/c/c5/BillieJean.jpg', 'https://www.youtube.com/watch?v=Zi_XLOBDo_Y', 2, 1),
+    (8, 'Stairway to Heaven', 'https://upload.wikimedia.org/wikipedia/en/2/2a/Stairway_to_Heaven_by_Led_Zeppelin_single.png', 'https://www.youtube.com/watch?v=xbhCPt6PZIU', 1, 14),
+    (9, 'Shape of You', 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b8/Ed_Sheeran_-_Shape_of_You_%28Official_Single_Cover%29.png/220px-Ed_Sheeran_-_Shape_of_You_%28Official_Single_Cover%29.png', 'https://www.youtube.com/watch?v=JGwWNGJdvx8', 2, NULL),
+    (10, 'Smells Like Teen Spirit', 'https://upload.wikimedia.org/wikipedia/en/6/62/Nirvana_-_Nevermind_album_cover.jpg', 'https://www.youtube.com/watch?v=hTWKbfoikeg', 1, 8),
+    (11, 'Yesterday', 'https://upload.wikimedia.org/wikipedia/en/a/a4/TheBeatles%28album%29cover.jpg', 'https://www.youtube.com/watch?v=huNlTk1lGEI', 2, 2),
+    (12, 'Let It Be', 'https://upload.wikimedia.org/wikipedia/en/2/20/LetItBe.jpg', 'https://www.youtube.com/watch?v=ajCYQL8ouqw', 1, 2),
+    (13, 'Sweet Child o Mine', 'https://upload.wikimedia.org/wikipedia/en/b/bf/Guns_N_Roses_-_Sweet_Child_o%27_Mine.png', 'https://www.youtube.com/watch?v=1w7OgIMMRc4', 12, 3),
+    (14, 'Bohemian Like You', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Bohemian_like_you_cover.jpg', 'https://www.youtube.com/watch?v=ElJ6dJ4i8vM', 14, 1);
 
 -- Inserting data into the posts table
 INSERT INTO posts (id, likes, dislikes, user_id, genre_id, artist_id, song_id)
 VALUES
-    (1, 10, 2, 1, NULL, 1, 1),
-    (2, 5, 1, 2, NULL, 2, NULL),
-    (3, 8, 3, 3, 1, 3, 4),
-    (4, 12, 4, 4, 2, NULL, NULL),
-    (5, 6, 0, 5, 1, 3, 5),
-    (6, 15, 2, 6, NULL, NULL, 6),
-    (7, 8, 3, 7, 1, 14, 7),
-    (8, 20, 1, 8, 2, 1, 8),
-    (9, 10, 5, 9, 1, 14, 9),
-    (10, 30, 3, 10, NULL, NULL, 10),
-    (11, 25, 2, 11, 1, 15, 11),
-    (12, 18, 0, 12, 2, 2, 12),
-    (13, 14, 1, 13, 1, 2, 13),
-    (14, 22, 6, 14, 12, NULL, 14),
-    (15, 17, 4, 15, 14, NULL, 15);
+    (1, 10, 2, 200, NULL, NULL, 1),
+    (2, 5, 1, 200, NULL, 2, NULL),
+    (3, 8, 3, 200, NULL, NULL, 3),
+    (4, 12, 4, 200, NULL, NULL, 5),
+    (5, 6, 0, 200, 1, NULL, NULL),
+    (6, 15, 2, 200, NULL, NULL, 6),
+    (7, 8, 3, 200, NULL, 14, NULL),
+    (8, 20, 1, 200, NULL, NULL, 7),
+    (9, 10, 5, 200, NULL, 14, NULL),
+    (10, 30, 3, 200, NULL, NULL, 10);
 
 -- Inserting data into the comments table
 INSERT INTO comments (id, title, message, post_id, user_id)
 VALUES
-    (1, 'Great song!', 'One of the best songs ever!', 1, 2),
-    (2, 'Classic!', 'This song never gets old.', 2, 1),
-    (3, 'Amazing performance', 'Eminem killed it in this one!', 3, 5),
-    (4, 'Love this!', 'Such a catchy tune!', 4, 6),
-    (5, 'Timeless', 'Still listening to this after all these years.', 5, 8),
-    (6, 'Iconic', 'This song defines a generation.', 6, 10),
-    (7, 'Forever a favorite', 'I could listen to this on repeat.', 7, 12),
-    (8, 'Masterpiece', 'Pure genius.', 8, 14),
-    (9, 'Memories', 'This song takes me back.', 9, 3),
-    (10, 'Epic guitar solo', 'One of the best solos of all time.', 10, 7),
-    (11, 'Soulful', 'This song speaks to the heart.', 11, 9),
-    (12, 'Classic rock', 'They just dont make music like this anymore.', 12, 11),
-    (13, 'Nostalgia overload', 'Brings back memories of my youth.', 13, 13),
-    (14, 'Incredible vocals', 'Freddie Mercury at his best.', 14, 15),
-    (15, 'Addictive', 'Can''t stop listening!', 15, 4);
+    (1, 'Great song!', 'One of the best songs ever!', 1, 200),
+    (2, 'Classic!', 'This song never gets old.', 2, 200),
+    (3, 'Amazing performance', 'Eminem killed it in this one!', 3, 200),
+    (4, 'Love this!', 'Such a catchy tune!', 4, 200),
+    (5, 'Timeless', 'Still listening to this after all these years.', 5, 200),
+    (6, 'Iconic', 'This song defines a generation.', 6, 200),
+    (7, 'Forever a favorite', 'I could listen to this on repeat.', 7, 200),
+    (8, 'Masterpiece', 'Pure genius.', 8, 200),
+    (9, 'Memories', 'This song takes me back.', 9, 200),
+    (10, 'Epic guitar solo', 'One of the best solos of all time.', 10, 200),
+    (11, 'Soulful', 'This song speaks to the heart.', 10, 200);
+
+INSERT INTO users (id, created_at, email, password, updated_at, username, artist_id)
+VALUES
+    (200, '2024-05-22 11:24:30.459000', 't@t', '$2a$10$tWXbD0JbNWKU79AYVi06/.MipMBIFIoIX0R3zig4871grWon1atAq', '2024-05-22 11:24:30.459000', 't', NULL)

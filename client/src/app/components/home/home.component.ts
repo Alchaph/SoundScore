@@ -16,7 +16,7 @@ import {
   MatCardSubtitle,
   MatCardTitle
 } from "@angular/material/card";
-import {NgOptimizedImage} from "@angular/common";
+import {NgClass, NgOptimizedImage, NgStyle} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
 import {MatLine} from "@angular/material/core";
 import {MatList, MatListItem} from "@angular/material/list";
@@ -47,7 +47,9 @@ import {MatTab, MatTabChangeEvent, MatTabGroup} from "@angular/material/tabs";
     MatList,
     MatListItem,
     MatTab,
-    MatTabGroup
+    MatTabGroup,
+    NgStyle,
+    NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -86,8 +88,8 @@ export class HomeComponent implements OnInit {
           case "artist":
             if (data[i].artist) {
               if (counter < 5) {
-                this.visiblePosts.push(data[i]);
-                counter++;
+              this.visiblePosts.push(data[i]);
+              counter++;
               } else {
                 this.invisiblePosts.push(data[i]);
               }
@@ -124,43 +126,40 @@ export class HomeComponent implements OnInit {
 
   leftSlide() {
     const post = this.invisiblePosts[0];
-    this.invisiblePosts.shift();
-    this.visiblePosts.unshift(post);
-    const postOut = this.visiblePosts.pop();
-    if (postOut) {
-      this.invisiblePosts.push(postOut);
-    }
-    const postsContainer = document.querySelector('.posts-container');
+    const postsContainer = document.querySelector('.posts-container') as HTMLElement;
+    console.log(postsContainer)
     if (postsContainer) {
       postsContainer.classList.add('slide');
-      // @ts-ignore
       postsContainer.style.transform = 'translateX(+320px)';
       setTimeout(() => {
         postsContainer.classList.remove('slide');
-        // @ts-ignore
+        this.invisiblePosts.shift();
+        this.visiblePosts.unshift(post);
+        const postOut = this.visiblePosts.pop();
+        if (postOut) {
+          this.invisiblePosts.push(postOut);
+        }
         postsContainer.style.transform = 'translateX(0)';
-      }, 500);
+      }, 600);
     }
   }
 
   rightSlide() {
     const post = this.invisiblePosts[this.invisiblePosts.length - 1];
-    this.invisiblePosts.pop();
-    this.visiblePosts.push(post);
-    const postOut = this.visiblePosts.shift();
-    if (postOut) {
-      this.invisiblePosts.unshift(postOut);
-    }
-    const postsContainer = document.querySelector('.posts-container');
+    const postsContainer = document.querySelector('.posts-container') as HTMLElement;
     if (postsContainer) {
       postsContainer.classList.add('slide');
-      // @ts-ignore
       postsContainer.style.transform = 'translateX(-320px)';
       setTimeout(() => {
         postsContainer.classList.remove('slide');
-        // @ts-ignore
+        this.invisiblePosts.pop();
+        this.visiblePosts.push(post);
+        const postOut = this.visiblePosts.shift();
+        if (postOut) {
+          this.invisiblePosts.unshift(postOut);
+        }
         postsContainer.style.transform = 'translateX(0)';
-      }, 500);
+      }, 600);
     }
   }
 }

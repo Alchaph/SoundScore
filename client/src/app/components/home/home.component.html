@@ -3,12 +3,12 @@
   <div id="top">
     <mat-tab-group id="slide" (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Artist">
-        <div class="middle">
+        <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
-            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlide()">
+            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
-            <div class="content">
+            <div [ngClass]="{'content': invisiblePosts.length > 0, 'content2': invisiblePosts.length == 0}">
               <div class="posts-container">
                 @for (post of visiblePosts; track $index){
                   <div class="post-card" [routerLink]="['/home/post/',post.id]">
@@ -36,19 +36,19 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlide()">
+            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
         </div>
       </mat-tab>
       <mat-tab label="Genre">
-        <div class="middle">
+        <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
-            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlide()">
+            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
-            <div class="content">
+            <div [ngClass]="{'content': invisiblePosts.length > 0, 'content2': invisiblePosts.length == 0}">
               <div class="posts-container">
                 @for (post of visiblePosts; track $index){
                   <div class="post-card" [routerLink]="['/home/post/',post.id]">
@@ -76,20 +76,20 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlide()">
+            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
         </div>
       </mat-tab>
       <mat-tab label="Song">
-        <div class="middle">
+        <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
-            <button mat-fab color="primary" class="buttonSwitch" (click)="leftSlide()">
+            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
-            <div class="content">
-              <div class="posts-container">
+            <div [ngClass]="{'content': invisiblePosts.length > 0, 'content2': invisiblePosts.length == 0}">
+            <div class="posts-container">
                 @for (post of visiblePosts; track $index){
                   <div class="post-card" [routerLink]="['/home/post/',post.id]">
                     @if (post.image){
@@ -116,7 +116,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" class="buttonSwitch" (click)="rightSlide()">
+            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
