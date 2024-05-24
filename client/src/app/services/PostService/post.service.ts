@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Post} from "../../models/Post";
 import {Observable} from "rxjs";
@@ -9,7 +9,6 @@ import {Observable} from "rxjs";
 export class PostService {
   constructor(private http: HttpClient) {
   }
-
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>('http://localhost:8080/api/posts/create', post, {
       headers: {
@@ -19,19 +18,11 @@ export class PostService {
   }
 
   updatePost(post: Post) {
-    return this.http.put('http://localhost:8080/api/posts/edit', post,{
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.put('http://localhost:8080/api/posts/update', post);
   }
 
   deletePost(id: number) {
-    return this.http.delete('http://localhost:8080/api/posts/delete/' + id, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.delete('http://localhost:8080/api/posts/delete/' + id);
   }
 
   getPosts() {
@@ -49,9 +40,8 @@ export class PostService {
       }
     });
   }
-
   likeOrDislikePost(post: Post, like: boolean) {
-    return this.http.post('http://localhost:8080/api/posts/like/' + post.id, like, {
+    return this.http.post('http://localhost:8080/api/posts/like/' + post.id, like , {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
