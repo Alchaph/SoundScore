@@ -1,4 +1,4 @@
-package ch.sbb.soundscore.SoundScore.entities;
+package ch.sbb.soundscore.SoundScore.entities.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

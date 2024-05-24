@@ -63,4 +63,9 @@ public class AuthenticationService {
 
         return artistRepository.save(artist);
     }
+    public boolean verifyPassword(String email, String password) {
+        return passwordEncoder.matches(password, userRepository.findByEmail(email)
+                .map(User::getPassword)
+                .orElseThrow());
+    }
 }

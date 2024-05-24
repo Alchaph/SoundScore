@@ -42,6 +42,14 @@
   padding: 10px;
   overflow-x: hidden;
 }
+.jumbotron {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
 .content2 {
   width: 100%;
   display: flex;
