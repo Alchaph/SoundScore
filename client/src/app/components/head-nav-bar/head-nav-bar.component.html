@@ -1,18 +1,15 @@
 <mat-toolbar class="bg">
   <mat-toolbar-row class="toolbar">
     <div class="toolbarLeftSide">
-      <button [matMenuTriggerFor]="menu" mat-icon-button class="neon2">
-        <mat-icon>menu</mat-icon>
+      <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
+        <mat-icon>g_translate</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
-        <button routerLink="leaderBoard" mat-menu-item>Leaderboard</button>
-        <button [matMenuTriggerFor]="languageMenu" mat-menu-item>Languages</button>
-        <mat-menu #languageMenu="matMenu" xPosition="before">
-          @for (lang of langs; track $index) {
-            <p mat-menu-item (click)="service.setLanguage(lang)">{{ lang | language }}
-            </p>
-          }
-        </mat-menu>
+      <button routerLink="/home/leaderBoard" mat-icon-button><mat-icon>leaderboard</mat-icon></button>
+      <mat-menu #languageMenu="matMenu" xPosition="before">
+        @for (lang of langs; track $index) {
+          <p mat-menu-item (click)="service.setLanguage(lang)">{{ lang | language }}
+          </p>
+        }
       </mat-menu>
     </div>
     <div class="toolbarMiddle">
@@ -24,6 +21,8 @@
       <mat-menu #userMenu="matMenu">
         <button routerLink="/home/usersPosts" mat-menu-item>Profile</button>
         <button routerLink="/home/settings" mat-menu-item>Settings</button>
+        <button routerLink="/home/addArtist" mat-menu-item>Artist Profile</button>
+
         <button (click)="logout()" mat-menu-item>Logout</button>
       </mat-menu>
     </div>
