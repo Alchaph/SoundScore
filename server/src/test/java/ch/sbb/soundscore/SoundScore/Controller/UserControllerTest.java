@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
+import ch.sbb.soundscore.SoundScore.services.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

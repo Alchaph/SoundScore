@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Table(name = "songs")
 @Entity
@@ -22,8 +24,10 @@ public class Song {
     @Column(columnDefinition = "LONGTEXT")
     private String link;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Genre genre;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Artist artist;
 
     public Song(String title, String image, String link, Genre genre, Artist artist) {
