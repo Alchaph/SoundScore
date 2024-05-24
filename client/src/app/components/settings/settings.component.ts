@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {User} from "../../models/User";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
@@ -13,6 +12,7 @@ import {MatHint} from "@angular/material/form-field";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSuffix} from "@angular/material/form-field";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-settings',

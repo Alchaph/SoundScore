@@ -29,7 +29,7 @@
     "ngx-mat-input-tel": "^17.3.0",
     "ngx-mat-intl-tel-input": "^5.0.0",
     "ngx-mat-intl-tel-input-v16": "^16.0.3",
-    "rxjs": "~7.8.0",
+    "rxjs": "^7.8.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

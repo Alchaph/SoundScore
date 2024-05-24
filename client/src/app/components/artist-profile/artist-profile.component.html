@@ -1,8 +1,8 @@
 <app-head-nav-bar>
 </app-head-nav-bar>
 <body>
-  @if (user && user.artist) {
-    <h1>Your Songs</h1>
+  @if (artist) {
+    <h1>{{ artist.name }}'s Songs</h1>
     <div class="posts-container">
       @for (song of artistSongs; track $index) {
         <div class="post-card">
@@ -11,7 +11,7 @@
           }
           <div class="post-content">
             <h3 mat-line (click)="openLink(song?.link)">{{ song.title }}
-              <span>By {{ user.artist.name }}</span>
+              <span>By {{ user?.artist?.name }}</span>
             </h3>
             <div class="post-meta">
             </div>
@@ -29,13 +29,21 @@
         </div>
       }
     </div>
-  } @else if (user) {
+  } @else if (user?.artist?.id === artist) {
     <mat-card>
       <mat-card-content>
         <mat-card-title>Artist Registration</mat-card-title>
         <p>Register as an artist to upload your music
-         <br> and get discovered by fans.</p>
+          <br> and get discovered by fans.</p>
         <button mat-raised-button color="primary" routerLink="/artist-registration">Register as Artist</button>
+      </mat-card-content>
+    </mat-card>
+  } @else if (artist && user && user.artist && user.artist.id && user.artist.id !== artist.id) {
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Quiet here</mat-card-title>
+        <p>This Artist hasn't uploaded yet
+        </p>
       </mat-card-content>
     </mat-card>
   }
