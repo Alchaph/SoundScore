@@ -27,7 +27,7 @@
       @for (artist of artistLeaderBoard; track $index) {
         <mat-divider></mat-divider>
         <mat-list-item>
-          <h4 mat-line (click)="openLink(artist?.image)">{{ $index + 1 }}. {{ artist?.name }}</h4>
+          <h4 mat-line [routerLink]="'/home/artistProfile/' + artist?.id">{{ $index + 1 }}. {{ artist?.name }}</h4>
         </mat-list-item>
       }
     </mat-list>
