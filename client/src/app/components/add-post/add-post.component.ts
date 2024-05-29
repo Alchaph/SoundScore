@@ -92,8 +92,8 @@ export class AddPostComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.post = JSON.parse(params['post']);
+    this.postService.getPost(Number(this.route.snapshot.paramMap.get('postId'))).subscribe(params => {
+      this.post = params;
       if (this.post) {
         this.formGroup.controls.title.setValue(this.post.title)
         this.formGroup.controls.content.setValue(this.post.content)
@@ -109,8 +109,9 @@ export class AddPostComponent implements AfterViewInit, OnInit {
           this.showedType = 'Genre'
         }
       }
-      console.log(this.formGroup.controls.songOrGenreOrArtist.value)
+      console.log(this.post)
     })
+
   }
 
   ngAfterViewInit() {
