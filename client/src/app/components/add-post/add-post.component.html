@@ -1,4 +1,5 @@
 <app-head-nav-bar></app-head-nav-bar>
+<button mat-button color="primary" (click)="goBack()">❮ Go Back</button>
 <div class="settings-container">
   <mat-card-header>
     {{
@@ -73,11 +74,7 @@
           }
         </mat-select>
       </mat-form-field>
-      @if (formGroup.controls.songOrGenreOrArtist.valid && formGroup.controls.imageUrl.valid && formGroup.controls.content.valid && formGroup.controls.title.valid) {
-        <button color="primary" mat-raised-button>{{ post ? 'Edit' : 'Create' }} Post</button>
-      } @else {
-        <button disabled color="primary" mat-raised-button>{{ post ? 'Edit' : 'Create' }} Post</button>
-      }
+      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ post ? 'Edit' : 'Create' }} Post</button>
     </form>
   </mat-card-content>
 </div>

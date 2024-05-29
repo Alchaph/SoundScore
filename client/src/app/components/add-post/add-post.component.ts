@@ -12,7 +12,7 @@ import {Song} from "../../models/Song";
 import {Artist} from "../../models/Artist";
 import {Genre} from "../../models/Genre";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AsyncPipe, NgStyle} from "@angular/common";
+import {AsyncPipe, Location, NgStyle} from "@angular/common";
 import {Post} from "../../models/Post";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {PostService} from "../../services/PostService/post.service";
@@ -55,6 +55,7 @@ export class AddPostComponent implements AfterViewInit, OnInit {
   imageWidth: number = 0
 
   imageType: string = "Image";
+  postDefaultType:string ="";
   gifSearchString: string = ""
   tenorKey: string = " AIzaSyB2mAvrM-f9yduZfFsVgysJnX5ATx1zon0"
   gifs: { id: number, title: string, media_formats: { gif: { url: string } } }[] = []
@@ -67,8 +68,8 @@ export class AddPostComponent implements AfterViewInit, OnInit {
     imageUrl: FormControl,
     songOrGenreOrArtist: FormControl<Song | Artist | Genre | null>
   }> = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-    content: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+    content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]),
     imageUrl: new FormControl(''),
     songOrGenreOrArtist: new FormControl<Song | Artist | Genre | null>(null, [Validators.required])
   })
@@ -80,18 +81,19 @@ export class AddPostComponent implements AfterViewInit, OnInit {
               private postService: PostService,
               private router: Router,
               private http: HttpClient,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private location: Location) {
     this.songService.getSongs().subscribe(data => this.allSongs = data)
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.artistService.getArtists().subscribe(data => this.allArtists = data)
-
-
+    this.postDefaultType = this.route.snapshot.paramMap.get('postType') as string;
+    this.showedType = this.postDefaultType as 'Song' | 'Artist' | 'Genre'
   }
 
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.post = JSON.parse(params['post']);
+    this.postService.getPost(Number(this.route.snapshot.paramMap.get('postId'))).subscribe(params => {
+      this.post = params;
       if (this.post) {
         this.formGroup.controls.title.setValue(this.post.title)
         this.formGroup.controls.content.setValue(this.post.content)
@@ -107,8 +109,9 @@ export class AddPostComponent implements AfterViewInit, OnInit {
           this.showedType = 'Genre'
         }
       }
-      console.log(this.formGroup.controls.songOrGenreOrArtist.value)
+      console.log(this.post)
     })
+
   }
 
   ngAfterViewInit() {
@@ -118,7 +121,9 @@ export class AddPostComponent implements AfterViewInit, OnInit {
       this.imageWidth = imgElement.width
     }
   }
-
+  goBack() {
+    this.location.back();
+  }
 
   searchGif(): void {
     this.http.get<{
