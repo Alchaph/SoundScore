@@ -10,7 +10,7 @@
         }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
-            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
+            <button [disabled]="isButtonDisabled" mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <div [ngClass]="{'content': invisiblePosts.length > 0, 'content2': invisiblePosts.length == 0}">
@@ -41,7 +41,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
+            <button [disabled]="isButtonDisabled" mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
@@ -60,7 +60,7 @@
         }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
-            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
+            <button [disabled]="isButtonDisabled" mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <div [ngClass]="{'content': invisiblePosts.length > 0, 'content2': invisiblePosts.length == 0}">
@@ -91,7 +91,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
+            <button [disabled]="isButtonDisabled" mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>
@@ -110,7 +110,7 @@
         }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
           <div class="all">
-            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
+            <button [disabled]="isButtonDisabled" mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="leftSlide()">
               <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
             <div [ngClass]="{'content': invisiblePosts.length > 0, 'content2': invisiblePosts.length == 0}">
@@ -141,7 +141,7 @@
                 }
               </div>
             </div>
-            <button mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
+            <button [disabled]="isButtonDisabled" mat-fab color="primary" [ngClass]="{'invisibleButton': invisiblePosts.length == 0}" (click)="rightSlide()">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
           </div>

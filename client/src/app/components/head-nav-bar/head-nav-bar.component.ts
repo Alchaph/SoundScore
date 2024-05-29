@@ -44,8 +44,6 @@ export class HeadNavBarComponent implements OnInit {
   currentLang: string;
   lang = new FormControl('');
   langs = this.service.getLanguages()
-  picture = '';
-  name = 'Herbert';
 
 
   constructor(
@@ -68,9 +66,15 @@ export class HeadNavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')
-      .then(response => response.json())
-      .then(data => this.picture = data[0].url);
+    console.log(sessionStorage.getItem('profilPicture'));
+    if (sessionStorage.getItem('profilPicture') === null) {
+      fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data[0].url);
+          sessionStorage.setItem('profilPicture', data[0].url);
+        });
+    }
   }
 
   // ngOnInit() {
@@ -82,4 +86,5 @@ export class HeadNavBarComponent implements OnInit {
   // setLanguage(lang: string) {
   //   this.translateService.use(lang);
   // }
+  protected readonly sessionStorage = sessionStorage;
 }
