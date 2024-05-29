@@ -55,6 +55,7 @@ export class AddPostComponent implements AfterViewInit, OnInit {
   imageWidth: number = 0
 
   imageType: string = "Image";
+  postDefaultType:string ="";
   gifSearchString: string = ""
   tenorKey: string = " AIzaSyB2mAvrM-f9yduZfFsVgysJnX5ATx1zon0"
   gifs: { id: number, title: string, media_formats: { gif: { url: string } } }[] = []
@@ -84,8 +85,8 @@ export class AddPostComponent implements AfterViewInit, OnInit {
     this.songService.getSongs().subscribe(data => this.allSongs = data)
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.artistService.getArtists().subscribe(data => this.allArtists = data)
-
-
+    this.postDefaultType = this.route.snapshot.paramMap.get('postType') as string;
+    this.showedType = this.postDefaultType as 'Song' | 'Artist' | 'Genre'
   }
 
 
