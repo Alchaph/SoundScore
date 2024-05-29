@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {HomeComponent} from "./components/home/home.component";
 import {LoginComponent} from "./components/login/login.component";
 import {AddPostComponent} from "./components/add-post/add-post.component";
@@ -7,15 +7,18 @@ import {SettingsComponent} from "./components/settings/settings.component";
 import {UsersPostsComponent} from "./components/users-posts/users-posts.component";
 import {PostComponent} from "./components/post/post.component";
 import {ArtistProfileComponent} from "./components/artist-profile/artist-profile.component";
+import {ArtistRegisterComponent} from "./components/artist-register/artist-register.component";
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  {path: '', component: LoginComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'home/post/:postId', component: PostComponent},
-  { path: 'home/addPost', component: AddPostComponent },
+  {path: 'home/addPost', component: AddPostComponent},
   {path: 'home/post/:postId', component: PostComponent},
-  { path: 'home/leaderBoard', component: LeaderBoardComponent },
-  { path: 'home/settings', component: SettingsComponent },
-  { path: 'home/usersPosts', component: UsersPostsComponent },
-  { path: 'home/artistProfile/:artistId', component: ArtistProfileComponent },
+  {path: 'home/leaderBoard', component: LeaderBoardComponent},
+  {path: 'home/settings', component: SettingsComponent},
+  {path: 'home/usersPosts', component: UsersPostsComponent},
+  {path: 'home/artistProfile/:artistId', component: ArtistProfileComponent},
+  {path: 'home/addArtist', component: ArtistRegisterComponent},
+  {path: 'home/edit/:artistId', component: ArtistRegisterComponent},
 ];

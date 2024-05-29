@@ -43,7 +43,7 @@ export class ArtistService {
   }
 
   getArtist(id: number) {
-    return this.http.get<Artist>('http://localhost:8080/artist/get/' + id, {
+    return this.http.get<Artist>('http://localhost:8080/api/artist/get/' + id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }

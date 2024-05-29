@@ -1,20 +1,21 @@
+import {Component} from '@angular/core';
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
-import {Component} from "@angular/core";
+import {User} from "../../models/User";
+import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {ActivatedRoute, RouterLink} from "@angular/router";
+import {Song} from '../../models/Song';
+import {SongService} from "../../services/SongService/song.service";
 import {MatIcon} from "@angular/material/icon";
 import {MatLine} from "@angular/material/core";
-import {User} from "../../models/User";
-import {Artist} from "../../models/Artist";
-import {Song} from "../../models/Song";
-import {SongService} from "../../services/SongService/song.service";
 import {ArtistService} from "../../services/ArtistService/artist.service";
-import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
+import {Artist} from "../../models/Artist";
+import {Location} from '@angular/common';
 
 
 @Component({
-  selector: 'app-add-artist',
+  selector: 'app-artist-profile',
   standalone: true,
   imports: [
     MatCard,
@@ -28,40 +29,47 @@ import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
     HeadNavBarComponent,
   ],
   templateUrl: './artist-profile.component.html',
-  styleUrl: './artist-profile.component.ts'
+  styleUrl: './artist-profile.component.scss'
 })
 export class ArtistProfileComponent {
   user: User | undefined;
   artist: Artist | undefined;
   artistSongs: Song[] = [];
-  artistId: number = Number(this.route.snapshot.paramMap.get('artistId'));
+  artistId: number | undefined;
 
-
-  constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService: ArtistService, private route: ActivatedRoute) {
-    jwtService.getMe().subscribe((user: User) => {
-      this.user = user
-      if (user.artist) {
-        songService.getSongs().subscribe((songs: Song[]) => {
-          if (this.artistId !== 0) {
-            artistService.getArtist(this.artistId).subscribe((a: Artist) => {
+  constructor(
+    private jwtService: JwtServiceService,
+    protected songService: SongService,
+    private artistService: ArtistService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {
+    this.artistId = Number(this.route.snapshot.paramMap.get('artistId'));
+    this.jwtService.getMe().subscribe((u: User) => {
+      this.user = u;
+      this.songService.getSongs().subscribe((songs: Song[]) => {
+        if (this.user) {
+          if (this.artistId && this.artistId !== 0) {
+            this.artistService.getArtist(this.artistId).subscribe((a: Artist) => {
               this.artist = a;
-              this.artistSongs = songs.filter((song: Song) => song.artist.id === a.id);
+              this.artistSongs = songs.filter(song => song.artist.id === a.id);
             });
-          } else {
-            if (user.artist && user.artist.id) {
-              this.artist = user.artist;
-              this.artistId = user.artist.id;
-              this.artistSongs = songs.filter((song: Song) => song.artist.id === this.artist?.id);
-            }
+          } else if (this.user.artist) {
+            this.artist = this.user.artist;
+            this.artistId = this.user.artist.id;
+            this.artistSongs = songs.filter(song => song.artist.id === this.artistId);
           }
-        });
-      }
+        }
+      });
     });
   }
 
   openLink(link: string | undefined) {
-    window.open(link, '_blank');
+    if (link) {
+      window.open(link, '_blank');
+    }
   }
-
-  protected readonly JSON = JSON;
+  goBack() {
+    this.location.back();
+  }
 }

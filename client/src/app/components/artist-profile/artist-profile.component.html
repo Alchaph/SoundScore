@@ -1,6 +1,8 @@
-<app-head-nav-bar></app-head-nav-bar>
+<app-head-nav-bar>
+</app-head-nav-bar>
+<button (click)="goBack()" color="primary" mat-button>❮ Go Back</button>
 <body>
-  @if (artist) {
+  @if (artist && artistSongs.length > 0) {
     <h1>{{ artist.name }}'s Songs</h1>
     <div class="posts-container">
       @for (song of artistSongs; track $index) {
@@ -10,40 +12,48 @@
           }
           <div class="post-content">
             <h3 mat-line (click)="openLink(song?.link)">{{ song.title }}
-              <span>By {{ user?.artist?.name }}</span>
+              <span>By {{ artist.name }}</span>
             </h3>
             <div class="post-meta">
             </div>
-            <p>{{ song.genre.name }}</p>
-            <span>Genre: {{ song.genre.description }}</span>
-            <span class="actions-container">
+            <p>{{ song.genre.name }}
+              {{ song.genre.description }}
+            </p>
+            @if (user && user.artist && user.artist.id === artistId && song.id) {
+              <span class="actions-container">
               <button mat-icon-button (click)="openLink(song?.link)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="openLink(song?.link)">
+              <button mat-icon-button (click)="songService.deleteSong(song.id)">
                 <mat-icon>delete</mat-icon>
               </button>
-            </span>
+              </span>
+            }
           </div>
         </div>
       }
     </div>
-  } @else if (user?.artist?.id === artist) {
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>Artist Registration</mat-card-title>
-        <p>Register as an artist to upload your music
-          <br> and get discovered by fans.</p>
-        <button mat-raised-button color="primary" routerLink="/artist-registration">Register as Artist</button>
-      </mat-card-content>
-    </mat-card>
-  } @else if (artist && user && user.artist && user.artist.id && user.artist.id !== artist) {
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>Quiet here</mat-card-title>1
-        <p>This Artist hasn't uploaded yet
-        </p>
-      </mat-card-content>
-    </mat-card>
+  } @else if (user && (!user.artist || user.artist.id !== artistId) && artist) {
+    <div class="card-container">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>Quiet here</mat-card-title>
+          <p>This Artist hasn't uploaded yet.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  } @else if (user && (!user.artist || user.artist.id === artistId)) {
+    <div class="card-container">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>Artist Registration</mat-card-title>
+          <p>Register as an artist to upload your music
+            <br> and get discovered by fans.</p>
+          <button mat-raised-button color="primary" routerLink="/home/addArtist">Register as Artist</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
   }
 </body>
