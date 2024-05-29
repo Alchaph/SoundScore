@@ -12,7 +12,7 @@ import {Song} from "../../models/Song";
 import {Artist} from "../../models/Artist";
 import {Genre} from "../../models/Genre";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AsyncPipe, NgStyle} from "@angular/common";
+import {AsyncPipe, Location, NgStyle} from "@angular/common";
 import {Post} from "../../models/Post";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {PostService} from "../../services/PostService/post.service";
@@ -81,7 +81,8 @@ export class AddPostComponent implements AfterViewInit, OnInit {
               private postService: PostService,
               private router: Router,
               private http: HttpClient,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private location: Location) {
     this.songService.getSongs().subscribe(data => this.allSongs = data)
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.artistService.getArtists().subscribe(data => this.allArtists = data)
@@ -119,7 +120,9 @@ export class AddPostComponent implements AfterViewInit, OnInit {
       this.imageWidth = imgElement.width
     }
   }
-
+  goBack() {
+    this.location.back();
+  }
 
   searchGif(): void {
     this.http.get<{
