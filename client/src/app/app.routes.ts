@@ -14,6 +14,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   {path: 'home/post/:postId', component: PostComponent},
   { path: 'home/addPost/:postType', component: AddPostComponent },
+  { path: 'home/addPost', component: AddPostComponent },
   {path: 'home/post/:postId', component: PostComponent},
   { path: 'home/leaderBoard', component: LeaderBoardComponent },
   { path: 'home/settings', component: SettingsComponent },
