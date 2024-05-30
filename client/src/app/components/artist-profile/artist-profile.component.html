@@ -4,6 +4,9 @@
 <body>
   @if (artist && artistSongs.length > 0) {
     <h1>{{ artist.name }}'s Songs</h1>
+    @if (user && user.artist && user.artist.id === artistId) {
+      <button mat-raised-button color="primary" routerLink="/home/addSong">Upload your own Song</button>
+    }
     <div class="posts-container">
       @for (song of artistSongs; track $index) {
         <div class="post-card">
@@ -51,7 +54,7 @@
           <mat-card-title>Upload your music</mat-card-title>
           <p>Upload your music to get discovered by fans.
           </p>
-          <button mat-raised-button color="primary" routerLink="/home/addSong">Upload Music</button>
+          <button mat-raised-button color="primary" routerLink="/home/addSong">Upload your first Song</button>
         </mat-card-content>
       </mat-card>
     </div>
