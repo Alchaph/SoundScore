@@ -30,7 +30,6 @@ public class UserService {
 
     public User registerArtist(User user, Artist artist) {
         user.setArtist(artist);
-
         return userRepository.save(user);
     }
     public User updateUser(User user) {

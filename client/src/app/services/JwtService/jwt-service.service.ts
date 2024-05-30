@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {User} from "../../models/User";
+import { Artist } from '../../models/Artist';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,9 @@ export class JwtServiceService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
+  }
+
+  public registerArtist(artist: Artist) {
+    return this.http.post<User>('http://localhost:8080/users/artist', artist);
   }
 }
