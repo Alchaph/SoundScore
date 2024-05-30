@@ -40,10 +40,10 @@ import {MatOption} from "@angular/material/autocomplete";
     MatCardImage,
     NgStyle
   ],
-  templateUrl: './add-post.component.html',
-  styleUrl: './add-post.component.scss'
+  templateUrl: './add-edit-post-component.html',
+  styleUrl: './add-edit-post-component.scss'
 })
-export class AddPostComponent implements AfterViewInit, OnInit {
+export class AddEditPostComponent implements AfterViewInit, OnInit {
   allGenres: Genre[] = []
   allArtists: Artist[] = []
   allSongs: Song[] = []

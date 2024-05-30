@@ -30,10 +30,10 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
     MatSelect,
     ReactiveFormsModule
   ],
-  templateUrl: './artist-register.component.html',
-  styleUrl: './artist-register.component.scss'
+  templateUrl: './artist-register-edit.component.html',
+  styleUrl: './artist-register-edit.component.scss'
 })
-export class ArtistRegisterComponent implements OnInit, AfterViewInit {
+export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadedImage')
   uploadedImage: ElementRef | undefined;
   imageHeight: number = 0
