@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Artist} from "../../models/Artist";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class ArtistService {
   constructor(private http: HttpClient) {
   }
 
-  createArtist(artist: Artist) {
-    return this.http.post('http://localhost:8080/api/artist/create', artist, {
+  createArtist(artist: Artist): Observable<Artist> {
+    return this.http.post<Artist>('http://localhost:8080/api/artist/create', artist, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
