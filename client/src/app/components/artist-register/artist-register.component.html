@@ -6,7 +6,7 @@
     }}
   </mat-card-header>
   <mat-card-content>
-    <form [formGroup]="formGroup">
+    <form (ngSubmit)="saveArtist()" [formGroup]="formGroup">
       <mat-form-field>
         <mat-label>Artist Name</mat-label>
         <input [formControl]="formGroup.controls.artistName" matInput required>
@@ -20,7 +20,9 @@
         <input [formControl]="formGroup.controls.artistImage" matInput required>
       </mat-form-field>
       <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
-      <button (click)="saveArtist()" color="primary" mat-raised-button>Save</button>
+      <button [disabled]="formGroup.invalid" color="primary"
+              mat-raised-button>{{ artist ? 'Edit' : 'Save' }}
+      </button>
     </form>
   </mat-card-content>
 </div>
