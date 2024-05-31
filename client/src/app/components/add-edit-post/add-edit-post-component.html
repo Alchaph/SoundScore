@@ -62,6 +62,7 @@
             }
             @case ('Genre') {
               @for (genre of allGenres; track $index) {
+
                 <mat-option [value]="genre">{{ genre.name }}</mat-option>
               }
             }
