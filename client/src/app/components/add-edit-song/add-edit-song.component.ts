@@ -12,7 +12,7 @@ import {MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {GenreService} from "../../services/GenreService/genre.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {GifService} from "../../services/GifService/gif.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";

@@ -21,6 +21,8 @@ export const routes: Routes = [
   {path: 'home/settings', component: SettingsComponent},
   {path: 'home/usersPosts', component: UsersPostsComponent},
   {path: 'home/artistProfile/:artistId', component: ArtistProfileComponent},
+  {path: 'home/artistProfile', component: ArtistProfileComponent},
+
   {path: 'home/addArtist', component: ArtistRegisterEditComponent},
   {path: 'home/editArtist/:artistId', component: ArtistRegisterEditComponent},
   {path: 'home/addSong', component: AddEditSongComponent},
