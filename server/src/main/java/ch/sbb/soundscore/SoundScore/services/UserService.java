@@ -27,13 +27,8 @@ public class UserService {
 
         return users;
     }
-
-    public User registerArtist(User user, Artist artist) {
+    public User updateUser(Artist artist, User user) {
         user.setArtist(artist);
-        return userRepository.save(user);
-    }
-    public User updateUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserRepository userRepository;
 
-    private final ArtistRepository artistRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -24,17 +23,15 @@ public class AuthenticationService {
 
     public AuthenticationService(
             UserRepository userRepository,
-            ArtistRepository artistRepository,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder
     ) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
-        this.artistRepository = artistRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signup(RegisterUserDto input) {
+    public User signup(RegisterUserDto input) { //TODO userName is email
         User user = new User();
         user.setUsername(input.getUsername());
         user.setEmail(input.getEmail());
@@ -44,25 +41,20 @@ public class AuthenticationService {
     }
 
     public User authenticate(LoginUserDto input) {
+        System.out.println("Hallo");
+        System.out.println(input.getEmail());
+        System.out.println(input.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
                         input.getPassword()
                 )
         );
-
+        System.out.println("Hallo2");
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
 
-    public Artist signupArtist(RegisterArtistDto input) {
-        Artist artist = new Artist();
-        artist.setName(input.getName());
-        artist.setDescription(input.getDescription());
-        artist.setImage(input.getImage());
-
-        return artistRepository.save(artist);
-    }
     public boolean verifyPassword(String email, String password) {
 //        System.out.println(userRepository.findByEmail(email).map(User::getPassword).orElseThrow());
 //        System.out.println(passwordEncoder.encode(password));

@@ -12,6 +12,7 @@ import {ArtistService} from "../../services/ArtistService/artist.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'app-artist-register',
@@ -85,6 +86,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         this.artistService.updateArtist(artist).subscribe(
           () => this.updateUser(artist)
         ) :
+        console.log(this.user)
         this.artistService.createArtist(artist).subscribe(
           (a) => {
             artist.id = a.id
@@ -95,15 +97,17 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   }
 
   updateUser(artist: Artist) {
-    if (this.user) {
+    if (artist) {
       this.jwtService.updateUser({
-        id: this.user.id,
-        username: this.user.username,
-        email: this.user.email,
-        password: this.user.password,
-        artist: artist,
+        id: artist?.id,
+        name: artist?.name!,
+        description: artist?.description!,
+        image: artist?.image!,
       }).subscribe(
-        () => this.router.navigate(['home/artistProfile/' + artist.id])
+        () => {
+          this.router.navigate(['home/artistProfile/' + artist.id])
+
+        }
       )
     }
   }

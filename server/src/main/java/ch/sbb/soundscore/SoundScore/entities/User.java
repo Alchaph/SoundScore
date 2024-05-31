@@ -40,7 +40,7 @@ public class User implements UserDetails {
     private Date updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "artist_id")
+    @JoinColumn(name = "artist_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
 
