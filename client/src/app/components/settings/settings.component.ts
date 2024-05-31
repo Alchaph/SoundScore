@@ -11,7 +11,7 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ArtistRegisterEditComponent} from "../artist-register-edit/artist-register-edit.component";
 import {Artist} from "../../models/Artist";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-settings',
@@ -45,7 +45,7 @@ export class SettingsComponent implements OnInit {
   }>;
   hide = true;
 
-  constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService) {
+  constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -82,6 +82,12 @@ export class SettingsComponent implements OnInit {
         this.jwtService.updateUsers(user).subscribe();
       });
     });
+  }
+
+  deleteYourself(): void {
+    this.jwtService.deleteMe().subscribe();
+    this.router.navigate(['']);
+    localStorage.clear();
   }
 
 }

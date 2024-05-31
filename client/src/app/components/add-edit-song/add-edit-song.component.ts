@@ -63,7 +63,8 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
               private genreService:GenreService,
               private route:ActivatedRoute,
               private gifService: GifService,
-              private jwtService: JwtServiceService
+              private jwtService: JwtServiceService,
+              private router: Router
   ){}
   goBack() {
     this.location.back();
@@ -104,9 +105,14 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
         genre: this.formGroup.controls.genre.value as Genre,
         artist: this.user?.artist
       }
-      this.songService.updateSong(song).subscribe();
+      this.songService.updateSong(song).subscribe((data) => {
+        console.log("Navigating to artist profile")
+        this.router.navigate(['/home/artistProfile'])
+      });
     } else {
       // console.error('Form is invalid')
     }
+    console.log("Navigating to artist profile")
+    this.router.navigate(['/home/artistProfile'])
   }
 }
