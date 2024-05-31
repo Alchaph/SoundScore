@@ -27,6 +27,7 @@ export class SongService {
   }
 
   deleteSong(id: number) {
+    console.log('http://localhost:8080/api/songs/delete/' + id)
     return this.http.delete('http://localhost:8080/api/songs/delete/' + id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
