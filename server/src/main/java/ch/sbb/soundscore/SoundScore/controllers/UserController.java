@@ -51,4 +51,11 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUsers(user));
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<User> deleteUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(userService.deleteUser(currentUser));
+    }
+
 }

@@ -35,4 +35,9 @@ public class UserService {
         currentuser.setPassword(passwordEncoder.encode(currentuser.getPassword()));
         return userRepository.save(currentuser);
     }
+
+    public User deleteUser(User user) {
+        userRepository.delete(user);
+        return user;
+    }
 }
