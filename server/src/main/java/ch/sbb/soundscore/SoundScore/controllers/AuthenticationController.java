@@ -53,9 +53,6 @@ public class AuthenticationController {
 
     @PostMapping("/verify-password")
     public ResponseEntity<Boolean> verifyPassword(@RequestBody LoginUserDto user) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-        System.out.println("currentUser" + currentUser.getPassword());
         return ResponseEntity.ok(authenticationService.verifyPassword(user.getEmail(), user.getPassword()));
     }
 
