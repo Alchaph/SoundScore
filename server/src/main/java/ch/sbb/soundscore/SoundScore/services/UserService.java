@@ -31,4 +31,7 @@ public class UserService {
         user.setArtist(artist);
         return userRepository.save(user);
     }
+    public User updateUsers(User currentuser) {
+        return userRepository.save(currentuser);
+    }
 }
