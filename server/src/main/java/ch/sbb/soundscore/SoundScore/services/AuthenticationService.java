@@ -41,16 +41,12 @@ public class AuthenticationService {
     }
 
     public User authenticate(LoginUserDto input) {
-        System.out.println("Hallo");
-        System.out.println(input.getEmail());
-        System.out.println(input.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
                         input.getPassword()
                 )
         );
-        System.out.println("Hallo2");
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
