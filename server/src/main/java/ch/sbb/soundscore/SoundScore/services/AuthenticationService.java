@@ -56,8 +56,7 @@ public class AuthenticationService {
     }
 
     public boolean verifyPassword(String email, String password) {
-//        System.out.println(userRepository.findByEmail(email).map(User::getPassword).orElseThrow());
-//        System.out.println(passwordEncoder.encode(password));
-        return passwordEncoder.encode(password).equals(userRepository.findByEmail(email).map(User::getPassword).orElseThrow());
+        User user = userRepository.findByEmail(email).orElseThrow();
+        return passwordEncoder.matches(password, user.getPassword());
     }
 }

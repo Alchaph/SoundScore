@@ -62,7 +62,8 @@ export class SettingsComponent implements OnInit {
       console.error("Invalid form or passwords dont match");
       return;
     }
-    this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.password).subscribe((response) => {
+    console.log(this.userForm.value.oldPassword)
+    this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.oldPassword).subscribe((response) => {
       console.log(response)
       if (response === false) {
         console.error("old Password is incorrect");
