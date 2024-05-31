@@ -16,7 +16,6 @@ export const routes: Routes = [
   {path: 'home/post/:postId', component: PostComponent},
   { path: 'home/addPost/:postType', component: AddEditPostComponent },
   { path: 'home/editPost/:postId', component: AddEditPostComponent },
-  {path: 'home/post/:postId', component: PostComponent},
   {path: 'home/leaderBoard', component: LeaderBoardComponent},
   {path: 'home/settings', component: SettingsComponent},
   {path: 'home/usersPosts', component: UsersPostsComponent},

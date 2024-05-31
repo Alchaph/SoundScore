@@ -6,6 +6,7 @@ import {RouterLink} from "@angular/router";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {User} from "../../models/User";
 import {MatIcon} from "@angular/material/icon";
+import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 
 @Component({
   selector: 'app-users-posts',
@@ -13,7 +14,10 @@ import {MatIcon} from "@angular/material/icon";
   imports: [
     HeadNavBarComponent,
     RouterLink,
-    MatIcon
+    MatIcon,
+    MatCard,
+    MatCardContent,
+    MatCardTitle
   ],
   templateUrl: './users-posts.component.html',
   styleUrl: './users-posts.component.scss'
