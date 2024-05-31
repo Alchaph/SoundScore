@@ -37,21 +37,16 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
+        System.out.println("user" + authenticatedUser);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
+        System.out.println("token" + jwtToken);
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
 
         return ResponseEntity.ok(loginResponse);
-    }
-
-    @PostMapping("/signup/artist")
-    public ResponseEntity<Artist> registerArtist(@RequestBody RegisterArtistDto registerUserDto) {
-        Artist registeredUser = authenticationService.signupArtist(registerUserDto);
-
-        return ResponseEntity.ok(registeredUser);
     }
 
     @PostMapping("/verify-password")

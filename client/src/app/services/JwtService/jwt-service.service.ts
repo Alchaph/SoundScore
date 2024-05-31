@@ -53,15 +53,11 @@ export class JwtServiceService {
     });
   }
 
-  public updateUser(user: User) {
-    return this.http.put<User>('http://localhost:8080/users/update-user', user, {
+  public updateUser(artist: Artist) {
+    return this.http.put<User>('http://localhost:8080/users/update-user', artist, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
-  }
-
-  public registerArtist(artist: Artist) {
-    return this.http.post<User>('http://localhost:8080/users/artist', artist);
   }
 }

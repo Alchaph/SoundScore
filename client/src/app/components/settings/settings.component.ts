@@ -78,7 +78,7 @@ export class SettingsComponent implements OnInit {
       this.jwtService.getMe().subscribe((user: User) => {
         user.email = this.userForm.value.email;
         user.password = this.userForm.value.password;
-        this.jwtService.updateUser(user).subscribe();
+        // this.jwtService.updateUser(user).subscribe(); //TODO ka was da war oder machen wollte
       });
     });
   }
