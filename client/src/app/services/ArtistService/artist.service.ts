@@ -20,7 +20,7 @@ export class ArtistService {
   }
 
   updateArtist(artist: Artist) {
-    return this.http.put('http://localhost:8080/api/artist/update', artist, {
+    return this.http.put('http://localhost:8080/api/artist/edit', artist, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }

@@ -88,3 +88,16 @@ mat-icon {
   justify-content: center;
   align-items: center;
 }
+
+.artist-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+}

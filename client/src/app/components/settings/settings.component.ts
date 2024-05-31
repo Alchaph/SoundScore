@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {User} from "../../models/User";
 import {ArtistService} from "../../services/ArtistService/artist.service";
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
-import {MatIcon} from "@angular/material/icon";
-import {MatFormField} from "@angular/material/form-field";
+import {JwtServiceService} from '../../services/JwtService/jwt-service.service';
+import {MatIcon, MatIconModule} from "@angular/material/icon";
+import {MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import {MatLabel} from "@angular/material/form-field";
-import {MatHint} from "@angular/material/form-field";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {MatIconModule} from "@angular/material/icon";
-import {MatSuffix} from "@angular/material/form-field";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ArtistRegisterEditComponent} from "../artist-register-edit/artist-register-edit.component";
+import {Artist} from "../../models/Artist";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-settings',
@@ -29,22 +28,30 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
     MatTabGroup,
     MatTab,
     MatIconModule,
-    MatSuffix
+    MatSuffix,
+    ArtistRegisterEditComponent,
+    RouterLink
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
-  userForm: FormGroup;
+  userForm: FormGroup<{
+    oldPassword: FormControl;
+    password: FormControl;
+    confirmPassword: FormControl;
+    email: FormControl;
+    artist: FormControl<Artist | null>;
+  }>;
   hide = true;
+
   constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService) {
-    this.userForm = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      artistName: [''],
-      artistGenre: ['']
+    this.userForm = new FormGroup({
+      oldPassword: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      artist: new FormControl<Artist | null>(null, Validators.required)
     });
   }
 
@@ -52,11 +59,11 @@ export class SettingsComponent implements OnInit {
     this.jwtService.getMe().subscribe((user: User) => {
       this.userForm.patchValue({
         email: user.email,
-        artistName: user.artist?.name ?? "",
-        artistGenre: user.artist?.description ?? ""
+        artist: user.artist
       });
     });
   }
+
   onUserSettingsSubmit(): void {
     if (this.userForm.invalid || this.userForm.value.password !== this.userForm.value.confirmPassword) {
       console.error("Invalid form or passwords dont match");
