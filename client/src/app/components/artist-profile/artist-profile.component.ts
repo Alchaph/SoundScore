@@ -39,11 +39,30 @@ export class ArtistProfileComponent {
 
   constructor(
     private jwtService: JwtServiceService,
-    protected songService: SongService,
+    private songService: SongService,
     private artistService: ArtistService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
   ) {
+    this.init()
+  }
+
+  openLink(link: string | undefined) {
+    if (link) {
+      window.open(link, '_blank');
+    }
+  }
+  goBack() {
+    this.location.back();
+  }
+  deleteSong(id: number) {
+    this.songService.deleteSong(id).subscribe((data) => {
+      this.artistSongs = [];
+      this.init();
+    })
+  }
+
+  init() {
     this.artistId = Number(this.route.snapshot.paramMap.get('artistId'));
     this.jwtService.getMe().subscribe((u: User) => {
       this.user = u;
@@ -62,14 +81,5 @@ export class ArtistProfileComponent {
         }
       });
     });
-  }
-
-  openLink(link: string | undefined) {
-    if (link) {
-      window.open(link, '_blank');
-    }
-  }
-  goBack() {
-    this.location.back();
   }
 }
