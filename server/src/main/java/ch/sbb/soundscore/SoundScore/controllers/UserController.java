@@ -45,4 +45,10 @@ public class UserController {
         artistService.createArtist(artist);
         return ResponseEntity.ok(userService.updateUser(artist, currentUser));
     }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUsers(user));
+    }
+
 }
