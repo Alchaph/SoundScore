@@ -6,16 +6,13 @@ import {MatCardContent, MatCardHeader, MatCardImage} from "@angular/material/car
 import {Song} from "../../models/Song";
 import {SongService} from "../../services/SongService/song.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Artist} from "../../models/Artist";
 import {Genre} from "../../models/Genre";
 import {MatFormField} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {GenreService} from "../../services/GenreService/genre.service";
-import {ArtistService} from "../../services/ArtistService/artist.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {ActivatedRoute} from "@angular/router";
 import {GifService} from "../../services/GifService/gif.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
@@ -61,24 +58,17 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
   song: Song | undefined
   imageType: string = "Image";
   gifSearchString: string = ""
-
-  gifs: { id: number, title: string, media_formats: { gif: { url: string } } }[] = []
-
   constructor(private location:Location,
               private songService:SongService,
-              private artistService:ArtistService,
               private genreService:GenreService,
-              private router:Router,
               private route:ActivatedRoute,
-              private http: HttpClient,
               private gifService: GifService,
               private jwtService: JwtServiceService
-  ) {
-
-  }
+  ){}
   goBack() {
     this.location.back();
   }
+
   ngOnInit() {
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.songService.getSong(Number(this.route.snapshot.paramMap.get('songId'))).subscribe(data => {
@@ -90,6 +80,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
     })
     this.jwtService.getMe().subscribe(data => this.user = data)
   }
+
   ngAfterViewInit() {
     if (this.uploadedImage) {
       const imgElement: HTMLImageElement = this.uploadedImage.nativeElement;
@@ -97,12 +88,12 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
       this.imageWidth = imgElement.width
     }
   }
+
   searchGif() {
     this.gifService.searchGif(this.gifSearchString).subscribe(data => {
       this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url)
     })
   }
-
 
   saveSong() {
     if (this.formGroup.valid && this.user?.artist) {
@@ -115,7 +106,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
       }
       this.songService.updateSong(song).subscribe();
     } else {
-      console.error('Form is invalid')
+      // console.error('Form is invalid')
     }
   }
 }

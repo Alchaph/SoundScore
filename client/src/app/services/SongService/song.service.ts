@@ -19,7 +19,7 @@ export class SongService {
   }
 
   updateSong(song: Song) {
-    return this.http.put('http://localhost:8080/api/songs/update', song, {
+    return this.http.put('http://localhost:8080/api/songs/edit', song, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
