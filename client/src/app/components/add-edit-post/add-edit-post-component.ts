@@ -19,6 +19,7 @@ import {PostService} from "../../services/PostService/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {MatOption} from "@angular/material/autocomplete";
+import {GifService} from "../../services/GifService/gif.service";
 
 @Component({
   selector: 'app-add-post',
@@ -57,10 +58,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
   imageType: string = "Image";
   postDefaultType:string ="";
   gifSearchString: string = ""
-  tenorKey: string = " AIzaSyB2mAvrM-f9yduZfFsVgysJnX5ATx1zon0"
-  gifs: { id: number, title: string, media_formats: { gif: { url: string } } }[] = []
   post: Post | undefined;
-
 
   formGroup: FormGroup<{
     title: FormControl,
@@ -82,7 +80,8 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
               private router: Router,
               private http: HttpClient,
               private route: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private gifService: GifService) {
     this.songService.getSongs().subscribe(data => this.allSongs = data)
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.artistService.getArtists().subscribe(data => this.allArtists = data)
@@ -109,9 +108,8 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
           this.showedType = 'Genre'
         }
       }
-      console.log(this.post)
+      // console.log(this.post)
     })
-
   }
 
   ngAfterViewInit() {
@@ -126,12 +124,10 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
   }
 
   searchGif(): void {
-    this.http.get<{
-      results: { id: number, title: string, media_formats: { gif: { url: string } } }[]
-    }>(`https://tenor.googleapis.com/v2/search?q=${this.gifSearchString}&key=${this.tenorKey}&client_key=my_test_app&limit=8`).subscribe(data => {
-      this.gifs = data.results
-      this.formGroup.controls.imageUrl.setValue(this.gifs[0].media_formats.gif.url)
-    })
+    this.gifService.searchGif(this.gifSearchString).subscribe(data => {
+      // console.log(data.results[0].media_formats.gif.url)
+      this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
+    });
   }
 
 

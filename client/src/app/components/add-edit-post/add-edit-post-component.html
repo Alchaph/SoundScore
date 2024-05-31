@@ -30,15 +30,14 @@
                  name="gifSearchString" matInput>
         </mat-form-field>
         @if (gifSearchString) {
-          <img class="gif-preview" [src]="gifs[0].media_formats.gif.url" mat-card-image>
         }
       } @else {
         <mat-form-field>
           <mat-label>Image Url</mat-label>
           <input formControlName="imageUrl" matInput>
         </mat-form-field>
-        <img #uploadedImage [src]="formGroup.controls.imageUrl.value" mat-card-image>
       }
+      <img #uploadedImage [src]="formGroup.controls.imageUrl.value" mat-card-image>
       <mat-form-field>
         <mat-label>Post Type</mat-label>
         <mat-select [(ngModel)]="showedType" [ngModelOptions]="{standalone: true}" name="showedType">

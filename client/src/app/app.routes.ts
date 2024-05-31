@@ -8,6 +8,7 @@ import {UsersPostsComponent} from "./components/users-posts/users-posts.componen
 import {PostComponent} from "./components/post/post.component";
 import {ArtistProfileComponent} from "./components/artist-profile/artist-profile.component";
 import {ArtistRegisterEditComponent} from "./components/artist-register-edit/artist-register-edit.component";
+import {AddEditSongComponent} from "./components/add-edit-song/add-edit-song.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -22,4 +23,6 @@ export const routes: Routes = [
   {path: 'home/artistProfile/:artistId', component: ArtistProfileComponent},
   {path: 'home/addArtist', component: ArtistRegisterEditComponent},
   {path: 'home/editArtist/:artistId', component: ArtistRegisterEditComponent},
+  {path: 'home/addSong', component: AddEditSongComponent},
+  {path: 'home/editSong/:songId', component: AddEditSongComponent}
 ];

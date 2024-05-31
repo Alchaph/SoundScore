@@ -1,0 +1,53 @@
+<app-head-nav-bar></app-head-nav-bar>
+<button mat-button color="primary" (click)="goBack()">❮ Go Back</button>
+<div class="settings-container">
+  <mat-card-header>
+    {{ song ? 'Edit your Song' : 'Upload your own song' }}
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="saveSong()" [formGroup]="formGroup">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Link to your music</mat-label>
+        <input formControlName="link" matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Image Type</mat-label>
+        <mat-select [(ngModel)]="imageType" [ngModelOptions]="{standalone: true}" name="imageType">
+          <mat-option [value]="'Image'">Image</mat-option>
+          <mat-option [value]="'Gif'">Gif</mat-option>
+        </mat-select>
+      </mat-form-field>
+      @if (imageType === 'Gif') {
+        <mat-form-field>
+          <mat-label>Search for Gifs</mat-label>
+          <input (input)="searchGif()" [(ngModel)]="gifSearchString" [ngModelOptions]="{standalone: true}"
+                 name="gifSearchString" matInput>
+        </mat-form-field>
+        @if (gifSearchString) {
+        }
+      } @else {
+        <mat-form-field>
+          <mat-label>Image Url</mat-label>
+          <input formControlName="imageUrl" matInput>
+        </mat-form-field>
+      }
+      <img #uploadedImage [src]="formGroup.controls.imageUrl.value" mat-card-image>
+      <mat-form-field>
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="genre">
+          @if (song && song.genre) {
+            <mat-option [value]="song.genre">{{ song.genre.name }}</mat-option>
+          }
+          @for (genre of allGenres; track $index){
+            <mat-option [value]="genre">{{ genre.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ song ? 'Edit' : 'Create' }} Song</button>
+    </form>
+  </mat-card-content>
+</div>
