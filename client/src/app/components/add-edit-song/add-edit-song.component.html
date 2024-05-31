@@ -39,6 +39,9 @@
       <mat-form-field>
         <mat-label>Genre</mat-label>
         <mat-select formControlName="genre">
+          @if (song && song.genre) {
+            <mat-option [value]="song.genre">{{ song.genre.name }}</mat-option>
+          }
           @for (genre of allGenres; track $index){
             <mat-option [value]="genre">{{ genre.name }}</mat-option>
           }

@@ -24,5 +24,5 @@ export const routes: Routes = [
   {path: 'home/addArtist', component: ArtistRegisterEditComponent},
   {path: 'home/edit/:artistId', component: ArtistRegisterEditComponent},
   {path: 'home/addSong', component: AddEditSongComponent},
-  {path: 'home/editSong/:songId', component: AddEditSongComponent},
+  {path: 'home/editSong/:songId', component: AddEditSongComponent}
 ];
