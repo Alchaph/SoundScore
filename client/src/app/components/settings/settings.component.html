@@ -3,45 +3,37 @@
   <mat-tab label="User settings">
     <div class="settings-container mat-elevation-z8">
       <h2>User Settings</h2>
-      <form [formGroup]="userForm" (ngSubmit)="onUserSettingsSubmit()">
+      <form (ngSubmit)="onUserSettingsSubmit()" [formGroup]="userForm">
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput id="email" type="email" formControlName="email">
+          <input formControlName="email" id="email" matInput type="email">
           <mat-hint>Your email address</mat-hint>
         </mat-form-field>
-
+        @if (userForm.controls.artist.value) {
+          <button [routerLink]="'/home/editArtist/' + userForm.controls.artist.value?.id" class="full-width" mat-raised-button color="primary">Edit your Artist</button>
+        }
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>old Password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" id="oldPassword" formControlName="oldPassword">
-          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input [type]="hide ? 'password' : 'text'" formControlName="oldPassword" id="oldPassword" matInput>
+          <mat-icon (click)="hide = !hide" matSuffix>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           <mat-hint>Enter to verify your identity</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>new Password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
-          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input [type]="hide ? 'password' : 'text'" formControlName="password" id="password" matInput>
+          <mat-icon (click)="hide = !hide" matSuffix>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           <mat-hint>Choose a strong password</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>retype Password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" id="confirmPassword" formControlName="confirmPassword">
-          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" id="confirmPassword" matInput>
+          <mat-icon (click)="hide = !hide" matSuffix>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           <mat-hint>Choose a strong password</mat-hint>
         </mat-form-field>
 
-        <div class="button-container" >
-          <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Save</button>
-        </div>
-      </form>
-    </div>
-  </mat-tab>
-  <mat-tab label="Artist settings">
-    <div class="settings-container mat-elevation-z8">
-      <h2>Artist Settings</h2>
-      <form [formGroup]="userForm" (ngSubmit)="onUserSettingsSubmit()">
         <div class="button-container">
-          <button mat-raised-button color="primary" type="submit">Save</button>
+          <button [disabled]="userForm.invalid" color="primary" mat-raised-button type="submit">Save</button>
         </div>
       </form>
     </div>

@@ -2,8 +2,11 @@
 </app-head-nav-bar>
 <button (click)="goBack()" color="primary" mat-button>❮ Go Back</button>
 <body>
+<div class="artist-container">
+  <img [src]="artist?.image" alt="no image">
+  <h1>{{ artist?.name }}'s Songs</h1>
+</div>
   @if (artist && artistSongs.length > 0) {
-    <h1>{{ artist.name }}'s Songs</h1>
     @if (user && user.artist && user.artist.id === artistId) {
       <button mat-raised-button color="primary" routerLink="/home/addSong">Upload your own Song</button>
     }
