@@ -35,4 +35,6 @@ public interface LikeOrDislikeRepository extends JpaRepository<LikeOrDislike, Lo
     @Query("delete from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = false")
     void deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(Post post, User user);
 
+
+
 }
