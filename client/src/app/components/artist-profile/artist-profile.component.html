@@ -29,7 +29,7 @@
             </p>
             @if (user && user.artist && user.artist.id === artistId && song.id) {
               <span class="actions-container">
-              <button mat-icon-button (click)="openLink(song?.link)">
+              <button mat-icon-button [routerLink]="'/home/editSong/' + song.id">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-icon-button (click)="deleteSong(song.id)">
