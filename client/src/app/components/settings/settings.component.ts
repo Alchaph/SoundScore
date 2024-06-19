@@ -12,6 +12,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {ArtistRegisterEditComponent} from "../artist-register-edit/artist-register-edit.component";
 import {Artist} from "../../models/Artist";
 import {Router, RouterLink} from "@angular/router";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-settings',
@@ -30,7 +31,8 @@ import {Router, RouterLink} from "@angular/router";
     MatIconModule,
     MatSuffix,
     ArtistRegisterEditComponent,
-    RouterLink
+    RouterLink,
+    NgClass
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
@@ -44,6 +46,9 @@ export class SettingsComponent implements OnInit {
     artist: FormControl<Artist | null>;
   }>;
   hide = true;
+  fly = false;
+  fall = false;
+  explode = false;
 
   constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
@@ -85,9 +90,29 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteYourself(): void {
-    this.jwtService.deleteMe().subscribe();
-    this.router.navigate(['']);
-    localStorage.clear();
+    const planeContainer = document.getElementById('planeContainer');
+    const plane = document.getElementById('plane');
+    const nuke = document.getElementById('nuke');
+    const nukeScreen = document.getElementById('nukeScreen');
+    if (planeContainer && plane && nuke && nukeScreen) {
+      console.log('plane');
+      planeContainer.style.display = 'block';
+      this.fly = true;
+      setTimeout(() => {
+        nuke.style.visibility = 'visible';
+        this.fall = true;
+        setTimeout(() => {
+          nukeScreen.style.display = 'block';
+          nuke.style.visibility = 'hidden';
+          this.explode = true;
+          setTimeout(() => {
+            this.jwtService.deleteMe().subscribe();
+            this.router.navigate(['']);
+            localStorage.clear();
+          }, 400);
+        }, 2000);
+      },3000);
+    }
   }
 
 }

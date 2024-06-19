@@ -56,6 +56,13 @@ export class PostService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
+  }
 
+  hasAlreadyLikedOrDisliked(post: Post) {
+    return this.http.post('http://localhost:8080/api/posts/get/liked/' + post.id, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    });
   }
 }

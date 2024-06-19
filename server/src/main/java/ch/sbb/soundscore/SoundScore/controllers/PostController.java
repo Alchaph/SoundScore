@@ -48,4 +48,11 @@ public class PostController {
         User currentUser = (User) authentication.getPrincipal();
         return postService.likeOrDislikePost(id, like, currentUser);
     }
+
+    @GetMapping("/get/liked/{id}")
+    public boolean hasLikedOrDisliked(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return postService.hasLikedOrDisliked(id, currentUser);
+    }
 }

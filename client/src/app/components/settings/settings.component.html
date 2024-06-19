@@ -1,5 +1,7 @@
-<app-head-nav-bar></app-head-nav-bar>
-<mat-tab-group>
+<div [ngClass]="{'exploding': explode}" id="nukeScreen"></div>
+@if (!explode) {
+  <app-head-nav-bar></app-head-nav-bar>
+  <mat-tab-group>
   <mat-tab label="User settings">
     <div class="settings-container mat-elevation-z8">
       <h2>User Settings</h2>
@@ -39,6 +41,10 @@
     </div>
   </mat-tab>
   <mat-tab label="Delete Yourself from this World">
+    <div id="planeContainer">
+      <img id="plane" [ngClass]="{'fly': fly}" src="https://imgs.search.brave.com/PjgBU9MIuWgoBXc8aKd5hfTRncW07qAzPJR1PTfsGfY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGxhbmUt/ZW5jeWNsb3BlZGlh/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMy8xMC9XaGly/bHdpbmQyVFhULnBu/Zz9yZXNpemU9NjA0/LDI0MiZzc2w9MQ">
+      <img id="nuke" [ngClass]="{'drop': fall}" src="https://imgs.search.brave.com/sRUbfcxwaihuMUxZ7SLu0fQoEKU4R7EHzW6IgjW3ppI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTQvTnVr/ZS1QTkctSW1hZ2Vz/LnBuZw">
+    </div>
     <div id="deleteButtonField">
       <button class="button2" (click)="deleteYourself()">
         <div class="lid">
@@ -59,7 +65,7 @@
           </div>
         </div>
       </button>
-
     </div>
   </mat-tab>
 </mat-tab-group>
+}
