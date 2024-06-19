@@ -17,24 +17,17 @@ public interface LikeOrDislikeRepository extends JpaRepository<LikeOrDislike, Lo
     @Query("select (count(l) > 0) from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = true")
     boolean existsLikeOrDislikeByPostAndUserAndLikeTrue(Post post, User user);
 
-
     @Transactional
     @Modifying
     @Query("delete from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = true")
     void deleteLikeOrDislikeByPostAndUserAndLikeIsTrue(Post post, User user);
 
-
     @Query("select (count(l) > 0) from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = false")
     boolean existsLikeOrDislikeByPostAndUserAndLikeIsFalse(Post post, User user);
-
-
-
 
     @Transactional
     @Modifying
     @Query("delete from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = false")
     void deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(Post post, User user);
-
-
 
 }
