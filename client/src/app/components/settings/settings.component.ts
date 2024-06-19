@@ -13,6 +13,7 @@ import {ArtistRegisterEditComponent} from "../artist-register-edit/artist-regist
 import {Artist} from "../../models/Artist";
 import {Router, RouterLink} from "@angular/router";
 import {NgClass} from "@angular/common";
+import {augmentIndexHtml} from "@angular-devkit/build-angular/src/utils/index-file/augment-index-html";
 
 @Component({
   selector: 'app-settings',
@@ -95,21 +96,29 @@ export class SettingsComponent implements OnInit {
     const nuke = document.getElementById('nuke');
     const nukeScreen = document.getElementById('nukeScreen');
     if (planeContainer && plane && nuke && nukeScreen) {
-      console.log('plane');
+      let audio = new Audio('assets/sounds/plane.mp3');
+      audio.play();
       planeContainer.style.display = 'block';
       this.fly = true;
       setTimeout(() => {
+        let audio2 = new Audio('assets/sounds/explosion.mp3');
+        audio2.currentTime = 0.4;
+        audio2.play();
         nuke.style.visibility = 'visible';
         this.fall = true;
         setTimeout(() => {
+          let audio3 = new Audio('assets/sounds/hexplosion.mp3');
+          audio3.currentTime = 0.45;
+          audio3.play();
+          audio.pause();
           nukeScreen.style.display = 'block';
           nuke.style.visibility = 'hidden';
           this.explode = true;
           setTimeout(() => {
-            this.jwtService.deleteMe().subscribe();
-            this.router.navigate(['']);
-            localStorage.clear();
-          }, 400);
+            // this.jwtService.deleteMe().subscribe();
+            // this.router.navigate(['']);
+            // localStorage.clear();
+          }, 500);
         }, 2000);
       },3000);
     }
