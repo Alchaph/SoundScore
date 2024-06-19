@@ -1,5 +1,5 @@
 ![SoundScore](logo.png "Logo SoundScore")
-## Timo, Marc, Damian & Nevio
+## Timo, Marc & Nevio
 
 ### Git
 - At least 1 commit every day.

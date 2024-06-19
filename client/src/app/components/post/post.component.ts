@@ -68,22 +68,32 @@ export class PostComponent implements OnInit {
   }
 
   likePost(): void {
-    this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
+    this.postService.hasAlreadyLikedOrDisliked(this.post).subscribe((data) => {
       if (data) {
-        this.post.likes++;
-      } else {
-        this.post.likes--;
+        return;
       }
+      this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
+        if (data) {
+          this.post.likes++;
+        } else {
+          this.post.likes--;
+        }
+      });
     });
   }
 
   dislikePost(): void {
-    this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
+    this.postService.hasAlreadyLikedOrDisliked(this.post).subscribe((data) => {
       if (data) {
-        this.post.dislikes++;
-      } else {
-        this.post.dislikes--;
+        return;
       }
+      this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
+        if (data) {
+          this.post.dislikes++;
+        } else {
+          this.post.dislikes--;
+        }
+      });
     });
   }
 

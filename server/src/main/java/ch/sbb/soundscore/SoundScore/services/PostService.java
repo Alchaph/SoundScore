@@ -76,4 +76,9 @@ public class PostService {
         postRepository.save(post);
         return added;
     }
+
+    public boolean hasLikedOrDisliked(Long id, User user) {
+        Post post = postRepository.findById(id).orElseThrow();
+        return likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user) || likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
+    }
 }
