@@ -115,9 +115,9 @@ export class SettingsComponent implements OnInit {
           nuke.style.visibility = 'hidden';
           this.explode = true;
           setTimeout(() => {
-            // this.jwtService.deleteMe().subscribe();
-            // this.router.navigate(['']);
-            // localStorage.clear();
+            this.jwtService.deleteMe().subscribe();
+            this.router.navigate(['']);
+            localStorage.clear();
           }, 500);
         }, 2000);
       },3000);
