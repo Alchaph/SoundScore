@@ -65,6 +65,8 @@ export class LoginComponent {
 
   }
 
+
+
   validator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       let valid = this.registerForm.controls.password.value === this.registerForm.controls.repeatPassword.value;
