@@ -11,7 +11,7 @@
   }
   mat-card-actions{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     color: #99c3ff;
   }
   p:hover{
@@ -19,4 +19,93 @@
   }
 }
 
+.input-group {
+  position: relative;
+}
+
+.input {
+  border: solid 1.5px #9e9e9e;
+  border-radius: 1rem;
+  background: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #1a73e8;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-label {
+  position: absolute;
+  left: 15px;
+  bottom: 28px;
+  color: #e8e8e8;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus, input:valid {
+  outline: none;
+  border: 1.5px solid #1a73e8;
+}
+
+.input:focus ~ label, input:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: white;
+  padding: 0 .2em;
+  color: #2196f3;
+}
+
+#card {
+  width: 19%;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 4px 4px 7px #ffffff,
+  -4px -4px 7px #ffffff;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 700;
+  font-family: Helvetica, "sans-serif";
+  transition: all .2s;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: #2196f3;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  margin-left: -12px;
+}
+
+button:hover {
+  background: #2196f3;
+}
+
+button > svg {
+  width: 34px;
+  margin-left: 10px;
+  transition: transform .3s ease-in-out;
+}
+
+button:hover svg {
+  transform: translateX(5px);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#title {
+  font-size: 2em;
+  color: #2196f3;
+}
+
+#bg {
+  background-image: url('https://imgs.search.brave.com/cApNiV36KuJTWl_r06vURv0J9ryVUu4QujPS5h3M-oc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ1/MjE0MjIxMC9waG90/by9hYnN0cmFjdC1t/dWx0aWxheWVyZWQt/Y2lyY3VsYXItc2hh/cGVzLXNvdW5kLXdh/dmVzLndlYnA_Yj0x/JnM9MTcwNjY3YSZ3/PTAmaz0yMCZjPVRR/Y3kySzNJUFhRTTNw/UTluRTNzM09TZUtO/b19Lb21ScU9Kc1lS/Qm5lcU09');
+  width: 100%;
+  height: 100vh;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
 
