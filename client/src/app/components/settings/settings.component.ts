@@ -50,6 +50,7 @@ export class SettingsComponent implements OnInit {
   fly = false;
   fall = false;
   explode = false;
+  disabled = false;
 
   constructor(private formBuilder: FormBuilder, private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
@@ -91,6 +92,7 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteYourself(): void {
+    this.disabled = true;
     const planeContainer = document.getElementById('planeContainer');
     const plane = document.getElementById('plane');
     const nuke = document.getElementById('nuke');

@@ -47,7 +47,7 @@
       <img id="nuke" [ngClass]="{'drop': fall}" src="https://imgs.search.brave.com/sRUbfcxwaihuMUxZ7SLu0fQoEKU4R7EHzW6IgjW3ppI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTQvTnVr/ZS1QTkctSW1hZ2Vz/LnBuZw">
     </div>
     <div id="deleteButtonField">
-      <button class="button2" (click)="deleteYourself()">
+      <button [disabled]="disabled" class="button2" (click)="deleteYourself()">
         <div class="lid">
           <span class="side top"></span>
           <span class="side front"></span>
