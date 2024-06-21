@@ -252,14 +252,16 @@ body {
     justify-content: space-between;
     flex-direction: column;
     overflow-y: auto;
-
     main::-webkit-scrollbar {
       display: none;
     }
     scrollbar-width: none;
     -ms-overflow-style: none;
+    mat-card:hover {
+      cursor: pointer;
+    }
     mat-card {
-      margin: 10px;
+        margin: 10px;
       mat-card-header{
         justify-content: center;
         flex-direction: column;
@@ -267,8 +269,10 @@ body {
 
       mat-card-content {
         display: flex;
+        flex-direction: column;
         justify-content: flex-start;
         img {
+          margin-block: 10%;
           height: auto;
           max-height: 30%;
           width: 500px;

@@ -173,23 +173,37 @@
   <div>
     @for (post of posts; track post) {
       @if (selectedFilters && post[selectedFilters]) {
-        <mat-card>
+        <mat-card [routerLink]="'/home/post/'+post.id">
           <mat-card-header>
             <mat-card-title>{{ post.title }}</mat-card-title>
-            <span>Posted By {{ post.user.username }}</span>
           </mat-card-header>
           <mat-card-content>
-            <img [src]="post.image">
+          <img [src]="post.image">
+          <span>Posted By {{ post.user.username }}</span>
+          @if (post.genre || post.artist || post.song){
+            <div class="post-tags">
+              @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+              @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+              @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+            </div>
+          }
           </mat-card-content>
         </mat-card>
       } @else if (!selectedFilters) {
-        <mat-card>
+        <mat-card [routerLink]="'/home/post/'+post.id">
           <mat-card-header>
             <mat-card-title>{{ post.title }}</mat-card-title>
-            <span>Posted By {{ post.user.username }}</span>
           </mat-card-header>
           <mat-card-content>
             <img [src]="post.image">
+            <span>Posted By {{ post.user.username }}</span>
+            @if (post.genre || post.artist || post.song){
+              <div class="post-tags">
+                @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+                @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+                @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+              </div>
+          }
           </mat-card-content>
         </mat-card>
       }
