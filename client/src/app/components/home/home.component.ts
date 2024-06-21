@@ -10,7 +10,7 @@ import {
   MatCard,
   MatCardActions,
   MatCardAvatar,
-  MatCardContent,
+  MatCardContent, MatCardFooter,
   MatCardHeader,
   MatCardImage,
   MatCardSubtitle,
@@ -69,6 +69,7 @@ import {Song} from "../../models/Song";
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
+    MatCardFooter,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
