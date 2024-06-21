@@ -210,9 +210,24 @@
     }
   </div>
 </main>
-<mat-sidenav-container>
-  <mat-list>
-    <ng-container>
+  <mat-sidenav-container id="right-nav">
+  <mat-expansion-panel id="create-post-expansion-panel">
+    <mat-expansion-panel-header>
+      Create Post about...
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item [routerLink]="'/home/addPost/Artist'">
+        Artist
+      </mat-list-item>
+      <mat-list-item [routerLink]="'/home/addPost/Song'">
+        Song
+      </mat-list-item>
+      <mat-list-item [routerLink]="'/home/addPost/Genre'">
+        Genre
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+  <ng-container>
       @for (str of ['Top Artists', 'Top Songs', 'Top Genres']; track str) {
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -248,6 +263,5 @@
         </mat-expansion-panel>
           }
     </ng-container>
-  </mat-list>
 </mat-sidenav-container>
 </body>
