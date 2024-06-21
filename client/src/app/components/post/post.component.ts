@@ -12,7 +12,6 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Location} from '@angular/common';
 
-
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -28,6 +27,7 @@ import {Location} from '@angular/common';
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
+
 export class PostComponent implements OnInit {
   post: Post;
   comments: Comment[] = []
@@ -37,6 +37,7 @@ export class PostComponent implements OnInit {
   postId: number = Number(this.route.snapshot.paramMap.get('postId'));
   currentAction: 'Add' | 'Edit your' | 'Reply to' = 'Add';
   focusedComment?: Comment;
+
 
 
   constructor(private route: ActivatedRoute,

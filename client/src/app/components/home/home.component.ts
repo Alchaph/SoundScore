@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButtonToggle} from "@angular/material/button-toggle";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
-import {MatButton, MatFabButton} from "@angular/material/button";
-import {PostService} from "../../services/PostService/post.service";
-import {Post} from "../../models/Post";
+import {MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
 import {
   MatCard,
   MatCardActions,
   MatCardAvatar,
-  MatCardContent, MatCardFooter,
+  MatCardContent,
+  MatCardFooter,
   MatCardHeader,
   MatCardImage,
   MatCardSubtitle,
@@ -25,20 +24,32 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
 import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 import {FormsModule} from "@angular/forms";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {SongService} from "../../services/SongService/song.service";
-import {ArtistService} from "../../services/ArtistService/artist.service";
-import {Genre} from "../../models/Genre";
-import {GenreService} from "../../services/GenreService/genre.service";
-import {Artist} from "../../models/Artist";
-import {Song} from "../../models/Song";
 import {
   MatAccordion,
   MatExpansionPanel,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
+import {
+  MatNestedTreeNode,
+  MatTree,
+  MatTreeNode,
+  MatTreeNodeDef,
+  MatTreeNodeOutlet,
+  MatTreeNodeToggle
+} from "@angular/material/tree";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {Post} from "../../models/Post";
+import {Genre} from "../../models/Genre";
+import {Artist} from "../../models/Artist";
+import {Song} from "../../models/Song";
+import {PostService} from "../../services/PostService/post.service";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 
+export interface TreeNode {
+  name: string;
+  children?: TreeNode[];
+}
 
 @Component({
   selector: 'app-home',
@@ -80,11 +91,20 @@ import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board
     MatAccordion,
     MatExpansionPanel,
     MatExpansionPanelTitle,
-    MatExpansionPanelHeader
+    MatExpansionPanelHeader,
+    MatTreeNodeDef,
+    MatTreeNode,
+    MatTree,
+    MatProgressBar,
+    MatNestedTreeNode,
+    MatIconButton,
+    MatTreeNodeToggle,
+    MatTreeNodeOutlet
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   genres: Genre[] = [];
@@ -95,17 +115,15 @@ export class HomeComponent implements OnInit {
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
 
-  selectedFilters?: 'genre'|'song'|'artist';
+  selectedFilters?: 'genre' | 'song' | 'artist';
 
   constructor(private postService: PostService, private leaderBoardService: LeaderBoardService) {
-
   }
 
   ngOnInit() {
     this.postService.getPosts().subscribe((data: Post[]) => {
       this.posts = data;
     });
-
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data;
     });
