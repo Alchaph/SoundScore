@@ -3,7 +3,7 @@ import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {PostService} from "../../services/PostService/post.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommentService} from "../../services/CommentService/comment.service";
 import {Comment} from '../../models/Comment';
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
@@ -22,7 +22,8 @@ import {Location} from '@angular/common';
     MatIconButton,
     MatIcon,
     MatButton,
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
