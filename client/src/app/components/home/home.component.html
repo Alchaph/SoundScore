@@ -1,5 +1,3 @@
-<app-head-nav-bar>
-</app-head-nav-bar>
 <!--<div id="main">-->
 <!--  <div id="top">-->
 <!--    <mat-tab-group id="slide" (selectedTabChange)="onTabChange($event)">-->
@@ -159,42 +157,56 @@
 <!--  </div>-->
 <!--</div>-->
 <body>
-<mat-sidenav-container>
-  <mat-sidenav>Start</mat-sidenav>
-  <mat-sidenav-content>
-    <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
-      @for (str of ['Artist', 'Song', 'Genre']; track str) {
-        <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
-      }
-    </mat-chip-listbox>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<main>
-  <div>
-    @for (post of posts; track post) {
-      @if (selectedFilters && post[selectedFilters]) {
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <span>Posted By {{ post.user.username }}</span>
-          </mat-card-header>
-          <mat-card-content>
-            <img [src]="post.image">
-          </mat-card-content>
-        </mat-card>
-      } @else if (!selectedFilters) {
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-            <span>Posted By {{ post.user.username }}</span>
-          </mat-card-header>
-          <mat-card-content>
-            <img [src]="post.image">
+<app-head-nav-bar>
+</app-head-nav-bar>
+<div class="container">
+  <mat-sidenav-container>
+    <mat-sidenav>Start</mat-sidenav>
+    <mat-sidenav-content>
+      <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
+        @for (str of ['Artist', 'Song', 'Genre']; track str) {
+          <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <main>
+    <div>
+      @for (post of posts; track post) {
+        @if (selectedFilters && post[selectedFilters]) {
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ post.title }}</mat-card-title>
+              <span>Posted By {{ post.user.username }}</span>
+            </mat-card-header>
+            <mat-card-content>
+              <img [src]="post.image">
+            </mat-card-content>
+          </mat-card>
+        } @else if (!selectedFilters) {
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ post.title }}</mat-card-title>
+              <span>Posted By {{ post.user.username }}</span>
+            </mat-card-header>
+            <mat-card-content>
+              <img [src]="post.image">
 
-          </mat-card-content>
-        </mat-card>
+            </mat-card-content>
+          </mat-card>
+        }
       }
-    }
-  </div>
-</main>
+    </div>
+  </main>
+  <mat-sidenav-container>
+    <mat-sidenav>Start</mat-sidenav>
+    <mat-sidenav-content>
+      <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
+        @for (str of ['Artist', 'Song', 'Genre']; track str) {
+          <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
 </body>

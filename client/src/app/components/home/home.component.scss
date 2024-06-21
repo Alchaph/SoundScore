@@ -236,49 +236,101 @@
 //  }
 //}
 //
-app-head-nav-bar {
-  position: relative;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
 body {
   display: flex;
-  width: 100vw;
-  height: calc(100vh - 64px);
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; // Prevent body from scrolling
 
-  main {
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: #333;
+    color: white;
     display: flex;
-    width: 37%;
-    justify-content: space-between;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; // Ensures header is on top
+  }
 
-    mat-card {
-      margin: 10px;
-      mat-card-header{
-        justify-content: center;
-        flex-direction: column;
+  .container {
+    display: flex;
+    width: 100vw;
+    height: calc(100vh - 64px);
+
+    main {
+      flex: 1;
+      margin-left: 23%;
+      overflow-y: auto; // Make main content scrollable
+      padding: 10px;
+
+      div {
+        mat-card {
+          margin: 10px;
+
+          mat-card-header {
+            justify-content: center;
+            flex-direction: column;
+          }
+
+          mat-card-content {
+            display: flex;
+            justify-content: flex-start;
+
+            img {
+              height: auto;
+              max-height: 30%;
+              width: 500px;
+              max-width: 80%;
+            }
+          }
+        }
       }
+    }
 
-      mat-card-content {
-        display: flex;
-        justify-content: flex-start;
-        img {
-          height: auto;
-          max-height: 30%;
-          width: 500px;
-          max-width: 80%;
+    mat-sidenav-container {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 23%;
+      height: calc(100vh - 64px);
+      z-index: 999; // Ensures sidenav is below the header but above content
+
+      mat-sidenav-content {
+        mat-chip-listbox {
+          display: flex !important;
+          flex-direction: column !important;
         }
       }
     }
   }
-}
 
-mat-sidenav-container {
-  height: calc(100vh - 64px);
-  width: 23%;
-  mat-sidenav-content {
-    mat-chip-listbox {
-      display: flex !important;
-      flex-direction: column !important;
+  @media only screen and (max-width: 600px) {
+    .container {
+      main {
+        height: calc(100vh - 56px);
+      }
+
+      mat-sidenav-container {
+        height: calc(100vh - 56px);
+        top: 56px;
+      }
     }
   }
 }
+
+
