@@ -1,3 +1,5 @@
+<app-head-nav-bar>
+</app-head-nav-bar>
 <!--<div id="main">-->
 <!--  <div id="top">-->
 <!--    <mat-tab-group id="slide" (selectedTabChange)="onTabChange($event)">-->
@@ -157,56 +159,109 @@
 <!--  </div>-->
 <!--</div>-->
 <body>
-<app-head-nav-bar>
-</app-head-nav-bar>
-<div class="container">
-  <mat-sidenav-container>
-    <mat-sidenav>Start</mat-sidenav>
-    <mat-sidenav-content>
-      <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
-        @for (str of ['Artist', 'Song', 'Genre']; track str) {
-          <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
-        }
-      </mat-chip-listbox>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  <main>
-    <div>
-      @for (post of posts; track post) {
-        @if (selectedFilters && post[selectedFilters]) {
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>{{ post.title }}</mat-card-title>
-              <span>Posted By {{ post.user.username }}</span>
-            </mat-card-header>
-            <mat-card-content>
-              <img [src]="post.image">
-            </mat-card-content>
-          </mat-card>
-        } @else if (!selectedFilters) {
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>{{ post.title }}</mat-card-title>
-              <span>Posted By {{ post.user.username }}</span>
-            </mat-card-header>
-            <mat-card-content>
-              <img [src]="post.image">
-
-            </mat-card-content>
-          </mat-card>
-        }
+<mat-sidenav-container>
+  <mat-sidenav>Start</mat-sidenav>
+  <mat-sidenav-content>
+    <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
+      @for (str of ['Artist', 'Song', 'Genre']; track str) {
+        <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
       }
-    </div>
-  </main>
-  <mat-sidenav-container>
-    <mat-sidenav>Start</mat-sidenav>
-    <mat-sidenav-content>
-      <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
-        @for (str of ['Artist', 'Song', 'Genre']; track str) {
-          <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
-        }
-      </mat-chip-listbox>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+    </mat-chip-listbox>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<main>
+  <div>
+    @for (post of posts; track post) {
+      @if (selectedFilters && post[selectedFilters]) {
+        <mat-card [routerLink]="'/home/post/'+post.id">
+          <mat-card-header>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+          <img [src]="post.image">
+          <span>Posted By {{ post.user.username }}</span>
+          @if (post.genre || post.artist || post.song){
+            <div class="post-tags">
+              @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+              @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+              @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+            </div>
+          }
+          </mat-card-content>
+        </mat-card>
+      } @else if (!selectedFilters) {
+        <mat-card [routerLink]="'/home/post/'+post.id">
+          <mat-card-header>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <img [src]="post.image">
+            <span>Posted By {{ post.user.username }}</span>
+            @if (post.genre || post.artist || post.song){
+              <div class="post-tags">
+                @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
+                @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
+                @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+              </div>
+          }
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+  </div>
+</main>
+  <mat-sidenav-container id="right-nav">
+  <mat-expansion-panel id="create-post-expansion-panel">
+    <mat-expansion-panel-header>
+      Create Post about...
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item [routerLink]="'/home/addPost/Artist'">
+        Artist
+      </mat-list-item>
+      <mat-list-item [routerLink]="'/home/addPost/Song'">
+        Song
+      </mat-list-item>
+      <mat-list-item [routerLink]="'/home/addPost/Genre'">
+        Genre
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+  <ng-container>
+      @for (str of ['Top Artists', 'Top Songs', 'Top Genres']; track str) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+              {{ str }}
+          </mat-expansion-panel-header>
+          <div>
+            @if (str === 'Top Artists') {
+              <mat-list>
+                  @for (item of this.topArtists; track item) {
+                    <mat-list-item [routerLink]="'/home/artistProfile/'+ item.id">
+                    {{ item.name }}
+                    </mat-list-item>
+                  }
+              </mat-list>
+            } @else if (str === 'Top Songs') {
+              <mat-list>
+                  @for (item of this.topSongs; track item) {
+                    <mat-list-item (click)="window.open(item.link)">
+                    {{ item.title }}
+                    </mat-list-item>
+                  }
+              </mat-list>
+            } @else if (str === 'Top Genres') {
+              <mat-list>
+                  @for (item of this.topGenres; track item) {
+                    <mat-list-item>
+                    {{ item.name }}
+                    </mat-list-item>
+                  }
+              </mat-list>
+            }
+          </div>
+        </mat-expansion-panel>
+          }
+    </ng-container>
+</mat-sidenav-container>
 </body>
