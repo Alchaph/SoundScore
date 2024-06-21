@@ -31,6 +31,13 @@ import {Genre} from "../../models/Genre";
 import {GenreService} from "../../services/GenreService/genre.service";
 import {Artist} from "../../models/Artist";
 import {Song} from "../../models/Song";
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
+import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 
 
 @Component({
@@ -70,6 +77,10 @@ import {Song} from "../../models/Song";
     MatMenu,
     MatMenuItem,
     MatCardFooter,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    MatExpansionPanelHeader
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -80,9 +91,13 @@ export class HomeComponent implements OnInit {
   artists: Artist[] = [];
   songs: Song[] = [];
 
+  topSongs: Song[] = [];
+  topGenres: Genre[] = [];
+  topArtists: Artist[] = [];
+
   selectedFilters?: 'genre'|'song'|'artist';
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService) {
 
   }
 
@@ -91,8 +106,17 @@ export class HomeComponent implements OnInit {
       this.posts = data;
     });
 
-
+    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
+      this.topGenres = data;
+    });
+    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
+      this.topArtists = data;
+    });
+    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
+      this.topSongs = data;
+    });
   }
+
 
   // isButtonDisabled = false;
   // visiblePosts: Post[] = []; // First = Left, Last = Right
@@ -207,4 +231,5 @@ export class HomeComponent implements OnInit {
   //     }, 600);
   //   }
   // }
+  protected readonly window = window;
 }

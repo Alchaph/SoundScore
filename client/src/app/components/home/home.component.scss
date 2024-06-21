@@ -244,13 +244,20 @@ body {
   display: flex;
   width: 100vw;
   height: calc(100vh - 64px);
-
+  justify-content: space-between;
+  position: fixed;
   main {
     display: flex;
     width: 37%;
     justify-content: space-between;
     flex-direction: column;
+    overflow-y: auto;
 
+    main::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     mat-card {
       margin: 10px;
       mat-card-header{
@@ -281,4 +288,8 @@ mat-sidenav-container {
       flex-direction: column !important;
     }
   }
+}
+mat-list-item:hover {
+  background-color: #f5f5f5 !important;
+  cursor: pointer;
 }

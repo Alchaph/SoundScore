@@ -196,4 +196,44 @@
     }
   </div>
 </main>
+<mat-sidenav-container>
+  <mat-list>
+    <ng-container>
+      @for (str of ['Top Artists', 'Top Songs', 'Top Genres']; track str) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+              {{ str }}
+          </mat-expansion-panel-header>
+          <div>
+            @if (str === 'Top Artists') {
+              <mat-list>
+                  @for (item of this.topArtists; track item) {
+                    <mat-list-item [routerLink]="'/home/artistProfile/'+ item.id">
+                    {{ item.name }}
+                    </mat-list-item>
+                  }
+              </mat-list>
+            } @else if (str === 'Top Songs') {
+              <mat-list>
+                  @for (item of this.topSongs; track item) {
+                    <mat-list-item (click)="window.open(item.link)">
+                    {{ item.title }}
+                    </mat-list-item>
+                  }
+              </mat-list>
+            } @else if (str === 'Top Genres') {
+              <mat-list>
+                  @for (item of this.topGenres; track item) {
+                    <mat-list-item>
+                    {{ item.name }}
+                    </mat-list-item>
+                  }
+              </mat-list>
+            }
+          </div>
+        </mat-expansion-panel>
+          }
+    </ng-container>
+  </mat-list>
+</mat-sidenav-container>
 </body>
