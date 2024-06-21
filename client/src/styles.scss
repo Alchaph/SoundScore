@@ -41,4 +41,119 @@ $client-theme: mat.define-light-theme((
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+// Customize specific Angular Material components
+.mat-button, .mat-raised-button, .mat-flat-button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-transform: none;
+  padding: 8px 16px;
+  margin: 4px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-label {
+    color: #757575;
+    font-size: 1rem;
+  }
+
+  .mat-input-element {
+    padding: 8px 0;
+    font-size: 1rem;
+  }
+}
+
+.mat-chip-listbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mat-chip-option {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 16px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &.mat-chip-selected {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+}
+
+.mat-sidenav {
+  width: 200px;
+  background-color: #fff;
+}
+
+.mat-sidenav-content {
+  padding: 16px;
+}
+
+.mat-toolbar {
+  background-color: #fff;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mat-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: none;
+}
+
+.mat-table {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 16px;
+}
+
+.mat-dialog-container {
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.mat-dialog-title {
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.mat-dialog-content {
+  margin-bottom: 24px;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
