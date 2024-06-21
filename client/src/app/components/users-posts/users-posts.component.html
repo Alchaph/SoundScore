@@ -13,7 +13,7 @@
   @for (post of posts; track $index) {
     <div class="post-card">
       @if (post.image) {
-        <img [routerLink]="['/home/post/',post.id]" [src]="post.image" alt="{{post.title}}" class="post-image">
+        <img (click)="navigateToPost(post.id)" [src]="post.image" alt="{{post.title}}" class="post-image">
       } @else {
         <img src="https://i.kym-cdn.com/entries/icons/original/000/039/761/nerdfacecover.jpg" alt="Placeholder Image"
              class="post-image">

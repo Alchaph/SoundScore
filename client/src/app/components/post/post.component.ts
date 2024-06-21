@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {PostService} from "../../services/PostService/post.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommentService} from "../../services/CommentService/comment.service";
@@ -43,8 +43,9 @@ export class PostComponent implements OnInit {
               private postService: PostService,
               private commentService: CommentService,
               private jwtService: JwtServiceService,
-              private location: Location
-  ) {
+              private location: Location,
+              private router: Router)
+ {
     this.post = {} as Post;
     this.newComment = {} as Comment;
     this.activeUser = {} as User;
@@ -65,7 +66,15 @@ export class PostComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    const previousPath = sessionStorage.getItem('previousPath')
+
+    if(previousPath){
+      sessionStorage.clear();
+      this.router.navigate([previousPath])
+
+    } else {
+      this.router.navigate(['/home'])
+    }
   }
 
   likePost(): void {
