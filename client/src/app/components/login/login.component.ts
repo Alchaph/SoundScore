@@ -7,9 +7,9 @@ import {
   ValidatorFn,
   Validators
 } from "@angular/forms";
-import {Component} from "@angular/core";
+import {AfterViewInit, Component} from "@angular/core";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
-import {MatError, MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgxMatIntlTelInputComponent} from "ngx-mat-intl-tel-input";
 import {MatButton, MatIconButton} from "@angular/material/button";
@@ -18,6 +18,7 @@ import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
+import {NeatConfig, NeatGradient} from "@firecms/neat";
 
 @Component({
   selector: 'app-login',
@@ -40,13 +41,14 @@ import {TranslateModule} from "@ngx-translate/core";
     MatError,
     NgxMatInputTelComponent,
     FormsModule,
-    TranslateModule
+    TranslateModule,
+    MatSuffix
 
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit{
   hide = true;
   isRegister = false;
   registerForm: FormGroup<{
@@ -95,4 +97,57 @@ export class LoginComponent {
       });
     }
   }
+
+  ngAfterViewInit()
+  {
+    const bg = document.getElementById("bg") as HTMLCanvasElement;
+    console.log(bg)
+    console.log(typeof bg)
+    if (bg) {
+      const neat = new NeatGradient({
+        ref: bg,
+        ...config
+      });
+    }
+  }
 }
+export const config: NeatConfig = {
+  "colors": [
+    {
+      "color": "#8F00FF",
+      "enabled": true
+    },
+    {
+      "color": "#BC00FF",
+      "enabled": true
+    },
+    {
+      "color": "#A100FF",
+      "enabled": true
+    },
+    {
+      "color": "#C500FF",
+      "enabled": true
+    },
+    {
+      "color": "#0484F7",
+      "enabled": false
+    }
+  ],
+  "speed": 3,
+  "horizontalPressure": 2,
+  "verticalPressure": 5,
+  "waveFrequencyX": 4,
+  "waveFrequencyY": 7,
+  "waveAmplitude": 6,
+  "shadows": 5,
+  "highlights": 3,
+  "colorBrightness": 1.05,
+  "colorSaturation": -2,
+  "wireframe": false,
+  "colorBlending": 5,
+  "backgroundColor": "#AA00FF",
+  "backgroundAlpha": 1,
+  "resolution": 0.8
+}
+
