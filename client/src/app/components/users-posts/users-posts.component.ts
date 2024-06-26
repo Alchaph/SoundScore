@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../services/PostService/post.service";
 import {Post} from '../../models/Post';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {User} from "../../models/User";
 import {MatIcon} from "@angular/material/icon";
@@ -26,7 +26,7 @@ export class UsersPostsComponent implements OnInit {
   posts: Post[] = [];
   activeUser: User;
 
-  constructor(protected postService: PostService, private jwtService: JwtServiceService) {
+  constructor(protected postService: PostService, private jwtService: JwtServiceService, private router: Router) {
     this.activeUser = {} as User;
   }
 
@@ -45,6 +45,13 @@ export class UsersPostsComponent implements OnInit {
         this.posts = this.posts.filter((p) => p.id !== post.id);
       });
     }
+  }
+
+  navigateToPost(postId: number | undefined){
+    const currentPath = this.router.url
+    console.log(currentPath)
+    sessionStorage.setItem('previousPath', currentPath)
+    this.router.navigate(['/home/post/',postId])
   }
 
   protected readonly JSON = JSON;

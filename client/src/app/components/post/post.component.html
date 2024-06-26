@@ -120,7 +120,7 @@
       <textarea placeholder="Message" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">Submit</button>
       @if (currentAction !== 'Add') {
-        <button (click)="currentAction = 'Add'">Cancel</button>
+        <button (click)="currentAction = 'Add'; newComment.title = ''; newComment.message = '' ">Cancel</button>
       }
     </div>
   </div>
