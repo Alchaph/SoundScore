@@ -1,7 +1,6 @@
 package ch.sbb.soundscore.SoundScore.repositories;
 
 
-import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,7 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
-    Optional<User> findByEmail(String email);
+
+
+    Optional<User> findByUsername(String email);
 
     @Transactional
     @Modifying
