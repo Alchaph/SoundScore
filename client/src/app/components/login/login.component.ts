@@ -66,7 +66,7 @@ export class LoginComponent implements AfterViewInit{
     repeatPassword: new FormControl('', [Validators.required, this.validator.bind(this)]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router, private languageService: LanguageService,private translateService: TranslateService) {
+  constructor(private jwtService: JwtServiceService, private router: Router) {
   }
 
 

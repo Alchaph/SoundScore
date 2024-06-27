@@ -19,7 +19,7 @@
     <div class="toolbarRightSide">
       <img [src]="sessionStorage.getItem('profilPicture')" class="catPic" alt="No cats :(" [matMenuTriggerFor]="userMenu">
       <mat-menu #userMenu="matMenu">
-        <button routerLink="/home/usersPosts" mat-menu-item>{{'HEADER.PROFILE' | translate }}</button>
+        <button (click)="reload()" mat-menu-item>{{'HEADER.PROFILE' | translate }}</button>
         <button routerLink="/home/settings" mat-menu-item>{{ 'HEADER.SETTINGS' | translate }}</button>
         <button routerLink="/home/artistProfile" mat-menu-item>{{ 'HEADER.ARTIST_PROFILE' | translate}}</button>
 

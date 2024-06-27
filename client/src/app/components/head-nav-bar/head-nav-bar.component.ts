@@ -13,6 +13,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -45,13 +46,13 @@ export class HeadNavBarComponent implements OnInit {
 
   lang = new FormControl('');
   langs = this.service.getLanguages()
-
+  userId = 0;
 
   constructor(
     // private translateService: TranslateService,
     protected service: LanguageService,
     private router: Router,
-    private languageService: LanguageService) {
+    private jwtService: JwtServiceService) {
 
 
     // this.lang.valueChanges.subscribe((value) => {
@@ -78,6 +79,9 @@ export class HeadNavBarComponent implements OnInit {
           sessionStorage.setItem('profilPicture', data[0].url);
         });
     }
+    this.jwtService.getMe().subscribe((user) => {
+      this.userId = user.id!;
+    });
   }
 
   // ngOnInit() {
@@ -90,4 +94,13 @@ export class HeadNavBarComponent implements OnInit {
   //   this.translateService.use(lang);
   // }
   protected readonly sessionStorage = sessionStorage;
+  protected readonly window = window;
+
+  reload() {
+    this.router.navigate(['/home/usersPosts/', this.userId]).then(() => {
+      if(window.location.href.includes('home/usersPosts')) {
+        window.location.reload();
+      }
+    });
+  }
 }

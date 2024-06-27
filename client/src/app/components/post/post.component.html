@@ -13,7 +13,7 @@
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
       <div class="post-meta">
-        <span>{{'HOME.POSTED_BY' | translate}} {{ post.user.username }}</span>
+        <span [routerLink]="['/home/usersPosts/' + post.user.id]">{{'HOME.POSTED_BY' | translate}} {{ post.user.username }}</span>
 <!--        <div class="like-dislike-container">-->
 <!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
 <!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
