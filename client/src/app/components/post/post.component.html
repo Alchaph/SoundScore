@@ -13,7 +13,7 @@
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
       <div class="post-meta">
-        <span>{{ 'HOME.BY' | translate }} {{ post.user.username }}</span>
+        <span>{{'HOME.POSTED_BY' | translate}} {{ post.user.username }}</span>
 <!--        <div class="like-dislike-container">-->
 <!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
 <!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
@@ -115,7 +115,7 @@
       }
     }
     <div class="comment-form">
-      <h3>{{ currentAction }} a Comment</h3>
+      <h3>{{ currentAction }}{{'POST.COMMENT' | translate}}</h3>
       <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>

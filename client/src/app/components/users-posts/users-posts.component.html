@@ -4,8 +4,8 @@
     <div class="card-container">
       <mat-card>
         <mat-card-content>
-          <mat-card-title>Quiet here</mat-card-title>
-          <p>You haven't posted anything yet.</p>
+          <mat-card-title>{{ 'POSTS_CONTAINER.QUIET_HERE.TITLE' | translate }}</mat-card-title>
+          <p>{{ 'POSTS_CONTAINER.QUIET_HERE.MESSAGE' | translate }}</p>
         </mat-card-content>
       </mat-card>
     </div>
@@ -22,23 +22,23 @@
         <h2>{{ post.title }}</h2>
         <p>{{ post.content }}</p>
         <div class="post-meta">
-          <span>By {{ post.user.username }}</span>
-          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
+          <span>{{ 'POSTS_CONTAINER.POST_CARD.META.BY_USER' | translate }} {{ post.user.username }}</span>
+          <span>{{ 'POSTS_CONTAINER.POST_CARD.META.LIKES' | translate}}: {{ post.likes }} | {{ 'POSTS_CONTAINER.POST_CARD.META.DISLIKES' | translate}}: {{ post.dislikes }}</span>
         </div>
         @if ((post.genre || post.artist || post.song) && post.id) {
           <div class="post-meta">
             @if (post.genre) {
-              <span>Genre: {{ post.genre.name }}</span>
+              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.GENRE' | translate}}: {{ post.genre.name }}</span>
             }
             @if (post.artist) {
-              <span>Artist: {{ post.artist.name }}</span>
+              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.ARTIST' | translate}}: {{ post.artist.name }}</span>
             }
             @if (post.song) {
-              <span>Song: {{ post.song.title }}</span>
+              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.SONG' | translate}}: {{ post.song.title }}</span>
             }
             <span class="actions-container">
-              <mat-icon (click)="deletePost(post)">delete</mat-icon>
-              <mat-icon [routerLink]="['/home/editPost', post.id]">edit</mat-icon>
+              <mat-icon (click)="deletePost(post)">{{ 'POSTS_CONTAINER.POST_CARD.ACTIONS.DELETE' | translate }}</mat-icon>
+              <mat-icon [routerLink]="['/home/editPost', post.id]">{{ 'POSTS_CONTAINER.POST_CARD.ACTIONS.EDIT' | translate }}</mat-icon>
             </span>
           </div>
         }

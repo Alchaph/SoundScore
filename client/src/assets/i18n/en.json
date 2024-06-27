@@ -6,19 +6,20 @@
       "USERNAME": "Username",
       "PASSWORD": "Password",
       "LOGIN_BUTTON": "Login",
-      "REGISTERBUTTON": "Register",
+      "REGISTER_BUTTON": "Register",
       "REPEAT_PASSWORD": "Repeat password"
     },
     "NO_ACCOUNT": "No Account?",
     "ALREADY_ACCOUNT": "Already registered?"
   },
   "HOME": {
-    "NO_POSTS": "No Posts Found",
+    "START": "Start",
     "ADD": "Add",
     "GENRE": "Genre",
     "ARTIST": "Artist",
     "SONG": "Song ",
-    "BY": "by"
+    "POSTED_BY": "Posted By",
+    "CREATE_POST": "Create Post about"
   },
   "POST": {
     "COMMENTS": "Comments",
@@ -59,7 +60,9 @@
   },
   "LEADERBOARD": {
     "TITLE": "Leaderboard",
-    "TOP_POSTS": "Top Posts"
+    "TOP_ARTISTS": "Top Artists",
+    "TOP_GENRE": "Top Genre",
+    "TOP_SONGS": "Top Songs"
   },
   "POST_FORM": {
     "GO_BACK_BUTTON": "Go Back",
@@ -74,7 +77,8 @@
     "IMAGE_URL_LABEL": "Image Url",
     "POST_TYPE_LABEL": "Post Type",
     "SUBMIT_BUTTON_EDIT": "Edit Post",
-    "SUBMIT_BUTTON_CREATE": "Create Post"
+    "SUBMIT_BUTTON_CREATE": "Create Post",
+    "Comment": "a Comment"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Edit your Song",
@@ -113,5 +117,26 @@
     "UPLOAD_MUSIC_MESSAGE": "Upload your music to get discovered by fans.",
     "ARTIST_REGISTRATION_TITLE": "Artist Registration",
     "ARTIST_REGISTRATION_MESSAGE": "Register as an artist to upload your music and get discovered by fans."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "Quiet here",
+      "MESSAGE": "You haven't posted anything yet."
+    },
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Placeholder Image",
+      "META": {
+        "BY_USER": "By ",
+        "LIKES": "Likes",
+        "DISLIKES": "Dislikes",
+        "GENRE": "Genre: {genre}",
+        "ARTIST": "Artist: {artist}",
+        "SONG": "Song: {song}"
+      },
+      "ACTIONS": {
+        "DELETE": "delete",
+        "EDIT": "edit"
+      }
+    }
   }
 }

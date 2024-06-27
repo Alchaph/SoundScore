@@ -160,7 +160,7 @@
 <!--</div>-->
 <body>
 <mat-sidenav-container>
-  <mat-sidenav>Start</mat-sidenav>
+  <mat-sidenav>{{ 'HOME.START' | translate }}</mat-sidenav>
   <mat-sidenav-content>
     <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
       @for (str of ['Artist', 'Song', 'Genre']; track str) {
@@ -179,12 +179,12 @@
           </mat-card-header>
           <mat-card-content>
           <img [src]="post.image">
-          <span>Posted By {{ post.user.username }}</span>
+          <span>{{'HOME.POSTED_BY' | translate}}  {{ post.user.username }}</span>
           @if (post.genre || post.artist || post.song){
             <div class="post-tags">
-              @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-              @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-              @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+              @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
+              @if (post.artist) {<span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>}
+              @if (post.song) {<span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>}
             </div>
           }
           </mat-card-content>
@@ -196,12 +196,12 @@
           </mat-card-header>
           <mat-card-content>
             <img [src]="post.image">
-            <span>Posted By {{ post.user.username }}</span>
+            <span>{{'HOME.POSTED_BY' | translate}}  {{ post.user.username }}</span>
             @if (post.genre || post.artist || post.song){
               <div class="post-tags">
-                @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-                @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-                @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
+                @if (post.artist) {<span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>}
+                @if (post.song) {<span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>}
               </div>
           }
           </mat-card-content>
@@ -213,28 +213,29 @@
   <mat-sidenav-container id="right-nav">
   <mat-expansion-panel id="create-post-expansion-panel">
     <mat-expansion-panel-header>
-      Create Post about...
+      {{ 'HOME.CREATE_POST' | translate }}
     </mat-expansion-panel-header>
     <mat-list>
       <mat-list-item [routerLink]="'/home/addPost/Artist'">
-        Artist
+        {{ 'HOME.ARTIST' | translate }}
+
       </mat-list-item>
       <mat-list-item [routerLink]="'/home/addPost/Song'">
-        Song
+        {{ 'HOME.SONG' | translate }}
       </mat-list-item>
       <mat-list-item [routerLink]="'/home/addPost/Genre'">
-        Genre
+        {{ 'HOME.GENRE' | translate }}
       </mat-list-item>
     </mat-list>
   </mat-expansion-panel>
   <ng-container>
-      @for (str of ['Top Artists', 'Top Songs', 'Top Genres']; track str) {
+      @for (str of ['LEADERBOARD.TOP_ARTISTS' | translate , 'LEADERBOARD.TOP_SONGS' | translate, 'LEADERBOARD.TOP_GENRE' | translate]; track str) {
         <mat-expansion-panel>
           <mat-expansion-panel-header>
               {{ str }}
           </mat-expansion-panel-header>
           <div>
-            @if (str === 'Top Artists') {
+            @if (str === ('LEADERBOARD.TOP_ARTISTS' | translate)) {
               <mat-list>
                   @for (item of this.topArtists; track item) {
                     <mat-list-item [routerLink]="'/home/artistProfile/'+ item.id">
@@ -242,7 +243,7 @@
                     </mat-list-item>
                   }
               </mat-list>
-            } @else if (str === 'Top Songs') {
+            } @else if (str === ('LEADERBOARD.TOP_SONGS' | translate)) {
               <mat-list>
                   @for (item of this.topSongs; track item) {
                     <mat-list-item (click)="window.open(item.link)">
@@ -250,7 +251,7 @@
                     </mat-list-item>
                   }
               </mat-list>
-            } @else if (str === 'Top Genres') {
+            } @else if (str === ('LEADERBOARD.TOP_GENRE' | translate)) {
               <mat-list>
                   @for (item of this.topGenres; track item) {
                     <mat-list-item>
