@@ -1,51 +1,142 @@
 {
-    "LOGIN": {
-        "FORM": {
-            "EMAIL": "E-Mail",
-            "PASSWORD": "Passwort",
-            "LOGINBUTTON": "Aamälde",
-            "REGISTERBUTTON": "Registriere",
-            "ROLEID": "Rool"
-        },
-        "PAGETITLE": "Noteverwaltig"
+  "LOGIN": {
+    "FORM": {
+      "ENTER_MAIL": "Gib dini E-Mail-Adresse ii",
+      "EMAIL": "E-Mail",
+      "USERNAME": "Benutzername",
+      "PASSWORD": "Passwort",
+      "LOGIN_BUTTON": "Aaloggä",
+      "REGISTER_BUTTON": "Regischtriere",
+      "REPEAT_PASSWORD": "Passwort widrholä"
     },
-    "SUBJECTLIST": {
-        "PAGETITLE": "Alli Fächer",
-        "DELETECONFIRMATION": {
-            "TITLE": "Fach läsche",
-            "CONFIRMATIONTEXT1": "Wetsch du das Fach wirklich läsche?",
-            "CONFIRMATIONTEXT2": "Achtig! Wenn du das Fach läschesch, wird au alli zugehöörigi Note geläscht.",
-            "CONFIRMATIONTEXT3": "Wetsch du däi Note wirklich läsche?",
-            "CONFIRMATIONTEXT4": "Achtig! Wenn du däi Note läschesch, isch sie für immer weg.",
-            "SAVEBUTTON": "Speichere",
-            "CANCELBUTTON": "Abbreche"
-        },
-        "TABLE": {
-            "SUBJECTNAME": "Fachname",
-            "AVERAGEGRADE": "Durchschnittsnot",
-            "ACTIONS": "Aktione",
-            "EDITBUTTON": "Bearbeite",
-            "DELETEBUTTON": "Lösche"
-        },
-        "ADDBUTTON": "Fach hinzuefüege"
+    "NO_ACCOUNT": "No kei Account?",
+    "ALREADY_ACCOUNT": "Scho registriert?"
+  },
+  "HOME": {
+    "START": "Start",
+    "ADD": "Hinzuefüege",
+    "GENRE": "Genre",
+    "ARTIST": "Künschtlär",
+    "SONG": "Song",
+    "POSTED_BY": "Gschriibä vo",
+    "CREATE_POST": "Post erstellä über"
+  },
+  "POST": {
+    "COMMENTS": "Kommentär",
+    "WRITE_COMMENT": "Kommentär schribä",
+    "POST_COMMENT": "Kommentär veröffentliche",
+    "POST_NOT_FOUND": "Post nid gfundä",
+    "DELETE": "Lösche",
+    "EDIT": "Bearbeitä",
+    "REPLY": "Antwortä",
+    "MESSAGE": "Nöichicht",
+    "SUBMIT": "Abschickä",
+    "TITLE": "Titel",
+    "CANCEL": "Abbräche"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "Benutzeriistelligä",
+    "EMAIL": "E-Mail",
+    "EMAIL_HINT": "Dini E-Mail-Adresse",
+    "EDIT_ARTIST_BUTTON": "Din Künschtlär bearbeitä",
+    "OLD_PASSWORD": "Alts Passwort",
+    "OLD_PASSWORD_HINT": "Iigebä zom diini Identität z'überprüfä",
+    "NEW_PASSWORD": "Nöis Passwort",
+    "NEW_PASSWORD_HINT": "E starkes Passwort uswählä",
+    "RETYPE_PASSWORD": "Passwort widrholä",
+    "RETYPE_PASSWORD_HINT": "Dini nöii Passwort iigebä",
+    "SAVE_BUTTON": "Sporä",
+    "DELETE_ACCOUNT_BUTTON": "Di selbst lösche vo däm Wält"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "Di selbst lösche vo däm Wält",
+    "DELETE_BUTTON": "Di selbst lösche"
+  },
+  "HEADER": {
+    "PROFILE": "Profil",
+    "LOGOUT": "Usloggä",
+    "SETTINGS": "Iistelligä",
+    "ARTIST_PROFILE": "Künschtlärprofil"
+  },
+  "LEADERBOARD": {
+    "TITLE": "Leaderboard",
+    "TOP_ARTISTS": "Top Künschtlär",
+    "TOP_GENRE": "Top Genre",
+    "TOP_SONGS": "Top Songs"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "Zrugg",
+    "EDIT_POST_HEADER": "Din Post bearbeitä",
+    "CREATE_POST_HEADER": "Din eigete Post erstellä",
+    "TITLE_LABEL": "Titel",
+    "CONTENT_LABEL": "Inhalt",
+    "IMAGE_TYPE_LABEL": "Bildtyp",
+    "IMAGE_OPTION": "Bild",
+    "GIF_OPTION": "GIF",
+    "SEARCH_GIFS_LABEL": "GIFs sueche",
+    "IMAGE_URL_LABEL": "Bild URL",
+    "POST_TYPE_LABEL": "Post Typ",
+    "SUBMIT_BUTTON_EDIT": "Post bearbeitä",
+    "SUBMIT_BUTTON_CREATE": "Post erstellä",
+    "Comment": "e Kommentar"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "Din Song bearbeitä",
+    "CREATE_SONG_HEADER": "Din eigete Song uffeladä",
+    "TITLE_LABEL": "Titel",
+    "LINK_LABEL": "Link zu dim Lied",
+    "IMAGE_TYPE_LABEL": "Bildtyp",
+    "IMAGE_OPTION": "Bild",
+    "GIF_OPTION": "GIF",
+    "SEARCH_GIFS_LABEL": "GIFs sueche",
+    "IMAGE_URL_LABEL": "Bild URL",
+    "GENRE_LABEL": "Genre",
+    "SUBMIT_BUTTON_EDIT": "Song bearbeitä",
+    "SUBMIT_BUTTON_CREATE": "Song uffeladä"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "Din Künschtlär bearbeitä",
+    "CREATE_ARTIST_HEADER": "Din eigete Künschtlär erstellä",
+    "ARTIST_NAME_LABEL": "Künschtlärname",
+    "DESCRIPTION_LABEL": "Beschribig",
+    "ARTIST_IMAGE_LABEL": "Künschtlärbild",
+    "SUBMIT_BUTTON_EDIT": "Bearbeitä",
+    "SUBMIT_BUTTON_SAVE": "Sporä"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "Zrugg",
+    "UPLOAD_SONG_BUTTON": "Din eigete Song uffeladä",
+    "UPLOAD_FIRST_SONG_BUTTON": "Din erschtä Song uffeladä",
+    "REGISTER_AS_ARTIST_BUTTON": "As Künschtlär registrierä",
+    "NO_IMAGE_ALT": "kä Bild",
+    "SONGS_TITLE": "s Songs",
+    "BY_ARTIST": "Vo",
+    "QUIET_HERE_TITLE": "Do isch's still",
+    "QUIET_HERE_MESSAGE": "Dä Künschtlär het no nüt uffeladä.",
+    "UPLOAD_MUSIC_TITLE": "Dini Musik uffeladä",
+    "UPLOAD_MUSIC_MESSAGE": "Lad dini Musik uff, damit Fans di entdeckä chönd.",
+    "ARTIST_REGISTRATION_TITLE": "Künschtlärregistrierig",
+    "ARTIST_REGISTRATION_MESSAGE": "Registrier di als Künschtlär, lad dini Musik uff und lass di vo Fans entdecke."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "Do isch's still",
+      "MESSAGE": "Du hesch no nüt postet."
     },
-    "GRADES_PAGE": {
-        "PAGETITLE": "Note",
-        "BACKBUTTON": "Zrugg",
-        "ADDBUTTON": "Note hinzuefüege",
-        "GRADELIST": {
-            "TITLE": "Note für {{subjectName}}",
-            "GRADE": "Note",
-            "DATE": "Datum",
-            "ACTIONS": "Aktione",
-            "EDITBUTTON": "Bearbeite",
-            "DELETEBUTTON": "Lösche"
-        },
-        "EDITGRADE": {
-            "GRADETITLE": "Note",
-            "DATETITLE": "Datum",
-            "CANCELBUTTON": "Abbreche",
-            "SAVEBUTTON": "Speichere"
-        }
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Platzhalterbild",
+      "META": {
+        "BY_USER": "Vo ",
+        "LIKES": "Likes",
+        "DISLIKES": "Dislikes",
+        "GENRE": "Genre",
+        "ARTIST": "Künschtlär",
+        "SONG": "Song"
+      },
+      "ACTIONS": {
+        "DELETE": "Lösche",
+        "EDIT": "Bearbeitä"
+      }
     }
+  }
 }

@@ -1,51 +1,142 @@
 {
   "LOGIN": {
     "FORM": {
+      "ENTER_MAIL": "Ingrese su correo electrónico",
       "EMAIL": "Correo electrónico",
+      "USERNAME": "Nombre de usuario",
       "PASSWORD": "Contraseña",
-      "LOGINBUTTON": "Iniciar sesión",
-      "REGISTERBUTTON": "Registrarse",
-      "ROLEID": "Rol"
+      "LOGIN_BUTTON": "Iniciar sesión",
+      "REGISTER_BUTTON": "Registrarse",
+      "REPEAT_PASSWORD": "Repetir contraseña"
     },
-    "PAGETITLE": "Gestión de Notas"
+    "NO_ACCOUNT": "¿No tienes cuenta?",
+    "ALREADY_ACCOUNT": "¿Ya registrado?"
   },
-  "SUBJECTLIST": {
-    "PAGETITLE": "Todas las Materias",
-    "DELETECONFIRMATION": {
-      "TITLE": "Eliminar Materia",
-      "CONFIRMATIONTEXT1": "¿Estás seguro de que deseas eliminar esta materia?",
-      "CONFIRMATIONTEXT2": "¡Atención! Al eliminar esta materia también se eliminarán todas las notas relacionadas.",
-      "CONFIRMATIONTEXT3": "¿Estás seguro de que deseas eliminar esta nota?",
-      "CONFIRMATIONTEXT4": "¡Atención! Al eliminar esta nota, se eliminará definitivamente.",
-      "SAVEBUTTON": "Guardar",
-      "CANCELBUTTON": "Cancelar"
-    },
-    "TABLE": {
-      "SUBJECTNAME": "Nombre de la Materia",
-      "AVERAGEGRADE": "Nota Promedio",
-      "ACTIONS": "Acciones",
-      "EDITBUTTON": "Editar",
-      "DELETEBUTTON": "Eliminar"
-    },
-    "ADDBUTTON": "Agregar Materia"
+  "HOME": {
+    "START": "Inicio",
+    "ADD": "Agregar",
+    "GENRE": "Género",
+    "ARTIST": "Artista",
+    "SONG": "Canción",
+    "POSTED_BY": "Publicado por",
+    "CREATE_POST": "Crear publicación sobre"
   },
-  "GRADES_PAGE": {
-    "PAGETITLE": "Notas",
-    "BACKBUTTON": "Volver",
-    "ADDBUTTON": "Agregar Nota",
-    "GRADELIST": {
-      "TITLE": "Notas para {{subjectName}}",
-      "GRADE": "Nota",
-      "DATE": "Fecha",
-      "ACTIONS": "Acciones",
-      "EDITBUTTON": "Editar",
-      "DELETEBUTTON": "Eliminar"
+  "POST": {
+    "COMMENTS": "Comentarios",
+    "WRITE_COMMENT": "Escribir comentario",
+    "POST_COMMENT": "Publicar comentario",
+    "POST_NOT_FOUND": "Publicación no encontrada",
+    "DELETE": "Eliminar",
+    "EDIT": "Editar",
+    "REPLY": "Responder",
+    "MESSAGE": "Mensaje",
+    "SUBMIT": "Enviar",
+    "TITLE": "Título",
+    "CANCEL": "Cancelar"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "Configuración de usuario",
+    "EMAIL": "Correo electrónico",
+    "EMAIL_HINT": "Tu dirección de correo electrónico",
+    "EDIT_ARTIST_BUTTON": "Editar tu Artista",
+    "OLD_PASSWORD": "Contraseña anterior",
+    "OLD_PASSWORD_HINT": "Ingresa para verificar tu identidad",
+    "NEW_PASSWORD": "Nueva contraseña",
+    "NEW_PASSWORD_HINT": "Elige una contraseña segura",
+    "RETYPE_PASSWORD": "Repetir contraseña",
+    "RETYPE_PASSWORD_HINT": "Repite tu nueva contraseña",
+    "SAVE_BUTTON": "Guardar",
+    "DELETE_ACCOUNT_BUTTON": "Eliminar cuenta"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "Eliminar tu cuenta",
+    "DELETE_BUTTON": "Eliminar cuenta"
+  },
+  "HEADER": {
+    "PROFILE": "Perfil",
+    "LOGOUT": "Cerrar sesión",
+    "SETTINGS": "Configuración",
+    "ARTIST_PROFILE": "Perfil de Artista"
+  },
+  "LEADERBOARD": {
+    "TITLE": "Tabla de posiciones",
+    "TOP_ARTISTS": "Mejores Artistas",
+    "TOP_GENRE": "Mejor Género",
+    "TOP_SONGS": "Mejores Canciones"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "Volver",
+    "EDIT_POST_HEADER": "Editar tu Publicación",
+    "CREATE_POST_HEADER": "Crear tu propia Publicación",
+    "TITLE_LABEL": "Título",
+    "CONTENT_LABEL": "Contenido",
+    "IMAGE_TYPE_LABEL": "Tipo de Imagen",
+    "IMAGE_OPTION": "Imagen",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "Buscar Gifs",
+    "IMAGE_URL_LABEL": "URL de la Imagen",
+    "POST_TYPE_LABEL": "Tipo de Publicación",
+    "SUBMIT_BUTTON_EDIT": "Editar Publicación",
+    "SUBMIT_BUTTON_CREATE": "Crear Publicación",
+    "Comment": "un Comentario"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "Editar tu Canción",
+    "CREATE_SONG_HEADER": "Subir tu propia canción",
+    "TITLE_LABEL": "Título",
+    "LINK_LABEL": "Enlace a tu música",
+    "IMAGE_TYPE_LABEL": "Tipo de Imagen",
+    "IMAGE_OPTION": "Imagen",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "Buscar Gifs",
+    "IMAGE_URL_LABEL": "URL de la Imagen",
+    "GENRE_LABEL": "Género",
+    "SUBMIT_BUTTON_EDIT": "Editar Canción",
+    "SUBMIT_BUTTON_CREATE": "Crear Canción"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "Editar tu Artista",
+    "CREATE_ARTIST_HEADER": "Crear tu Artista",
+    "ARTIST_NAME_LABEL": "Nombre del Artista",
+    "DESCRIPTION_LABEL": "Descripción",
+    "ARTIST_IMAGE_LABEL": "Imagen del Artista",
+    "SUBMIT_BUTTON_EDIT": "Editar",
+    "SUBMIT_BUTTON_SAVE": "Guardar"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "Volver",
+    "UPLOAD_SONG_BUTTON": "Subir tu propia Canción",
+    "UPLOAD_FIRST_SONG_BUTTON": "Subir tu primera Canción",
+    "REGISTER_AS_ARTIST_BUTTON": "Registrarse como Artista",
+    "NO_IMAGE_ALT": "sin imagen",
+    "SONGS_TITLE": "Canciones de ",
+    "BY_ARTIST": "Por ",
+    "QUIET_HERE_TITLE": "Silencio aquí",
+    "QUIET_HERE_MESSAGE": "Este Artista aún no ha subido nada.",
+    "UPLOAD_MUSIC_TITLE": "Subir tu música",
+    "UPLOAD_MUSIC_MESSAGE": "Sube tu música para ser descubierto por tus fans.",
+    "ARTIST_REGISTRATION_TITLE": "Registro de Artista",
+    "ARTIST_REGISTRATION_MESSAGE": "Regístrate como artista para subir tu música y ser descubierto por tus fans."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "Silencio aquí",
+      "MESSAGE": "Aún no has publicado nada."
     },
-    "EDITGRADE": {
-      "GRADETITLE": "Nota",
-      "DATETITLE": "Fecha",
-      "CANCELBUTTON": "Cancelar",
-      "SAVEBUTTON": "Guardar"
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Imagen de relleno",
+      "META": {
+        "BY_USER": "Por ",
+        "LIKES": "Me gusta",
+        "DISLIKES": "No me gusta",
+        "GENRE": "Género",
+        "ARTIST": "Artista",
+        "SONG": "Canción"
+      },
+      "ACTIONS": {
+        "DELETE": "Eliminar",
+        "EDIT": "Editar"
+      }
     }
   }
 }

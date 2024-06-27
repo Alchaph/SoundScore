@@ -1,51 +1,142 @@
 {
-    "LOGIN": {
-      "FORM": {
-        "EMAIL": "Email",
-        "PASSWORD": "Mot de passe",
-        "LOGINBUTTON": "Connexion",
-        "REGISTERBUTTON": "Inscription",
-        "ROLE": "Rôle"
-      },
-      "PAGETITLE": "Gestion des notes"
+  "LOGIN": {
+    "FORM": {
+      "ENTER_MAIL": "Entrez votre email",
+      "EMAIL": "Email",
+      "USERNAME": "Nom d'utilisateur",
+      "PASSWORD": "Mot de passe",
+      "LOGIN_BUTTON": "Connexion",
+      "REGISTER_BUTTON": "S'inscrire",
+      "REPEAT_PASSWORD": "Répéter le mot de passe"
     },
-    "SUBJECTLIST": {
-      "PAGETITLE": "Toutes les matières",
-      "DELETECONFIRMATION": {
-        "TITLE": "Supprimer la matière",
-        "CONFIRMATIONTEXT1": "Êtes-vous sûr de vouloir supprimer cette matière ?",
-        "CONFIRMATIONTEXT2": "Attention ! La suppression de cette matière entraînera également la suppression de toutes les notes associées.",
-        "CONFIRMATIONTEXT3": "Êtes-vous sûr de vouloir supprimer cette matière ?",
-        "CONFIRMATIONTEXT4": "Attention ! La suppression de cette matière entraînera également la suppression de toutes les notes associées.",
-        "SAVEBUTTON": "Enregistrer",
-        "CANCELBUTTON": "Annuler"
-      },
-      "TABLE": {
-        "SUBJECTNAME": "Nom de la matière",
-        "AVERAGEGRADE": "Moyenne des notes",
-        "ACTIONS": "Actions",
-        "EDITBUTTON": "Modifier",
-        "DELETEBUTTON": "Supprimer"
-      },
-      "ADDBUTTON": "Ajouter une matière"
+    "NO_ACCOUNT": "Pas de compte?",
+    "ALREADY_ACCOUNT": "Déjà inscrit?"
+  },
+  "HOME": {
+    "START": "Commencer",
+    "ADD": "Ajouter",
+    "GENRE": "Genre",
+    "ARTIST": "Artiste",
+    "SONG": "Chanson",
+    "POSTED_BY": "Posté par",
+    "CREATE_POST": "Créer une publication sur"
+  },
+  "POST": {
+    "COMMENTS": "Commentaires",
+    "WRITE_COMMENT": "Écrire un commentaire",
+    "POST_COMMENT": "Publier le commentaire",
+    "POST_NOT_FOUND": "Publication non trouvée",
+    "DELETE": "Supprimer",
+    "EDIT": "Modifier",
+    "REPLY": "Répondre",
+    "MESSAGE": "Message",
+    "SUBMIT": "Soumettre",
+    "TITLE": "Titre",
+    "CANCEL": "Annuler"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "Paramètres de l'utilisateur",
+    "EMAIL": "Email",
+    "EMAIL_HINT": "Votre adresse email",
+    "EDIT_ARTIST_BUTTON": "Modifier votre artiste",
+    "OLD_PASSWORD": "Ancien mot de passe",
+    "OLD_PASSWORD_HINT": "Entrez pour vérifier votre identité",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "NEW_PASSWORD_HINT": "Choisissez un mot de passe fort",
+    "RETYPE_PASSWORD": "Retaper le mot de passe",
+    "RETYPE_PASSWORD_HINT": "Retapez votre nouveau mot de passe",
+    "SAVE_BUTTON": "Enregistrer",
+    "DELETE_ACCOUNT_BUTTON": "Supprimez-vous de ce monde"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "Supprimez-vous de ce monde",
+    "DELETE_BUTTON": "Supprimez-vous"
+  },
+  "HEADER": {
+    "PROFILE": "Profil",
+    "LOGOUT": "Déconnexion",
+    "SETTINGS": "Paramètres",
+    "ARTIST_PROFILE": "Profil de l'artiste"
+  },
+  "LEADERBOARD": {
+    "TITLE": "Classement",
+    "TOP_ARTISTS": "Meilleurs artistes",
+    "TOP_GENRE": "Meilleurs genres",
+    "TOP_SONGS": "Meilleures chansons"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "Retourner",
+    "EDIT_POST_HEADER": "Modifier votre publication",
+    "CREATE_POST_HEADER": "Créez votre propre publication",
+    "TITLE_LABEL": "Titre",
+    "CONTENT_LABEL": "Contenu",
+    "IMAGE_TYPE_LABEL": "Type d'image",
+    "IMAGE_OPTION": "Image",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "Rechercher des gifs",
+    "IMAGE_URL_LABEL": "URL de l'image",
+    "POST_TYPE_LABEL": "Type de publication",
+    "SUBMIT_BUTTON_EDIT": "Modifier la publication",
+    "SUBMIT_BUTTON_CREATE": "Créer la publication",
+    "Comment": "un commentaire"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "Modifier votre chanson",
+    "CREATE_SONG_HEADER": "Téléchargez votre propre chanson",
+    "TITLE_LABEL": "Titre",
+    "LINK_LABEL": "Lien vers votre musique",
+    "IMAGE_TYPE_LABEL": "Type d'image",
+    "IMAGE_OPTION": "Image",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "Rechercher des gifs",
+    "IMAGE_URL_LABEL": "URL de l'image",
+    "GENRE_LABEL": "Genre",
+    "SUBMIT_BUTTON_EDIT": "Modifier la chanson",
+    "SUBMIT_BUTTON_CREATE": "Créer la chanson"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "Modifier votre artiste",
+    "CREATE_ARTIST_HEADER": "Créez votre artiste",
+    "ARTIST_NAME_LABEL": "Nom de l'artiste",
+    "DESCRIPTION_LABEL": "Description",
+    "ARTIST_IMAGE_LABEL": "Image de l'artiste",
+    "SUBMIT_BUTTON_EDIT": "Modifier",
+    "SUBMIT_BUTTON_SAVE": "Enregistrer"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "Retourner",
+    "UPLOAD_SONG_BUTTON": "Téléchargez votre propre chanson",
+    "UPLOAD_FIRST_SONG_BUTTON": "Téléchargez votre première chanson",
+    "REGISTER_AS_ARTIST_BUTTON": "Inscrivez-vous comme artiste",
+    "NO_IMAGE_ALT": "aucune image",
+    "SONGS_TITLE": "Chansons de",
+    "BY_ARTIST": "Par",
+    "QUIET_HERE_TITLE": "C'est calme ici",
+    "QUIET_HERE_MESSAGE": "Cet artiste n'a pas encore téléchargé.",
+    "UPLOAD_MUSIC_TITLE": "Téléchargez votre musique",
+    "UPLOAD_MUSIC_MESSAGE": "Téléchargez votre musique pour être découvert par les fans.",
+    "ARTIST_REGISTRATION_TITLE": "Inscription d'artiste",
+    "ARTIST_REGISTRATION_MESSAGE": "Inscrivez-vous comme artiste pour télécharger votre musique et être découvert par les fans."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "C'est calme ici",
+      "MESSAGE": "Vous n'avez encore rien posté."
     },
-    "GRADES_PAGE": {
-      "pageTitle": "Notes",
-      "BACKBUTTON": "retour",
-      "ADDBUTTON": "Ajouter une note",
-      "GRADELIST": {
-        "TITLE": "Notes pour {{subjectName}}",
-        "GRADE": "Note",
-        "DATE": "Date",
-        "ACTIONS": "Actions",
-        "EDITBUTTON": "Modifier",
-        "DELETEBUTTON": "Supprimer"
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Image de remplacement",
+      "META": {
+        "BY_USER": "Par",
+        "LIKES": "J'aime",
+        "DISLIKES": "Je n'aime pas",
+        "GENRE": "Genre",
+        "ARTIST": "Artiste",
+        "SONG": "Chanson"
       },
-      "EDITGRADE": {
-        "GRADETITLE": "Note",
-        "DATETITLE": "Date",
-        "CANCELBUTTON": "Annuler",
-        "SAVEBUTTON": "Enregistrer"
+      "ACTIONS": {
+        "DELETE": "supprimer",
+        "EDIT": "modifier"
       }
     }
+  }
 }

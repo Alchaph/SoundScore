@@ -45,6 +45,7 @@ import {Artist} from "../../models/Artist";
 import {Song} from "../../models/Song";
 import {PostService} from "../../services/PostService/post.service";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 export interface TreeNode {
   name: string;
@@ -99,7 +100,8 @@ export interface TreeNode {
     MatNestedTreeNode,
     MatIconButton,
     MatTreeNodeToggle,
-    MatTreeNodeOutlet
+    MatTreeNodeOutlet,
+    TranslateModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -123,6 +125,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.postService.getPosts().subscribe((data: Post[]) => {
       this.posts = data;
+      this.posts.reverse();
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data;

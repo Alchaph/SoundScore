@@ -1,31 +1,31 @@
 <app-head-nav-bar></app-head-nav-bar>
-<button mat-button color="primary" (click)="goBack()">❮ Go Back</button>
+<button mat-button color="primary" (click)="goBack()">❮ {{'POST_FORM.GO_BACK_BUTTON' | translate}}</button>
 <div class="settings-container">
   <mat-card-header>
     {{
-      post ? 'Edit your Post' : 'Create your own Post'
+      post ? ('POST_FORM.EDIT_POST_HEADER' | translate) : ('POST_FORM.CREATE_POST_HEADER' | translate)
     }}
   </mat-card-header>
   <mat-card-content>
     <form (ngSubmit)="savePost()" [formGroup]="formGroup">
       <mat-form-field>
-        <mat-label>Title</mat-label>
+        <mat-label>{{ 'POST_FORM.TITLE_LABEL' | translate }}</mat-label>
         <input formControlName="title" matInput>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Content</mat-label>
+        <mat-label>{{ 'POST_FORM.CONTENT_LABEL' | translate }}</mat-label>
         <input formControlName="content" matInput>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Image Type</mat-label>
+        <mat-label>{{'POST_FORM.IMAGE_TYPE_LABEL' | translate}}</mat-label>
         <mat-select [(ngModel)]="imageType" [ngModelOptions]="{standalone: true}" name="imageType" value="Image">
-          <mat-option [value]="'Image'">Image</mat-option>
-          <mat-option [value]="'Gif'">Gif</mat-option>
+          <mat-option [value]="'Image'">{{ 'POST_FORM.IMAGE_OPTION' | translate }}</mat-option>
+          <mat-option [value]="'Gif'">{{ 'POST_FORM.GIF_OPTION' | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
       @if (imageType === 'Gif') {
         <mat-form-field>
-          <mat-label>Search for Gifs</mat-label>
+          <mat-label>{{ 'POST_FORM.SEARCH_GIFS_LABEL' | translate }}</mat-label>
           <input (input)="searchGif()" [(ngModel)]="gifSearchString" [ngModelOptions]="{standalone: true}"
                  name="gifSearchString" matInput>
         </mat-form-field>
@@ -33,17 +33,17 @@
         }
       } @else {
         <mat-form-field>
-          <mat-label>Image Url</mat-label>
+          <mat-label>{{'POST_FORM.IMAGE_URL_LABEL' | translate}}</mat-label>
           <input formControlName="imageUrl" matInput>
         </mat-form-field>
       }
       <img #uploadedImage [src]="formGroup.controls.imageUrl.value" mat-card-image>
       <mat-form-field>
-        <mat-label>Post Type</mat-label>
+        <mat-label>{{'POST_FORM.POST_TYPE_LABEL' | translate}}</mat-label>
         <mat-select [(ngModel)]="showedType" [ngModelOptions]="{standalone: true}" name="showedType">
-          <mat-option [value]="'Song'">Song</mat-option>
-          <mat-option [value]="'Genre'">Genre</mat-option>
-          <mat-option [value]="'Artist'">Artist</mat-option>
+          <mat-option [value]="'Song'">{{ 'HOME.SONG' | translate }}</mat-option>
+          <mat-option [value]="'Genre'">{{ 'HOME.GENRE' | translate }}</mat-option>
+          <mat-option [value]="'Artist'">{{ 'HOME.ARTIST' | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
@@ -74,7 +74,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ post ? 'Edit' : 'Create' }} Post</button>
+      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ post ? ('POST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('POST_FORM.SUBMIT_BUTTON_CREATE' | translate)  }} </button>
     </form>
   </mat-card-content>
 </div>

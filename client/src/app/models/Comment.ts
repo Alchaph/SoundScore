@@ -5,7 +5,7 @@ export interface Comment {
   id?: number;
   title: string;
   message: string;
-  comment?: Comment;
+  comment: Comment;
   post: Post;
   user: User;
 }

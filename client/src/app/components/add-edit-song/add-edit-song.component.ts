@@ -16,6 +16,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {GifService} from "../../services/GifService/gif.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-add-edit-song',
@@ -32,7 +33,8 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
     FormsModule,
     MatLabel,
     MatInput,
-    MatCardImage
+    MatCardImage,
+    TranslateModule
   ],
   templateUrl: './add-edit-song.component.html',
   styleUrl: './add-edit-song.component.scss'

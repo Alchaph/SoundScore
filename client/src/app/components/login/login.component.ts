@@ -17,8 +17,9 @@ import {MatIcon} from "@angular/material/icon";
 import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
+import {LanguageService} from "../../services/languageService/language.service";
 import {NgClass} from "@angular/common";
 
 @Component({
@@ -52,7 +53,6 @@ import {NgClass} from "@angular/common";
 })
 export class LoginComponent implements AfterViewInit{
   hide = true;
-  hide2 = true;
   isRegister = false;
   registerForm: FormGroup<{
     username: FormControl,
@@ -66,7 +66,9 @@ export class LoginComponent implements AfterViewInit{
     repeatPassword: new FormControl('', [Validators.required, this.validator.bind(this)]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private languageService: LanguageService,private translateService: TranslateService) {
+    this.languageService.setLanguage(this.translateService.getBrowserLang());
+
 
   }
 

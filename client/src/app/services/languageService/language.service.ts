@@ -1,23 +1,32 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {environment} from "../../../environments/environments";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
 
-  constructor() { }
-  language = 'de'
+  constructor(private translateService: TranslateService) {
+    this.initializeTranslationSettings();
+  }
+
   public getLanguages(): string[] {
     return environment.languages;
   }
-  public setLanguage(language: string): void {
-    this.language = language;
+
+  private initializeTranslationSettings() {
+    this.translateService.addLangs(environment.languages);
+    this.translateService.use('en');
+
   }
 
-  public getLanguage(): string {
-    return this.language;
+  public setLanguage(lang: string | undefined) {
+    if (lang) {
+      this.translateService.use(lang);
+    }
+
   }
 
 }

@@ -11,6 +11,7 @@ import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Location} from '@angular/common';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-post',
@@ -22,7 +23,8 @@ import {Location} from '@angular/common';
     MatIcon,
     MatButton,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -37,16 +39,16 @@ export class PostComponent implements OnInit {
   postId: number = Number(this.route.snapshot.paramMap.get('postId'));
   currentAction: 'Add' | 'Edit your' | 'Reply to' = 'Add';
   focusedComment?: Comment;
-
-
+  likeProcessing: boolean = false;
+  liked: boolean = false;
+  disliked: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
               private commentService: CommentService,
               private jwtService: JwtServiceService,
               private location: Location,
-              private router: Router)
- {
+              private router: Router) {
     this.post = {} as Post;
     this.newComment = {} as Comment;
     this.activeUser = {} as User;
@@ -56,6 +58,15 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPost(this.postId).subscribe((post) => {
       this.post = post;
+      this.postService.hasAlreadyLikedOrDisliked(post).subscribe((data) => {
+        if (data.alreadyLikedOrDisliked){
+          if (data.liked){
+            this.liked = true;
+          } else {
+            this.disliked = true;
+          }
+        }
+      })
     });
     this.commentService.getCommentsOfPost(this.postId).subscribe((comments) => {
       this.comments = comments.filter(c => !c.comment);
@@ -69,7 +80,7 @@ export class PostComponent implements OnInit {
   goBack() {
     const previousPath = sessionStorage.getItem('previousPath')
 
-    if(previousPath){
+    if (previousPath) {
       sessionStorage.clear();
       this.router.navigate([previousPath])
 
@@ -79,34 +90,31 @@ export class PostComponent implements OnInit {
   }
 
   likePost(): void {
-    this.postService.hasAlreadyLikedOrDisliked(this.post).subscribe((data) => {
+    this.likeProcessing = true;
+    this.liked = !this.liked;
+    this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
       if (data) {
-        return;
+        this.post.likes++;
+      } else {
+        this.post.likes--;
       }
-      this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
-        if (data) {
-          this.post.likes++;
-        } else {
-          this.post.likes--;
-        }
-      });
+      this.likeProcessing = false;
     });
   }
 
   dislikePost(): void {
-    this.postService.hasAlreadyLikedOrDisliked(this.post).subscribe((data) => {
+    this.likeProcessing = true;
+    this.disliked = !this.disliked;
+    this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
       if (data) {
-        return;
+        this.post.dislikes++;
+      } else {
+        this.post.dislikes--;
       }
-      this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
-        if (data) {
-          this.post.dislikes++;
-        } else {
-          this.post.dislikes--;
-        }
-      });
+      this.likeProcessing = false;
     });
   }
+
 
   handleAction(): void {
     if (!this.newComment.title || !this.newComment.message) {
@@ -141,7 +149,9 @@ export class PostComponent implements OnInit {
   }
 
   replyToComment(): void {
-    this.newComment.comment = this.focusedComment;
+    if (this.focusedComment) {
+      this.newComment.comment = this.focusedComment;
+    }
     this.commentService.createComment(this.newComment).subscribe(comment => {
       this.replies.push(<Comment>comment);
     });
