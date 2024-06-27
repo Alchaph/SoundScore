@@ -1,51 +1,142 @@
 {
   "LOGIN": {
     "FORM": {
-      "EMAIL": "电子邮件",
+      "ENTER_MAIL": "输入您的邮箱",
+      "EMAIL": "邮箱",
+      "USERNAME": "用户名",
       "PASSWORD": "密码",
-      "LOGINBUTTON": "登录",
-      "REGISTERBUTTON": "注册",
-      "ROLEID": "角色"
+      "LOGIN_BUTTON": "登录",
+      "REGISTER_BUTTON": "注册",
+      "REPEAT_PASSWORD": "重复密码"
     },
-    "PAGETITLE": "成绩管理"
+    "NO_ACCOUNT": "没有账号？",
+    "ALREADY_ACCOUNT": "已注册？"
   },
-  "SUBJECTLIST": {
-    "PAGETITLE": "所有科目",
-    "DELETECONFIRMATION": {
-      "TITLE": "删除科目",
-      "CONFIRMATIONTEXT1": "您确定要删除此科目吗？",
-      "CONFIRMATIONTEXT2": "注意！删除此科目将同时删除所有相关的成绩。",
-      "CONFIRMATIONTEXT3": "您确定要删除这个成绩吗？",
-      "CONFIRMATIONTEXT4": "注意！删除此成绩将永久删除。",
-      "SAVEBUTTON": "保存",
-      "CANCELBUTTON": "取消"
-    },
-    "TABLE": {
-      "SUBJECTNAME": "科目名称",
-      "AVERAGEGRADE": "平均成绩",
-      "ACTIONS": "操作",
-      "EDITBUTTON": "编辑",
-      "DELETEBUTTON": "删除"
-    },
-    "ADDBUTTON": "添加科目"
+  "HOME": {
+    "START": "开始",
+    "ADD": "添加",
+    "GENRE": "流派",
+    "ARTIST": "艺术家",
+    "SONG": "歌曲",
+    "POSTED_BY": "发布者",
+    "CREATE_POST": "创建发布"
   },
-  "GRADES_PAGE": {
-    "PAGETITLE": "成绩",
-    "BACKBUTTON": "返回",
-    "ADDBUTTON": "添加成绩",
-    "GRADELIST": {
-      "TITLE": "{{subjectName}} 的成绩",
-      "GRADE": "成绩",
-      "DATE": "日期",
-      "ACTIONS": "操作",
-      "EDITBUTTON": "编辑",
-      "DELETEBUTTON": "删除"
+  "POST": {
+    "COMMENTS": "评论",
+    "WRITE_COMMENT": "写评论",
+    "POST_COMMENT": "发表评论",
+    "POST_NOT_FOUND": "未找到发布",
+    "DELETE": "删除",
+    "EDIT": "编辑",
+    "REPLY": "回复",
+    "MESSAGE": "消息",
+    "SUBMIT": "提交",
+    "TITLE": "标题",
+    "CANCEL": "取消"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "用户设置",
+    "EMAIL": "邮箱",
+    "EMAIL_HINT": "您的邮箱地址",
+    "EDIT_ARTIST_BUTTON": "编辑您的艺术家",
+    "OLD_PASSWORD": "旧密码",
+    "OLD_PASSWORD_HINT": "输入以验证您的身份",
+    "NEW_PASSWORD": "新密码",
+    "NEW_PASSWORD_HINT": "选择一个强密码",
+    "RETYPE_PASSWORD": "重新输入密码",
+    "RETYPE_PASSWORD_HINT": "重新输入您的新密码",
+    "SAVE_BUTTON": "保存",
+    "DELETE_ACCOUNT_BUTTON": "删除您的账户"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "删除您自己",
+    "DELETE_BUTTON": "删除您自己"
+  },
+  "HEADER": {
+    "PROFILE": "个人资料",
+    "LOGOUT": "登出",
+    "SETTINGS": "设置",
+    "ARTIST_PROFILE": "艺术家资料"
+  },
+  "LEADERBOARD": {
+    "TITLE": "排行榜",
+    "TOP_ARTISTS": "热门艺术家",
+    "TOP_GENRE": "热门流派",
+    "TOP_SONGS": "热门歌曲"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "返回",
+    "EDIT_POST_HEADER": "编辑您的发布",
+    "CREATE_POST_HEADER": "创建您的发布",
+    "TITLE_LABEL": "标题",
+    "CONTENT_LABEL": "内容",
+    "IMAGE_TYPE_LABEL": "图片类型",
+    "IMAGE_OPTION": "图片",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "搜索Gifs",
+    "IMAGE_URL_LABEL": "图片链接",
+    "POST_TYPE_LABEL": "发布类型",
+    "SUBMIT_BUTTON_EDIT": "编辑发布",
+    "SUBMIT_BUTTON_CREATE": "创建发布",
+    "Comment": "评论"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "编辑您的歌曲",
+    "CREATE_SONG_HEADER": "上传您的歌曲",
+    "TITLE_LABEL": "标题",
+    "LINK_LABEL": "音乐链接",
+    "IMAGE_TYPE_LABEL": "图片类型",
+    "IMAGE_OPTION": "图片",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "搜索Gifs",
+    "IMAGE_URL_LABEL": "图片链接",
+    "GENRE_LABEL": "流派",
+    "SUBMIT_BUTTON_EDIT": "编辑歌曲",
+    "SUBMIT_BUTTON_CREATE": "上传歌曲"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "编辑您的艺术家",
+    "CREATE_ARTIST_HEADER": "创建您的艺术家",
+    "ARTIST_NAME_LABEL": "艺术家名称",
+    "DESCRIPTION_LABEL": "描述",
+    "ARTIST_IMAGE_LABEL": "艺术家图片",
+    "SUBMIT_BUTTON_EDIT": "编辑",
+    "SUBMIT_BUTTON_SAVE": "保存"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "返回",
+    "UPLOAD_SONG_BUTTON": "上传您的歌曲",
+    "UPLOAD_FIRST_SONG_BUTTON": "上传您的第一首歌曲",
+    "REGISTER_AS_ARTIST_BUTTON": "注册为艺术家",
+    "NO_IMAGE_ALT": "没有图片",
+    "SONGS_TITLE": "的歌曲",
+    "BY_ARTIST": "由",
+    "QUIET_HERE_TITLE": "这里很安静",
+    "QUIET_HERE_MESSAGE": "这位艺术家还没有上传过。",
+    "UPLOAD_MUSIC_TITLE": "上传您的音乐",
+    "UPLOAD_MUSIC_MESSAGE": "上传您的音乐，让粉丝发现您。",
+    "ARTIST_REGISTRATION_TITLE": "艺术家注册",
+    "ARTIST_REGISTRATION_MESSAGE": "注册为艺术家，上传您的音乐，让粉丝发现您。"
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "这里很安静",
+      "MESSAGE": "您还没有发布过任何内容。"
     },
-    "EDITGRADE": {
-      "GRADETITLE": "成绩",
-      "DATETITLE": "日期",
-      "CANCELBUTTON": "取消",
-      "SAVEBUTTON": "保存"
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "占位图",
+      "META": {
+        "BY_USER": "发布者：",
+        "LIKES": "赞",
+        "DISLIKES": "踩",
+        "GENRE": "流派",
+        "ARTIST": "艺术家",
+        "SONG": "歌曲"
+      },
+      "ACTIONS": {
+        "DELETE": "删除",
+        "EDIT": "编辑"
+      }
     }
   }
 }

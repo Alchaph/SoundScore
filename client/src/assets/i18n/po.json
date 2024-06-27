@@ -1,51 +1,142 @@
 {
   "LOGIN": {
     "FORM": {
+      "ENTER_MAIL": "Digite seu e-mail",
       "EMAIL": "E-mail",
+      "USERNAME": "Nome de usuário",
       "PASSWORD": "Senha",
-      "LOGINBUTTON": "Entrar",
-      "REGISTERBUTTON": "Registrar",
-      "ROLEID": "Função"
+      "LOGIN_BUTTON": "Entrar",
+      "REGISTER_BUTTON": "Registrar",
+      "REPEAT_PASSWORD": "Repita a senha"
     },
-    "PAGETITLE": "Gestão de Notas"
+    "NO_ACCOUNT": "Sem conta?",
+    "ALREADY_ACCOUNT": "Já registrado?"
   },
-  "SUBJECTLIST": {
-    "PAGETITLE": "Todos os Assuntos",
-    "DELETECONFIRMATION": {
-      "TITLE": "Excluir Assunto",
-      "CONFIRMATIONTEXT1": "Tem certeza de que deseja excluir este assunto?",
-      "CONFIRMATIONTEXT2": "Atenção! Ao excluir este assunto, todas as notas relacionadas também serão excluídas.",
-      "CONFIRMATIONTEXT3": "Tem certeza de que deseja excluir esta nota?",
-      "CONFIRMATIONTEXT4": "Atenção! Ao excluir esta nota, ela será excluída permanentemente.",
-      "SAVEBUTTON": "Salvar",
-      "CANCELBUTTON": "Cancelar"
-    },
-    "TABLE": {
-      "SUBJECTNAME": "Nome do Assunto",
-      "AVERAGEGRADE": "Nota Média",
-      "ACTIONS": "Ações",
-      "EDITBUTTON": "Editar",
-      "DELETEBUTTON": "Excluir"
-    },
-    "ADDBUTTON": "Adicionar Assunto"
+  "HOME": {
+    "START": "Início",
+    "ADD": "Adicionar",
+    "GENRE": "Gênero",
+    "ARTIST": "Artista",
+    "SONG": "Música",
+    "POSTED_BY": "Postado por",
+    "CREATE_POST": "Criar post sobre"
   },
-  "GRADES_PAGE": {
-    "PAGETITLE": "Notas",
-    "BACKBUTTON": "Voltar",
-    "ADDBUTTON": "Adicionar Nota",
-    "GRADELIST": {
-      "TITLE": "Notas para {{subjectName}}",
-      "GRADE": "Nota",
-      "DATE": "Data",
-      "ACTIONS": "Ações",
-      "EDITBUTTON": "Editar",
-      "DELETEBUTTON": "Excluir"
+  "POST": {
+    "COMMENTS": "Comentários",
+    "WRITE_COMMENT": "Escrever um comentário",
+    "POST_COMMENT": "Publicar comentário",
+    "POST_NOT_FOUND": "Postagem não encontrada",
+    "DELETE": "Excluir",
+    "EDIT": "Editar",
+    "REPLY": "Responder",
+    "MESSAGE": "Mensagem",
+    "SUBMIT": "Enviar",
+    "TITLE": "Título",
+    "CANCEL": "Cancelar"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "Configurações do usuário",
+    "EMAIL": "E-mail",
+    "EMAIL_HINT": "Seu endereço de e-mail",
+    "EDIT_ARTIST_BUTTON": "Editar seu artista",
+    "OLD_PASSWORD": "Senha antiga",
+    "OLD_PASSWORD_HINT": "Digite para verificar sua identidade",
+    "NEW_PASSWORD": "Nova senha",
+    "NEW_PASSWORD_HINT": "Escolha uma senha forte",
+    "RETYPE_PASSWORD": "Digite novamente a senha",
+    "RETYPE_PASSWORD_HINT": "Digite novamente sua nova senha",
+    "SAVE_BUTTON": "Salvar",
+    "DELETE_ACCOUNT_BUTTON": "Excluir sua conta"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "Excluir-se deste mundo",
+    "DELETE_BUTTON": "Excluir-se"
+  },
+  "HEADER": {
+    "PROFILE": "Perfil",
+    "LOGOUT": "Sair",
+    "SETTINGS": "Configurações",
+    "ARTIST_PROFILE": "Perfil do artista"
+  },
+  "LEADERBOARD": {
+    "TITLE": "Quadro de líderes",
+    "TOP_ARTISTS": "Principais artistas",
+    "TOP_GENRE": "Principal gênero",
+    "TOP_SONGS": "Principais músicas"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "Voltar",
+    "EDIT_POST_HEADER": "Editar sua postagem",
+    "CREATE_POST_HEADER": "Criar sua própria postagem",
+    "TITLE_LABEL": "Título",
+    "CONTENT_LABEL": "Conteúdo",
+    "IMAGE_TYPE_LABEL": "Tipo de imagem",
+    "IMAGE_OPTION": "Imagem",
+    "GIF_OPTION": "GIF",
+    "SEARCH_GIFS_LABEL": "Buscar GIFs",
+    "IMAGE_URL_LABEL": "URL da imagem",
+    "POST_TYPE_LABEL": "Tipo de postagem",
+    "SUBMIT_BUTTON_EDIT": "Editar postagem",
+    "SUBMIT_BUTTON_CREATE": "Criar postagem",
+    "Comment": "um comentário"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "Editar sua música",
+    "CREATE_SONG_HEADER": "Carregar sua própria música",
+    "TITLE_LABEL": "Título",
+    "LINK_LABEL": "Link para sua música",
+    "IMAGE_TYPE_LABEL": "Tipo de imagem",
+    "IMAGE_OPTION": "Imagem",
+    "GIF_OPTION": "GIF",
+    "SEARCH_GIFS_LABEL": "Buscar GIFs",
+    "IMAGE_URL_LABEL": "URL da imagem",
+    "GENRE_LABEL": "Gênero",
+    "SUBMIT_BUTTON_EDIT": "Editar música",
+    "SUBMIT_BUTTON_CREATE": "Carregar música"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "Editar seu artista",
+    "CREATE_ARTIST_HEADER": "Criar seu artista",
+    "ARTIST_NAME_LABEL": "Nome do artista",
+    "DESCRIPTION_LABEL": "Descrição",
+    "ARTIST_IMAGE_LABEL": "Imagem do artista",
+    "SUBMIT_BUTTON_EDIT": "Editar",
+    "SUBMIT_BUTTON_SAVE": "Salvar"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "Voltar",
+    "UPLOAD_SONG_BUTTON": "Carregar sua própria música",
+    "UPLOAD_FIRST_SONG_BUTTON": "Carregar sua primeira música",
+    "REGISTER_AS_ARTIST_BUTTON": "Registrar-se como artista",
+    "NO_IMAGE_ALT": "sem imagem",
+    "SONGS_TITLE": "Músicas de",
+    "BY_ARTIST": "Por",
+    "QUIET_HERE_TITLE": "Silêncio aqui",
+    "QUIET_HERE_MESSAGE": "Este artista ainda não carregou nada.",
+    "UPLOAD_MUSIC_TITLE": "Carregar sua música",
+    "UPLOAD_MUSIC_MESSAGE": "Carregue sua música para ser descoberto pelos fãs.",
+    "ARTIST_REGISTRATION_TITLE": "Registro de artista",
+    "ARTIST_REGISTRATION_MESSAGE": "Registre-se como artista para carregar sua música e ser descoberto pelos fãs."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "Silêncio aqui",
+      "MESSAGE": "Você ainda não postou nada."
     },
-    "EDITGRADE": {
-      "GRADETITLE": "Nota",
-      "DATETITLE": "Data",
-      "CANCELBUTTON": "Cancelar",
-      "SAVEBUTTON": "Salvar"
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Imagem de substituição",
+      "META": {
+        "BY_USER": "Por ",
+        "LIKES": "Curtidas",
+        "DISLIKES": "Descurtidas",
+        "GENRE": "Gênero",
+        "ARTIST": "Artista",
+        "SONG": "Música"
+      },
+      "ACTIONS": {
+        "DELETE": "excluir",
+        "EDIT": "editar"
+      }
     }
   }
 }

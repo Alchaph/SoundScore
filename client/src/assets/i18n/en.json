@@ -60,6 +60,7 @@
   },
   "LEADERBOARD": {
     "TITLE": "Leaderboard",
+    "TOP_POSTS": "Top Post",
     "TOP_ARTISTS": "Top Artists",
     "TOP_GENRE": "Top Genre",
     "TOP_SONGS": "Top Songs"
@@ -129,9 +130,9 @@
         "BY_USER": "By ",
         "LIKES": "Likes",
         "DISLIKES": "Dislikes",
-        "GENRE": "Genre: {genre}",
-        "ARTIST": "Artist: {artist}",
-        "SONG": "Song: {song}"
+        "GENRE": "Genre",
+        "ARTIST": "Artist",
+        "SONG": "Song"
       },
       "ACTIONS": {
         "DELETE": "delete",
