@@ -45,6 +45,7 @@ import {Artist} from "../../models/Artist";
 import {Song} from "../../models/Song";
 import {PostService} from "../../services/PostService/post.service";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 export interface TreeNode {
   name: string;
@@ -114,13 +115,20 @@ export class HomeComponent implements OnInit {
   topSongs: Song[] = [];
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
+  protected isMobile:boolean = false;
 
   selectedFilters?: 'genre' | 'song' | 'artist';
 
-  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService) {
+  constructor(private breakpointObserver: BreakpointObserver,private postService: PostService, private leaderBoardService: LeaderBoardService) {
   }
 
   ngOnInit() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).subscribe(result  => {
+      this.isMobile = result.matches;
+    });
     this.postService.getPosts().subscribe((data: Post[]) => {
       this.posts = data;
     });
