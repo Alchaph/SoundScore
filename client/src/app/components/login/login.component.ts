@@ -20,6 +20,7 @@ import {Router} from "@angular/router";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
 import {LanguageService} from "../../services/languageService/language.service";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -43,7 +44,8 @@ import {LanguageService} from "../../services/languageService/language.service";
     NgxMatInputTelComponent,
     FormsModule,
     TranslateModule,
-    MatSuffix
+    MatSuffix,
+    NgClass
 
   ],
   templateUrl: './login.component.html',
@@ -107,8 +109,6 @@ export class LoginComponent implements AfterViewInit{
   ngAfterViewInit()
   {
     const bg = document.getElementById("bg") as HTMLCanvasElement;
-    console.log(bg)
-    console.log(typeof bg)
     if (bg) {
       const neat = new NeatGradient({
         ref: bg,

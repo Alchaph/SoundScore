@@ -41,6 +41,10 @@
   }
 }
 
+.register {
+  padding-left: 28px;
+}
+
 .input-group {
   position: relative;
   padding-bottom: 1rem;
@@ -78,10 +82,9 @@
   color: #C500FF;
 }
 
-#card {
-  border-radius: 30px;
+.loginCard {
+  border-radius: 20px;
   background: white;
-
 }
 
 button {
