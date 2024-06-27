@@ -18,11 +18,15 @@ export class LanguageService {
 
   private initializeTranslationSettings() {
     this.translateService.addLangs(environment.languages);
-    this.translateService.use('de');
+    this.translateService.use('en');
+
   }
 
-  public setLanguage(lang: string) {
-    this.translateService.use(lang);
+  public setLanguage(lang: string | undefined) {
+    if (lang) {
+      this.translateService.use(lang);
+    }
+
   }
 
 }
