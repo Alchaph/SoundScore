@@ -125,6 +125,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.postService.getPosts().subscribe((data: Post[]) => {
       this.posts = data;
+      this.posts.reverse();
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data;
