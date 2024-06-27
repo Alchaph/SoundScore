@@ -57,8 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        if (this.email.contains("migi")) return false;
-        return true;
+        return !this.email.contains("migi");
     }
 
     @Override
