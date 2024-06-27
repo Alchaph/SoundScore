@@ -78,14 +78,14 @@ public class PostService {
         return added;
     }
 
-    public LikeResponse hasLikedOrDisliked(Long id, User user) {
+    public String hasLikedOrDisliked(Long id, User user) {
         Post post = postRepository.findById(id).orElseThrow();
         if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
-            return new LikeResponse(true, false);
+            return  "{\"alreadyLikedOrDisliked\":true,\"liked\":false}";
         } else if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user)) {
-            return new LikeResponse(true, true);
+            return  "{\"alreadyLikedOrDisliked\":true,\"liked\":true}";
         } else {
-            return new LikeResponse(false, false);
+            return "{\"alreadyLikedOrDisliked\":false,\"liked\":false}";
         }
     }
 }

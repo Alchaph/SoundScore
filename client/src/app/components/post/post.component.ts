@@ -10,8 +10,9 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {Location} from '@angular/common';
+import {AsyncPipe, Location, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
+import {GenerictranslatePipe} from "../../pipes/generictranslate.pipe";
 
 @Component({
   selector: 'app-post',
@@ -24,7 +25,10 @@ import {TranslateModule} from "@ngx-translate/core";
     MatButton,
     RouterLink,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    AsyncPipe,
+    GenerictranslatePipe,
+    NgIf,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -58,16 +62,17 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPost(this.postId).subscribe((post) => {
       this.post = post;
-      this.postService.hasAlreadyLikedOrDisliked(post).subscribe((data) => {
-        if (data.alreadyLikedOrDisliked){
-          if (data.liked){
-            this.liked = true;
-          } else {
-            this.disliked = true;
-          }
-        }
-      })
+      console.log(JSON.stringify({alreadyLikedOrDisliked: true, liked: false}))
     });
+    this.postService.hasAlreadyLikedOrDisliked(this.postId).subscribe((data) => {
+      if (data.alreadyLikedOrDisliked) {
+        if (data.liked) {
+          this.liked = true;
+        } else {
+          this.disliked = true;
+        }
+      }
+    })
     this.commentService.getCommentsOfPost(this.postId).subscribe((comments) => {
       this.comments = comments.filter(c => !c.comment);
       this.replies = comments.filter(c => c.comment);

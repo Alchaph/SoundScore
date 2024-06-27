@@ -51,7 +51,7 @@ public class PostController {
     }
 
     @GetMapping("/get/liked/{id}")
-    public LikeResponse hasLikedOrDisliked(@PathVariable Long id) {
+    public String hasLikedOrDisliked(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
         return postService.hasLikedOrDisliked(id, currentUser);
