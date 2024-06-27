@@ -1,51 +1,117 @@
 {
-    "LOGIN": {
-      "FORM": {
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "LOGINBUTTON": "Login",
-        "REGISTERBUTTON": "Register",
-        "ROLEID": "Role"
-      },
-      "PAGETITLE": "Grade management"
+  "LOGIN": {
+    "FORM": {
+      "ENTER_MAIL": "Enter your email",
+      "EMAIL": "Email",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "LOGIN_BUTTON": "Login",
+      "REGISTERBUTTON": "Register",
+      "REPEAT_PASSWORD": "Repeat password"
     },
-    "SUBJECTLIST": {
-      "PAGETITLE": "All subjects",
-      "DELETECONFIRMATION": {
-        "TITLE": "Delete subject",
-        "CONFIRMATIONTEXT1": "Are you sure you want to delete this subject?",
-        "CONFIRMATIONTEXT2": "Warning! Deleting this subject will also delete all associated grades.",
-        "CONFIRMATIONTEXT3": "Are you sure you want to delete this grade?",
-        "CONFIRMATIONTEXT4": "Warning! Deleting this grade will final delete this grade.",
-        "SAVEBUTTON": "Save",
-        "CANCELBUTTON": "Cancel"
-      },
-      "TABLE": {
-        "SUBJECTNAME": "Subject name",
-        "AVERAGEGRADE": "Average grade",
-        "ACTIONS": "Actions",
-        "EDITBUTTON": "Edit",
-        "DELETEBUTTON": "Delete"
-      },
-      "ADDBUTTON": "Add Subject"
-    },
-    "GRADES_PAGE": {
-      "PAGETITLE": "Grades",
-      "BACKBUTTON": "Back",
-      "ADDBUTTON": "Add Grade",
-      "GRADELIST": {
-        "TITLE": "Grades for {{SUBJECTNAME}}",
-        "GRADE": "Grade",
-        "DATE": "Date",
-        "ACTIONS": "Actions",
-        "EDITBUTTON": "Edit",
-        "DELETEBUTTON": "Delete"
-      },
-      "EDITGRADE": {
-        "GRADETITLE": "Grade",
-        "DATETITLE": "Date",
-        "CANCELBUTTON": "Cancel",
-        "SAVEBUTTON": "Save"
-      }
-    }
+    "NO_ACCOUNT": "No Account?",
+    "ALREADY_ACCOUNT": "Already registered?"
+  },
+  "HOME": {
+    "NO_POSTS": "No Posts Found",
+    "ADD": "Add",
+    "GENRE": "Genre",
+    "ARTIST": "Artist",
+    "SONG": "Song ",
+    "BY": "by"
+  },
+  "POST": {
+    "COMMENTS": "Comments",
+    "WRITE_COMMENT": "Write a comment",
+    "POST_COMMENT": "Post comment",
+    "POST_NOT_FOUND": "Post not found",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "REPLY": "Reply",
+    "MESSAGE": "Message",
+    "SUBMIT": "Submit",
+    "TITLE": "Title",
+    "CANCEL": "Cancel"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "User Settings",
+    "EMAIL": "Email",
+    "EMAIL_HINT": "Your email address",
+    "EDIT_ARTIST_BUTTON": "Edit your Artist",
+    "OLD_PASSWORD": "Old Password",
+    "OLD_PASSWORD_HINT": "Enter to verify your identity",
+    "NEW_PASSWORD": "New Password",
+    "NEW_PASSWORD_HINT": "Choose a strong password",
+    "RETYPE_PASSWORD": "Retype Password",
+    "RETYPE_PASSWORD_HINT": "Retype your new password",
+    "SAVE_BUTTON": "Save",
+    "DELETE_ACCOUNT_BUTTON": "Delete Yourself from this World"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "Delete Yourself from this World",
+    "DELETE_BUTTON": "Delete Yourself"
+  },
+  "HEADER": {
+    "PROFILE": "Profile",
+    "LOGOUT": "Logout",
+    "SETTINGS": "Settings",
+    "ARTIST_PROFILE": "Artist Profile"
+  },
+  "LEADERBOARD": {
+    "TITLE": "Leaderboard",
+    "TOP_POSTS": "Top Posts"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "Go Back",
+    "EDIT_POST_HEADER": "Edit your Post",
+    "CREATE_POST_HEADER": "Create your own Post",
+    "TITLE_LABEL": "Title",
+    "CONTENT_LABEL": "Content",
+    "IMAGE_TYPE_LABEL": "Image Type",
+    "IMAGE_OPTION": "Image",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "Search for Gifs",
+    "IMAGE_URL_LABEL": "Image Url",
+    "POST_TYPE_LABEL": "Post Type",
+    "SUBMIT_BUTTON_EDIT": "Edit Post",
+    "SUBMIT_BUTTON_CREATE": "Create Post"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "Edit your Song",
+    "CREATE_SONG_HEADER": "Upload your own song",
+    "TITLE_LABEL": "Title",
+    "LINK_LABEL": "Link to your music",
+    "IMAGE_TYPE_LABEL": "Image Type",
+    "IMAGE_OPTION": "Image",
+    "GIF_OPTION": "Gif",
+    "SEARCH_GIFS_LABEL": "Search for Gifs",
+    "IMAGE_URL_LABEL": "Image Url",
+    "GENRE_LABEL": "Genre",
+    "SUBMIT_BUTTON_EDIT": "Edit Song",
+    "SUBMIT_BUTTON_CREATE": "Create Song"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "Edit your Artist",
+    "CREATE_ARTIST_HEADER": "Create your Artist",
+    "ARTIST_NAME_LABEL": "Artist Name",
+    "DESCRIPTION_LABEL": "Description",
+    "ARTIST_IMAGE_LABEL": "Artist Image",
+    "SUBMIT_BUTTON_EDIT": "Edit",
+    "SUBMIT_BUTTON_SAVE": "Save"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "Go Back",
+    "UPLOAD_SONG_BUTTON": "Upload your own Song",
+    "UPLOAD_FIRST_SONG_BUTTON": "Upload your first Song",
+    "REGISTER_AS_ARTIST_BUTTON": "Register as Artist",
+    "NO_IMAGE_ALT": "no image",
+    "SONGS_TITLE": "'s Songs",
+    "BY_ARTIST": "By ",
+    "QUIET_HERE_TITLE": "Quiet here",
+    "QUIET_HERE_MESSAGE": "This Artist hasn't uploaded yet.",
+    "UPLOAD_MUSIC_TITLE": "Upload your music",
+    "UPLOAD_MUSIC_MESSAGE": "Upload your music to get discovered by fans.",
+    "ARTIST_REGISTRATION_TITLE": "Artist Registration",
+    "ARTIST_REGISTRATION_MESSAGE": "Register as an artist to upload your music and get discovered by fans."
+  }
 }

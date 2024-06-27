@@ -10,6 +10,7 @@ import {RouterLink} from "@angular/router";
 import {Song} from "../../models/Song";
 import {Artist} from "../../models/Artist";
 import {Genre} from "../../models/Genre";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-leader-board',
@@ -22,7 +23,8 @@ import {Genre} from "../../models/Genre";
     MatListItem,
     MatLine,
     MatDivider,
-    RouterLink
+    RouterLink,
+    TranslateModule
   ],
   templateUrl: './leader-board.component.html',
   styleUrl: './leader-board.component.scss'

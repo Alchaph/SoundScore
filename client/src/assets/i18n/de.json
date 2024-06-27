@@ -1,51 +1,117 @@
 {
-    "LOGIN": {
-      "FORM": {
-        "EMAIL": "Email",
-        "PASSWORD": "Passwort",
-        "LOGINBUTTON": "Anmelden",
-        "REGISTERBUTTON": "Registrieren",
-        "ROLEID": "Rolle"
-      },
-      "PAGETITLE": "Notenverwaltung"
+  "LOGIN": {
+    "FORM": {
+      "ENTER_EMAIL": "Geben Sie Ihre E-Mail-Adresse ein",
+      "EMAIL": "E-Mail",
+      "USERNAME": "Benutzername",
+      "PASSWORD": "Passwort",
+      "LOGIN_BUTTON": "Anmelden",
+      "REGISTERBUTTON": "Registrieren",
+      "REPEAT_PASSWORD": "Passwort wiederholen"
     },
-    "SUBJECTLIST": {
-      "PAGETITLE": "Alle Fächer",
-      "DELETECONFIRMATION": {
-        "TITLE": "Fach Löschen",
-        "CONFIRMATIONTEXT1": "Möchten Sie dieses Fach wirklich löschen?",
-        "CONFIRMATIONTEXT2": "Achtung! Durch das Löschen dieses Fachs werden auch alle zugehörigen Noten gelöscht.",
-        "CONFIRMATIONTEXT3": "Möchten Sie diese Note wirklich löschen?",
-        "CONFIRMATIONTEXT4": "Achtung! Durch das Löschen dieser Note wird sie endgültig gelöscht.",
-        "SAVEBUTTON": "Speichern",
-        "CANCELBUTTON": "Abbrechen"
-      },
-      "TABLE": {
-        "SUBJECTNAME": "Fachname",
-        "AVERAGEGRADE": "Durchschnittsnote",
-        "ACTIONS": "Aktionen",
-        "EDITBUTTON": "Bearbeiten",
-        "DELETEBUTTON": "Löschen"
-      },
-      "ADDBUTTON": "Fach Hinzufügen"
-    },
-    "GRADES_PAGE": {
-      "PAGETITLE": "Noten",
-      "BACKBUTTON": "Zurück",
-      "ADDBUTTON": "Note Hinzufügen",
-      "GRADELIST": {
-        "TITLE": "Noten für {{subjectName}}",
-        "GRADE": "Note",
-        "DATE": "Datum",
-        "ACTIONS": "Aktionen",
-        "EDITBUTTON": "Bearbeiten",
-        "DELETEBUTTON": "Löschen"
-      },
-      "EDITGRADE": {
-        "GRADETITLE": "Note",
-        "DATETITLE": "Datum",
-        "CANCELBUTTON": "Abbrechen",
-        "SAVEBUTTON": "Speichern"
-      }
-    }
+    "NO_ACCOUNT": "Kein Konto?",
+    "ALREADY_ACCOUNT": "Bereits registriert?"
+  },
+  "HOME": {
+    "NO_POSTS": "Keine Beiträge gefunden",
+    "ADD": "Hinzufügen",
+    "GENRE": "Genre",
+    "ARTIST": "Künstler",
+    "SONG": "Song",
+    "BY": "von"
+  },
+  "POST": {
+    "COMMENTS": "Kommentare",
+    "WRITE_COMMENT": "Kommentar schreiben",
+    "POST_COMMENT": "Kommentar veröffentlichen",
+    "POST_NOT_FOUND": "Beitrag nicht gefunden",
+    "DELETE": "Löschen",
+    "EDIT": "Bearbeiten",
+    "REPLY": "Antworten",
+    "MESSAGE": "Nachricht",
+    "SUBMIT": "Absenden",
+    "TITLE": "Titel",
+    "CANCEL": "Abbrechen"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "Benutzereinstellungen",
+    "EMAIL": "E-Mail",
+    "EMAIL_HINT": "Ihre E-Mail-Adresse",
+    "EDIT_ARTIST_BUTTON": "Künstler bearbeiten",
+    "OLD_PASSWORD": "Altes Passwort",
+    "OLD_PASSWORD_HINT": "Zur Bestätigung Ihrer Identität eingeben",
+    "NEW_PASSWORD": "Neues Passwort",
+    "NEW_PASSWORD_HINT": "Wählen Sie ein starkes Passwort",
+    "RETYPE_PASSWORD": "Passwort erneut eingeben",
+    "RETYPE_PASSWORD_HINT": "Geben Sie Ihr neues Passwort erneut ein",
+    "SAVE_BUTTON": "Speichern",
+    "DELETE_ACCOUNT_BUTTON": "Delete Yourself from this World"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "Löschen Sie sich aus dieser Welt",
+    "DELETE_BUTTON": "Löschen"
+  },
+  "HEADER": {
+    "PROFILE": "Profil",
+    "LOGOUT": "Abmelden",
+    "SETTINGS": "Einstellungen",
+    "ARTIST_PROFILE": "Künstlerprofil"
+  },
+  "LEADERBOARD": {
+    "TITLE": "Bestenliste",
+    "TOP_POSTS": "Top-Beiträge"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "Zurück",
+    "EDIT_POST_HEADER": "Beitrag bearbeiten",
+    "CREATE_POST_HEADER": "Eigenen Beitrag erstellen",
+    "TITLE_LABEL": "Titel",
+    "CONTENT_LABEL": "Inhalt",
+    "IMAGE_TYPE_LABEL": "Bildtyp",
+    "IMAGE_OPTION": "Bild",
+    "GIF_OPTION": "GIF",
+    "SEARCH_GIFS_LABEL": "Nach GIFs suchen",
+    "IMAGE_URL_LABEL": "Bild-URL",
+    "POST_TYPE_LABEL": "Beitragstyp",
+    "SUBMIT_BUTTON_EDIT": "Beitrag bearbeiten",
+    "SUBMIT_BUTTON_CREATE": "Beitrag erstellen"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "Song bearbeiten",
+    "CREATE_SONG_HEADER": "Eigenen Song hochladen",
+    "TITLE_LABEL": "Titel",
+    "LINK_LABEL": "Link zu Ihrer Musik",
+    "IMAGE_TYPE_LABEL": "Bildtyp",
+    "IMAGE_OPTION": "Bild",
+    "GIF_OPTION": "GIF",
+    "SEARCH_GIFS_LABEL": "Nach GIFs suchen",
+    "IMAGE_URL_LABEL": "Bild-URL",
+    "GENRE_LABEL": "Genre",
+    "SUBMIT_BUTTON_EDIT": "Song bearbeiten",
+    "SUBMIT_BUTTON_CREATE": "Song erstellen"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "Künstler bearbeiten",
+    "CREATE_ARTIST_HEADER": "Künstler erstellen",
+    "ARTIST_NAME_LABEL": "Künstlername",
+    "DESCRIPTION_LABEL": "Beschreibung",
+    "ARTIST_IMAGE_LABEL": "Künstlerbild",
+    "SUBMIT_BUTTON_EDIT": "Bearbeiten",
+    "SUBMIT_BUTTON_SAVE": "Speichern"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "Zurück",
+    "UPLOAD_SONG_BUTTON": "Eigenen Song hochladen",
+    "UPLOAD_FIRST_SONG_BUTTON": "Ersten Song hochladen",
+    "REGISTER_AS_ARTIST_BUTTON": "Als Künstler registrieren",
+    "NO_IMAGE_ALT": "kein Bild",
+    "SONGS_TITLE": "Songs von ",
+    "BY_ARTIST": "Von ",
+    "QUIET_HERE_TITLE": "Ruhe hier",
+    "QUIET_HERE_MESSAGE": "Dieser Künstler hat noch keine Songs hochgeladen.",
+    "UPLOAD_MUSIC_TITLE": "Musik hochladen",
+    "UPLOAD_MUSIC_MESSAGE": "Laden Sie Ihre Musik hoch, um von Fans entdeckt zu werden.",
+    "ARTIST_REGISTRATION_TITLE": "Künstlerregistrierung",
+    "ARTIST_REGISTRATION_MESSAGE": "Registrieren Sie sich als Künstler, um Ihre Musik hochzuladen und von Fans entdeckt zu werden."
+  }
 }

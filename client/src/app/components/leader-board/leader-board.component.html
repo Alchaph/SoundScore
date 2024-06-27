@@ -1,6 +1,6 @@
 <app-head-nav-bar></app-head-nav-bar>
 <mat-tab-group>
-  <mat-tab label="Top Posts">
+  <mat-tab label=" {{'LEADERBOARD.TOP_POSTS' | translate}}">
     <mat-list>
       @for (entry of overallLeaderBoard; track $index) {
         <mat-divider></mat-divider>
@@ -11,7 +11,7 @@
       }
     </mat-list>
   </mat-tab>
-  <mat-tab label="Song">
+  <mat-tab label="{{'HOME.SONG' | translate}}">
     <mat-list>
       @for (song of songLeaderBoard; track $index) {
         <mat-divider></mat-divider>
@@ -22,7 +22,7 @@
       }
     </mat-list>
   </mat-tab>
-  <mat-tab label="Artist">
+  <mat-tab label="{{'HOME.ARTIST' | translate}}">
     <mat-list>
       @for (artist of artistLeaderBoard; track $index) {
         <mat-divider></mat-divider>
@@ -32,7 +32,7 @@
       }
     </mat-list>
   </mat-tab>
-  <mat-tab label="Genre">
+  <mat-tab label="{{ 'HOME.GENRE' | translate}}">
     <mat-list>
       @for (genre of genreLeaderBoard; track $index) {
         <mat-divider></mat-divider>

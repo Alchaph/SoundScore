@@ -2,26 +2,26 @@
 <div class="settings-container">
   <mat-card-header>
     {{
-      artist ? 'Edit your Artist' : 'Create your Artist'
+      artist ? ('ARTIST_FORM.EDIT_ARTIST_HEADER' | translate) : ('ARTIST_FORM.CREATE_ARTIST_HEADER' | translate)
     }}
   </mat-card-header>
   <mat-card-content>
     <form (ngSubmit)="saveArtist()" [formGroup]="formGroup">
       <mat-form-field>
-        <mat-label>Artist Name</mat-label>
+        <mat-label>{{'ARTIST_FORM.ARTIST_NAME_LABEL' | translate}}</mat-label>
         <input [formControl]="formGroup.controls.artistName" matInput required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Description</mat-label>
+        <mat-label>{{ 'ARTIST_FORM.DESCRIPTION_LABEL' | translate }}</mat-label>
         <input [formControl]="formGroup.controls.artistDescription" matInput required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Artist Image</mat-label>
+        <mat-label>{{'ARTIST_FORM.ARTIST_IMAGE_LABEL}}</mat-label>
         <input [formControl]="formGroup.controls.artistImage" matInput required>
       </mat-form-field>
       <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
       <button [disabled]="formGroup.invalid" color="primary"
-              mat-raised-button>{{ artist ? 'Edit' : 'Save' }}
+              mat-raised-button>{{ artist ? ('ARTIST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('ARTIST_FORM.SUBMIT_BUTTON_CREATE' | translate) }}
       </button>
     </form>
   </mat-card-content>
