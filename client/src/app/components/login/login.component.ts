@@ -18,6 +18,7 @@ import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
+import {LanguageService} from "../../services/languageService/language.service";
 
 @Component({
   selector: 'app-login',
@@ -61,7 +62,7 @@ export class LoginComponent {
     repeatPassword: new FormControl('', [Validators.required, this.validator.bind(this)]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private languageService: LanguageService) {
 
   }
 
@@ -82,9 +83,9 @@ export class LoginComponent {
   register() {
     if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
       this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
-        (data) => {
+        () => {
           this.login();
-        }, error => {
+        }, () => {
           alert('The email is already in use')
         });
     }

@@ -12,6 +12,7 @@ import {MatLine} from "@angular/material/core";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import {Artist} from "../../models/Artist";
 import {Location} from '@angular/common';
+import {TranslateModule} from "@ngx-translate/core";
 
 
 @Component({
@@ -27,6 +28,7 @@ import {Location} from '@angular/common';
     MatLine,
     MatIconButton,
     HeadNavBarComponent,
+    TranslateModule,
   ],
   templateUrl: './artist-profile.component.html',
   styleUrl: './artist-profile.component.scss'

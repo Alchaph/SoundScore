@@ -11,6 +11,7 @@ import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Location} from '@angular/common';
+import {TranslateModule} from "@ngx-translate/core";
 
 
 @Component({
@@ -23,7 +24,8 @@ import {Location} from '@angular/common';
     MatIcon,
     MatButton,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'

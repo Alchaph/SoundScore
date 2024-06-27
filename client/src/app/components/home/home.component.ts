@@ -21,6 +21,7 @@ import {MatDivider} from "@angular/material/divider";
 import {MatLine} from "@angular/material/core";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatTab, MatTabChangeEvent, MatTabGroup} from "@angular/material/tabs";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 @Component({
@@ -49,7 +50,8 @@ import {MatTab, MatTabChangeEvent, MatTabGroup} from "@angular/material/tabs";
     MatTab,
     MatTabGroup,
     NgStyle,
-    NgClass
+    NgClass,
+    TranslateModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

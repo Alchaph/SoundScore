@@ -3,10 +3,10 @@
 <div id="main">
   <div id="top">
     <mat-tab-group id="slide" (selectedTabChange)="onTabChange($event)">
-      <mat-tab label="Artist">
+      <mat-tab label="{{'HOME.ARTIST' | translate }}">
         @if (visiblePosts.length == 0) {
           <div class="no-posts">
-            <h1 class="no-posts-text">No Posts Found</h1>
+            <h1 class="no-posts-text">{{'HOME.NO_POSTS' | translate}}</h1>
           </div>
         }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
@@ -27,14 +27,14 @@
                       <h2>{{ post.title }}</h2>
                       <p>{{ post.content }}</p>
                       <div class="post-meta">
-                        <span>By {{ post.user.username }}</span>
+                        <span>{{ 'HOME.BY' | translate }} {{ post.user.username }}</span>
                         <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>
                       </div>
                       @if (post.genre || post.artist || post.song){
                         <div class="post-tags">
-                          @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-                          @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-                          @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                          @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
+                          @if (post.artist) {<span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>}
+                          @if (post.song) {<span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>}
                         </div>
                       }
                     </div>
@@ -53,10 +53,10 @@
           </button>
         </div>
       </mat-tab>
-      <mat-tab label="Genre">
+      <mat-tab label="{{'HOME.GENRE' | translate }}">
         @if (visiblePosts.length == 0) {
           <div class="no-posts">
-            <h1 class="no-posts-text">No Posts Found</h1>
+            <h1 class="no-posts-text">{{'HOME.NO_POSTS' | translate}}</h1>
           </div>
         }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
@@ -82,9 +82,9 @@
                       </div>
                       @if (post.genre || post.artist || post.song){
                         <div class="post-tags">
-                          @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-                          @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-                          @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                          @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
+                          @if (post.artist) {<span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>}
+                          @if (post.song) {<span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>}
                         </div>
                       }
                     </div>
@@ -103,10 +103,10 @@
           </button>
         </div>
       </mat-tab>
-      <mat-tab label="Song">
+      <mat-tab label="{{'HOME.SONG' | translate }}">
         @if (visiblePosts.length == 0) {
           <div class="no-posts">
-            <h1 class="no-posts-text">No Posts Found</h1>
+            <h1 class="no-posts-text">{{'HOME.NO_POSTS' | translate}}</h1>
           </div>
         }
         <div [ngClass]="{'middle': invisiblePosts.length > 0, 'middle2': invisiblePosts.length == 0}">
@@ -132,9 +132,9 @@
                       </div>
                       @if (post.genre || post.artist || post.song){
                         <div class="post-tags">
-                          @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-                          @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-                          @if (post.song) {<span>Song: {{ post.song.title }}</span>}
+                          @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
+                          @if (post.artist) {<span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>}
+                          @if (post.song) {<span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>}
                         </div>
                       }
                     </div>
