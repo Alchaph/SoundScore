@@ -1,6 +1,7 @@
 
 
 .card-container{
+  width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -12,7 +13,28 @@
   mat-card-actions{
     display: flex;
     justify-content: space-evenly;
-    color: #99c3ff;
+    color: #be99ff;
+  }
+  p:hover{
+    cursor: pointer;
+  }
+}
+.card-container2{
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-card-content{
+    display: flex;
+    flex-direction: column;
+  }
+  mat-card-actions{
+    display: flex;
+    justify-content: space-evenly;
+    color: #8F00FF;
   }
   p:hover{
     cursor: pointer;
@@ -21,6 +43,7 @@
 
 .input-group {
   position: relative;
+  padding-bottom: 1rem;
 }
 
 .input {
@@ -29,14 +52,14 @@
   background: none;
   padding: 1rem;
   font-size: 1rem;
-  color: rgba(26, 115, 232, 0.82);
+  color: #8F00FF;
   transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .user-label {
   position: absolute;
   left: 15px;
-  bottom: 28px;
+  bottom: 48px;
   color: #e8e8e8;
   pointer-events: none;
   transform: translateY(1rem);
@@ -45,22 +68,20 @@
 
 .input:focus, input:valid {
   outline: none;
-  border: 1.5px solid #1a73e8;
+  border: 1.5px solid #C500FF;
 }
 
 .input:focus ~ label, input:valid ~ label {
   transform: translateY(-50%) scale(0.8);
   background-color: white;
   padding: 0 .2em;
-  color: #2196f3;
+  color: #C500FF;
 }
 
 #card {
-  width: 19%;
   border-radius: 30px;
   background: white;
-  box-shadow: 4px 4px 7px #ffffff,
-  -4px -4px 7px #ffffff;
+
 }
 
 button {
@@ -70,7 +91,7 @@ button {
   transition: all .2s;
   padding: 10px 20px;
   border-radius: 100px;
-  background: #2196f3;
+  background: #C500FF;
   border: 1px solid transparent;
   display: flex;
   align-items: center;
@@ -79,7 +100,7 @@ button {
 }
 
 button:hover {
-  background: #2196f3;
+  background: #C500FF;
 }
 
 button > svg {
@@ -98,14 +119,7 @@ button:active {
 
 #title {
   font-size: 2em;
-  color: #2196f3;
+  color: #C500FF;
 }
 
-#bg {
-  background-image: url('https://imgs.search.brave.com/cApNiV36KuJTWl_r06vURv0J9ryVUu4QujPS5h3M-oc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ1/MjE0MjIxMC9waG90/by9hYnN0cmFjdC1t/dWx0aWxheWVyZWQt/Y2lyY3VsYXItc2hh/cGVzLXNvdW5kLXdh/dmVzLndlYnA_Yj0x/JnM9MTcwNjY3YSZ3/PTAmaz0yMCZjPVRR/Y3kySzNJUFhRTTNw/UTluRTNzM09TZUtO/b19Lb21ScU9Kc1lS/Qm5lcU09');
-  width: 100%;
-  height: 100vh;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
 

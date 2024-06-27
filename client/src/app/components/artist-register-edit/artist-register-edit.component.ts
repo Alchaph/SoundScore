@@ -13,6 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-artist-register',
@@ -29,7 +30,8 @@ import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
     MatLabel,
     MatOption,
     MatSelect,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './artist-register-edit.component.html',
   styleUrl: './artist-register-edit.component.scss'

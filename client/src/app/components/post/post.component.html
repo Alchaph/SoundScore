@@ -1,5 +1,5 @@
 <app-head-nav-bar></app-head-nav-bar>
-<button (click)="goBack()" color="primary" mat-button>❮ Go Back</button>
+<button (click)="goBack()" color="primary" mat-button>❮ {{'POST_FORM.GO_BACK_BUTTON' | translate}}</button>
 @if (post) {
   <div class="post-container">
     @if (post.image) {
@@ -13,12 +13,12 @@
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
       <div class="post-meta">
-        <span>By {{ post.user.username }}</span>
-        <!--        <div class="like-dislike-container">-->
-        <!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
-        <!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
-        <!--          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>-->
-        <!--        </div>-->
+        <span>{{ 'HOME.BY' | translate }} {{ post.user.username }}</span>
+<!--        <div class="like-dislike-container">-->
+<!--          <mat-icon (click)="likePost()" class="like-icon">thumb_up</mat-icon>-->
+<!--          <span>Likes: {{ post.likes }} | Dislikes: {{ post.dislikes }}</span>-->
+<!--          <mat-icon (click)="dislikePost()" class="dislike-icon">thumb_down</mat-icon>-->
+<!--        </div>-->
         <div class="like-dislike-container">
           <div class="icons-box">
             <div>
@@ -39,13 +39,13 @@
       @if (post.genre || post.artist || post.song) {
         <div class="post-tags">
           @if (post.genre) {
-            <span>Genre: {{ post.genre.name }}</span>
+            <span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>
           }
           @if (post.artist) {
-            <span>Artist: {{ post.artist.name }}</span>
+            <span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>
           }
           @if (post.song) {
-            <span>Song: {{ post.song.title }}</span>
+            <span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>
           }
         </div>
       }
@@ -53,7 +53,8 @@
   </div>
 
   <div class="comments-section">
-    <h2>COMMENTS</h2>
+
+    <h2>{{ 'POST.COMMENTS' | translate }}</h2>
     @for (comment of comments; track $index) {
       <div class="comment">
         <div class="comment-content" style="width: 90%">
@@ -65,14 +66,13 @@
             @if (comment.user.id === activeUser.id && comment.id) {
               <mat-icon
                 (click)="currentAction = 'Edit your'; focusedComment = comment; newComment.title = comment.title; newComment.message = comment.message"
-                class="comment-icon">edit              </mat-icon>
+                class="comment-icon">edit
+              </mat-icon>
               <mat-icon (click)="deleteComment(comment)" class="comment-icon">delete</mat-icon>
 
             }
           </div>
-          <mat-icon (click)="currentAction='Reply to'; focusedComment = comment"
-                    class="comment-icon">reply
-          </mat-icon>
+          <mat-icon (click)="currentAction='Reply to'; focusedComment = comment" class="comment-icon">reply</mat-icon>
         </div>
       </div>
       @for (reply of replies; track $index) {
@@ -93,23 +93,24 @@
                       (click)="currentAction = 'Edit your'; focusedComment = reply; newComment.title = reply.title; newComment.comment = reply.comment"
                       class="comment-icon">edit
                     </mat-icon>
-                    <mat-icon (click)="deleteComment(reply)" class="comment-icon">delete
-                    </mat-icon>
+                    <mat-icon (click)="deleteComment(reply)" class="comment-icon">delete</mat-icon>
                   }
                 </div>
               </div>
             </div>
           </div>
+
+
         }
       }
     }
     <div class="comment-form">
       <h3>{{ currentAction }} a Comment</h3>
-      <input type="text" placeholder="Title" [(ngModel)]="newComment.title">
-      <textarea placeholder="Message" [(ngModel)]="newComment.message"></textarea>
-      <button (click)="handleAction()">Submit</button>
+      <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
+      <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
+      <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
       @if (currentAction !== 'Add') {
-        <button (click)="currentAction = 'Add'">Cancel</button>
+        <button (click)="currentAction = 'Add'; newComment.title = ''; newComment.message = '' ">{{ 'POST.CANCEL' | translate }}</button>
       }
     </div>
   </div>
