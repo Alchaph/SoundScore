@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Post} from "../../models/Post";
 import {Observable} from "rxjs";
 
@@ -19,7 +19,7 @@ export class PostService {
   }
 
   updatePost(post: Post) {
-    return this.http.put('http://localhost:8080/api/posts/edit', post,{
+    return this.http.put('http://localhost:8080/api/posts/edit', post, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
@@ -59,7 +59,10 @@ export class PostService {
   }
 
   hasAlreadyLikedOrDisliked(post: Post) {
-    return this.http.post('http://localhost:8080/api/posts/get/liked/' + post.id, {
+    return this.http.get<{
+      liked: boolean,
+      alreadyLikedOrDisliked: boolean
+    }>('http://localhost:8080/api/posts/get/liked/' + post.id, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }

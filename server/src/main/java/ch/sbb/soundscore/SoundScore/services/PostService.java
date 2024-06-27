@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.services;
 
+import ch.sbb.soundscore.SoundScore.dtos.LikeResponse;
 import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
@@ -77,8 +78,14 @@ public class PostService {
         return added;
     }
 
-    public boolean hasLikedOrDisliked(Long id, User user) {
+    public LikeResponse hasLikedOrDisliked(Long id, User user) {
         Post post = postRepository.findById(id).orElseThrow();
-        return likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user) || likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
+        if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
+            return new LikeResponse(true, false);
+        } else if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user)) {
+            return new LikeResponse(true, true);
+        } else {
+            return new LikeResponse(false, false);
+        }
     }
 }
