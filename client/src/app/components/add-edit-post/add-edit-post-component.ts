@@ -20,6 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import {MatOption} from "@angular/material/autocomplete";
 import {GifService} from "../../services/GifService/gif.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-add-post',
@@ -39,7 +40,8 @@ import {GifService} from "../../services/GifService/gif.service";
     ReactiveFormsModule,
     AsyncPipe,
     MatCardImage,
-    NgStyle
+    NgStyle,
+    TranslateModule
   ],
   templateUrl: './add-edit-post-component.html',
   styleUrl: './add-edit-post-component.scss'
