@@ -19,8 +19,6 @@ public class Comment {
 
     private String message;
 
-    private String title;
-
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
@@ -32,7 +30,4 @@ public class Comment {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Comment comment;
-
-
-
 }
