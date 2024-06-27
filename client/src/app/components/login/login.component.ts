@@ -19,6 +19,7 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,8 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
     NgxMatInputTelComponent,
     FormsModule,
     TranslateModule,
-    MatSuffix
+    MatSuffix,
+    NgClass
 
   ],
   templateUrl: './login.component.html',
@@ -50,6 +52,7 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
 })
 export class LoginComponent implements AfterViewInit{
   hide = true;
+  hide2 = true;
   isRegister = false;
   registerForm: FormGroup<{
     username: FormControl,
@@ -104,8 +107,6 @@ export class LoginComponent implements AfterViewInit{
   ngAfterViewInit()
   {
     const bg = document.getElementById("bg") as HTMLCanvasElement;
-    console.log(bg)
-    console.log(typeof bg)
     if (bg) {
       const neat = new NeatGradient({
         ref: bg,

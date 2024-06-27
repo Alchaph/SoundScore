@@ -1,12 +1,12 @@
 <body>
 <canvas id="bg" class="card-container"></canvas>
   <div class="card-container2">
-  <mat-card id="card">
+  <mat-card [ngClass]="{'loginCard': !isRegister, 'registerCard': isRegister}">
     <mat-card-header>
       <mat-card-title id="title">{{ isRegister ? 'Register' : 'Login' }}</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
-      <mat-card-content>
+      <mat-card-content [ngClass]="{'register': isRegister}">
           <div class="input-group">
             <input required="" type="text" formControlName="email" name="text" autocomplete="off" class="input">
             <label class="user-label">Email</label>
@@ -22,21 +22,21 @@
             <input required="" [type]="hide ? 'password' : 'text'" formControlName="password" name="text" autocomplete="off" class="input">
             <label class="user-label">Password</label>
           </div>
-          <!--          <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button-->
-          <!--                  matSuffix>-->
-          <!--            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>-->
-          <!--          </button>-->
+<!--                    <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button class="hideButton"-->
+<!--                            matSuffix>-->
+<!--                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>-->
+<!--                    </button>-->
         </div>
         @if (isRegister) {
             <div class="input-group">
-              <input required="" [type]="hide ? 'password' : 'text'" formControlName="repeatPassword" name="text" autocomplete="off" class="input">
+              <input required="" [type]="hide2 ? 'password' : 'text'" formControlName="repeatPassword" name="text" autocomplete="off" class="input">
               <label class="user-label">Repeat Password</label>
             </div>
-          <!--            <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"-->
-            <!--                    mat-icon-button-->
-            <!--                    matSuffix>-->
-            <!--              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>-->
-            <!--            </button>-->
+<!--                      <button (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" class="hideButton"-->
+<!--                                mat-icon-button-->
+<!--                                matSuffix>-->
+<!--                          <mat-icon>{{ hide2 ? 'visibility_off' : 'visibility' }}</mat-icon>-->
+<!--                        </button>-->
         }
       </mat-card-content>
       <mat-card-actions style="padding-left: 16px;">
