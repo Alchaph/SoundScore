@@ -7,6 +7,7 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {User} from "../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-users-posts',
@@ -17,7 +18,8 @@ import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
     MatIcon,
     MatCard,
     MatCardContent,
-    MatCardTitle
+    MatCardTitle,
+    TranslateModule
   ],
   templateUrl: './users-posts.component.html',
   styleUrl: './users-posts.component.scss'

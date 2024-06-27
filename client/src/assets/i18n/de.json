@@ -6,7 +6,7 @@
       "USERNAME": "Benutzername",
       "PASSWORD": "Passwort",
       "LOGIN_BUTTON": "Anmelden",
-      "REGISTERBUTTON": "Registrieren",
+      "REGISTER_BUTTON": "Registrieren",
       "REPEAT_PASSWORD": "Passwort wiederholen"
     },
     "NO_ACCOUNT": "Kein Konto?",
@@ -18,7 +18,8 @@
     "GENRE": "Genre",
     "ARTIST": "Künstler",
     "SONG": "Song",
-    "BY": "von"
+    "POSTED_BY": "Veröffentlicht von",
+    "CREATE_POST": "Erstelle einen Beitrag über"
   },
   "POST": {
     "COMMENTS": "Kommentare",
@@ -59,7 +60,10 @@
   },
   "LEADERBOARD": {
     "TITLE": "Bestenliste",
-    "TOP_POSTS": "Top-Beiträge"
+    "TOP_POSTS": "Top-Beiträge",
+    "TOP_ARTISTS": "Top Künstler",
+    "TOP_GENRE": "Top Genre",
+    "TOP_SONGS": "Top Songs"
   },
   "POST_FORM": {
     "GO_BACK_BUTTON": "Zurück",
@@ -74,7 +78,8 @@
     "IMAGE_URL_LABEL": "Bild-URL",
     "POST_TYPE_LABEL": "Beitragstyp",
     "SUBMIT_BUTTON_EDIT": "Beitrag bearbeiten",
-    "SUBMIT_BUTTON_CREATE": "Beitrag erstellen"
+    "SUBMIT_BUTTON_CREATE": "Beitrag erstellen",
+    "Comment": "ein Kommentar"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Song bearbeiten",
@@ -113,5 +118,27 @@
     "UPLOAD_MUSIC_MESSAGE": "Laden Sie Ihre Musik hoch, um von Fans entdeckt zu werden.",
     "ARTIST_REGISTRATION_TITLE": "Künstlerregistrierung",
     "ARTIST_REGISTRATION_MESSAGE": "Registrieren Sie sich als Künstler, um Ihre Musik hochzuladen und von Fans entdeckt zu werden."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "Hier ist es ruhig",
+      "MESSAGE": "Du hast noch nichts gepostet."
+    },
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Platzhalterbild",
+      "META": {
+        "BY_USER": "Von ",
+        "LIKES": "Gefällt ",
+        "DISLIKES": "Gefällt nicht",
+        "GENRE": "Genre",
+        "ARTIST": "Künstler",
+        "SONG": "Song"
+      },
+      "ACTIONS": {
+        "DELETE": "löschen",
+        "EDIT": "bearbeiten"
+      }
+    }
   }
+
 }

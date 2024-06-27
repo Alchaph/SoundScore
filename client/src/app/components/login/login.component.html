@@ -3,24 +3,24 @@
   <div class="card-container2">
   <mat-card id="card">
     <mat-card-header>
-      <mat-card-title id="title">{{ isRegister ? 'Register' : 'Login' }}</mat-card-title>
+      <mat-card-title id="title">{{ isRegister ? ('LOGIN.FORM.REGISTER_BUTTON' | translate) : ('LOGIN.FORM.LOGIN_BUTTON' | translate) }}</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
       <mat-card-content>
           <div class="input-group">
             <input required="" type="text" formControlName="email" name="text" autocomplete="off" class="input">
-            <label class="user-label">Email</label>
+            <label class="user-label">{{ 'LOGIN.FORM.EMAIL' | translate }}</label>
           </div>
         @if (isRegister) {
             <div class="input-group">
               <input required="" type="text" formControlName="username" name="text" autocomplete="off" class="input">
-              <label class="user-label">Username</label>
+              <label class="user-label">{{'LOGIN.FORM.USERNAME' | translate}}</label>
             </div>
         }
         <div>
           <div class="input-group">
             <input required="" [type]="hide ? 'password' : 'text'" formControlName="password" name="text" autocomplete="off" class="input">
-            <label class="user-label">Password</label>
+            <label class="user-label">{{ 'LOGIN.FORM.PASSWORD' | translate }}</label>
           </div>
           <!--          <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button-->
           <!--                  matSuffix>-->
@@ -30,7 +30,7 @@
         @if (isRegister) {
             <div class="input-group">
               <input required="" [type]="hide ? 'password' : 'text'" formControlName="repeatPassword" name="text" autocomplete="off" class="input">
-              <label class="user-label">Repeat Password</label>
+              <label class="user-label">{{'LOGIN.FORM.REPEAT_PASSWORD' | translate}}</label>
             </div>
           <!--            <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"-->
             <!--                    mat-icon-button-->
@@ -41,13 +41,13 @@
       </mat-card-content>
       <mat-card-actions style="padding-left: 16px;">
         <button type="submit">
-          <span>{{ isRegister ? 'Register' : 'Login' }}</span>
+          <span>{{ isRegister ? ('LOGIN.FORM.REGISTER_BUTTON'| translate) : ('LOGIN.FORM.LOGIN_BUTTON' | translate) }}</span>
           <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="37" cy="37" r="35.5" stroke="black" stroke-width="3"></circle>
-            <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="black"></path>
+            <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+            <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="pink"></path>
           </svg>
         </button>
-        <p (click)="changeForm()" style="padding-left: 7px;">{{ isRegister ? 'Already registered?' : 'No Account?' }}</p>
+        <p (click)="changeForm()" style="padding-left: 7px;">{{ isRegister ? ('LOGIN.ALREADY_ACCOUNT' | translate) : ('LOGIN.NO_ACCOUNT' | translate) }}</p>
       </mat-card-actions>
     </form>
   </mat-card>

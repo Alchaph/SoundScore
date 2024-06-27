@@ -1,51 +1,142 @@
 {
   "LOGIN": {
     "FORM": {
+      "ENTER_MAIL": "✉️",
       "EMAIL": "📧",
+      "USERNAME": "👤",
       "PASSWORD": "🔑",
-      "LOGINBUTTON": "🔓",
-      "REGISTERBUTTON": "📝",
-      "ROLEID": "👥"
+      "LOGIN_BUTTON": "🔓",
+      "REGISTER_BUTTON": "📝",
+      "REPEAT_PASSWORD": "🔁"
     },
-    "PAGETITLE": "📊"
+    "NO_ACCOUNT": "🚫",
+    "ALREADY_ACCOUNT": "✅"
   },
-  "SUBJECTLIST": {
-    "PAGETITLE": "📚",
-    "DELETECONFIRMATION": {
-      "TITLE": "🗑️",
-      "CONFIRMATIONTEXT1": "🤔❓",
-      "CONFIRMATIONTEXT2": "⚠️! 🚫📝",
-      "CONFIRMATIONTEXT3": "🤔❓",
-      "CONFIRMATIONTEXT4": "⚠️! 🚫📝",
-      "SAVEBUTTON": "💾",
-      "CANCELBUTTON": "❌"
-    },
-    "TABLE": {
-      "SUBJECTNAME": "📝",
-      "AVERAGEGRADE": "📊",
-      "ACTIONS": "🎬",
-      "EDITBUTTON": "✏️",
-      "DELETEBUTTON": "❌"
-    },
-    "ADDBUTTON": "➕"
+  "HOME": {
+    "START": "🏠",
+    "ADD": "➕",
+    "GENRE": "🎶",
+    "ARTIST": "🎨",
+    "SONG": "🎵",
+    "POSTED_BY": "📝",
+    "CREATE_POST": "🖋️"
   },
-  "GRADES_PAGE": {
-    "PAGETITLE": "📊",
-    "BACKBUTTON": "⬅️",
-    "ADDBUTTON": "➕",
-    "GRADELIST": {
-      "TITLE": "📝 {{subjectName}}",
-      "GRADE": "📝",
-      "DATE": "📅",
-      "ACTIONS": "🎬",
-      "EDITBUTTON": "✏️",
-      "DELETEBUTTON": "❌"
+  "POST": {
+    "COMMENTS": "💬",
+    "WRITE_COMMENT": "✍️",
+    "POST_COMMENT": "📮",
+    "POST_NOT_FOUND": "❌",
+    "DELETE": "🗑️",
+    "EDIT": "📝",
+    "REPLY": "↩️",
+    "MESSAGE": "📩",
+    "SUBMIT": "📤",
+    "TITLE": "📄",
+    "CANCEL": "🚫"
+  },
+  "USER_SETTINGS": {
+    "TITLE": "🛠️",
+    "EMAIL": "📧",
+    "EMAIL_HINT": "📧",
+    "EDIT_ARTIST_BUTTON": "🖌️",
+    "OLD_PASSWORD": "🔒",
+    "OLD_PASSWORD_HINT": "🔒",
+    "NEW_PASSWORD": "🔐",
+    "NEW_PASSWORD_HINT": "🔐",
+    "RETYPE_PASSWORD": "🔁",
+    "RETYPE_PASSWORD_HINT": "🔁",
+    "SAVE_BUTTON": "💾",
+    "DELETE_ACCOUNT_BUTTON": "❌"
+  },
+  "DELETE_YOURSELF": {
+    "TAB_LABEL": "❌",
+    "DELETE_BUTTON": "❌"
+  },
+  "HEADER": {
+    "PROFILE": "👤",
+    "LOGOUT": "🚪",
+    "SETTINGS": "🛠️",
+    "ARTIST_PROFILE": "🎨"
+  },
+  "LEADERBOARD": {
+    "TITLE": "🏆",
+    "TOP_ARTISTS": "🎨",
+    "TOP_GENRE": "🎶",
+    "TOP_SONGS": "🎵"
+  },
+  "POST_FORM": {
+    "GO_BACK_BUTTON": "🔙",
+    "EDIT_POST_HEADER": "📝",
+    "CREATE_POST_HEADER": "📝",
+    "TITLE_LABEL": "📄",
+    "CONTENT_LABEL": "📝",
+    "IMAGE_TYPE_LABEL": "🖼️",
+    "IMAGE_OPTION": "🖼️",
+    "GIF_OPTION": "🎞️",
+    "SEARCH_GIFS_LABEL": "🔍",
+    "IMAGE_URL_LABEL": "🖼️",
+    "POST_TYPE_LABEL": "📝",
+    "SUBMIT_BUTTON_EDIT": "📝",
+    "SUBMIT_BUTTON_CREATE": "📝",
+    "Comment": "💬"
+  },
+  "SONG_FORM": {
+    "EDIT_SONG_HEADER": "📝",
+    "CREATE_SONG_HEADER": "📝",
+    "TITLE_LABEL": "🎵",
+    "LINK_LABEL": "🔗",
+    "IMAGE_TYPE_LABEL": "🖼️",
+    "IMAGE_OPTION": "🖼️",
+    "GIF_OPTION": "🎞️",
+    "SEARCH_GIFS_LABEL": "🔍",
+    "IMAGE_URL_LABEL": "🖼️",
+    "GENRE_LABEL": "🎶",
+    "SUBMIT_BUTTON_EDIT": "📝",
+    "SUBMIT_BUTTON_CREATE": "📝"
+  },
+  "ARTIST_FORM": {
+    "EDIT_ARTIST_HEADER": "🖌️",
+    "CREATE_ARTIST_HEADER": "🖌️",
+    "ARTIST_NAME_LABEL": "🎨",
+    "DESCRIPTION_LABEL": "📝",
+    "ARTIST_IMAGE_LABEL": "🖼️",
+    "SUBMIT_BUTTON_EDIT": "📝",
+    "SUBMIT_BUTTON_SAVE": "💾"
+  },
+  "ARTIST_SONGS": {
+    "GO_BACK_BUTTON": "🔙",
+    "UPLOAD_SONG_BUTTON": "📝",
+    "UPLOAD_FIRST_SONG_BUTTON": "📝",
+    "REGISTER_AS_ARTIST_BUTTON": "🎨",
+    "NO_IMAGE_ALT": "🚫",
+    "SONGS_TITLE": "🎵",
+    "BY_ARTIST": "🎨",
+    "QUIET_HERE_TITLE": "🤫",
+    "QUIET_HERE_MESSAGE": "🤫",
+    "UPLOAD_MUSIC_TITLE": "🎵",
+    "UPLOAD_MUSIC_MESSAGE": "🎵",
+    "ARTIST_REGISTRATION_TITLE": "🎨",
+    "ARTIST_REGISTRATION_MESSAGE": "🎨"
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "🤫",
+      "MESSAGE": "🚫"
     },
-    "EDITGRADE": {
-      "GRADETITLE": "📝",
-      "DATETITLE": "📅",
-      "CANCELBUTTON": "❌",
-      "SAVEBUTTON": "💾"
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "🖼️",
+      "META": {
+        "BY_USER": "👤",
+        "LIKES": "👍",
+        "DISLIKES": "👎",
+        "GENRE": "🎶",
+        "ARTIST": "🎨",
+        "SONG": "🎵"
+      },
+      "ACTIONS": {
+        "DELETE": "🗑️",
+        "EDIT": "📝"
+      }
     }
   }
 }
