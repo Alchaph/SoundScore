@@ -110,7 +110,9 @@
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
       @if (currentAction !== 'Add') {
-        <button (click)="currentAction = 'Add'; newComment.title = ''; newComment.message = '' ">{{ 'POST.CANCEL' | translate }}</button>
+        <button
+          (click)="currentAction = 'Add'; newComment.title = ''; newComment.message = '' ">{{ 'POST.CANCEL' | translate }}
+        </button>
       }
     </div>
   </div>
