@@ -14,6 +14,7 @@ import {Artist} from "../../models/Artist";
 import {Router, RouterLink} from "@angular/router";
 import {NgClass} from "@angular/common";
 import {augmentIndexHtml} from "@angular-devkit/build-angular/src/utils/index-file/augment-index-html";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-settings',
@@ -33,7 +34,8 @@ import {augmentIndexHtml} from "@angular-devkit/build-angular/src/utils/index-fi
     MatSuffix,
     ArtistRegisterEditComponent,
     RouterLink,
-    NgClass
+    NgClass,
+    TranslateModule
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'

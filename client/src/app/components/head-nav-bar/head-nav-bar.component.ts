@@ -12,6 +12,7 @@ import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {NgForOf, NgOptimizedImage} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -34,14 +35,14 @@ import {NgForOf, NgOptimizedImage} from "@angular/common";
     MatMenu,
     MatMenuItem,
     NgForOf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    TranslateModule
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
 })
 export class HeadNavBarComponent implements OnInit {
 
-  currentLang: string;
   lang = new FormControl('');
   langs = this.service.getLanguages()
 
@@ -49,8 +50,10 @@ export class HeadNavBarComponent implements OnInit {
   constructor(
     // private translateService: TranslateService,
     protected service: LanguageService,
-    private router: Router) {
-    this.currentLang = this.service.getLanguage();
+    private router: Router,
+    private languageService: LanguageService) {
+
+
     // this.lang.valueChanges.subscribe((value) => {
     //   if (value) {
     //     this.service.setLanguage(value);

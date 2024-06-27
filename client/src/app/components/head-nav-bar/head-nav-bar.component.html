@@ -19,11 +19,11 @@
     <div class="toolbarRightSide">
       <img [src]="sessionStorage.getItem('profilPicture')" class="catPic" alt="No cats :(" [matMenuTriggerFor]="userMenu">
       <mat-menu #userMenu="matMenu">
-        <button routerLink="/home/usersPosts" mat-menu-item>My Posts</button>
-        <button routerLink="/home/settings" mat-menu-item>Settings</button>
-        <button routerLink="/home/artistProfile" mat-menu-item>Artist Profile</button>
+        <button routerLink="/home/usersPosts" mat-menu-item>{{'HEADER.PROFILE' | translate }}</button>
+        <button routerLink="/home/settings" mat-menu-item>{{ 'HEADER.SETTINGS' | translate }}</button>
+        <button routerLink="/home/artistProfile" mat-menu-item>{{ 'HEADER.ARTIST_PROFILE' | translate}}</button>
 
-        <button (click)="logout()" mat-menu-item>Logout</button>
+        <button (click)="logout()" mat-menu-item>{{ 'HEADER.LOGOUT' | translate }}</button>
       </mat-menu>
     </div>
   </mat-toolbar-row>
