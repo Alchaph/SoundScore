@@ -3,7 +3,7 @@
   <div class="card-container2">
   <mat-card id="card">
     <mat-card-header>
-      <mat-card-title id="title">{{ isRegister ? ('LOGIN.FORM.REGISTER_BUTTON' | translate) : ('LOGIN.FORM.LOGIN_BUTTON' | translate) }}</mat-card-title>
+      <mat-card-title id="title">Sound score</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
       <mat-card-content>
