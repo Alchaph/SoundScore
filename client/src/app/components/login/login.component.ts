@@ -67,9 +67,6 @@ export class LoginComponent implements AfterViewInit{
   });
 
   constructor(private jwtService: JwtServiceService, private router: Router, private languageService: LanguageService,private translateService: TranslateService) {
-    this.languageService.setLanguage(this.translateService.getBrowserLang());
-
-
   }
 
 
