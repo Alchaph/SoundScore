@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {LanguageService} from "./services/languageService/language.service";
+import {Lang} from "./models/Lang";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -10,31 +12,21 @@ import {LanguageService} from "./services/languageService/language.service";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'client';
 
-  constructor() {
+  constructor(private languageService: LanguageService, private TranslateService: TranslateService) {
 
   }
 
-  // setLanguageCookie(lang: string): void {
-  //   const date = new Date();
-  //   // Set it expire in 7 days
-  //   date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-  //   const expires = "; expires=" + date.toUTCString();
-  //   // Set the cookie to the lang value with the expiry date
-  //   document.cookie = "lang=" + lang + expires + "; path=/";
-  // }
-  //
-  //
-  // ngOnInit() {
-  //   let c = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {});
-  //   if (c) {
-  //       this.setLanguageCookie('de')
-  //   } else {
-  //     console.log('no cookie')
-  //   }
-  //
-  //   console.log(c);
-  // }
+
+  ngOnInit() {
+    let lang: Lang = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
+    if (lang.lang) {
+      this.languageService.setLanguage(lang.lang);
+    } else {
+      this.languageService.setLanguageCookie(this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en');
+      this.languageService.setLanguage(this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en');
+    }
+  }
 }
