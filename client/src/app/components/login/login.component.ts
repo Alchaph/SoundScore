@@ -19,6 +19,7 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
+import {LanguageService} from "../../services/languageService/language.service";
 
 @Component({
   selector: 'app-login',
@@ -63,7 +64,7 @@ export class LoginComponent implements AfterViewInit{
     repeatPassword: new FormControl('', [Validators.required, this.validator.bind(this)]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private languageService: LanguageService) {
 
   }
 
