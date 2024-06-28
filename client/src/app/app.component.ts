@@ -3,12 +3,13 @@ import {RouterOutlet} from "@angular/router";
 import {LanguageService} from "./services/languageService/language.service";
 import {Lang} from "./models/Lang";
 import {TranslateService} from "@ngx-translate/core";
+import {LoaderComponent} from "./components/loader/loader.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
