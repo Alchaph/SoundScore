@@ -47,6 +47,7 @@ import {PostService} from "../../services/PostService/post.service";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {MatSelect} from "@angular/material/select";
+import {TranslateModule} from "@ngx-translate/core";
 
 export interface TreeNode {
   name: string;
@@ -103,7 +104,8 @@ export interface TreeNode {
     MatTreeNodeToggle,
     MatTreeNodeOutlet,
     MatSelect,
-    MatOption
+    MatOption,
+    TranslateModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
