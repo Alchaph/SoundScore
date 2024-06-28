@@ -6,7 +6,7 @@
       <mat-card-title id="title">Sound score</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
-      <mat-card-content>
+      <mat-card-content [ngClass]="{'extra': isRegister}">
           <div class="input-group">
             <input required="" type="text" formControlName="email" name="text" autocomplete="off" class="input">
             <label class="user-label">{{ 'LOGIN.FORM.EMAIL' | translate }}</label>
