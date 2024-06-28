@@ -7,7 +7,7 @@ import {
   ValidatorFn,
   Validators
 } from "@angular/forms";
-import {AfterViewInit, Component} from "@angular/core";
+import {AfterViewInit, Component, OnInit} from "@angular/core";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -51,7 +51,7 @@ import {NgClass} from "@angular/common";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements AfterViewInit{
+export class LoginComponent implements AfterViewInit,OnInit{
   hide = true;
   isRegister = false;
   registerForm: FormGroup<{
@@ -67,6 +67,10 @@ export class LoginComponent implements AfterViewInit{
   });
 
   constructor(private jwtService: JwtServiceService, private router: Router) {
+  }
+
+  ngOnInit() {
+    localStorage.clear();
   }
 
 
