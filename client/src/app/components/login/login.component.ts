@@ -63,31 +63,27 @@ export class LoginComponent implements AfterViewInit{
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    repeatPassword: new FormControl('', [Validators.required, this.validator.bind(this)]),
+    repeatPassword: new FormControl('', [Validators.required]),
   });
 
   constructor(private jwtService: JwtServiceService, private router: Router) {
   }
 
 
-
-  validator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      let valid = this.registerForm.controls.password.value === this.registerForm.controls.repeatPassword.value;
-      return valid ? {'forbiddenUsername': {value: this.registerForm.controls.repeatPassword.value}} : null;
-    };
-  }
-
   changeForm() {
     this.isRegister = !this.isRegister;
+    // console.log("isRegister: "+this.isRegister)
   }
 
 
   register() {
-    if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword && this.registerForm.controls.password == this.registerForm.controls.repeatPassword && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
+    // console.log("register called")
+    if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword.value == this.registerForm.controls.password.value && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
+      // console.log("if statements valid")
       this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
         (data) => {
           this.login();
+          // console.log("login called")
         }, error => {
           alert('The email is already in use')
         });
