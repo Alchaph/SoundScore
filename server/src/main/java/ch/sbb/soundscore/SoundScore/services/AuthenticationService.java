@@ -40,16 +40,16 @@ public class AuthenticationService {
     public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
+                        input,
                         input.getPassword()
                 )
         );
-        return userRepository.findByUsername(input.getEmail())
+        return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
 
     public boolean verifyPassword(String email, String password) {
-        User user = userRepository.findByUsername(email).orElseThrow();
+        User user = userRepository.findByEmail(email).orElseThrow();
         return passwordEncoder.matches(password, user.getPassword());
     }
 }
