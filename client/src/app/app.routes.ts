@@ -12,17 +12,17 @@ import {AddEditSongComponent} from "./components/add-edit-song/add-edit-song.com
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  {path: 'home/post/:postId', component: PostComponent},
-  { path: 'home/addPost/:postType', component: AddEditPostComponent },
-  { path: 'home/editPost/:postId', component: AddEditPostComponent },
-  {path: 'home/leaderBoard', component: LeaderBoardComponent},
-  {path: 'home/settings', component: SettingsComponent},
-  {path: 'home/usersPosts/:id', component: UsersPostsComponent},
-  {path: 'home/artistProfile/:artistId', component: ArtistProfileComponent},
-  {path: 'home/artistProfile', component: ArtistProfileComponent},
-  {path: 'home/addArtist', component: ArtistRegisterEditComponent},
-  {path: 'home/editArtist/:artistId', component: ArtistRegisterEditComponent},
-  {path: 'home/addSong', component: AddEditSongComponent},
-  {path: 'home/editSong/:songId', component: AddEditSongComponent}
+  { path: 'home',canActivate: [loginGuard], component: HomeComponent },
+  {path: 'home/post/:postId',canActivate: [loginGuard], component: PostComponent},
+  { path: 'home/addPost/:postType',canActivate: [loginGuard], component: AddEditPostComponent },
+  { path: 'home/editPost/:postId',canActivate: [loginGuard], component: AddEditPostComponent },
+  {path: 'home/leaderBoard',canActivate: [loginGuard], component: LeaderBoardComponent},
+  {path: 'home/settings',canActivate: [loginGuard], component: SettingsComponent},
+  {path: 'home/usersPosts/:id',canActivate: [loginGuard], component: UsersPostsComponent},
+  {path: 'home/artistProfile/:artistId',canActivate: [loginGuard], component: ArtistProfileComponent},
+  {path: 'home/artistProfile',canActivate: [loginGuard], component: ArtistProfileComponent},
+  {path: 'home/addArtist',canActivate: [loginGuard], component: ArtistRegisterEditComponent},
+  {path: 'home/editArtist/:artistId',canActivate: [loginGuard], component: ArtistRegisterEditComponent},
+  {path: 'home/addSong',canActivate: [loginGuard], component: AddEditSongComponent},
+  {path: 'home/editSong/:songId',canActivate: [loginGuard], component: AddEditSongComponent}
 ];
