@@ -11,9 +11,11 @@ import {MatIcon} from "@angular/material/icon";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {NgForOf, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgForOf, NgOptimizedImage} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {Observable} from "rxjs";
+import {LoaderService} from "../../services/LoaderService/loader.service";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -37,7 +39,8 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
     MatMenuItem,
     NgForOf,
     NgOptimizedImage,
-    TranslateModule
+    TranslateModule,
+    AsyncPipe
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
@@ -48,11 +51,15 @@ export class HeadNavBarComponent implements OnInit {
   langs = this.service.getLanguages()
   userId = 0;
 
+  isLoading: Observable<boolean> = new Observable<boolean>();
+
+
   constructor(
     // private translateService: TranslateService,
     protected service: LanguageService,
     private router: Router,
-    private jwtService: JwtServiceService) {
+    private jwtService: JwtServiceService,
+    private loaderService: LoaderService) {
 
 
     // this.lang.valueChanges.subscribe((value) => {
@@ -70,6 +77,7 @@ export class HeadNavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = this.loaderService.getIsLoading();
     console.log(sessionStorage.getItem('profilPicture'));
     if (sessionStorage.getItem('profilPicture') === null) {
       fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')
