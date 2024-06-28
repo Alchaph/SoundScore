@@ -115,7 +115,7 @@
       }
     }
     <div class="comment-form">
-      <h3>{{ currentAction }}{{'POST.COMMENT' | translate}}</h3>
+      <h3>{{ 'POST_FORM.'+ currentAction | translate }} {{'POST_FORM.COMMENT' | translate}}</h3>
       <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
