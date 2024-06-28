@@ -1,10 +1,12 @@
 import { CanActivateFn, Router } from '@angular/router';
 import {inject} from "@angular/core";
+import {Token} from "@angular/compiler";
 
 
 
 export const loginGuard: CanActivateFn = (route, state) => {
-  if (localStorage.getItem('token')  && localStorage.getItem('token') !== "") {
+  const token = localStorage.getItem('token');
+  if (token) {
     return true;
   } else {
     inject(Router).navigate(['']);
