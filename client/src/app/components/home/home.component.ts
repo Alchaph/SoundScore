@@ -17,7 +17,7 @@ import {
 } from "@angular/material/card";
 import {NgClass, NgOptimizedImage, NgStyle} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
-import {MatLine} from "@angular/material/core";
+import {MatLine, MatOption} from "@angular/material/core";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
@@ -46,6 +46,7 @@ import {Song} from "../../models/Song";
 import {PostService} from "../../services/PostService/post.service";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {MatSelect} from "@angular/material/select";
 
 export interface TreeNode {
   name: string;
@@ -100,7 +101,9 @@ export interface TreeNode {
     MatNestedTreeNode,
     MatIconButton,
     MatTreeNodeToggle,
-    MatTreeNodeOutlet
+    MatTreeNodeOutlet,
+    MatSelect,
+    MatOption
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -115,18 +118,18 @@ export class HomeComponent implements OnInit {
   topSongs: Song[] = [];
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
-  protected isMobile:boolean = false;
+  isMobile: boolean = false;
 
   selectedFilters?: 'genre' | 'song' | 'artist';
 
-  constructor(private breakpointObserver: BreakpointObserver,private postService: PostService, private leaderBoardService: LeaderBoardService) {
+  constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
   }
 
   ngOnInit() {
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small
-    ]).subscribe(result  => {
+    ]).subscribe(result => {
       this.isMobile = result.matches;
     });
     this.postService.getPosts().subscribe((data: Post[]) => {
@@ -141,7 +144,27 @@ export class HomeComponent implements OnInit {
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
       this.topSongs = data;
     });
+
   }
+
+  selected(selected: string) {
+    this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
+  }
+
+  keepMenuOpen(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  handlePanelClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  openLink(event: MouseEvent, link: string) {
+    event.stopPropagation();
+    window.open(link, '_blank');
+  }
+
+
 
 
   // isButtonDisabled = false;
