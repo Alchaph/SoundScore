@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "users", uniqueConstraints ={
+@Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"artist_id"})
 })
 @Entity
@@ -77,55 +77,55 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Artist getArtist() {
         return artist;
     }
 
-    public String getUsername() {
-        return email;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUsername() {
+        return email;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

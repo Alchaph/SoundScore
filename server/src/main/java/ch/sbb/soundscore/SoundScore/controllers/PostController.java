@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
+import ch.sbb.soundscore.SoundScore.dtos.LikeResponse;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.PostService;
@@ -50,7 +51,7 @@ public class PostController {
     }
 
     @GetMapping("/get/liked/{id}")
-    public boolean hasLikedOrDisliked(@PathVariable Long id) {
+    public String hasLikedOrDisliked(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
         return postService.hasLikedOrDisliked(id, currentUser);

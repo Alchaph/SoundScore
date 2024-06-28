@@ -17,8 +17,10 @@ import {MatIcon} from "@angular/material/icon";
 import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
+import {LanguageService} from "../../services/languageService/language.service";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -42,7 +44,8 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
     NgxMatInputTelComponent,
     FormsModule,
     TranslateModule,
-    MatSuffix
+    MatSuffix,
+    NgClass
 
   ],
   templateUrl: './login.component.html',
@@ -64,7 +67,6 @@ export class LoginComponent implements AfterViewInit{
   });
 
   constructor(private jwtService: JwtServiceService, private router: Router) {
-
   }
 
 
@@ -104,8 +106,6 @@ export class LoginComponent implements AfterViewInit{
   ngAfterViewInit()
   {
     const bg = document.getElementById("bg") as HTMLCanvasElement;
-    console.log(bg)
-    console.log(typeof bg)
     if (bg) {
       const neat = new NeatGradient({
         ref: bg,

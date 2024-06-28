@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'home/editPost/:postId', component: AddEditPostComponent },
   {path: 'home/leaderBoard', component: LeaderBoardComponent},
   {path: 'home/settings', component: SettingsComponent},
-  {path: 'home/usersPosts', component: UsersPostsComponent},
+  {path: 'home/usersPosts/:id', component: UsersPostsComponent},
   {path: 'home/artistProfile/:artistId', component: ArtistProfileComponent},
   {path: 'home/artistProfile', component: ArtistProfileComponent},
   {path: 'home/addArtist', component: ArtistRegisterEditComponent},

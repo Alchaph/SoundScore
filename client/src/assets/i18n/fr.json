@@ -7,24 +7,25 @@
       "PASSWORD": "Mot de passe",
       "LOGIN_BUTTON": "Connexion",
       "REGISTER_BUTTON": "S'inscrire",
-      "REPEAT_PASSWORD": "Répétez le mot de passe"
+      "REPEAT_PASSWORD": "Répéter le mot de passe"
     },
     "NO_ACCOUNT": "Pas de compte?",
     "ALREADY_ACCOUNT": "Déjà inscrit?"
   },
   "HOME": {
-    "NO_POSTS": "Aucun post trouvé",
+    "START": "Commencer",
     "ADD": "Ajouter",
     "GENRE": "Genre",
     "ARTIST": "Artiste",
     "SONG": "Chanson",
-    "BY": "par"
+    "POSTED_BY": "Posté par",
+    "CREATE_POST": "Créer une publication sur"
   },
   "POST": {
     "COMMENTS": "Commentaires",
     "WRITE_COMMENT": "Écrire un commentaire",
-    "POST_COMMENT": "Publier un commentaire",
-    "POST_NOT_FOUND": "Post non trouvé",
+    "POST_COMMENT": "Publier le commentaire",
+    "POST_NOT_FOUND": "Publication non trouvée",
     "DELETE": "Supprimer",
     "EDIT": "Modifier",
     "REPLY": "Répondre",
@@ -42,13 +43,13 @@
     "OLD_PASSWORD_HINT": "Entrez pour vérifier votre identité",
     "NEW_PASSWORD": "Nouveau mot de passe",
     "NEW_PASSWORD_HINT": "Choisissez un mot de passe fort",
-    "RETYPE_PASSWORD": "Retapez le mot de passe",
+    "RETYPE_PASSWORD": "Retaper le mot de passe",
     "RETYPE_PASSWORD_HINT": "Retapez votre nouveau mot de passe",
     "SAVE_BUTTON": "Enregistrer",
-    "DELETE_ACCOUNT_BUTTON": "Vous supprimer de ce monde"
+    "DELETE_ACCOUNT_BUTTON": "Supprimez-vous de ce monde"
   },
   "DELETE_YOURSELF": {
-    "TAB_LABEL": "Vous supprimer de ce monde",
+    "TAB_LABEL": "Supprimez-vous de ce monde",
     "DELETE_BUTTON": "Supprimez-vous"
   },
   "HEADER": {
@@ -59,22 +60,25 @@
   },
   "LEADERBOARD": {
     "TITLE": "Classement",
-    "TOP_POSTS": "Top posts"
+    "TOP_ARTISTS": "Meilleurs artistes",
+    "TOP_GENRE": "Meilleurs genres",
+    "TOP_SONGS": "Meilleures chansons"
   },
   "POST_FORM": {
-    "GO_BACK_BUTTON": "Retour",
-    "EDIT_POST_HEADER": "Modifier votre post",
-    "CREATE_POST_HEADER": "Créer votre propre post",
+    "GO_BACK_BUTTON": "Retourner",
+    "EDIT_POST_HEADER": "Modifier votre publication",
+    "CREATE_POST_HEADER": "Créez votre propre publication",
     "TITLE_LABEL": "Titre",
     "CONTENT_LABEL": "Contenu",
     "IMAGE_TYPE_LABEL": "Type d'image",
     "IMAGE_OPTION": "Image",
     "GIF_OPTION": "Gif",
-    "SEARCH_GIFS_LABEL": "Rechercher des Gifs",
+    "SEARCH_GIFS_LABEL": "Rechercher des gifs",
     "IMAGE_URL_LABEL": "URL de l'image",
-    "POST_TYPE_LABEL": "Type de post",
-    "SUBMIT_BUTTON_EDIT": "Modifier le post",
-    "SUBMIT_BUTTON_CREATE": "Créer le post"
+    "POST_TYPE_LABEL": "Type de publication",
+    "SUBMIT_BUTTON_EDIT": "Modifier la publication",
+    "SUBMIT_BUTTON_CREATE": "Créer la publication",
+    "Comment": "un commentaire"
   },
   "SONG_FORM": {
     "EDIT_SONG_HEADER": "Modifier votre chanson",
@@ -84,7 +88,7 @@
     "IMAGE_TYPE_LABEL": "Type d'image",
     "IMAGE_OPTION": "Image",
     "GIF_OPTION": "Gif",
-    "SEARCH_GIFS_LABEL": "Rechercher des Gifs",
+    "SEARCH_GIFS_LABEL": "Rechercher des gifs",
     "IMAGE_URL_LABEL": "URL de l'image",
     "GENRE_LABEL": "Genre",
     "SUBMIT_BUTTON_EDIT": "Modifier la chanson",
@@ -92,7 +96,7 @@
   },
   "ARTIST_FORM": {
     "EDIT_ARTIST_HEADER": "Modifier votre artiste",
-    "CREATE_ARTIST_HEADER": "Créer votre artiste",
+    "CREATE_ARTIST_HEADER": "Créez votre artiste",
     "ARTIST_NAME_LABEL": "Nom de l'artiste",
     "DESCRIPTION_LABEL": "Description",
     "ARTIST_IMAGE_LABEL": "Image de l'artiste",
@@ -100,18 +104,39 @@
     "SUBMIT_BUTTON_SAVE": "Enregistrer"
   },
   "ARTIST_SONGS": {
-    "GO_BACK_BUTTON": "Retour",
+    "GO_BACK_BUTTON": "Retourner",
     "UPLOAD_SONG_BUTTON": "Téléchargez votre propre chanson",
     "UPLOAD_FIRST_SONG_BUTTON": "Téléchargez votre première chanson",
-    "REGISTER_AS_ARTIST_BUTTON": "S'inscrire comme artiste",
-    "NO_IMAGE_ALT": "pas d'image",
-    "SONGS_TITLE": "Les chansons de ",
-    "BY_ARTIST": "Par ",
+    "REGISTER_AS_ARTIST_BUTTON": "Inscrivez-vous comme artiste",
+    "NO_IMAGE_ALT": "aucune image",
+    "SONGS_TITLE": "Chansons de",
+    "BY_ARTIST": "Par",
     "QUIET_HERE_TITLE": "C'est calme ici",
-    "QUIET_HERE_MESSAGE": "Cet artiste n'a encore rien téléchargé.",
+    "QUIET_HERE_MESSAGE": "Cet artiste n'a pas encore téléchargé.",
     "UPLOAD_MUSIC_TITLE": "Téléchargez votre musique",
     "UPLOAD_MUSIC_MESSAGE": "Téléchargez votre musique pour être découvert par les fans.",
     "ARTIST_REGISTRATION_TITLE": "Inscription d'artiste",
     "ARTIST_REGISTRATION_MESSAGE": "Inscrivez-vous comme artiste pour télécharger votre musique et être découvert par les fans."
+  },
+  "POSTS_CONTAINER": {
+    "QUIET_HERE": {
+      "TITLE": "C'est calme ici",
+      "MESSAGE": "Vous n'avez encore rien posté."
+    },
+    "POST_CARD": {
+      "PLACEHOLDER_IMAGE_ALT": "Image de remplacement",
+      "META": {
+        "BY_USER": "Par",
+        "LIKES": "J'aime",
+        "DISLIKES": "Je n'aime pas",
+        "GENRE": "Genre",
+        "ARTIST": "Artiste",
+        "SONG": "Chanson"
+      },
+      "ACTIONS": {
+        "DELETE": "supprimer",
+        "EDIT": "modifier"
+      }
+    }
   }
 }
