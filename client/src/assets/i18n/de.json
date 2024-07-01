@@ -79,10 +79,10 @@
     "POST_TYPE_LABEL": "Beitragstyp",
     "SUBMIT_BUTTON_EDIT": "Beitrag bearbeiten",
     "SUBMIT_BUTTON_CREATE": "Beitrag erstellen",
-    "COMMENT": "ein Kommentar",
-    "Add": "Hinzufügen",
+    "COMMENT": "Kommentar",
+    "Add": "Hinzufügen eines",
     "Edit your": "Bearbeite dein",
-    "Reply to": "Antworten auf"
+    "Reply to": "Antworten auf ein"
 
   },
   "SONG_FORM": {

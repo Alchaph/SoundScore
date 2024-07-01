@@ -122,7 +122,7 @@ export class PostComponent implements OnInit {
 
 
   handleAction(): void {
-    if (!this.newComment.title || !this.newComment.message) {
+    if (!this.newComment.message) {
       return;
     }
     this.newComment.post = this.post;

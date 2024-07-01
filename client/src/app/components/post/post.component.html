@@ -53,7 +53,6 @@
   </div>
 
   <div class="comments-section">
-
     <h2>{{ 'POST.COMMENTS' | translate }}</h2>
     @for (comment of comments; track $index) {
       <div class="comment">
@@ -83,7 +82,7 @@
             </div>
             <div class="comment reply-comment">
               <div class="comment-content" style="width: 90%">
-                <h3>{{ reply.title }}</h3>
+                <h3>{{ reply.user.username }}</h3>
                 <p>{{ reply.message }}</p>
               </div>
               <div class="comment-actions">
@@ -99,14 +98,11 @@
               </div>
             </div>
           </div>
-
-
         }
       }
     }
     <div class="comment-form">
       <h3>{{ 'POST_FORM.'+ currentAction | translate }} {{'POST_FORM.COMMENT' | translate}}</h3>
-      <input type="text" placeholder="{{'POST.TITLE' | translate}}" [(ngModel)]="newComment.title">
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
       @if (currentAction !== 'Add') {
