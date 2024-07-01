@@ -100,7 +100,7 @@ public class ArtistControllerTest {
         artist2.setId(2L);
         List<Artist> artists = Arrays.asList(artist1, artist2);
         when(artistService.getAllArtists()).thenReturn(artists);
-        mockMvc.perform(get("/api/artist/all")
+        mockMvc.perform(get("/api/artist/get/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
