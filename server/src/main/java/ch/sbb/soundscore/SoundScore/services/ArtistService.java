@@ -3,6 +3,7 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.repositories.ArtistRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.List;
 @Service
 public class ArtistService {
     private final ArtistRepository artistRepository;
+    private final UserRepository userRepository;
 
-    public ArtistService(ArtistRepository artistRepository) {
+    public ArtistService(ArtistRepository artistRepository, UserRepository userRepository) {
         this.artistRepository = artistRepository;
+        this.userRepository = userRepository;
     }
 
     public Artist createArtist(Artist artist) {
@@ -25,6 +28,7 @@ public class ArtistService {
 
     public Artist deleteArtist(Long id) {
         Artist artist = artistRepository.findById(id).orElse(null);
+        userRepository.updateArtistByArtist(artist);
         if (artist != null) {
             artistRepository.delete(artist);
         }

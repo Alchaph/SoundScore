@@ -1,16 +1,18 @@
 <app-head-nav-bar>
 </app-head-nav-bar>
-<button (click)="goBack()" color="primary" mat-button>❮ {{'ARTIST_SONGS.GO_BACK_BUTTON' | translate}}</button>
+<button (click)="goBack()" color="primary" mat-button>❮ {{ 'ARTIST_SONGS.GO_BACK_BUTTON' | translate }}</button>
 <body>
   @if (artist) {
     <div class="artist-container">
       <img [src]="artist?.image" alt="{{'ARTIST_SONGS.NO_IMAGE_ALT' | translate}}">
-      <h1>{{ artist.name }} {{'ARTIST_SONGS.SONGS_TITLE' | translate}}</h1>
+      <h1>{{ 'ARTIST_SONGS.SONGS_TITLE' | translate }} {{ artist.name }} </h1>
     </div>
   }
   @if (artist && artistSongs.length > 0) {
     @if (user && user.artist && user.artist.id === artistId) {
-      <button mat-raised-button color="primary" routerLink="/home/addSong">{{'ARTIST_SONGS.UPLOAD_SONG_BUTTON' | translate}}</button>
+      <button mat-raised-button color="primary"
+              routerLink="/home/addSong">{{ 'ARTIST_SONGS.UPLOAD_SONG_BUTTON' | translate }}
+      </button>
     }
     <div class="posts-container">
       @for (song of artistSongs; track $index) {
@@ -20,7 +22,7 @@
           }
           <div class="post-content">
             <h3 mat-line (click)="openLink(song?.link)">{{ song.title }}
-              <span>{{'ARTIST_SONGS.BY_ARTIST' | translate}} {{ artist.name }}</span>
+              <span>{{ 'ARTIST_SONGS.BY_ARTIST' | translate }} {{ artist.name }}</span>
             </h3>
             <div class="post-meta">
             </div>
@@ -45,7 +47,7 @@
     <div class="card-container">
       <mat-card>
         <mat-card-content>
-          <mat-card-title>{{'ARTIST_SONGS.QUIET_HERE_TITLE' | translate}}</mat-card-title>
+          <mat-card-title>{{ 'ARTIST_SONGS.QUIET_HERE_TITLE' | translate }}</mat-card-title>
           <p>{{ 'ARTIST_SONGS.QUIET_HERE_MESSAGE' | translate }}
           </p>
         </mat-card-content>
@@ -56,10 +58,12 @@
     <div class="card-container">
       <mat-card>
         <mat-card-content>
-          <mat-card-title>{{'ARTIST_SONGS.UPLOAD_MUSIC_TITLE' | translate}}'</mat-card-title>
+          <mat-card-title>{{ 'ARTIST_SONGS.UPLOAD_MUSIC_TITLE' | translate }}'</mat-card-title>
           <p>{{ 'ARTIST_SONGS.UPLOAD_MUSIC_MESSAGE' | translate }}
           </p>
-          <button mat-raised-button color="primary" routerLink="/home/addSong">{{'ARTIST_SONGS.UPLOAD_FIRST_SONG_BUTTON' | translate}}</button>
+          <button mat-raised-button color="primary"
+                  routerLink="/home/addSong">{{ 'ARTIST_SONGS.UPLOAD_FIRST_SONG_BUTTON' | translate }}
+          </button>
         </mat-card-content>
       </mat-card>
     </div>
@@ -67,8 +71,8 @@
     <div class="card-container">
       <mat-card>
         <mat-card-content>
-          <mat-card-title>{{'ARTIST_SONGS.ARTIST_REGISTRATION_TITLE' | translate}}</mat-card-title>
-          <p>{{'ARTIST_REGISTRATION_TITLE.ARTIST_REGISTRATION_MESSAGE' | translate}}</p>
+          <mat-card-title>{{ 'ARTIST_SONGS.ARTIST_REGISTRATION_TITLE' | translate }}</mat-card-title>
+          <p>{{ 'ARTIST_REGISTRATION_TITLE.ARTIST_REGISTRATION_MESSAGE' | translate }}</p>
           <button mat-raised-button color="primary" routerLink="/home/addArtist">Register as Artist</button>
         </mat-card-content>
       </mat-card>

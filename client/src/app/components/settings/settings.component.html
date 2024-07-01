@@ -7,7 +7,6 @@
     <div class="settings-container mat-elevation-z8">
       <h2>{{'USER_SETTINGS.TITLE' | translate}}</h2>
       <form (ngSubmit)="onUserSettingsSubmit()" [formGroup]="userForm">
-
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{'LOGIN.FORM.EMAIL'| translate}}</mat-label>
           <input formControlName="email" id="email" matInput type="email">

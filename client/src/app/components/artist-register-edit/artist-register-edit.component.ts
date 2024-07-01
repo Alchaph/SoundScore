@@ -12,8 +12,9 @@ import {ArtistService} from "../../services/ArtistService/artist.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {TranslateModule} from "@ngx-translate/core";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {NgClass, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-artist-register',
@@ -31,7 +32,11 @@ import {TranslateModule} from "@ngx-translate/core";
     MatOption,
     MatSelect,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatTabGroup,
+    MatTab,
+    NgClass,
+    NgIf
   ],
   templateUrl: './artist-register-edit.component.html',
   styleUrl: './artist-register-edit.component.scss'
@@ -48,9 +53,12 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
     artistDescription: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]),
     artistImage: new FormControl('', [Validators.required, Validators.minLength(10)]),
   })
+  fly = false;
+  fall = false;
+  explode = false;
+  disabled = false;
 
-
-  constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, private route: ActivatedRoute, private router: Router) {
+  constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, protected route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -89,12 +97,46 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
           () => this.updateUser(artist)
         ) :
         console.log(this.user)
-        this.artistService.createArtist(artist).subscribe(
-          (a) => {
-            artist.id = a.id
-            this.updateUser(artist)
-          }
-        )
+      this.artistService.createArtist(artist).subscribe(
+        (a) => {
+          artist.id = a.id
+          this.updateUser(artist)
+        }
+      )
+    }
+  }
+
+  deleteYourself() {
+    this.disabled = true;
+    const planeContainer = document.getElementById('planeContainer');
+    const plane = document.getElementById('plane');
+    const nuke = document.getElementById('nuke');
+    const nukeScreen = document.getElementById('nukeScreen');
+    if (planeContainer && plane && nuke && nukeScreen) {
+      let audio = new Audio('assets/sounds/plane.mp3');
+      audio.play();
+      planeContainer.style.display = 'block';
+      this.fly = true;
+      setTimeout(() => {
+        let audio2 = new Audio('assets/sounds/explosion.mp3');
+        audio2.currentTime = 0.4;
+        audio2.play();
+        nuke.style.visibility = 'visible';
+        this.fall = true;
+        setTimeout(() => {
+          let audio3 = new Audio('assets/sounds/hexplosion.mp3');
+          audio3.currentTime = 0.45;
+          audio3.play();
+          audio.pause();
+          nukeScreen.style.display = 'block';
+          nuke.style.visibility = 'hidden';
+          this.explode = true;
+          setTimeout(() => {
+            this.artistService.deleteArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).subscribe();
+            this.router.navigate(['/home']);
+          }, 500);
+        }, 2000);
+      }, 3000);
     }
   }
 

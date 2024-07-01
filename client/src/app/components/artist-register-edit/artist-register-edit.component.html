@@ -1,28 +1,95 @@
 <app-head-nav-bar></app-head-nav-bar>
-<div class="settings-container">
-  <mat-card-header>
-    {{
-      artist ? ('ARTIST_FORM.EDIT_ARTIST_HEADER' | translate) : ('ARTIST_FORM.CREATE_ARTIST_HEADER' | translate)
-    }}
-  </mat-card-header>
-  <mat-card-content>
-    <form (ngSubmit)="saveArtist()" [formGroup]="formGroup">
-      <mat-form-field>
-        <mat-label>{{'ARTIST_FORM.ARTIST_NAME_LABEL' | translate}}</mat-label>
-        <input [formControl]="formGroup.controls.artistName" matInput required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>{{ 'ARTIST_FORM.DESCRIPTION_LABEL' | translate }}</mat-label>
-        <input [formControl]="formGroup.controls.artistDescription" matInput required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>{{'ARTIST_FORM.ARTIST_IMAGE_LABEL'}}</mat-label>
-        <input [formControl]="formGroup.controls.artistImage" matInput required>
-      </mat-form-field>
-      <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
-      <button [disabled]="formGroup.invalid" color="primary"
-              mat-raised-button>{{ artist ? ('ARTIST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('ARTIST_FORM.SUBMIT_BUTTON_CREATE' | translate) }}
-      </button>
-    </form>
-  </mat-card-content>
-</div>
+<div [ngClass]="{'exploding': explode}" id="nukeScreen"></div>
+@if (!explode) {
+  @if (route.snapshot.paramMap.get('artistId')) {
+    <mat-tab-group>
+      <mat-tab label="Artist Settings">
+        <div class="settings-container">
+          <mat-card-header>
+            {{
+              artist ? ('ARTIST_FORM.EDIT_ARTIST_HEADER' | translate) : ('ARTIST_FORM.CREATE_ARTIST_HEADER' | translate)
+            }}
+          </mat-card-header>
+          <mat-card-content>
+            <form (ngSubmit)="saveArtist()" [formGroup]="formGroup">
+              <mat-form-field>
+                <mat-label>{{ 'ARTIST_FORM.ARTIST_NAME_LABEL' | translate }}</mat-label>
+                <input [formControl]="formGroup.controls.artistName" matInput required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'ARTIST_FORM.DESCRIPTION_LABEL' | translate }}</mat-label>
+                <input [formControl]="formGroup.controls.artistDescription" matInput required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'ARTIST_FORM.ARTIST_IMAGE_LABEL' }}</mat-label>
+                <input [formControl]="formGroup.controls.artistImage" matInput required>
+              </mat-form-field>
+              <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
+              <button [disabled]="formGroup.invalid" color="primary"
+                      mat-raised-button>{{ artist ? ('ARTIST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('ARTIST_FORM.SUBMIT_BUTTON_CREATE' | translate) }}
+              </button>
+            </form>
+          </mat-card-content>
+        </div>
+      </mat-tab>
+      <mat-tab label="Delete Your Artist from this World">
+        <div id="planeContainer">
+          <img id="plane" [ngClass]="{'fly': fly}"
+               src="https://imgs.search.brave.com/PjgBU9MIuWgoBXc8aKd5hfTRncW07qAzPJR1PTfsGfY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGxhbmUt/ZW5jeWNsb3BlZGlh/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMy8xMC9XaGly/bHdpbmQyVFhULnBu/Zz9yZXNpemU9NjA0/LDI0MiZzc2w9MQ">
+          <img id="nuke" [ngClass]="{'drop': fall}"
+               src="https://imgs.search.brave.com/sRUbfcxwaihuMUxZ7SLu0fQoEKU4R7EHzW6IgjW3ppI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTQvTnVr/ZS1QTkctSW1hZ2Vz/LnBuZw">
+        </div>
+        <div id="deleteButtonField">
+          <button [disabled]="disabled" class="button2" (click)="deleteYourself()">
+            <div class="lid">
+              <span class="side top"></span>
+              <span class="side front"></span>
+              <span class="side back"> </span>
+              <span class="side left"></span>
+              <span class="side right"></span>
+            </div>
+            <div class="panels">
+              <div class="panel-1">
+                <div class="panel-2">
+                  <div class="btn-trigger">
+                    <span class="btn-trigger-1"></span>
+                    <span class="btn-trigger-2"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  } @else {
+    <div class="settings-container">
+      <mat-card-header>
+        {{
+          artist ? ('ARTIST_FORM.EDIT_ARTIST_HEADER' | translate) : ('ARTIST_FORM.CREATE_ARTIST_HEADER' | translate)
+        }}
+      </mat-card-header>
+      <mat-card-content>
+        <form (ngSubmit)="saveArtist()" [formGroup]="formGroup">
+          <mat-form-field>
+            <mat-label>{{ 'ARTIST_FORM.ARTIST_NAME_LABEL' | translate }}</mat-label>
+            <input [formControl]="formGroup.controls.artistName" matInput required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ 'ARTIST_FORM.DESCRIPTION_LABEL' | translate }}</mat-label>
+            <input [formControl]="formGroup.controls.artistDescription" matInput required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ 'ARTIST_FORM.ARTIST_IMAGE_LABEL' }}</mat-label>
+            <input [formControl]="formGroup.controls.artistImage" matInput required>
+          </mat-form-field>
+          <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
+          <button [disabled]="formGroup.invalid" color="primary"
+                  mat-raised-button>{{ artist ? ('ARTIST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('ARTIST_FORM.SUBMIT_BUTTON_CREATE' | translate) }}
+          </button>
+        </form>
+      </mat-card-content>
+    </div>
+  }
+}
