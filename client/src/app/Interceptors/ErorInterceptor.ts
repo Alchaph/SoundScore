@@ -12,18 +12,6 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
             case 401:
               alert('Passowrd or Email is incorrect');
               break;
-            case 403:
-              alert('Forbidden');
-              break;
-            case 404:
-              alert('Not Found');
-              break;
-            case 500:
-              alert('Internal Server Error');
-              break;
-            default:
-              alert('Unknown Error');
-              break;
           }
         }
         loaderService.hide();
