@@ -132,16 +132,16 @@ export class HomeComponent implements OnInit {
       this.isMobile = result.matches;
     });
     this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data;
+      this.posts = data.reverse();
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
-      this.topGenres = data;
+      this.topGenres = data.reverse();
     });
     this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
-      this.topArtists = data;
+      this.topArtists = data.reverse();
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      this.topSongs = data;
+      this.topSongs = data.reverse();
     });
 
   }
