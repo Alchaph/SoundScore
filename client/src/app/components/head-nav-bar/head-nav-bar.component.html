@@ -1,11 +1,11 @@
-@if (!(isLoading | async)) {
+
 <mat-toolbar id="headBar">
   <mat-toolbar-row class="toolbar">
     <div class="toolbarLeftSide">
       <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
-        <mat-icon>g_translate</mat-icon>
+        <mat-icon style="color: white">g_translate</mat-icon>
       </button>
-      <button routerLink="/home/leaderBoard" mat-icon-button><mat-icon>leaderboard</mat-icon></button>
+      <button routerLink="/home/leaderBoard" mat-icon-button><mat-icon style="color: white">leaderboard</mat-icon></button>
       <mat-menu #languageMenu="matMenu" xPosition="before">
         @for (lang of langs; track $index) {
           <p mat-menu-item (click)="service.setLanguage(lang)">{{ lang | language }}
@@ -14,7 +14,7 @@
       </mat-menu>
     </div>
     <div class="toolbarMiddle">
-      <span routerLink="/home">Sound Score</span>
+      <span routerLink="/home" style="color: white">Sound Score</span>
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
@@ -29,4 +29,3 @@
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-}
