@@ -62,7 +62,6 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPost(this.postId).subscribe((post) => {
       this.post = post;
-      console.log(JSON.stringify({alreadyLikedOrDisliked: true, liked: false}))
     });
     this.postService.hasAlreadyLikedOrDisliked(this.postId).subscribe((data) => {
       if (data.alreadyLikedOrDisliked) {
