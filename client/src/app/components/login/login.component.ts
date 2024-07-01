@@ -95,12 +95,13 @@ export class LoginComponent implements AfterViewInit,OnInit{
   }
 
   login() {
-    if (this.registerForm.controls.password.valid && this.registerForm.controls.email.valid) {
-      this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
-        localStorage.setItem('token', data.token);
-        this.router.navigate(['/home']);
-      });
-    }
+      if (this.registerForm.controls.password.valid && this.registerForm.controls.email.valid) {
+        this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
+          localStorage.setItem('token', data.token);
+          this.router.navigate(['/home']);
+        });
+      }
+
   }
 
   ngAfterViewInit()

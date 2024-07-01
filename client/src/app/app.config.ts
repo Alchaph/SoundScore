@@ -11,6 +11,7 @@ import {LanguageService} from "./services/languageService/language.service";
 import {immediateProvider} from "rxjs/internal/scheduler/immediateProvider";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {LoadingInterceptor} from "./Interceptors/LoadingInterceptor";
+import {ErrorInterceptor} from "./Interceptors/ErorInterceptor";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json');
@@ -18,7 +19,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor, LoadingInterceptor])), provideAnimationsAsync(), LanguageService,
+  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor, LoadingInterceptor, ErrorInterceptor])), provideAnimationsAsync(), LanguageService,
               importProvidersFrom(TranslateModule.forRoot({
                 loader: {
                   provide: TranslateLoader,
