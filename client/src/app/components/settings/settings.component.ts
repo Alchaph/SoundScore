@@ -75,7 +75,7 @@ export class SettingsComponent implements OnInit {
 
   onUserSettingsSubmit(): void {
     if (this.userForm.invalid || this.userForm.value.password !== this.userForm.value.confirmPassword) {
-      console.error("Invalid form or passwords dont match");
+      alert('Please fill out all fields and make sure the passwords match')
       return;
     }
     console.log(this.userForm.value.oldPassword)
