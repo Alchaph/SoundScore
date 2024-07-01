@@ -182,7 +182,8 @@
           <mat-card-content>
           <img [src]="post.image">
           <span>{{'HOME.POSTED_BY' | translate}}  {{ post.user.username }}</span>
-          @if (post.genre || post.artist || post.song){
+            <p>{{post.content}}</p>
+            @if (post.genre || post.artist || post.song){
             <div class="post-tags">
               @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
               @if (post.artist) {<span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>}
@@ -199,6 +200,7 @@
           <mat-card-content>
             <img [src]="post.image">
             <span>{{'HOME.POSTED_BY' | translate}}  {{ post.user.username }}</span>
+            <p>{{post.content}}</p>
             @if (post.genre || post.artist || post.song){
               <div class="post-tags">
                 @if (post.genre) {<span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>}
@@ -285,6 +287,7 @@
           <mat-card-content>
             <img [src]="post.image">
             <span>Posted By {{ post.user.username }}</span>
+            <p>{{post.content}}</p>
             @if (post.genre || post.artist || post.song) {
               <div class="post-tags">
                 @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
@@ -302,6 +305,7 @@
           <mat-card-content>
             <img [src]="post.image">
             <span>Posted By {{ post.user.username }}</span>
+            <p>{{post.content}}</p>
             @if (post.genre || post.artist || post.song) {
               <div class="post-tags">
                 @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
