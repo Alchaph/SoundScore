@@ -1,6 +1,8 @@
 package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Post;
+import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.repositories.LikeOrDislikeRepository;
 import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,8 @@ class PostServiceTest {
     @BeforeEach
     void setUp() {
         postRepository = mock(PostRepository.class);
-        postService = new PostService(postRepository);
+        LikeOrDislikeRepository likeOrDislikeRepository = mock(LikeOrDislikeRepository.class);
+        postService = new PostService(postRepository, likeOrDislikeRepository);
     }
 
     @Test
@@ -37,12 +40,13 @@ class PostServiceTest {
     @Test
     void newPost() {
         Post post = new Post();
+        post.setId(1L); // Assuming the ID is set to 1
         when(postRepository.save(post)).thenReturn(post);
 
-        Long result = postService.newPost(post);
+        Post result = postService.newPost(post);
 
         verify(postRepository, times(1)).save(post);
-        assertEquals(post.getId(), result);
+        assertEquals(post.getId(), result.getId()); // Compare the IDs
     }
 
     @Test
@@ -74,7 +78,8 @@ Post post = new Post();
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
         when(postRepository.save(post)).thenReturn(post);
 
-        postService.likeOrDislikePost(1L, true);
+        User user = new User();
+        postService.likeOrDislikePost(1L, true, user);
 
         verify(postRepository, times(1)).save(post);
         assertEquals(1, post.getLikes());

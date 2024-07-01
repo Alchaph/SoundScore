@@ -76,8 +76,8 @@ class CommentServiceTest {
         Post post = new Post();
         post.setId(2L);
 
-        Comment comment1 = new Comment("nice", "hi", post, user, null);
-        Comment comment2 = new Comment("nice", "hello", post, user, null);
+        Comment comment1 = new Comment();
+        Comment comment2 = new Comment();
         List<Comment> comments = Arrays.asList(comment1, comment2);
         when(commentRepository.findAllBypost(1L)).thenReturn(comments);
 

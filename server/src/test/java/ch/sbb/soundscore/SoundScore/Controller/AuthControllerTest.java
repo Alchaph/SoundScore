@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
+import ch.sbb.soundscore.SoundScore.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -32,13 +33,7 @@ public class AuthControllerTest {
     String userAsJson;
 
     public AuthControllerTest() {
-        user = new User(
-                "Heinz",
-                "1234",
-                "",
-                "",
-                new Date(System.currentTimeMillis()),
-                null);
+        user = new User();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
