@@ -8,7 +8,6 @@ import {User} from "../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {TranslateModule} from "@ngx-translate/core";
-import {writeErrorToLogFile} from "@angular/cli/src/utilities/log-file";
 
 @Component({
   selector: 'app-users-posts',

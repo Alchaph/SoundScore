@@ -89,7 +89,7 @@
                 <div class="comment-owner-actions">
                   @if (reply.user.id === activeUser.id && reply.id) {
                     <mat-icon
-                      (click)="currentAction = 'Edit your'; focusedComment = reply; newComment.title = reply.title; newComment.comment = reply.comment"
+                      (click)="currentAction = 'Edit your'; focusedComment = reply; newComment.title = reply.title; newComment.comment = reply.comment; newComment.message = reply.message"
                       class="comment-icon">edit
                     </mat-icon>
                     <mat-icon (click)="deleteComment(reply)" class="comment-icon">delete</mat-icon>
