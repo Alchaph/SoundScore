@@ -60,6 +60,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
   imageType: string = "Image";
   postDefaultType:string ="";
   gifSearchString: string = ""
+  gifSearchResults: string[] = []
   post: Post | undefined;
 
   formGroup: FormGroup<{
@@ -126,7 +127,9 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
 
   searchGif(): void {
     this.gifService.searchGif(this.gifSearchString).subscribe(data => {
-      // console.log(data.results[0].media_formats.gif.url)
+      // console.log(data.results)
+      this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
+      // console.log(this.gifSearchResults)
       this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
     });
   }
@@ -146,5 +149,9 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
       }
       this.post ? this.postService.updatePost(newPost).subscribe(() => this.router.navigate(['/home/post/' + newPost.id])) : this.postService.createPost(newPost).subscribe((data) => this.router.navigate(['/home/post/' + data.id]))
     })
+  }
+
+  selectGif(gifString: string) {
+    this.formGroup.controls.imageUrl.setValue(gifString)
   }
 }
