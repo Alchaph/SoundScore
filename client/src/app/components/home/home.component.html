@@ -219,16 +219,16 @@
     <mat-expansion-panel-header>
       {{ 'HOME.CREATE_POST' | translate }}
     </mat-expansion-panel-header>
-    <mat-list style="color: white">
+    <mat-list class="top-list" style="color: white">
       <mat-list-item [routerLink]="'/home/addPost/Artist'">
-        {{ 'HOME.ARTIST' | translate }}
+        <p>{{ 'HOME.ARTIST' | translate }}</p>
 
       </mat-list-item>
       <mat-list-item [routerLink]="'/home/addPost/Song'">
-        {{ 'HOME.SONG' | translate }}
+        <p>{{ 'HOME.SONG' | translate }}</p>
       </mat-list-item>
       <mat-list-item [routerLink]="'/home/addPost/Genre'">
-        {{ 'HOME.GENRE' | translate }}
+        <p> {{ 'HOME.GENRE' | translate }}</p>
       </mat-list-item>
     </mat-list>
   </mat-expansion-panel>

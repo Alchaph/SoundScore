@@ -4,6 +4,7 @@ import ch.sbb.soundscore.SoundScore.dtos.LikeResponse;
 import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import ch.sbb.soundscore.SoundScore.repositories.LikeOrDislikeRepository;
 import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,12 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final LikeOrDislikeRepository likeOrDislikeRepository;
+    private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, LikeOrDislikeRepository likeOrDislikeRepository) {
+    public PostService(PostRepository postRepository, LikeOrDislikeRepository likeOrDislikeRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.likeOrDislikeRepository = likeOrDislikeRepository;
+        this.commentRepository = commentRepository;
     }
 
     public List<Post> allPosts() {
@@ -35,6 +38,7 @@ public class PostService {
 
     public Post deletePost(Long id) {
         Post post = postRepository.findById(id).orElseThrow();
+        commentRepository.deleteAllByPost(post);
         postRepository.deleteLikes(post);
         postRepository.delete(post);
         return post;
