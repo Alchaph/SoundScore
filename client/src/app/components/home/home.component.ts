@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
       this.isMobile = result.matches;
     });
     this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data;
+      this.posts = data.reverse();
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data;
