@@ -56,6 +56,4 @@ export class UsersPostsComponent implements OnInit {
     sessionStorage.setItem('previousPath', currentPath)
     this.router.navigate(['/home/post/',postId])
   }
-
-  protected readonly JSON = JSON;
 }

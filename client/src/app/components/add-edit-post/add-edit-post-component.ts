@@ -80,7 +80,6 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
               private jwtService: JwtServiceService,
               private postService: PostService,
               private router: Router,
-              private http: HttpClient,
               private route: ActivatedRoute,
               private location: Location,
               private gifService: GifService) {

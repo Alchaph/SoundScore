@@ -12,7 +12,6 @@ import {ArtistService} from "../../services/ArtistService/artist.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({

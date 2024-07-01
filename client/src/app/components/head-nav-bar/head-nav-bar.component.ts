@@ -47,7 +47,6 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 })
 export class HeadNavBarComponent implements OnInit {
 
-  lang = new FormControl('');
   langs = this.service.getLanguages()
   userId = 0;
 
@@ -55,19 +54,11 @@ export class HeadNavBarComponent implements OnInit {
 
 
   constructor(
-    // private translateService: TranslateService,
     protected service: LanguageService,
     private router: Router,
     private jwtService: JwtServiceService,
     private loaderService: LoaderService) {
 
-
-    // this.lang.valueChanges.subscribe((value) => {
-    //   if (value) {
-    //     this.service.setLanguage(value);
-    //     this.ngOnInit()
-    //   }
-    // });
   }
 
 
@@ -92,15 +83,6 @@ export class HeadNavBarComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   this.translateService.addLangs(environment.languages);
-  //   const lang = this.service.getLanguage();
-  //   this.setLanguage(lang);
-  // }
-  //
-  // setLanguage(lang: string) {
-  //   this.translateService.use(lang);
-  // }
   protected readonly sessionStorage = sessionStorage;
   protected readonly window = window;
 
