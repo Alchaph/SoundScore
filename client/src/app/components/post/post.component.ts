@@ -51,7 +51,6 @@ export class PostComponent implements OnInit {
               private postService: PostService,
               private commentService: CommentService,
               private jwtService: JwtServiceService,
-              private location: Location,
               private router: Router) {
     this.post = {} as Post;
     this.newComment = {} as Comment;
