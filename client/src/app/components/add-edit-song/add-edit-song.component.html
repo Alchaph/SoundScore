@@ -28,6 +28,13 @@
                  name="gifSearchString" matInput>
         </mat-form-field>
         @if (gifSearchString) {
+          <div class="gif-container">
+            @for (gifString of gifSearchResults; track $index) {
+              <div id="gif-frame">
+                <img (click)="selectGif(gifString)" [src]="gifString" class="gif">
+              </div>
+            }
+          </div>
         }
       } @else {
         <mat-form-field>

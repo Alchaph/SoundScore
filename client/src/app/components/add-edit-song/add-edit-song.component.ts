@@ -45,6 +45,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
   imageHeight: number = 0
   imageWidth: number = 0
   user:User | undefined
+  gifSearchResults: string[] = []
   formGroup: FormGroup<{
     title: FormControl;
     imageUrl: FormControl;
@@ -94,8 +95,14 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
 
   searchGif() {
     this.gifService.searchGif(this.gifSearchString).subscribe(data => {
-      this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url)
+      this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
+      this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
+
     })
+  }
+
+  selectGif(gifString: string) {
+    this.formGroup.controls.imageUrl.setValue(gifString)
   }
 
   saveSong() {
