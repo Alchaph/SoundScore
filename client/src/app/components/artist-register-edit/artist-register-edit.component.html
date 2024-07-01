@@ -21,7 +21,7 @@
                 <input [formControl]="formGroup.controls.artistDescription" matInput required>
               </mat-form-field>
               <mat-form-field>
-                <mat-label>{{ 'ARTIST_FORM.ARTIST_IMAGE_LABEL' }}</mat-label>
+                <mat-label>{{ 'ARTIST_FORM.ARTIST_IMAGE_LABEL' | translate}}</mat-label>
                 <input [formControl]="formGroup.controls.artistImage" matInput required>
               </mat-form-field>
               <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
@@ -81,7 +81,7 @@
             <input [formControl]="formGroup.controls.artistDescription" matInput required>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>{{ 'ARTIST_FORM.ARTIST_IMAGE_LABEL' }}</mat-label>
+            <mat-label>{{ 'ARTIST_FORM.ARTIST_IMAGE_LABEL' | translate }}</mat-label>
             <input [formControl]="formGroup.controls.artistImage" matInput required>
           </mat-form-field>
           <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
