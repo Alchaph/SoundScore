@@ -90,7 +90,7 @@ public class User implements UserDetails {
     }
 
     public String getUsername() {
-        return email;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -110,6 +110,7 @@ public class User implements UserDetails {
     }
 
     public void setEmail(String email) {
+//        System.out.println("email" + email);
         this.email = email;
     }
 
