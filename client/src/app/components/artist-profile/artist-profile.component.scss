@@ -91,6 +91,8 @@ mat-icon {
 
 .artist-container {
   display: flex;
+  width: 50vw;
+  justify-content: center;
   flex-direction: row;
   align-items: center;
   img {
@@ -99,5 +101,6 @@ mat-icon {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
+    margin-right: 5%;
   }
 }

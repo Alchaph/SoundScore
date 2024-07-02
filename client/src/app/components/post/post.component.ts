@@ -12,7 +12,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {AsyncPipe, NgIf} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
-import {GenerictranslatePipe} from "../../pipes/generictranslate.pipe";
+import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 
 @Component({
   selector: 'app-post',
@@ -27,7 +27,7 @@ import {GenerictranslatePipe} from "../../pipes/generictranslate.pipe";
     ReactiveFormsModule,
     TranslateModule,
     AsyncPipe,
-    GenerictranslatePipe,
+    GenericLanguagePipe,
     NgIf,
   ],
   templateUrl: './post.component.html',

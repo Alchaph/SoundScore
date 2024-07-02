@@ -9,7 +9,7 @@ import {PostComponent} from "./components/post/post.component";
 import {ArtistProfileComponent} from "./components/artist-profile/artist-profile.component";
 import {ArtistRegisterEditComponent} from "./components/artist-register-edit/artist-register-edit.component";
 import {AddEditSongComponent} from "./components/add-edit-song/add-edit-song.component";
-import {loginGuard} from "./Guards/login.guard";
+import {loginGuard} from "./guards/login.guard";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
