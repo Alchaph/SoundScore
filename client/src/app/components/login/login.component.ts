@@ -88,7 +88,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
         this.router.navigate(['/home']);
       });
     }
-
   }
 
   ngAfterViewInit() {
