@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {LanguageService} from "../../services/languageService/language.service";
 import {Router, RouterLink} from "@angular/router";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -46,10 +46,10 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
   styleUrl: './head-nav-bar.component.scss'
 })
 export class HeadNavBarComponent implements OnInit {
-
-  langs = this.service.getLanguages()
-  userId = 0;
-
+  protected readonly sessionStorage: Storage = sessionStorage;
+  protected readonly window: Window = window;
+  langs: string[] = this.service.getLanguages()
+  userId: number = 0;
   isLoading: Observable<boolean> = new Observable<boolean>();
 
 
@@ -83,12 +83,11 @@ export class HeadNavBarComponent implements OnInit {
     });
   }
 
-  protected readonly sessionStorage = sessionStorage;
-  protected readonly window = window;
+
 
   reload() {
     this.router.navigate(['/home/usersPosts/', this.userId]).then(() => {
-      if(window.location.href.includes('home/usersPosts')) {
+      if (window.location.href.includes('home/usersPosts')) {
         window.location.reload();
       }
     });

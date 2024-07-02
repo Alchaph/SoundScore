@@ -8,12 +8,11 @@ import {MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ArtistRegisterEditComponent} from "../artist-register-edit/artist-register-edit.component";
 import {Artist} from "../../models/Artist";
 import {Router, RouterLink} from "@angular/router";
 import {NgClass} from "@angular/common";
-import {augmentIndexHtml} from "@angular-devkit/build-angular/src/utils/index-file/augment-index-html";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -48,11 +47,11 @@ export class SettingsComponent implements OnInit {
     email: FormControl;
     artist: FormControl<Artist | null>;
   }>;
-  hide = true;
-  fly = false;
-  fall = false;
-  explode = false;
-  disabled = false;
+  hide: boolean = true;
+  fly: boolean = false;
+  fall: boolean = false;
+  explode: boolean = false;
+  disabled: boolean = false;
 
   constructor(private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
@@ -95,23 +94,23 @@ export class SettingsComponent implements OnInit {
 
   deleteYourself(): void {
     this.disabled = true;
-    const planeContainer = document.getElementById('planeContainer');
-    const plane = document.getElementById('plane');
-    const nuke = document.getElementById('nuke');
-    const nukeScreen = document.getElementById('nukeScreen');
+    const planeContainer: HTMLElement | null = document.getElementById('planeContainer');
+    const plane: HTMLElement | null = document.getElementById('plane');
+    const nuke: HTMLElement | null = document.getElementById('nuke');
+    const nukeScreen: HTMLElement | null = document.getElementById('nukeScreen');
     if (planeContainer && plane && nuke && nukeScreen) {
-      let audio = new Audio('assets/sounds/plane.mp3');
+      let audio: HTMLAudioElement = new Audio('assets/sounds/plane.mp3');
       audio.play();
       planeContainer.style.display = 'block';
       this.fly = true;
       setTimeout(() => {
-        let audio2 = new Audio('assets/sounds/explosion.mp3');
+        let audio2: HTMLAudioElement = new Audio('assets/sounds/explosion.mp3');
         audio2.currentTime = 0.4;
         audio2.play();
         nuke.style.visibility = 'visible';
         this.fall = true;
         setTimeout(() => {
-          let audio3 = new Audio('assets/sounds/hexplosion.mp3');
+          let audio3:HTMLAudioElement = new Audio('assets/sounds/hexplosion.mp3');
           audio3.currentTime = 0.45;
           audio3.play();
           audio.pause();
@@ -124,7 +123,7 @@ export class SettingsComponent implements OnInit {
             localStorage.clear();
           }, 500);
         }, 2000);
-      },3000);
+      }, 3000);
     }
   }
 

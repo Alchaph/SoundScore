@@ -48,15 +48,20 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   imageWidth: number = 0
   artist: Artist | undefined;
   user: User | undefined;
-  formGroup = new FormGroup({
+  formGroup: FormGroup<{
+    artistName: FormControl<string | null>,
+    artistDescription: FormControl<string | null>,
+    artistImage: FormControl<string | null>
+  }>
+    = new FormGroup({
     artistName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     artistDescription: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]),
     artistImage: new FormControl('', [Validators.required, Validators.minLength(10)]),
   })
-  fly = false;
-  fall = false;
-  explode = false;
-  disabled = false;
+  fly: boolean = false;
+  fall: boolean = false;
+  explode: boolean = false;
+  disabled: boolean = false;
 
   constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, protected route: ActivatedRoute, private router: Router) {
   }
@@ -108,23 +113,23 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
 
   deleteYourself() {
     this.disabled = true;
-    const planeContainer = document.getElementById('planeContainer');
-    const plane = document.getElementById('plane');
-    const nuke = document.getElementById('nuke');
-    const nukeScreen = document.getElementById('nukeScreen');
+    const planeContainer: HTMLElement | null = document.getElementById('planeContainer');
+    const plane: HTMLElement | null = document.getElementById('plane');
+    const nuke: HTMLElement | null = document.getElementById('nuke');
+    const nukeScreen: HTMLElement | null = document.getElementById('nukeScreen');
     if (planeContainer && plane && nuke && nukeScreen) {
-      let audio = new Audio('assets/sounds/plane.mp3');
+      let audio: HTMLAudioElement = new Audio('assets/sounds/plane.mp3');
       audio.play();
       planeContainer.style.display = 'block';
       this.fly = true;
       setTimeout(() => {
-        let audio2 = new Audio('assets/sounds/explosion.mp3');
+        let audio2: HTMLAudioElement = new Audio('assets/sounds/explosion.mp3');
         audio2.currentTime = 0.4;
         audio2.play();
         nuke.style.visibility = 'visible';
         this.fall = true;
         setTimeout(() => {
-          let audio3 = new Audio('assets/sounds/hexplosion.mp3');
+          let audio3: HTMLAudioElement = new Audio('assets/sounds/hexplosion.mp3');
           audio3.currentTime = 0.45;
           audio3.play();
           audio.pause();

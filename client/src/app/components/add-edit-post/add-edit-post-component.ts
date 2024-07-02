@@ -110,7 +110,6 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
           this.showedType = 'Genre'
         }
       }
-      // console.log(this.post)
     })
   }
 
