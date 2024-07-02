@@ -1,4 +1,4 @@
-package ch.sbb.soundscore.SoundScore.Exeption;
+package ch.sbb.soundscore.SoundScore.exeption;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
