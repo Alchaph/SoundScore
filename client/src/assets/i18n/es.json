@@ -60,6 +60,7 @@
   },
   "LEADERBOARD": {
     "TITLE": "Tabla de posiciones",
+    "TOP_POSTS": "Publicaciones principales",
     "TOP_ARTISTS": "Mejores Artistas",
     "TOP_GENRE": "Mejor Género",
     "TOP_SONGS": "Mejores Canciones"

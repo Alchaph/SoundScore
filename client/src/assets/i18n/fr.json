@@ -60,6 +60,7 @@
   },
   "LEADERBOARD": {
     "TITLE": "Classement",
+    "TOP_POSTS": "Meilleurs Posts",
     "TOP_ARTISTS": "Meilleurs artistes",
     "TOP_GENRE": "Meilleurs genres",
     "TOP_SONGS": "Meilleures chansons"

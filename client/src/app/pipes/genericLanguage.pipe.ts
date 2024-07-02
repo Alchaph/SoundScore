@@ -7,7 +7,7 @@ import {LanguageService} from "../services/languageService/language.service";
   name: 'generictranslate',
   standalone: true
 })
-export class GenerictranslatePipe implements PipeTransform {
+export class GenericLanguagePipe implements PipeTransform {
 
   constructor(private languageService: LanguageService, private sanitizer: DomSanitizer) {
   }

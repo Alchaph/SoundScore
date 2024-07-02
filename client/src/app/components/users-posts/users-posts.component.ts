@@ -26,8 +26,8 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class UsersPostsComponent implements OnInit {
   posts: Post[] = [];
-  userId = parseInt(this.route.snapshot.params['id']);
-  localUserId = 0;
+  userId: number = parseInt(this.route.snapshot.params['id']);
+  localUserId: number = 0;
 
   constructor(protected postService: PostService, private jwtService: JwtServiceService, private router: Router, private route: ActivatedRoute) {
   }
@@ -49,10 +49,10 @@ export class UsersPostsComponent implements OnInit {
     }
   }
 
-  navigateToPost(postId: number | undefined){
+  navigateToPost(postId: number | undefined) {
     const currentPath = this.router.url
     console.log(currentPath)
     sessionStorage.setItem('previousPath', currentPath)
-    this.router.navigate(['/home/post/',postId])
+    this.router.navigate(['/home/post/', postId])
   }
 }

@@ -165,7 +165,7 @@
   <mat-sidenav>{{ 'HOME.START' | translate }}</mat-sidenav>
   <mat-sidenav-content>
     <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
-      @for (str of ['Artist', 'Song', 'Genre']; track str) {
+      @for (str of [ ('HOME.ARTIST' | translate) , ( 'HOME.SONG' | translate ), ( 'HOME.GENRE' | translate )]; track str) {
         <mat-chip-option [value]="str.toLowerCase()">{{ str }}</mat-chip-option>
       }
     </mat-chip-listbox>

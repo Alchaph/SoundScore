@@ -60,6 +60,7 @@
   },
   "LEADERBOARD": {
     "TITLE": "🏆",
+    "TOP_POSTS": "📬",
     "TOP_ARTISTS": "🎨",
     "TOP_GENRE": "🎶",
     "TOP_SONGS": "🎵"
