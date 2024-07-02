@@ -8,7 +8,6 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {tokenInterceptor} from "./Interceptors/TokenInterceptor";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {LanguageService} from "./services/languageService/language.service";
-import {immediateProvider} from "rxjs/internal/scheduler/immediateProvider";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {LoadingInterceptor} from "./Interceptors/LoadingInterceptor";
 import {ErrorInterceptor} from "./Interceptors/ErorInterceptor";
