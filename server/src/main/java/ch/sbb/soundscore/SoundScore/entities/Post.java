@@ -20,7 +20,9 @@ public class Post {
     private String content;
     @Column(columnDefinition = "LONGTEXT")
     private String image;
+    @Transient
     private Long likes;
+    @Transient
     private Long dislikes;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
