@@ -56,7 +56,8 @@
   </div>
 </main>
   <mat-sidenav-container id="right-nav">
-  <mat-expansion-panel id="create-post-expansion-panel">
+    <button mat-raised-button [routerLink]="'/home/search'" >Search</button>
+    <mat-expansion-panel id="create-post-expansion-panel">
     <mat-expansion-panel-header>
       {{ 'HOME.CREATE_POST' | translate }}
     </mat-expansion-panel-header>

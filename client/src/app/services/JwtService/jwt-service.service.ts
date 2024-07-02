@@ -27,7 +27,7 @@ export class JwtServiceService {
   }
 
   public getUsers() {
-    return this.http.get<User[]>('http://localhost:8080/users/users', {
+    return this.http.get<User[]>('http://localhost:8080/users/', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }

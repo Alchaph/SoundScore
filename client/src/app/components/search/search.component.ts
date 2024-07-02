@@ -18,6 +18,16 @@ import {PostService} from "../../services/PostService/post.service";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {User} from "../../models/User";
+import {SongService} from "../../services/SongService/song.service";
+import {ArtistService} from "../../services/ArtistService/artist.service";
+import {forkJoin} from "rxjs";
+
+type CombinedType = Artist | Song | User | Post;
 
 @Component({
   selector: 'app-search',
@@ -44,22 +54,24 @@ import {FormsModule} from "@angular/forms";
     TranslateModule,
     RouterLink,
     FormsModule,
-    MatMenuTrigger
+    MatMenuTrigger,
+    MatFormField,
+    MatInput,
+    MatCheckbox
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit{
   posts: Post[] = [];
-
-  topSongs: Song[] = [];
-  topGenres: Genre[] = [];
-  topArtists: Artist[] = [];
+  users: User[] = [];
+  songs: Song[] = [];
+  artists: Artist[] = [];
+  selectedFilters: 'user' | 'post' | 'song' | 'artist' | 'all' = 'all';
   isMobile: boolean = false;
-  protected readonly window: Window = window;
-  selectedFilters?: 'genre' | 'song' | 'artist';
-  combinedList: (Genre | Artist | Song)[] = [];
-  constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
+  combinedList: CombinedType[] = [];
+  searchTerm: string = '';
+  constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService : ArtistService, private breakpointObserver: BreakpointObserver, private postService: PostService) {
   }
 
   ngOnInit() {
@@ -69,25 +81,28 @@ export class SearchComponent implements OnInit{
     ]).subscribe(result => {
       this.isMobile = result.matches;
     });
-    this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
-      this.topGenres = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
-      this.topArtists = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      this.topSongs = data.reverse();
-      this.combinedList = [...this.topGenres, ...this.topArtists, ...this.topSongs];
-      console.log(this.combinedList);
-    });
+    forkJoin({
+      posts: this.postService.getPosts(),
+      users: this.jwtService.getUsers(),
+      songs: this.songService.getSongs(),
+      artists: this.artistService.getArtists()
+    }).subscribe({
+      next: ({ posts, users, songs, artists }) => {
+        this.posts = posts.reverse();
+        this.users = users;
+        this.songs = songs;
+        this.artists = artists;
 
-  }
-
-  selected(selected: string) {
-    this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
+        this.combinedList = [...this.posts, ...this.users, ...this.songs, ...this.artists];
+        console.log(this.combinedList);
+      },
+      error: error => {
+        console.error('Error occurred:', error);
+      },
+      complete: () => {
+        console.log('All observables completed');
+      }
+    });
   }
 
   keepMenuOpen(event: MouseEvent) {
@@ -103,8 +118,39 @@ export class SearchComponent implements OnInit{
     window.open(link, '_blank');
   }
 
-  getType(post: (Genre | Artist | Song)) {
-    console.log(typeof post)
-      return typeof post;
+  isPost(item: CombinedType): item is Post {
+    return (item as Post).content !== undefined;
+  }
+
+  isUser(item: CombinedType): item is User {
+    return (item as User).email !== undefined;
+  }
+
+  isArtist(item: CombinedType): item is Artist {
+    return (item as Artist).description !== undefined;
+  }
+
+  isSong(item: CombinedType): item is Song {
+    return (item as Song).link !== undefined;
+  }
+
+
+  search() {
+    this.combinedList = [...this.posts, ...this.users, ...this.songs, ...this.artists];
+    this.combinedList = this.combinedList.filter((item) => {
+      if (this.isPost(item)) {
+        return item.content.toLowerCase().includes(this.searchTerm.toLowerCase()) || item.title.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }
+      if (this.isUser(item)) {
+        return item.email.toLowerCase().includes(this.searchTerm.toLowerCase()) || item.username.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }
+      if (this.isArtist(item)) {
+        return item.description.toLowerCase().includes(this.searchTerm.toLowerCase()) || item.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }
+      if (this.isSong(item)) {
+        return item.title.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }
+      return false;
+    });
   }
 }

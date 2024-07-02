@@ -7,13 +7,20 @@ body {
   display: flex;
   width: 100vw;
   height: calc(100vh - 64px);
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   position: fixed;
+  mat-form-field{
+    width: 100%;
+  }
+  #checkboxes{
+    width: 100%;
+  }
 }
 
 main {
   display: flex;
-  width: 37%;
+  width: 50%;
   justify-content: space-between;
   flex-direction: column;
   overflow-y: auto;
