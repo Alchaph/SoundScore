@@ -136,14 +136,17 @@ export class HomeComponent implements OnInit {
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data.reverse();
+      console.log(this.topGenres)
     });
     this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
       this.topArtists = data.reverse();
+      console.log(this.topArtists)
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
       this.topSongs = data.reverse();
-    });
+      console.log(this.topSongs)
 
+    });
   }
 
   selected(selected: string) {

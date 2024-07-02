@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit{
   isMobile: boolean = false;
   protected readonly window: Window = window;
   selectedFilters?: 'genre' | 'song' | 'artist';
-
+  combinedList: (Genre | Artist | Song)[] = [];
   constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
   }
 
@@ -80,6 +80,8 @@ export class SearchComponent implements OnInit{
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
       this.topSongs = data.reverse();
+      this.combinedList = [...this.topGenres, ...this.topArtists, ...this.topSongs];
+      console.log(this.combinedList);
     });
 
   }
@@ -99,5 +101,10 @@ export class SearchComponent implements OnInit{
   openLink(event: MouseEvent, link: string) {
     event.stopPropagation();
     window.open(link, '_blank');
+  }
+
+  getType(post: (Genre | Artist | Song)) {
+    console.log(typeof post)
+      return typeof post;
   }
 }

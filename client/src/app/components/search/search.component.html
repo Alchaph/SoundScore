@@ -119,43 +119,9 @@
   <body>
   <main>
     <div class="posts-container">
-      @for (post of posts; track post) {
-        @if (selectedFilters && post[selectedFilters]) {
-          <mat-card [routerLink]="'/home/post/'+post.id">
-            <mat-card-header>
-              <mat-card-title>{{ post.title }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <img [src]="post.image">
-              <span>Posted By {{ post.user.username }}</span>
-              <p>{{post.content}}</p>
-              @if (post.genre || post.artist || post.song) {
-                <div class="post-tags">
-                  @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-                  @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-                  @if (post.song) {<span>Song: {{ post.song.title }}</span>}
-                </div>
-              }
-            </mat-card-content>
-          </mat-card>
-        } @else if (!selectedFilters) {
-          <mat-card [routerLink]="'/home/post/'+post.id">
-            <mat-card-header>
-              <mat-card-title>{{ post.title }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <img [src]="post.image">
-              <span>Posted By {{ post.user.username }}</span>
-              <p>{{post.content}}</p>
-              @if (post.genre || post.artist || post.song) {
-                <div class="post-tags">
-                  @if (post.genre) {<span>Genre: {{ post.genre.name }}</span>}
-                  @if (post.artist) {<span>Artist: {{ post.artist.name }}</span>}
-                  @if (post.song) {<span>Song: {{ post.song.title }}</span>}
-                </div>
-              }
-            </mat-card-content>
-          </mat-card>
+      @for (post of combinedList; track post) {
+        @if(getType(post) === 'genre'){
+            <b style="color: red">Nevio Di Gennaro</b>
         }
       }
     </div>
@@ -226,8 +192,6 @@
       </mat-menu>
     </div>
   </div>
-
-
   </body>
 
 }
