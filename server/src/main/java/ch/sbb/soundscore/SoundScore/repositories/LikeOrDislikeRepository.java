@@ -30,4 +30,10 @@ public interface LikeOrDislikeRepository extends JpaRepository<LikeOrDislike, Lo
     @Query("delete from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = false")
     void deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(Post post, User user);
 
+    @Query("SELECT COUNT(l) FROM LikeOrDislike l WHERE l.post.id = ?1 AND l.isLike = true")
+    Long countLikesByPostId(Long postId);
+
+    @Query("SELECT COUNT(l) FROM LikeOrDislike l WHERE l.post.id = ?1 AND l.isLike = false")
+    Long countDislikesByPostId(Long postId);
+
 }
