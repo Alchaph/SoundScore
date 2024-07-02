@@ -27,9 +27,9 @@ export class LoaderComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit()
   {
-    const bg = document.getElementById("bg") as HTMLCanvasElement;
+    const bg: HTMLCanvasElement = document.getElementById("bg") as HTMLCanvasElement;
     if (bg) {
-      const neat = new NeatGradient({
+      const neat:NeatGradient = new NeatGradient({
         ref: bg,
         ...config
       });

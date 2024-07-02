@@ -1,12 +1,4 @@
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  ValidatorFn,
-  Validators
-} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AfterViewInit, Component, OnInit} from "@angular/core";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
@@ -17,9 +9,8 @@ import {MatIcon} from "@angular/material/icon";
 import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Router} from "@angular/router";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
-import {LanguageService} from "../../services/languageService/language.service";
 import {NgClass} from "@angular/common";
 
 @Component({
@@ -51,9 +42,9 @@ import {NgClass} from "@angular/common";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements AfterViewInit,OnInit{
-  hide = true;
-  isRegister = false;
+export class LoginComponent implements AfterViewInit, OnInit {
+  hide: boolean = true;
+  isRegister: boolean = false;
   registerForm: FormGroup<{
     username: FormControl,
     email: FormControl,
@@ -76,18 +67,14 @@ export class LoginComponent implements AfterViewInit,OnInit{
 
   changeForm() {
     this.isRegister = !this.isRegister;
-    // console.log("isRegister: "+this.isRegister)
   }
 
 
   register() {
-    // console.log("register called")
     if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword.value == this.registerForm.controls.password.value && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
-      // console.log("if statements valid")
       this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
         (data) => {
           this.login();
-          // console.log("login called")
         }, error => {
           alert('The email is already in use')
         });
@@ -95,26 +82,26 @@ export class LoginComponent implements AfterViewInit,OnInit{
   }
 
   login() {
-      if (this.registerForm.controls.password.valid && this.registerForm.controls.email.valid) {
-        this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
-          localStorage.setItem('token', data.token);
-          this.router.navigate(['/home']);
-        });
-      }
+    if (this.registerForm.controls.password.valid && this.registerForm.controls.email.valid) {
+      this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['/home']);
+      });
+    }
 
   }
 
-  ngAfterViewInit()
-  {
-    const bg = document.getElementById("bg") as HTMLCanvasElement;
+  ngAfterViewInit() {
+    const bg: HTMLCanvasElement = document.getElementById("bg") as HTMLCanvasElement;
     if (bg) {
-      const neat = new NeatGradient({
+      const neat: NeatGradient = new NeatGradient({
         ref: bg,
         ...config
       });
     }
   }
 }
+
 export const config: NeatConfig = {
   "colors": [
     {

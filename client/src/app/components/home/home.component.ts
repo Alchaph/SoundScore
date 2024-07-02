@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
   isMobile: boolean = false;
-
+  protected readonly window: Window = window;
   selectedFilters?: 'genre' | 'song' | 'artist';
 
   constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
@@ -162,5 +162,4 @@ export class HomeComponent implements OnInit {
     event.stopPropagation();
     window.open(link, '_blank');
   }
-  protected readonly window = window;
 }
