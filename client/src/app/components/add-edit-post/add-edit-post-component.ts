@@ -17,7 +17,6 @@ import {Post} from "../../models/Post";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {PostService} from "../../services/PostService/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import { HttpClient } from "@angular/common/http";
 import {MatOption} from "@angular/material/autocomplete";
 import {GifService} from "../../services/GifService/gif.service";
 import {TranslateModule} from "@ngx-translate/core";
