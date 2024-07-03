@@ -46,6 +46,7 @@ export class LeaderBoardComponent implements OnInit{
       this.artistLeaderBoard = Array.from(new Set(data));
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
+      console.log(data);
       this.songLeaderBoard = Array.from(new Set(data));
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
