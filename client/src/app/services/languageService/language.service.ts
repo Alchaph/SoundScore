@@ -9,6 +9,7 @@ import {map, switchMap} from "rxjs";
   providedIn: 'root'
 })
 export class LanguageService {
+  translate: boolean = JSON.parse(localStorage.getItem('translate') || 'false');
   private detectApiUrl = 'https://ws.detectlanguage.com/0.2/detect';
   private translateApiUrl = 'http://172.20.10.5:5000/translate';
   private detectHeaders = new HttpHeaders({

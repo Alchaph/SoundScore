@@ -1,5 +1,8 @@
 <app-head-nav-bar></app-head-nav-bar>
-<button (click)="goBack()" color="primary" mat-button>❮ {{ 'POST_FORM.GO_BACK_BUTTON' | translate }}</button>
+<div class="function-container">
+  <button (click)="goBack()" color="primary" mat-button>❮ {{ 'POST_FORM.GO_BACK_BUTTON' | translate }}</button>
+  <mat-slide-toggle (ngModelChange)="window.localStorage.setItem('translate', JSON.stringify(!this.languageService.translate))" [(ngModel)]="this.languageService.translate">Translate ({{ this.languageService.getLanguage().lang }})</mat-slide-toggle>
+</div>
 @if (post) {
   <div class="post-container">
     @if (post.image) {
@@ -10,8 +13,8 @@
         alt="Placeholder Image" class="post-image">
     }
     <div class="post-content">
-      <h1 [innerHTML]="post.title | generictranslate | async"></h1>
-      <p [innerHTML]="post.content | generictranslate | async"></p>
+      <h1 [innerHTML]="this.languageService.translate ? (post.title | generictranslate | async) ?? post.title : post.title"></h1>
+      <p [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
       <div class="post-meta">
         <span
           [routerLink]="['/home/usersPosts/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>
@@ -59,10 +62,11 @@
       <app-comment [comment]="comment" [activeUser]="activeUser"></app-comment>
     </div>
     <div class="comment-form">
-      <h3>{{ 'POST_FORM.'+ commentService.currentAction | translate }} {{'POST_FORM.COMMENT' | translate}}</h3>
+      <h3>{{ 'POST_FORM.' + commentService.currentAction | translate }} {{ 'POST_FORM.COMMENT' | translate }}</h3>
       <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="commentService.newComment.message"></textarea>
       <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
-      <button *ngIf="commentService.currentAction !== 'Add'" (click)="resetAction()">{{ 'POST.CANCEL' | translate }}</button>
+      <button *ngIf="commentService.currentAction !== 'Add'" (click)="resetAction()">{{ 'POST.CANCEL' | translate }}
+      </button>
     </div>
   </div>
 }

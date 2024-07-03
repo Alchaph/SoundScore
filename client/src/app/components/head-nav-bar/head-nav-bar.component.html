@@ -1,14 +1,15 @@
-
 <mat-toolbar id="headBar">
   <mat-toolbar-row class="toolbar">
     <div class="toolbarLeftSide">
       <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
         <mat-icon style="color: white">g_translate</mat-icon>
       </button>
-      <button routerLink="/home/leaderBoard" mat-icon-button><mat-icon style="color: white">leaderboard</mat-icon></button>
+      <button mat-icon-button routerLink="/home/leaderBoard">
+        <mat-icon style="color: white">leaderboard</mat-icon>
+      </button>
       <mat-menu #languageMenu="matMenu" xPosition="before">
         @for (lang of langs; track $index) {
-          <p mat-menu-item (click)="service.setLanguage(lang)">{{ lang | language }}
+          <p mat-menu-item (click)="service.setLanguage(lang); window.location.reload();">{{ lang | language }}
           </p>
         }
       </mat-menu>
@@ -18,14 +19,15 @@
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
-      <button mat-icon-button [routerLink]="['/home/search']">
+      <button [routerLink]="['/home/search']" mat-icon-button>
         <mat-icon style="color: white">search</mat-icon>
       </button>
-      <img [src]="sessionStorage.getItem('profilPicture')" class="catPic" alt="No cats :(" [matMenuTriggerFor]="userMenu">
+      <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
+           class="catPic">
       <mat-menu #userMenu="matMenu">
-        <button (click)="reload()" mat-menu-item>{{'HEADER.PROFILE' | translate }}</button>
-        <button routerLink="/home/settings" mat-menu-item>{{ 'HEADER.SETTINGS' | translate }}</button>
-        <button routerLink="/home/artistProfile" mat-menu-item>{{ 'HEADER.ARTIST_PROFILE' | translate}}</button>
+        <button (click)="reload()" mat-menu-item>{{ 'HEADER.PROFILE' | translate }}</button>
+        <button mat-menu-item routerLink="/home/settings">{{ 'HEADER.SETTINGS' | translate }}</button>
+        <button mat-menu-item routerLink="/home/artistProfile">{{ 'HEADER.ARTIST_PROFILE' | translate }}</button>
         <button (click)="logout()" mat-menu-item>{{ 'HEADER.LOGOUT' | translate }}</button>
       </mat-menu>
     </div>
