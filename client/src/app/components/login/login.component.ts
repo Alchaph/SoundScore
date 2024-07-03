@@ -46,13 +46,13 @@ export class LoginComponent implements AfterViewInit, OnInit {
   hide: boolean = true;
   isRegister: boolean = false;
   registerForm: FormGroup<{
-    username: FormControl,
     email: FormControl,
+    userName: FormControl,
     password: FormControl,
     repeatPassword: FormControl
   }> = new FormGroup({
-    username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
+    userName: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     repeatPassword: new FormControl('', [Validators.required]),
   });
@@ -71,8 +71,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
-    if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword.value == this.registerForm.controls.password.value && this.registerForm.controls.username.valid && this.registerForm.controls.email.valid) {
-      this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
+    if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword.value == this.registerForm.controls.password.value && this.registerForm.controls.email.valid && this.registerForm.controls.userName.valid) {
+      this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.userName.value).subscribe(
         (data) => {
           this.login();
         }, error => {
@@ -82,8 +82,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   login() {
-    if (this.registerForm.controls.password.valid && this.registerForm.controls.email.valid) {
-      this.jwtService.login(this.registerForm.controls.email.value, this.registerForm.controls.password.value).subscribe((data) => {
+    if (this.registerForm.controls.password.valid && this.registerForm.controls.userName.valid) {
+      console.log(this.registerForm.controls.userName.value, this.registerForm.controls.password.value)
+      this.jwtService.login(this.registerForm.controls.userName.value, this.registerForm.controls.password.value).subscribe((data) => {
         localStorage.setItem('token', data.token);
         this.router.navigate(['/home']);
       });
