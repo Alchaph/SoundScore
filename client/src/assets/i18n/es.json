@@ -142,5 +142,8 @@
         "EDIT": "Editar"
       }
     }
+  },
+  "SEARCH": {
+    "SEARCH_BAR": "Buscar"
   }
 }

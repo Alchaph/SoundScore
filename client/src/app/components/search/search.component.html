@@ -2,7 +2,7 @@
   <app-head-nav-bar></app-head-nav-bar>
   <body>
   <mat-form-field>
-    <input matInput placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="search()">
+    <input matInput placeholder="{{ 'SEARCH.SEARCH_BAR' | translate }}" [(ngModel)]="searchTerm" (ngModelChange)="search()">
   </mat-form-field>
   <main>
     @if (combinedList && combinedList.length > 0) {
@@ -10,7 +10,6 @@
         @for (combinedItem of combinedList; track combinedItem) {
             @if (this.isPost(combinedItem)) {
               <mat-card [routerLink]="'/home/post/'+combinedItem.id">
-                <b>post</b>
               <mat-card-content>
                   <mat-card-header>
                     <mat-card-title>{{ combinedItem.title }}</mat-card-title>
