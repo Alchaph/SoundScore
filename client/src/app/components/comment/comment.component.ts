@@ -4,7 +4,7 @@ import {Comment} from '../../models/Comment';
 import {User} from '../../models/User';
 import {CommentService} from '../../services/CommentService/comment.service';
 import {MatIcon} from "@angular/material/icon";
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {MatCard} from "@angular/material/card";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 
@@ -18,7 +18,8 @@ import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
     NgIf,
     NgStyle,
     MatCard,
-    GenericLanguagePipe
+    GenericLanguagePipe,
+    AsyncPipe
   ],
   styleUrls: ['./comment.component.scss']
 })

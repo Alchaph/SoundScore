@@ -10,8 +10,8 @@
         alt="Placeholder Image" class="post-image">
     }
     <div class="post-content">
-      <h1>{{ post.title }}</h1>
-      <p>{{ post.content | generictranslate}}</p>
+      <h1 [innerHTML]="post.title | generictranslate | async"></h1>
+      <p [innerHTML]="post.content | generictranslate | async"></p>
       <div class="post-meta">
         <span
           [routerLink]="['/home/usersPosts/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>

@@ -23,7 +23,6 @@ export class LanguageService {
 
   constructor(private translateService: TranslateService, private http: HttpClient) {
     this.initializeTranslationSettings();
-    this.translateText("Hello i hate you").subscribe(console.log)
   }
 
   public getLanguages(): string[] {
@@ -54,10 +53,12 @@ export class LanguageService {
       map(response => response.data.detections[0].language),
       switchMap(from => {
         if (from === "en") {
-          return this.http.post(this.translateApiUrl, {
-            source: 'en',
-            target: this.getLanguage().lang,
-            q: text
+          return this.http.post<{
+            translatedText: string
+          }>(this.translateApiUrl, {
+              source: 'en',
+              target: this.getLanguage().lang,
+              q: text
             },
           )
         } else {
@@ -65,11 +66,14 @@ export class LanguageService {
             translatedText: string
           }>(this.translateApiUrl, {source: from, target: 'en', q: text}).pipe(
             map(response => response.translatedText),
-            switchMap(translatedText => this.http.post(this.translateApiUrl, {
-              source: 'en',
-              target: this.getLanguage().lang,
-              q: translatedText
-            }))
+            switchMap(translatedText => this.http.post<{
+                translatedText: string
+              }>(this.translateApiUrl, {
+                source: 'en',
+                target: this.getLanguage().lang,
+                q: translatedText
+              })
+            )
           )
         }
       })

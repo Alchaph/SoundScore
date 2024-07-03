@@ -15,8 +15,7 @@ export class GenericLanguagePipe implements PipeTransform {
   transform(value: string): Observable<SafeHtml> {
     return this.languageService.translateText(value).pipe(
       map(response => {
-        const translatedText = response;
-        return this.sanitizer.bypassSecurityTrustHtml(<string>translatedText);
+        return this.sanitizer.bypassSecurityTrustHtml(response.translatedText);
       })
     );
   }
