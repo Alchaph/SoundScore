@@ -12,8 +12,13 @@
           <input formControlName="email" id="email" matInput type="email">
           <mat-hint>{{'USER_SETTINGS.EMAIL_HINT' | translate}}</mat-hint>
         </mat-form-field>
-        @if (userForm.controls.artist.value) {
-          <button [routerLink]="'/home/editArtist/' + userForm.controls.artist.value?.id" class="full-width" mat-raised-button color="primary">{{'USER_SETTINGS.EDIT_ARTIST_BUTTON' | translate}}</button>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{'LOGIN.FORM.USERNAME'| translate}}</mat-label>
+          <input formControlName="userName" id="userName" matInput type="userName">
+          <mat-hint>{{'USER_SETTINGS.USERNAME_HINT' | translate}}</mat-hint>
+        </mat-form-field>
+        @if (artist.value) {
+          <button [routerLink]="'/home/editArtist/' + artist.value?.id" class="full-width" mat-raised-button color="primary">{{'USER_SETTINGS.EDIT_ARTIST_BUTTON' | translate}}</button>
         }
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{'USER_SETTINGS.OLD_PASSWORD' | translate}}</mat-label>
