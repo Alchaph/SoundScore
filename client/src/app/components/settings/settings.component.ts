@@ -8,7 +8,7 @@ import {MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Form, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ArtistRegisterEditComponent} from "../artist-register-edit/artist-register-edit.component";
 import {Artist} from "../../models/Artist";
 import {Router, RouterLink} from "@angular/router";
@@ -45,23 +45,27 @@ export class SettingsComponent implements OnInit {
     password: FormControl;
     confirmPassword: FormControl;
     email: FormControl;
-    artist: FormControl<Artist | null>;
+    userName: FormControl;
   }>;
+  artist: FormControl<Artist| null | undefined> = new FormControl<Artist | null | undefined>(null, Validators.required)
   hide: boolean = true;
   fly: boolean = false;
   fall: boolean = false;
   explode: boolean = false;
   disabled: boolean = false;
 
+  email: string = '';
+  userName: string = '';
+
   private audioContext: AudioContext;
 
-  constructor(private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
+  constructor(private jwtService: JwtServiceService, private router: Router) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      artist: new FormControl<Artist | null>(null, Validators.required)
+      userName: new FormControl('', Validators.required),
     });
     this.audioContext = new (window.AudioContext)();
   }
@@ -70,12 +74,15 @@ export class SettingsComponent implements OnInit {
     this.jwtService.getMe().subscribe((user: User) => {
       this.userForm.patchValue({
         email: user.email,
-        artist: user.artist
+        userName: user.username,
       });
+      this.artist.setValue(user.artist)
+      this.email = user.email;
+      this.userName = user.username;
     });
   }
 
-  onUserSettingsSubmit(): void {
+  onUserSettingsSubmit(): void { //TODO set forms ""
     if (this.userForm.invalid) {
       alert('Please fill out all fields')
       return;
@@ -86,16 +93,29 @@ export class SettingsComponent implements OnInit {
       alert('Passwords do not match');
       return;
     }
-    this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.oldPassword).subscribe((response) => {
+    this.jwtService.verifyPassword(this.userName, this.userForm.value.oldPassword).subscribe((response) => {
       console.log(response)
       if (response === false) {
-        console.error("old Password is incorrect");
+        alert("old Password is incorrect");
         return;
       }
       this.jwtService.getMe().subscribe((user: User) => {
         user.email = this.userForm.value.email;
+        user.username = this.userForm.value.userName;
         user.password = this.userForm.value.password;
-        this.jwtService.updateUsers(user).subscribe();
+        this.jwtService.updateUsers(user).subscribe((data) =>
+        {
+          localStorage.clear();
+          this.jwtService.login(this.userForm.controls.userName.value, this.userForm.controls.password.value).subscribe((response) => {
+            localStorage.setItem('token', response.token);
+            this.userForm.controls.oldPassword.setValue('');
+            this.userForm.controls.password.setValue('');
+            this.userForm.controls.confirmPassword.setValue('');
+            this.router.navigate(['/home']);
+          });
+          this.userName = user.username;
+          this.email = user.email;
+        });
       });
     });
   }

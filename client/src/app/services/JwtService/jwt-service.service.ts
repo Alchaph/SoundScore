@@ -43,9 +43,10 @@ export class JwtServiceService {
     });
   }
 
-  public verifyPassword(email: string, password: string) {
+  public verifyPassword(userName: string, password: string) {
+    console.log(userName, password)
     return this.http.post('http://localhost:8080/auth/verify-password', {
-      email: email,
+      userName: userName,
       password: password
     }, {
       headers: {
@@ -62,7 +63,20 @@ export class JwtServiceService {
     });
   }
   public updateUsers(user: User) {
-    return this.http.put<User>('http://localhost:8080/users/updateUser', user, {
+    return this.http.put<User>('http://localhost:8080/users/updateUser', {
+      id: user.id,
+      userName: user.username,
+      email: user.email,
+      password: user.password,
+      createdAt: user.created_at,
+      updatedAt: user.updated_at,
+      artist: user.artist,
+      enabled: user.enabled,
+      authorities: user.authorities,
+      accountNonLocked: user.accountNonLocked,
+      credentialsNonExpired: user.credentialsNonExpired,
+      accountNonExpired: user.accountNonExpired
+    }, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
