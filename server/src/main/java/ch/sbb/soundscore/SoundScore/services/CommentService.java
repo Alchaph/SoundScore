@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
-
+    public Long baseId;
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
@@ -20,10 +20,7 @@ public class CommentService {
 
     public Comment deleteComment(Long id) {
         Comment comment = commentRepository.findById(id).orElse(null);
-        if (comment != null) {
-            commentRepository.deleteChildren(comment);
-            commentRepository.delete(comment);
-        }
+        this.commentRepository.deleteById(id);
         return comment;
     }
 

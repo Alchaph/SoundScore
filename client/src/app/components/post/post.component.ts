@@ -10,9 +10,10 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {AsyncPipe, NgIf} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
+import {CommentComponent} from "../comment/comment.component";
 
 @Component({
   selector: 'app-post',
@@ -29,6 +30,9 @@ import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
     AsyncPipe,
     GenericLanguagePipe,
     NgIf,
+    NgForOf,
+    NgStyle,
+    CommentComponent,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -36,49 +40,24 @@ import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 
 export class PostComponent implements OnInit {
   post: Post;
-  comments: Comment[] = []
   replies: Comment[] = []
-  newComment: Comment;
   activeUser: User;
   postId: number = Number(this.route.snapshot.paramMap.get('postId'));
-  currentAction: 'Add' | 'Edit your' | 'Reply to' = 'Add';
-  focusedComment?: Comment;
   likeProcessing: boolean = false;
   liked: boolean = false;
   disliked: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
-              private commentService: CommentService,
+              protected commentService: CommentService,
               private jwtService: JwtServiceService,
               private router: Router) {
     this.post = {} as Post;
-    this.newComment = {} as Comment;
+    this.commentService.newComment = {} as Comment;
     this.activeUser = {} as User;
+    this.postId = Number(this.route.snapshot.paramMap.get('postId'));
   }
 
-
-  ngOnInit(): void {
-    this.postService.getPost(this.postId).subscribe((post) => {
-      this.post = post;
-    });
-    this.postService.hasAlreadyLikedOrDisliked(this.postId).subscribe((data) => {
-      if (data.alreadyLikedOrDisliked) {
-        if (data.liked) {
-          this.liked = true;
-        } else {
-          this.disliked = true;
-        }
-      }
-    })
-    this.commentService.getCommentsOfPost(this.postId).subscribe((comments) => {
-      this.comments = comments.filter(c => !c.comment);
-      this.replies = comments.filter(c => c.comment);
-    });
-    this.jwtService.getMe().subscribe((user) => {
-      this.activeUser = user;
-    });
-  }
 
   goBack() {
     const previousPath: string | null = sessionStorage.getItem('previousPath')
@@ -118,65 +97,102 @@ export class PostComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    this.postService.getPost(this.postId).subscribe(post => {
+      this.post = post;
+    });
+    this.postService.hasAlreadyLikedOrDisliked(this.postId).subscribe(data => {
+      if (data.alreadyLikedOrDisliked) {
+        if (data.liked) {
+          this.liked = true;
+        } else {
+          this.disliked = true;
+        }
+      }
+    });
+    this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
+      this.commentService.comments = this.commentService.buildCommentTree(comments);
+    });
+    this.jwtService.getMe().subscribe(user => {
+      this.activeUser = user;
+    });
+  }
 
   handleAction(): void {
-    if (!this.newComment.message) {
+    if (!this.commentService.newComment.message) {
       return;
     }
-    this.newComment.post = this.post;
-    this.newComment.user = this.activeUser;
-    if (this.currentAction === 'Add') {
+    this.commentService.newComment.post = this.post;
+    this.commentService.newComment.user = this.activeUser;
+    if (this.commentService.currentAction === 'Add') {
       this.addComment();
-    } else if (this.currentAction === 'Edit your') {
-      if (this.focusedComment) {
-        this.newComment.comment = this.focusedComment.comment;
-      }
+    } else if (this.commentService.currentAction === 'Edit your') {
       this.editComment();
-    }
-    if (this.currentAction === 'Reply to') {
+    } else if (this.commentService.currentAction === 'Reply to') {
       this.replyToComment();
     }
-    this.newComment = {} as Comment;
-    this.focusedComment = undefined;
-    this.currentAction = 'Add';
+    this.commentService.newComment = {} as Comment;
+    this.commentService.focusedComment = {} as Comment;
+    this.commentService.currentAction = 'Add';
   }
 
   addComment(): void {
-    this.commentService.createComment(this.newComment).subscribe(comment => {
-      if (comment.comment) {
-        this.replies.push(<Comment>comment);
-      } else {
-        this.comments.push(<Comment>comment);
-      }
-    });
+    this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
+      this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+        this.commentService.comments = this.commentService.buildCommentTree(comments)
+      )
+    );
   }
 
   replyToComment(): void {
-    if (this.focusedComment) {
-      this.newComment.comment = this.focusedComment;
+    if (this.commentService.focusedComment) {
+      this.commentService.newComment.comment = this.commentService.focusedComment;
+      this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
+        this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+          this.commentService.comments = this.commentService.buildCommentTree(comments)
+        )
+      );
     }
-    this.commentService.createComment(this.newComment).subscribe(comment => {
-      this.replies.push(<Comment>comment);
-    });
   }
 
   editComment(): void {
-    if (this.focusedComment && this.focusedComment.id) {
-      this.newComment.id = this.focusedComment.id;
-      this.commentService.updateComment(this.newComment).subscribe(comment => {
-        this.comments = this.comments.map(c => c.id === comment.id ? comment : c);
-        this.replies = this.replies.map(c => c.id === comment.id ? comment : c);
+    if (this.commentService.focusedComment && this.commentService.focusedComment.id) {
+      this.commentService.newComment.id = this.commentService.focusedComment.id;
+      this.commentService.updateComment(this.commentService.newComment).subscribe(updatedComment => {
+        this.commentService.comments = this.updateCommentInTree(this.commentService.comments, updatedComment);
       });
     }
   }
 
 
-  deleteComment(comment: Comment): void {
-    if (comment.id) {
-      this.commentService.deleteComment(comment.id).subscribe(() => {
-        this.comments = this.comments.filter(c => c.id !== comment.id);
-        this.replies = this.replies.filter(c => c.id !== comment.id);
-      });
-    }
+
+  updateCommentInTree(comments: Comment[], updatedComment: Comment): Comment[] {
+    return comments.map(comment => {
+      if (comment.id === updatedComment.id) {
+        return updatedComment;
+      } else if (comment.children) {
+        comment.children = this.updateCommentInTree(comment.children, updatedComment);
+      }
+      return comment;
+    });
+  }
+
+  removeCommentFromTree(comments: Comment[], commentId: number): Comment[] {
+    return comments.filter(c => c.id !== commentId).map(c => {
+      if (c.children) {
+        c.children = this.removeCommentFromTree(c.children, commentId);
+      }
+      return c;
+    });
+  }
+
+  resetAction(): void {
+    this.commentService.currentAction = 'Add';
+    this.commentService.newComment = {} as Comment;
+    this.commentService.focusedComment = {} as Comment;
+  }
+
+  trackByCommentId(index: number, comment: Comment): number {
+    return comment.id!;
   }
 }
