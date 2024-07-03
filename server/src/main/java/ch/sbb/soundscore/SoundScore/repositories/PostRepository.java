@@ -15,11 +15,10 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("""
-            SELECT s FROM Song s \
-            JOIN Post p ON s.id = p.song.id \
-            JOIN LikeOrDislike l ON l.post.id = p.id \
-            GROUP BY s.id ORDER BY (SUM(CASE WHEN l.isLike = true THEN 1 ELSE 0 END) - SUM(CASE WHEN l.isLike = false THEN 1 ELSE 0 END)) DESC""")
+    @Query("SELECT s FROM Song s " +
+            "JOIN Post p ON s.id = p.song.id " +
+            "JOIN LikeOrDislike l ON l.post.id = p.id " +
+            "GROUP BY s.id ORDER BY (SUM(CASE WHEN l.isLike = true THEN 1 ELSE 0 END) - SUM(CASE WHEN l.isLike = false THEN 1 ELSE 0 END)) DESC")
     List<Song> getLeaderBoardSongs();
 
 
