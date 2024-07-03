@@ -108,8 +108,9 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
           this.updateUser(artist)
         }
       )
+    } else {
+      alert('Please fill out all fields')
     }
-    alert('Please fill out all fields')
   }
 
   deleteYourself() {
