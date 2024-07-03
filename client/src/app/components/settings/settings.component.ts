@@ -53,6 +53,8 @@ export class SettingsComponent implements OnInit {
   explode: boolean = false;
   disabled: boolean = false;
 
+  private audioContext: AudioContext;
+
   constructor(private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
@@ -61,6 +63,7 @@ export class SettingsComponent implements OnInit {
       email: new FormControl('', Validators.required),
       artist: new FormControl<Artist | null>(null, Validators.required)
     });
+    this.audioContext = new (window.AudioContext)();
   }
 
   ngOnInit(): void {
@@ -73,11 +76,16 @@ export class SettingsComponent implements OnInit {
   }
 
   onUserSettingsSubmit(): void {
-    if (this.userForm.invalid || this.userForm.value.password !== this.userForm.value.confirmPassword) {
-      alert('Please fill out all fields and make sure the passwords match')
+    if (this.userForm.invalid) {
+      alert('Please fill out all fields')
+      return;
+    } else if (this.userForm.value.password === this.userForm.value.oldPassword) {
+      alert('New password cannot be the same as the old password');
+      return;
+    } else if(this.userForm.value.password !== this.userForm.value.confirmPassword) {
+      alert('Passwords do not match');
       return;
     }
-    console.log(this.userForm.value.oldPassword)
     this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.oldPassword).subscribe((response) => {
       console.log(response)
       if (response === false) {
@@ -93,6 +101,11 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteYourself(): void {
+    if (this.audioContext.state === 'suspended') {
+      this.audioContext.resume().then(() => {
+        console.log('Audio context resumed');
+      });
+    }
     this.disabled = true;
     const planeContainer: HTMLElement | null = document.getElementById('planeContainer');
     const plane: HTMLElement | null = document.getElementById('plane');

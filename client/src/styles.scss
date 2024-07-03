@@ -43,6 +43,7 @@ $client-theme: mat.define-light-theme((
 html, body { height: 100%; }
 
 body {
+  //overflow-x: hidden;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #f9f9f9;
@@ -161,3 +162,4 @@ body {
 .color-primary {
   color: #c23fe3;
 }
+

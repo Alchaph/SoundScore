@@ -109,6 +109,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         }
       )
     }
+    alert('Please fill out all fields')
   }
 
   deleteYourself() {

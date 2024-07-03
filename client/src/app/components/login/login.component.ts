@@ -71,18 +71,28 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
-    if (this.registerForm.controls.password.valid && this.registerForm.controls.repeatPassword.value == this.registerForm.controls.password.value && this.registerForm.controls.email.valid && this.registerForm.controls.userName.valid) {
+    if (!this.registerForm.controls.userName.valid) {
+      alert('Username is not valid');
+    } else if (!this.registerForm.controls.email.valid) {
+      alert('Email is not valid');
+    } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
+      alert('Passwords do not match');
+    } else {
       this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.userName.value).subscribe(
         (data) => {
           this.login();
         }, error => {
-          alert('The email is already in use')
+          alert('The email is already in use');
         });
     }
   }
 
   login() {
-    if (this.registerForm.controls.password.valid && this.registerForm.controls.userName.valid) {
+    if (!this.registerForm.controls.userName.valid) {
+      alert('Username is not valid');
+    } else if (!this.registerForm.controls.password.valid) {
+      alert('Password is not valid');
+    } else  {
       console.log(this.registerForm.controls.userName.value, this.registerForm.controls.password.value)
       this.jwtService.login(this.registerForm.controls.userName.value, this.registerForm.controls.password.value).subscribe((data) => {
         localStorage.setItem('token', data.token);
