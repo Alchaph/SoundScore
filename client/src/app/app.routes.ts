@@ -10,6 +10,7 @@ import {ArtistProfileComponent} from "./components/artist-profile/artist-profile
 import {ArtistRegisterEditComponent} from "./components/artist-register-edit/artist-register-edit.component";
 import {AddEditSongComponent} from "./components/add-edit-song/add-edit-song.component";
 import {loginGuard} from "./guards/login.guard";
+import {SearchComponent} from "./components/search/search.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -25,5 +26,6 @@ export const routes: Routes = [
   {path: 'home/addArtist',canActivate: [loginGuard], component: ArtistRegisterEditComponent},
   {path: 'home/editArtist/:artistId',canActivate: [loginGuard], component: ArtistRegisterEditComponent},
   {path: 'home/addSong',canActivate: [loginGuard], component: AddEditSongComponent},
-  {path: 'home/editSong/:songId',canActivate: [loginGuard], component: AddEditSongComponent}
+  {path: 'home/editSong/:songId',canActivate: [loginGuard], component: AddEditSongComponent},
+  {path: 'home/search',canActivate: [loginGuard], component: SearchComponent}
 ];

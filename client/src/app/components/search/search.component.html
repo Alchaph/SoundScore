@@ -1,0 +1,81 @@
+@if (!this.isMobile) {
+  <app-head-nav-bar></app-head-nav-bar>
+  <body>
+  <mat-form-field>
+    <input matInput placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="search()">
+  </mat-form-field>
+  <main>
+    @if (combinedList && combinedList.length > 0) {
+      <div>
+        @for (combinedItem of combinedList; track combinedItem) {
+            @if (this.isPost(combinedItem)) {
+              <mat-card [routerLink]="'/home/post/'+combinedItem.id">
+                <b>post</b>
+              <mat-card-content>
+                  <mat-card-header>
+                    <mat-card-title>{{ combinedItem.title }}</mat-card-title>
+                  </mat-card-header>
+                  <img [src]="combinedItem.image">
+                  <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.user.username }}</span>
+                  <p>{{ combinedItem.content }}</p>
+                  @if (combinedItem.genre || combinedItem.artist || combinedItem.song) {
+                    <div class="post-tags">
+                      @if (combinedItem.genre) {
+                        <span>{{ 'HOME.GENRE' | translate }}: {{ combinedItem.genre.name }}</span>
+                      }
+                      @if (combinedItem.artist) {
+                        <span>{{ 'HOME.ARTIST' | translate }}: {{ combinedItem.artist.name }}</span>
+                      }
+                      @if (combinedItem.song) {
+                        <span>{{ 'HOME.SONG' | translate }}: {{ combinedItem.song.title }}</span>
+                      }
+                    </div>
+                  }
+                </mat-card-content>
+                </mat-card>
+              } @else if (this.isArtist(combinedItem)) {
+              <mat-card [routerLink]="'/home/artistProfile/'+combinedItem.id">
+                  <img  [src]="combinedItem.image">
+                  <p>{{ combinedItem.description }}</p>
+                  <mat-card-header>
+                    <mat-card-title>{{ combinedItem.name }}</mat-card-title>
+                  </mat-card-header>
+              </mat-card>
+              } @else if (this.isSong(combinedItem)) {
+              <mat-card (click)="openLink($event, combinedItem.link)">
+                <mat-card-header>
+                  <mat-card-title>{{combinedItem.title}}</mat-card-title>
+                </mat-card-header>
+              <mat-card-content >
+                  <img  [src]="combinedItem.image">
+                  <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.artist.name }}</span>
+                  <p>{{ combinedItem.genre.name }}</p>
+                </mat-card-content>
+                </mat-card>
+                } @else if (this.isUser(combinedItem)) {
+              <mat-card [routerLink]="'/home/usersPosts/'+combinedItem.id">
+                <mat-card-header>
+                  <mat-card-title>{{ combinedItem.username }}</mat-card-title>
+                </mat-card-header>
+              <mat-card-content>
+                  <p>{{ combinedItem.email }}</p>
+                </mat-card-content>
+                </mat-card>
+                }
+          }
+      </div>
+    } @else {
+        <div class="card-container">
+          <mat-card>
+            <mat-card-content>
+              <mat-card-title>{{ 'ARTIST_SONGS.QUIET_HERE_TITLE' | translate }}</mat-card-title>
+              <p>{{ 'ARTIST_SONGS.QUIET_HERE_MESSAGE' | translate }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+    }
+  </main>
+  </body>
+}
+
