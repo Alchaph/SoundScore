@@ -25,7 +25,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.email = :name , u.userName = :name  WHERE u = :u")
+    @Query("UPDATE User u SET u.email = :name , u.userName = :name, u.password = 'Deleted'  WHERE u = :u")
     void deletes(User u, String name);
 }
 
