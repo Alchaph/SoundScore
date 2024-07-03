@@ -1,0 +1,28 @@
+<div>
+  <div class="comment-section">
+    @if (comment.comment) {
+      <mat-icon [ngStyle]="{'margin-left': ((level-1) * 20) + 'px'}">subdirectory_arrow_right</mat-icon>
+    }
+    <div [ngStyle]="{'width': 'calc(100% - ' + (level * 20) + 'px)'}" class="comment mat-elevation-z8">
+      <div class="comment-content">
+        <h3>{{ comment.user.username }}</h3>
+        <p>{{ comment.message }}</p>
+      </div>
+      <div class="comment-actions">
+        <div class="comment-owner-actions">
+          @if (comment.user.id === activeUser.id && comment.id) {
+            <mat-icon
+              (click)="setEditComment(comment)"
+              class="comment-icon">edit
+            </mat-icon>
+            <mat-icon (click)="deleteComment(comment); baseId = comment.id" class="comment-icon">delete</mat-icon>
+          }
+        </div>
+        <mat-icon (click)="setReplyComment(comment)" class="comment-icon">reply</mat-icon>
+      </div>
+    </div>
+  </div>
+  @for (reply of comment.children; track $index) {
+    <app-comment [activeUser]="activeUser" [comment]="reply" [level]="level + 1"></app-comment>
+  }
+</div>

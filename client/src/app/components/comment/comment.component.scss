@@ -1,0 +1,39 @@
+
+.comment-section {
+  display: flex;
+  .comment {
+    display: flex ;
+    align-items: start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 2%;
+    .comment-content {
+      display: flex;
+      height: fit-content;
+      justify-content: space-between;
+      flex-direction: column;
+      width: calc(100% - 50px);
+      p{
+        word-break: break-word;
+      }
+    }
+
+    .comment-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      height: 100%;
+      width: 50px;
+      flex-direction: column;
+      mat-icon{
+        cursor: pointer;
+      }
+      .comment-owner-actions {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+  }
+}
+

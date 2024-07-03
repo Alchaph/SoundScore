@@ -73,11 +73,16 @@ export class SettingsComponent implements OnInit {
   }
 
   onUserSettingsSubmit(): void {
-    if (this.userForm.invalid || this.userForm.value.password !== this.userForm.value.confirmPassword) {
-      alert('Please fill out all fields and make sure the passwords match')
+    if (this.userForm.invalid) {
+      alert('Please fill out all fields')
+      return;
+    } else if (this.userForm.value.password === this.userForm.value.oldPassword) {
+      alert('New password cannot be the same as the old password');
+      return;
+    } else if(this.userForm.value.password !== this.userForm.value.confirmPassword) {
+      alert('Passwords do not match');
       return;
     }
-    console.log(this.userForm.value.oldPassword)
     this.jwtService.verifyPassword(this.userForm.value.email, this.userForm.value.oldPassword).subscribe((response) => {
       console.log(response)
       if (response === false) {
