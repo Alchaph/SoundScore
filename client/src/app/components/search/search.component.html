@@ -11,40 +11,18 @@
     <mat-checkbox>Song</mat-checkbox>
   </div>
   <main>
-    @if (posts && posts.length > 0) {
+    @if (combinedList && combinedList.length > 0) {
       <div>
-        @for (combinedItem of posts; track combinedItem) {
-          @if (selectedFilters) {
-            <mat-card [routerLink]="'/home/post/'+combinedItem.id">
-              <mat-card-header>
-                <mat-card-title>{{ combinedItem.title }}</mat-card-title>
-              </mat-card-header>
+        @for (combinedItem of combinedList; track combinedItem) {
+          @if (selectedFilters !== 'all') {
+            <p>filters selected</p>
+          } @else if (selectedFilters == 'all') {
+            @if (this.isPost(combinedItem)) {
+              <mat-card [routerLink]="">
               <mat-card-content>
-                <img [src]="combinedItem.image">
-                <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.user.username }}</span>
-                <p>{{ combinedItem.content }}</p>
-                @if (combinedItem.genre || combinedItem.artist || combinedItem.song) {
-                  <div class="post-tags">
-                    @if (combinedItem.genre) {
-                      <span>{{ 'HOME.GENRE' | translate }}: {{ combinedItem.genre.name }}</span>
-                    }
-                    @if (combinedItem.artist) {
-                      <span>{{ 'HOME.ARTIST' | translate }}: {{ combinedItem.artist.name }}</span>
-                    }
-                    @if (combinedItem.song) {
-                      <span>{{ 'HOME.SONG' | translate }}: {{ combinedItem.song.title }}</span>
-                    }
-                  </div>
-                }
-              </mat-card-content>
-            </mat-card>
-          } @else if (!selectedFilters) {
-            <mat-card [routerLink]="'/home/post/'+combinedItem.id">
-              <mat-card-header>
-                <mat-card-title>{{ combinedItem.title }}</mat-card-title>
-              </mat-card-header>
-              @if (this.isPost(combinedItem)) {
-                <mat-card-content>
+                  <mat-card-header>
+                    <mat-card-title>{{ combinedItem.title }}</mat-card-title>
+                  </mat-card-header>
                   <img [src]="combinedItem.image">
                   <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.user.username }}</span>
                   <p>{{ combinedItem.content }}</p>
@@ -62,25 +40,39 @@
                     </div>
                   }
                 </mat-card-content>
+                </mat-card>
               } @else if (this.isArtist(combinedItem)) {
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>{{ combinedItem.name }}</mat-card-title>
+                </mat-card-header>
                 <mat-card-content>
-                  <img [src]="combinedItem.artist?.image">
-                  <span>{{ combinedItem.artist?.name }}</span>
-                  <p>{{ combinedItem.artist?.description }}</p>
+                  <img [src]="combinedItem.image">
+                  <p>{{ combinedItem.description }}</p>
                 </mat-card-content>
+              </mat-card>
               } @else if (this.isSong(combinedItem)) {
-                <mat-card-content>
-                  <img [src]="combinedItem.song?.image">
-                  <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.song?.artist.name }}</span>
-                  <p>{{ combinedItem.song?.genre.name }}</p>
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>{{combinedItem.title}}</mat-card-title>
+                </mat-card-header>
+              <mat-card-content (click)="openLink($event, combinedItem.link)">
+                  <img [src]="combinedItem.image">
+                  <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.artist.name }}</span>
+                  <p>{{ combinedItem.genre.name }}</p>
                 </mat-card-content>
-              } @else if (this.isUser(combinedItem)) {
-                <mat-card-content>
-                  <p>{{ combinedItem.user.username }}</p>
-                  <p>{{ combinedItem.user.email }}</p>
+                </mat-card>
+                } @else if (this.isUser(combinedItem)) {
+              <!-- todo: user routerlink -->
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>{{ combinedItem.username }}</mat-card-title>
+                </mat-card-header>
+              <mat-card-content>
+                  <p>{{ combinedItem.email }}</p>
                 </mat-card-content>
-              }
-            </mat-card>
+                </mat-card>
+                }
           }
         }
       </div>

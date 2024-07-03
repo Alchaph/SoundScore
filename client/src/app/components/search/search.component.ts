@@ -93,8 +93,7 @@ export class SearchComponent implements OnInit{
         this.songs = songs;
         this.artists = artists;
 
-        this.combinedList = [...this.posts, ...this.users, ...this.songs, ...this.artists];
-        console.log(this.combinedList);
+        this.combinedList = [...new Set([...this.users, ...this.songs, ...this.artists])];
       },
       error: error => {
         console.error('Error occurred:', error);
@@ -136,7 +135,7 @@ export class SearchComponent implements OnInit{
 
 
   search() {
-    this.combinedList = [...this.posts, ...this.users, ...this.songs, ...this.artists];
+    this.combinedList = [...new Set([...this.posts, ...this.users, ...this.songs, ...this.artists])];
     this.combinedList = this.combinedList.filter((item) => {
       if (this.isPost(item)) {
         return item.content.toLowerCase().includes(this.searchTerm.toLowerCase()) || item.title.toLowerCase().includes(this.searchTerm.toLowerCase());
