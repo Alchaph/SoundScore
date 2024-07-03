@@ -3,16 +3,12 @@ package ch.sbb.soundscore.SoundScore.controllers;
 
 import ch.sbb.soundscore.SoundScore.dtos.LoginResponse;
 import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
-import ch.sbb.soundscore.SoundScore.dtos.RegisterArtistDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
 
 import ch.sbb.soundscore.SoundScore.entities.User;
-import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
 import ch.sbb.soundscore.SoundScore.services.JwtService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +28,6 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-        System.out.println("registerUserDto" + registerUserDto.getEmail());
         User registeredUser = authenticationService.signup(registerUserDto);
         return ResponseEntity.ok(registeredUser);
     }
@@ -40,10 +35,8 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
-        System.out.println("user" + authenticatedUser);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
-        System.out.println("token" + jwtToken);
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
@@ -54,7 +47,7 @@ public class AuthenticationController {
 
     @PostMapping("/verify-password")
     public ResponseEntity<Boolean> verifyPassword(@RequestBody LoginUserDto user) {
-        return ResponseEntity.ok(authenticationService.verifyPassword(user.getEmail(), user.getPassword()));
+        return ResponseEntity.ok(authenticationService.verifyPassword(user.getUserName(), user.getPassword()));
     }
 
 }

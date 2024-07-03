@@ -28,9 +28,9 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signup(RegisterUserDto input) { //TODO userName is email
+    public User signup(RegisterUserDto input) {
         User user = new User();
-        user.setUsername(input.getUsername());
+        user.setUserName(input.getUserName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
 
@@ -38,18 +38,19 @@ public class AuthenticationService {
     }
 
     public User authenticate(LoginUserDto input) {
+        System.out.println(input.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
+                        input.getUserName(),
                         input.getPassword()
                 )
         );
-        return userRepository.findByUsername(input.getEmail())
+        return userRepository.findByUsername(input.getUserName())
                 .orElseThrow();
     }
 
-    public boolean verifyPassword(String email, String password) {
-        User user = userRepository.findByUsername(email).orElseThrow();
+    public boolean verifyPassword(String userName, String password) {
+        User user = userRepository.findByUsername(userName).orElseThrow();
         return passwordEncoder.matches(password, user.getPassword());
     }
 }

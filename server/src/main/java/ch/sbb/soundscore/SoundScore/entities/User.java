@@ -22,8 +22,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String username;
+    @Column(nullable = false, unique = true)
+    private String userName;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -90,11 +90,11 @@ public class User implements UserDetails {
     }
 
     public String getUsername() {
-        return email;
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Long getId() {
