@@ -6,6 +6,7 @@ import {CommentService} from '../../services/CommentService/comment.service';
 import {MatIcon} from "@angular/material/icon";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {MatCard} from "@angular/material/card";
+import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 
 @Component({
   selector: 'app-comment',
@@ -16,7 +17,8 @@ import {MatCard} from "@angular/material/card";
     NgForOf,
     NgIf,
     NgStyle,
-    MatCard
+    MatCard,
+    GenericLanguagePipe
   ],
   styleUrls: ['./comment.component.scss']
 })
