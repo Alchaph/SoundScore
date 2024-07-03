@@ -53,6 +53,8 @@ export class SettingsComponent implements OnInit {
   explode: boolean = false;
   disabled: boolean = false;
 
+  private audioContext: AudioContext;
+
   constructor(private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
@@ -61,6 +63,7 @@ export class SettingsComponent implements OnInit {
       email: new FormControl('', Validators.required),
       artist: new FormControl<Artist | null>(null, Validators.required)
     });
+    this.audioContext = new (window.AudioContext)();
   }
 
   ngOnInit(): void {
@@ -105,18 +108,21 @@ export class SettingsComponent implements OnInit {
     const nukeScreen: HTMLElement | null = document.getElementById('nukeScreen');
     if (planeContainer && plane && nuke && nukeScreen) {
       let audio: HTMLAudioElement = new Audio('assets/sounds/plane.mp3');
+      this.unmuteAudio(audio);
       audio.play();
       planeContainer.style.display = 'block';
       this.fly = true;
       setTimeout(() => {
         let audio2: HTMLAudioElement = new Audio('assets/sounds/explosion.mp3');
         audio2.currentTime = 0.4;
+        this.unmuteAudio(audio2)
         audio2.play();
         nuke.style.visibility = 'visible';
         this.fall = true;
         setTimeout(() => {
           let audio3:HTMLAudioElement = new Audio('assets/sounds/hexplosion.mp3');
           audio3.currentTime = 0.45;
+          this.unmuteAudio(audio3)
           audio3.play();
           audio.pause();
           nukeScreen.style.display = 'block';
@@ -130,6 +136,14 @@ export class SettingsComponent implements OnInit {
         }, 2000);
       }, 3000);
     }
+  }
+
+  unmuteAudio(audio: HTMLAudioElement): void {
+    const source = this.audioContext.createMediaElementSource(audio);
+    const gainNode = this.audioContext.createGain();
+    source.connect(gainNode);
+    gainNode.connect(this.audioContext.destination);
+    gainNode.gain.value = 1;
   }
 
 }
