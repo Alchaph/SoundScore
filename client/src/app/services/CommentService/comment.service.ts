@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Comment } from '../../models/Comment';
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Comment} from '../../models/Comment';
 import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
+  currentAction: string = 'Add';
+  focusedComment: Comment = {} as Comment;
+  comments: Comment[] = [];
+  newComment: Comment = {} as Comment;
 
   constructor(private http: HttpClient) {
   }
@@ -36,7 +40,7 @@ export class CommentService {
   }
 
   getCommentsOfPost(postId: number) {
-    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/'+postId, {
+    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/' + postId, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
@@ -49,5 +53,24 @@ export class CommentService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
+  }
+
+  buildCommentTree(comments: Comment[]): Comment[] {
+    const commentMap: { [key: number]: Comment } = {};
+
+    const rootComments: Comment[] = [];
+    comments.forEach(comment => {
+      comment.children = [];
+      commentMap[comment.id!] = comment;
+    });
+
+    comments.forEach(comment => {
+      if (comment.comment) {
+        commentMap[comment.comment.id!].children?.push(comment);
+      } else {
+        rootComments.push(comment);
+      }
+    });
+    return rootComments;
   }
 }
