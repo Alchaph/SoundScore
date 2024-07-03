@@ -14,6 +14,9 @@ import {AsyncPipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 import {CommentComponent} from "../comment/comment.component";
+import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
+import {LanguageService} from "../../services/languageService/language.service";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-post',
@@ -33,6 +36,9 @@ import {CommentComponent} from "../comment/comment.component";
     NgForOf,
     NgStyle,
     CommentComponent,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    MatSlideToggle,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -46,12 +52,14 @@ export class PostComponent implements OnInit {
   likeProcessing: boolean = false;
   liked: boolean = false;
   disliked: boolean = false;
+  translate: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
               protected commentService: CommentService,
               private jwtService: JwtServiceService,
-              private router: Router) {
+              private router: Router,
+              protected languageService: LanguageService) {
     this.post = {} as Post;
     this.commentService.newComment = {} as Comment;
     this.activeUser = {} as User;
@@ -165,7 +173,6 @@ export class PostComponent implements OnInit {
   }
 
 
-
   updateCommentInTree(comments: Comment[], updatedComment: Comment): Comment[] {
     return comments.map(comment => {
       if (comment.id === updatedComment.id) {
@@ -195,4 +202,7 @@ export class PostComponent implements OnInit {
   trackByCommentId(index: number, comment: Comment): number {
     return comment.id!;
   }
+
+  protected readonly window = window;
+  protected readonly JSON = JSON;
 }

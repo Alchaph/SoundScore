@@ -7,6 +7,7 @@ import {MatIcon} from "@angular/material/icon";
 import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {MatCard} from "@angular/material/card";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
+import {LanguageService} from "../../services/languageService/language.service";
 
 @Component({
   selector: 'app-comment',
@@ -30,7 +31,7 @@ export class CommentComponent {
   @Input() postId: number = 0;
   baseId = 0;
 
-  constructor(private commentService: CommentService) {
+  constructor(private commentService: CommentService, protected languageService: LanguageService) {
   }
 
 
