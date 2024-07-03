@@ -53,6 +53,8 @@ export class SettingsComponent implements OnInit {
   explode: boolean = false;
   disabled: boolean = false;
 
+  private audioContext: AudioContext;
+
   constructor(private jwtService: JwtServiceService, private artistService: ArtistService, private router: Router) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
@@ -61,6 +63,7 @@ export class SettingsComponent implements OnInit {
       email: new FormControl('', Validators.required),
       artist: new FormControl<Artist | null>(null, Validators.required)
     });
+    this.audioContext = new (window.AudioContext)();
   }
 
   ngOnInit(): void {
@@ -98,6 +101,11 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteYourself(): void {
+    if (this.audioContext.state === 'suspended') {
+      this.audioContext.resume().then(() => {
+        console.log('Audio context resumed');
+      });
+    }
     this.disabled = true;
     const planeContainer: HTMLElement | null = document.getElementById('planeContainer');
     const plane: HTMLElement | null = document.getElementById('plane');
