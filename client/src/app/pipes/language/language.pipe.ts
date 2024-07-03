@@ -14,7 +14,7 @@ export class LanguagePipe implements PipeTransform {
         return 'English';
       case 'fr':
         return 'Français';
-      case 'ch':
+      case 'zh':
         return '中文';
       case 'po':
         return 'Português';

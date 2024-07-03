@@ -401,6 +401,9 @@
 }
 
 .post-meta {
+  span{
+    cursor: pointer;
+  }
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
@@ -443,8 +446,7 @@
   color: #333;
 }
 
-.comment-form input,
-.comment-form textarea {
+.comment-form input, .comment-form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;

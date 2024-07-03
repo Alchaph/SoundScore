@@ -23,6 +23,7 @@ body {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .post-card:hover {
@@ -35,9 +36,6 @@ body {
   object-fit: cover;
 }
 
-.post-image:hover {
-  cursor: pointer;
-}
 
 .post-content {
   padding: 15px;

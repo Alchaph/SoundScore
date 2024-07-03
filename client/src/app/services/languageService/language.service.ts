@@ -1,17 +1,16 @@
-import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environments";
 import {TranslateService} from "@ngx-translate/core";
 import {Lang} from "../../models/Lang";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable, switchMap} from "rxjs";
+import {map, switchMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
   private detectApiUrl = 'https://ws.detectlanguage.com/0.2/detect';
-  private translateApiUrl = 'https://apid.ebay.com/commerce/translation/v1/translate';
+  private translateApiUrl = 'http://172.20.10.5:5000/translate';
   private detectHeaders = new HttpHeaders({
     'Authorization': 'Bearer 6eaddab8e75f4cba4d49499427ebce8e'
   });
@@ -31,7 +30,7 @@ export class LanguageService {
   }
 
   private initializeTranslationSettings() {
-    let lang: Lang = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
+    let lang: Lang = this.getLanguage();
     this.translateService.addLangs(environment.languages);
     this.translateService.use(lang.lang);
 
@@ -43,20 +42,46 @@ export class LanguageService {
       this.translateService.use(lang);
     }
 
-}
+  }
 
-  translateText(text: string){
+  translateText(text: string) {
     return this.http.post<{ data: { detections: { language: string }[] } }>(
       this.detectApiUrl,
-      { q: text },
-      { headers: this.detectHeaders }
+      {q: text},
+      {headers: this.detectHeaders}
     ).pipe(
       map(response => response.data.detections[0].language),
-      switchMap(from => this.http.post(
-        this.translateApiUrl,
-        { from: from,to: 'de', text: [text] ,translatedText: "Warra do"},
-      ))
+      switchMap(from => {
+        if (from === "en") {
+          return this.http.post<{
+            translatedText: string
+          }>(this.translateApiUrl, {
+              source: 'en',
+              target: this.getLanguage().lang,
+              q: text
+            },
+          )
+        } else {
+          return this.http.post<{
+            translatedText: string
+          }>(this.translateApiUrl, {source: from, target: 'en', q: text}).pipe(
+            map(response => response.translatedText),
+            switchMap(translatedText => this.http.post<{
+                translatedText: string
+              }>(this.translateApiUrl, {
+                source: 'en',
+                target: this.getLanguage().lang,
+                q: translatedText
+              })
+            )
+          )
+        }
+      })
     );
+  }
+
+  getLanguage(): Lang {
+    return document.cookie.split(";").reduce((ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
   }
 
   setLanguageCookie(lang: string): void {
