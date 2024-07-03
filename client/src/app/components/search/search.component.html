@@ -4,21 +4,13 @@
   <mat-form-field>
     <input matInput placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="search()">
   </mat-form-field>
-  <div id="checkboxes">
-    <mat-checkbox>Artists</mat-checkbox>
-    <mat-checkbox>Users</mat-checkbox>
-    <mat-checkbox>Post</mat-checkbox>
-    <mat-checkbox>Song</mat-checkbox>
-  </div>
   <main>
     @if (combinedList && combinedList.length > 0) {
       <div>
         @for (combinedItem of combinedList; track combinedItem) {
-          @if (selectedFilters !== 'all') {
-            <p>filters selected</p>
-          } @else if (selectedFilters == 'all') {
             @if (this.isPost(combinedItem)) {
-              <mat-card [routerLink]="">
+              <mat-card [routerLink]="'/home/post/'+combinedItem.id">
+                <b>post</b>
               <mat-card-content>
                   <mat-card-header>
                     <mat-card-title>{{ combinedItem.title }}</mat-card-title>
@@ -42,29 +34,26 @@
                 </mat-card-content>
                 </mat-card>
               } @else if (this.isArtist(combinedItem)) {
-              <mat-card>
-                <mat-card-header>
-                  <mat-card-title>{{ combinedItem.name }}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <img [src]="combinedItem.image">
+              <mat-card [routerLink]="'/home/artistProfile/'+combinedItem.id">
+                  <img  [src]="combinedItem.image">
                   <p>{{ combinedItem.description }}</p>
-                </mat-card-content>
+                  <mat-card-header>
+                    <mat-card-title>{{ combinedItem.name }}</mat-card-title>
+                  </mat-card-header>
               </mat-card>
               } @else if (this.isSong(combinedItem)) {
-              <mat-card>
+              <mat-card (click)="openLink($event, combinedItem.link)">
                 <mat-card-header>
                   <mat-card-title>{{combinedItem.title}}</mat-card-title>
                 </mat-card-header>
-              <mat-card-content (click)="openLink($event, combinedItem.link)">
-                  <img [src]="combinedItem.image">
+              <mat-card-content >
+                  <img  [src]="combinedItem.image">
                   <span>{{ 'HOME.POSTED_BY' | translate }}  {{ combinedItem.artist.name }}</span>
                   <p>{{ combinedItem.genre.name }}</p>
                 </mat-card-content>
                 </mat-card>
                 } @else if (this.isUser(combinedItem)) {
-              <!-- todo: user routerlink -->
-              <mat-card>
+              <mat-card [routerLink]="'/home/usersPosts/'+combinedItem.id">
                 <mat-card-header>
                   <mat-card-title>{{ combinedItem.username }}</mat-card-title>
                 </mat-card-header>
@@ -74,12 +63,17 @@
                 </mat-card>
                 }
           }
-        }
       </div>
     } @else {
-      <div>
-        <p>No posts found</p>
-      </div>
+        <div class="card-container">
+          <mat-card>
+            <mat-card-content>
+              <mat-card-title>{{ 'ARTIST_SONGS.QUIET_HERE_TITLE' | translate }}</mat-card-title>
+              <p>{{ 'ARTIST_SONGS.QUIET_HERE_MESSAGE' | translate }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
     }
   </main>
   </body>

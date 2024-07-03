@@ -18,12 +18,14 @@
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
+      <button mat-icon-button [routerLink]="['/home/search']">
+        <mat-icon style="color: white">search</mat-icon>
+      </button>
       <img [src]="sessionStorage.getItem('profilPicture')" class="catPic" alt="No cats :(" [matMenuTriggerFor]="userMenu">
       <mat-menu #userMenu="matMenu">
         <button (click)="reload()" mat-menu-item>{{'HEADER.PROFILE' | translate }}</button>
         <button routerLink="/home/settings" mat-menu-item>{{ 'HEADER.SETTINGS' | translate }}</button>
         <button routerLink="/home/artistProfile" mat-menu-item>{{ 'HEADER.ARTIST_PROFILE' | translate}}</button>
-
         <button (click)="logout()" mat-menu-item>{{ 'HEADER.LOGOUT' | translate }}</button>
       </mat-menu>
     </div>
