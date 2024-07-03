@@ -70,7 +70,7 @@ class CommentServiceTest {
     void getCommentsByPostId() {
         User user = new User();
         user.setId(1L);
-        user.setUsername("User Name");
+        user.setUserName("User Name");
         user.setEmail("user@email.com");
 
         Post post = new Post();

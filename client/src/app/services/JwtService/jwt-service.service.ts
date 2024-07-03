@@ -11,18 +11,19 @@ export class JwtServiceService {
   constructor(private http: HttpClient) {
   }
 
-  public login(email: string, password: string) {
+  public login(userName: string, password: string) {
     return this.http.post<{ token: string, expiresIn: number }>('http://localhost:8080/auth/login', {
-      email: email,
+      userName: userName,
       password: password
     });
   }
 
-  public register(email: string, password: string, username: string) {
+  public register(email: string, password: string, userName: string) {
+    console.log(email, password, userName)
     return this.http.post('http://localhost:8080/auth/signup', {
       email: email,
       password: password,
-      username: username
+      userName: userName
     });
   }
 

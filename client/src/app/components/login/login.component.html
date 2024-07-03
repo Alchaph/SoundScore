@@ -7,16 +7,16 @@
     </mat-card-header>
     <form (ngSubmit)="isRegister ? register() : login()" [formGroup]="registerForm">
       <mat-card-content [ngClass]="{'extra': isRegister}">
+        @if (isRegister) {
           <div class="input-group">
             <input required="" type="text" formControlName="email" name="text" autocomplete="off" class="input">
             <label class="user-label">{{ 'LOGIN.FORM.EMAIL' | translate }}</label>
           </div>
-        @if (isRegister) {
+        }
             <div class="input-group">
-              <input required="" type="text" formControlName="username" name="text" autocomplete="off" class="input">
+              <input required="" type="text" formControlName="userName" name="text" autocomplete="off" class="input">
               <label class="user-label">{{'LOGIN.FORM.USERNAME' | translate}}</label>
             </div>
-        }
         <div>
           <div class="input-group">
             <input required="" [type]="hide ? 'password' : 'text'" formControlName="password" name="text" autocomplete="off" class="input">
