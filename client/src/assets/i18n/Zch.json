@@ -142,5 +142,8 @@
         "EDIT": "Bearbeitä"
       }
     }
+  },
+  "SEARCH": {
+    "SEARCH_BAR": "Suechä"
   }
 }
