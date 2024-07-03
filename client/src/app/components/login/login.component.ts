@@ -71,20 +71,28 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
-    if (!this.registerForm.controls.userName.valid) {
-      alert('Username is not valid');
-    } else if (!this.registerForm.controls.email.valid) {
-      alert('Email is not valid');
-    } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
-      alert('Passwords do not match');
+    if (!this.isUsernameLike(this.registerForm.controls.userName.value)) {
+      if (!this.registerForm.controls.userName.valid) {
+        alert('Username is not valid');
+      } else if (!this.registerForm.controls.email.valid) {
+        alert('Email is not valid');
+      } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
+        alert('Passwords do not match');
+      } else {
+        this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.userName.value).subscribe(
+          (data) => {
+            this.login();
+          }, error => {
+            alert('The email is already in use');
+          });
+      }
     } else {
-      this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.userName.value).subscribe(
-        (data) => {
-          this.login();
-        }, error => {
-          alert('The email is already in use');
-        });
+      alert('You cant use this Username');
     }
+  }
+
+  isUsernameLike(userName: string): boolean {
+    return userName.startsWith("An deleted User");
   }
 
   login() {
