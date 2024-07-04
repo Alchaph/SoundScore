@@ -37,7 +37,6 @@ export class CommentComponent {
 
   setEditComment(comment: Comment): void {
     this.commentService.currentAction = 'Edit your';
-    this.commentService.focusedComment = comment;
     this.commentService.newComment = {...comment};
   }
 
