@@ -35,6 +35,7 @@
     "CANCEL": "Cancelar"
   },
   "USER_SETTINGS": {
+    "USERNAME_HINT": "Seu nome de usuário",
     "TITLE": "Configurações do usuário",
     "EMAIL": "E-mail",
     "EMAIL_HINT": "Seu endereço de e-mail",
