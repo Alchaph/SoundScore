@@ -20,12 +20,12 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     void updateArtistByArtist(Artist artist);
 
     @Transactional
-    @Query("select u from User u where u.userName = ?1")
-    Optional<User> findByUsername(String userName);
+    @Query("select u from User u where u.username = ?1")
+    Optional<User> findByUsername(String username);
 
     @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.email = :name , u.userName = :name, u.password = 'Deleted'  WHERE u = :u")
+    @Query("UPDATE User u SET u.email = :name , u.username = :name, u.password = 'Deleted'  WHERE u = :u")
     void deletes(User u, String name);
 }
 

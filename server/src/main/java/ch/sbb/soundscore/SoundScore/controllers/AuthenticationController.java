@@ -47,7 +47,7 @@ public class AuthenticationController {
 
     @PostMapping("/verify-password")
     public ResponseEntity<Boolean> verifyPassword(@RequestBody LoginUserDto user) {
-        return ResponseEntity.ok(authenticationService.verifyPassword(user.getUserName(), user.getPassword()));
+        return ResponseEntity.ok(authenticationService.verifyPassword(user.getUsername(), user.getPassword()));
     }
 
 }

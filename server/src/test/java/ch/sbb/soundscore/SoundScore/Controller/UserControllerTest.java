@@ -32,9 +32,9 @@ public class UserControllerTest {
     @BeforeEach
     void setUp() {
         User user1 = new User();
-        user1.setUserName("user1");
+        user1.setUsername("user1");
         User user2 = new User();
-        user2.setUserName("user2");
+        user2.setUsername("user2");
         List<User> users = Arrays.asList(user1, user2);
         given(userService.allUsers()).willReturn(users);
     }

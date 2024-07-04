@@ -11,19 +11,19 @@ export class JwtServiceService {
   constructor(private http: HttpClient) {
   }
 
-  public login(userName: string, password: string) {
+  public login(username: string, password: string) {
     return this.http.post<{ token: string, expiresIn: number }>('http://localhost:8080/auth/login', {
-      userName: userName,
+      username: username,
       password: password
     });
   }
 
-  public register(email: string, password: string, userName: string) {
-    console.log(email, password, userName)
+  public register(email: string, password: string, username: string) {
+    console.log(email, password, username)
     return this.http.post('http://localhost:8080/auth/signup', {
       email: email,
       password: password,
-      userName: userName
+      username: username
     });
   }
 
@@ -43,10 +43,10 @@ export class JwtServiceService {
     });
   }
 
-  public verifyPassword(userName: string, password: string) {
-    console.log(userName, password)
+  public verifyPassword(username: string, password: string) {
+    console.log(username, password)
     return this.http.post('http://localhost:8080/auth/verify-password', {
-      userName: userName,
+      username: username,
       password: password
     }, {
       headers: {
@@ -65,7 +65,7 @@ export class JwtServiceService {
   public updateUsers(user: User) {
     return this.http.put<User>('http://localhost:8080/users/updateUser', {
       id: user.id,
-      userName: user.username,
+      username: user.username,
       email: user.email,
       password: user.password,
       createdAt: user.created_at,

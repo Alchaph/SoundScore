@@ -30,7 +30,7 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         User user = new User();
-        user.setUserName(input.getUserName());
+        user.setUsername(input.getUsername());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
 
@@ -41,16 +41,16 @@ public class AuthenticationService {
         System.out.println(input.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getUserName(),
+                        input.getUsername(),
                         input.getPassword()
                 )
         );
-        return userRepository.findByUsername(input.getUserName())
+        return userRepository.findByUsername(input.getUsername())
                 .orElseThrow();
     }
 
-    public boolean verifyPassword(String userName, String password) {
-        User user = userRepository.findByUsername(userName).orElseThrow();
+    public boolean verifyPassword(String username, String password) {
+        User user = userRepository.findByUsername(username).orElseThrow();
         return passwordEncoder.matches(password, user.getPassword());
     }
 }
