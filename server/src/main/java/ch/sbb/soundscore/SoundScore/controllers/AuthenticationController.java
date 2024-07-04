@@ -9,10 +9,7 @@ import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
 import ch.sbb.soundscore.SoundScore.services.JwtService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("auth")
 @RestController
@@ -50,5 +47,9 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.verifyPassword(user.getUsername(), user.getPassword()));
     }
 
+    @GetMapping("/email-exists/{email}")
+    public ResponseEntity<Boolean> emailExists(@PathVariable String email) {
+        return ResponseEntity.ok(authenticationService.emailExists(email));
+    }
 }
 

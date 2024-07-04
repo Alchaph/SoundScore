@@ -71,6 +71,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
+
+    this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
     if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
       if (!this.registerForm.controls.username.valid) {
         alert('Username is not valid');
@@ -78,17 +80,20 @@ export class LoginComponent implements AfterViewInit, OnInit {
         alert('Email is not valid');
       } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
         alert('Passwords do not match');
-      } else {
+
+        console.log(this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe());
+      } else if (!data) {
         this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
           (data) => {
             this.login();
-          }, error => {
-            alert('The email is already in use');
           });
+      } else {
+        alert('Email is already in use');
       }
     } else {
       alert('You cant use this Username');
     }
+  });
   }
 
   isUsernameLike(username: string): boolean {

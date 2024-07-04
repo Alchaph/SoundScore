@@ -24,7 +24,6 @@ public class ArtistController {
     public Artist editArtist(@RequestBody Artist artist) {
         return artistService.editArtist(artist);
     }
-
     @DeleteMapping("/delete/{id}")
     public Artist deleteArtist(@PathVariable Long id) {
         return artistService.deleteArtist(id);

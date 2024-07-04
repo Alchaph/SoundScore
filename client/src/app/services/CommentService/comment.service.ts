@@ -65,8 +65,8 @@ export class CommentService {
     });
 
     comments.forEach(comment => {
-      if (comment.comment) {
-        commentMap[comment.comment.id!].children?.push(comment);
+      if (comment.parent) {
+        commentMap[comment.parent.id!].children?.push(comment);
       } else {
         rootComments.push(comment);
       }

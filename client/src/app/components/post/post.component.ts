@@ -154,7 +154,7 @@ export class PostComponent implements OnInit {
 
   replyToComment(): void {
     if (this.commentService.focusedComment) {
-      this.commentService.newComment.comment = this.commentService.focusedComment;
+      this.commentService.newComment.parent = this.commentService.focusedComment;
       this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
         this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
           this.commentService.comments = this.commentService.buildCommentTree(comments)

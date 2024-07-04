@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {User} from "../../models/User";
 import { Artist } from '../../models/Artist';
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {catchError, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -91,4 +93,8 @@ export class JwtServiceService {
     });
   }
 
+  public emailExists(email: string) {
+    const url = `http://localhost:8080/auth/email-exists/${email}`;
+    return this.http.get<boolean>(url);
+  }
 }
