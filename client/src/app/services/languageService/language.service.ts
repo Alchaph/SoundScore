@@ -37,7 +37,7 @@ export class LanguageService {
 
   }
 
-  public setLanguage(lang: string | undefined) {
+  public setLanguage(lang: string) {
     if (lang) {
       this.setLanguageCookie(lang)
       this.translateService.use(lang);
