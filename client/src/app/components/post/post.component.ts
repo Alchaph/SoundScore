@@ -153,36 +153,21 @@ export class PostComponent implements OnInit {
   }
 
   replyToComment(): void {
-    if (this.commentService.focusedComment) {
-      this.commentService.newComment.parent = this.commentService.focusedComment;
-      this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
-        this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
-          this.commentService.comments = this.commentService.buildCommentTree(comments)
-        )
-      );
-    }
+    this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
+      this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+        this.commentService.comments = this.commentService.buildCommentTree(comments)
+      )
+    );
   }
 
   editComment(): void {
-    if (this.commentService.focusedComment && this.commentService.focusedComment.id) {
-      this.commentService.newComment.id = this.commentService.focusedComment.id;
-      this.commentService.updateComment(this.commentService.newComment).subscribe(updatedComment => {
-        this.commentService.comments = this.updateCommentInTree(this.commentService.comments, updatedComment);
-      });
-    }
-  }
-
-
-  updateCommentInTree(comments: Comment[], updatedComment: Comment): Comment[] {
-    return comments.map(comment => {
-      if (comment.id === updatedComment.id) {
-        return updatedComment;
-      } else if (comment.children) {
-        comment.children = this.updateCommentInTree(comment.children, updatedComment);
-      }
-      return comment;
+    this.commentService.updateComment(this.commentService.newComment).subscribe(updatedComment => {
+      this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+        this.commentService.comments = this.commentService.buildCommentTree(comments)
+      )
     });
   }
+
 
   removeCommentFromTree(comments: Comment[], commentId: number): Comment[] {
     return comments.filter(c => c.id !== commentId).map(c => {
