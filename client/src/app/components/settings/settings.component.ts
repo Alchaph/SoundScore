@@ -57,6 +57,8 @@ export class SettingsComponent implements OnInit {
   email: string = '';
   userName: string = '';
 
+  notOnlyPassword: boolean = true;
+
   private audioContext: AudioContext;
 
   constructor(private jwtService: JwtServiceService, private router: Router) {
@@ -82,11 +84,16 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  onUserSettingsSubmit(): void { //TODO set forms ""
+  onUserSettingsSubmit(): void {
+    if (this.userForm.controls.password.value === '' && this.userForm.controls.confirmPassword.value === '') {
+      this.userForm.controls.password.setValue(this.userForm.controls.oldPassword.value);
+      this.userForm.controls.confirmPassword.setValue(this.userForm.controls.oldPassword.value);
+      this.notOnlyPassword = false;
+    }
     if (this.userForm.invalid) {
       alert('Please fill out all fields')
       return;
-    } else if (this.userForm.value.password === this.userForm.value.oldPassword) {
+    } else if (this.userForm.value.password === this.userForm.value.oldPassword && this.notOnlyPassword) {
       alert('New password cannot be the same as the old password');
       return;
     } else if(this.userForm.value.password !== this.userForm.value.confirmPassword) {
