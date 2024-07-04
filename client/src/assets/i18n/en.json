@@ -22,6 +22,7 @@
     "CREATE_POST": "Create Post about"
   },
   "POST": {
+    "TRANSLATE": "Translate",
     "COMMENTS": "Comments",
     "WRITE_COMMENT": "Write a comment",
     "POST_COMMENT": "Post comment",
@@ -35,10 +36,11 @@
     "CANCEL": "Cancel"
   },
   "USER_SETTINGS": {
-    "USERNAME_HINT": "Your username",
     "TITLE": "User Settings",
     "EMAIL": "Email",
     "EMAIL_HINT": "Your email address",
+    "USERNAME": "Username",
+    "USERNAME_HINT": "Your username",
     "EDIT_ARTIST_BUTTON": "Edit your Artist",
     "OLD_PASSWORD": "Old Password",
     "OLD_PASSWORD_HINT": "Enter to verify your identity",

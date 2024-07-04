@@ -3,7 +3,7 @@
   <button (click)="goBack()" color="primary" mat-button>❮ {{ 'POST_FORM.GO_BACK_BUTTON' | translate }}</button>
   <mat-slide-toggle
     (ngModelChange)="window.localStorage.setItem('translate', JSON.stringify(!this.languageService.translate))"
-    [(ngModel)]="this.languageService.translate">Translate ({{ this.languageService.getLanguage().lang }})
+    [(ngModel)]="this.languageService.translate">{{ 'POST.TRANSLATE' | translate }}
   </mat-slide-toggle>
 </div>
 @if (post) {

@@ -22,6 +22,7 @@
     "CREATE_POST": "🖋️"
   },
   "POST": {
+    "TRANSLATE": "🔤",
     "COMMENTS": "💬",
     "WRITE_COMMENT": "✍️",
     "POST_COMMENT": "📮",
@@ -35,10 +36,11 @@
     "CANCEL": "🚫"
   },
   "USER_SETTINGS": {
-    "USERNAME_HINT": "👤",
     "TITLE": "🛠️",
     "EMAIL": "📧",
     "EMAIL_HINT": "📧",
+    "USERNAME": "👤",
+    "USERNAME_HINT": "👤",
     "EDIT_ARTIST_BUTTON": "🖌️",
     "OLD_PASSWORD": "🔒",
     "OLD_PASSWORD_HINT": "🔒",

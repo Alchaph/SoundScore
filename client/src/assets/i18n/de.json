@@ -22,6 +22,7 @@
     "CREATE_POST": "Erstelle einen Beitrag über"
   },
   "POST": {
+    "TRANSLATE": "Übersetzen",
     "COMMENTS": "Kommentare",
     "WRITE_COMMENT": "Kommentar schreiben",
     "POST_COMMENT": "Kommentar veröffentlichen",
@@ -39,6 +40,7 @@
     "TITLE": "Benutzereinstellungen",
     "EMAIL": "E-Mail",
     "EMAIL_HINT": "Ihre E-Mail-Adresse",
+    "USERNAME": "Benutzername",
     "EDIT_ARTIST_BUTTON": "Künstler bearbeiten",
     "OLD_PASSWORD": "Altes Passwort",
     "OLD_PASSWORD_HINT": "Zur Bestätigung Ihrer Identität eingeben",

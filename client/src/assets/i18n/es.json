@@ -22,6 +22,7 @@
     "CREATE_POST": "Crear publicación sobre"
   },
   "POST": {
+    "TRANSLATE": "Traducir",
     "COMMENTS": "Comentarios",
     "WRITE_COMMENT": "Escribir comentario",
     "POST_COMMENT": "Publicar comentario",
@@ -35,10 +36,11 @@
     "CANCEL": "Cancelar"
   },
   "USER_SETTINGS": {
-    "USERNAME_HINT": "Tu nombre de usuario",
     "TITLE": "Configuración de usuario",
     "EMAIL": "Correo electrónico",
     "EMAIL_HINT": "Tu dirección de correo electrónico",
+    "USERNAME": "Nombre de usuario",
+    "USERNAME_HINT": "Tu nombre de usuario",
     "EDIT_ARTIST_BUTTON": "Editar tu Artista",
     "OLD_PASSWORD": "Contraseña anterior",
     "OLD_PASSWORD_HINT": "Ingresa para verificar tu identidad",

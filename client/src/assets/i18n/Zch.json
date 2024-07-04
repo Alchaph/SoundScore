@@ -22,6 +22,7 @@
     "CREATE_POST": "Post erstellä über"
   },
   "POST": {
+    "TRANSLATE": "Übersetze",
     "COMMENTS": "Kommentär",
     "WRITE_COMMENT": "Kommentär schribä",
     "POST_COMMENT": "Kommentär veröffentliche",
@@ -35,10 +36,11 @@
     "CANCEL": "Abbräche"
   },
   "USER_SETTINGS": {
-    "USERNAME_HINT": "Din Benutzername",
     "TITLE": "Benutzeriistelligä",
     "EMAIL": "E-Mail",
     "EMAIL_HINT": "Dini E-Mail-Adresse",
+    "USERNAME": "Benutzername",
+    "USERNAME_HINT": "Din Benutzername",
     "EDIT_ARTIST_BUTTON": "Din Künschtlär bearbeitä",
     "OLD_PASSWORD": "Alts Passwort",
     "OLD_PASSWORD_HINT": "Iigebä zom diini Identität z'überprüfä",

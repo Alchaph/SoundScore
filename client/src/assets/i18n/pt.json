@@ -22,6 +22,7 @@
     "CREATE_POST": "Criar post sobre"
   },
   "POST": {
+    "TRANSLATE": "Traduzir",
     "COMMENTS": "Comentários",
     "WRITE_COMMENT": "Escrever um comentário",
     "POST_COMMENT": "Publicar comentário",

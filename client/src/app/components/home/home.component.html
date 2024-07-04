@@ -85,7 +85,6 @@
         </mat-list-item>
       </mat-list>
     </mat-expansion-panel>
-    <ng-container>
       @for (str of ['LEADERBOARD.TOP_ARTISTS' | translate, 'LEADERBOARD.TOP_SONGS' | translate, 'LEADERBOARD.TOP_GENRE' | translate]; track str) {
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -120,7 +119,6 @@
           </div>
         </mat-expansion-panel>
       }
-    </ng-container>
   </mat-sidenav-container>
   </body>
 } @else {

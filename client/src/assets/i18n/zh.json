@@ -22,6 +22,7 @@
     "CREATE_POST": "创建发布"
   },
   "POST": {
+    "TRANSLATE": "翻译",
     "COMMENTS": "评论",
     "WRITE_COMMENT": "写评论",
     "POST_COMMENT": "发表评论",
@@ -35,10 +36,11 @@
     "CANCEL": "取消"
   },
   "USER_SETTINGS": {
-    "USERNAME_HINT": "您的用户名",
     "TITLE": "用户设置",
     "EMAIL": "邮箱",
     "EMAIL_HINT": "您的邮箱地址",
+    "USERNAME": "用户名",
+    "USERNAME_HINT": "您的用户名",
     "EDIT_ARTIST_BUTTON": "编辑您的艺术家",
     "OLD_PASSWORD": "旧密码",
     "OLD_PASSWORD_HINT": "输入以验证您的身份",
