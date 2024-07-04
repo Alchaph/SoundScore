@@ -47,12 +47,12 @@ export class LoginComponent implements AfterViewInit, OnInit {
   isRegister: boolean = false;
   registerForm: FormGroup<{
     email: FormControl,
-    userName: FormControl,
+    username: FormControl,
     password: FormControl,
     repeatPassword: FormControl
   }> = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    userName: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     repeatPassword: new FormControl('', [Validators.required]),
   });
@@ -71,17 +71,19 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
+
     this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
-    if (!this.isUsernameLike(this.registerForm.controls.userName.value)) {
-      if (!this.registerForm.controls.userName.valid) {
+    if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
+      if (!this.registerForm.controls.username.valid) {
         alert('Username is not valid');
       } else if (!this.registerForm.controls.email.valid) {
         alert('Email is not valid');
       } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
         alert('Passwords do not match');
+
         console.log(this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe());
       } else if (!data) {
-        this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.userName.value).subscribe(
+        this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
           (data) => {
             this.login();
           });
@@ -94,18 +96,18 @@ export class LoginComponent implements AfterViewInit, OnInit {
   });
   }
 
-  isUsernameLike(userName: string): boolean {
-    return userName.startsWith("An deleted User");
+  isUsernameLike(username: string): boolean {
+    return username.startsWith("An deleted User");
   }
 
   login() {
-    if (!this.registerForm.controls.userName.valid) {
+    if (!this.registerForm.controls.username.valid) {
       alert('Username is not valid');
     } else if (!this.registerForm.controls.password.valid) {
       alert('Password is not valid');
     } else  {
-      console.log(this.registerForm.controls.userName.value, this.registerForm.controls.password.value)
-      this.jwtService.login(this.registerForm.controls.userName.value, this.registerForm.controls.password.value).subscribe((data) => {
+      console.log(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
+      this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
         localStorage.setItem('token', data.token);
         this.router.navigate(['/home']);
       });

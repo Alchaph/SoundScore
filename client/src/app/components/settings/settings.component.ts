@@ -45,7 +45,7 @@ export class SettingsComponent implements OnInit {
     password: FormControl;
     confirmPassword: FormControl;
     email: FormControl;
-    userName: FormControl;
+    username: FormControl;
   }>;
   artist: FormControl<Artist| null | undefined> = new FormControl<Artist | null | undefined>(null, Validators.required)
   hide: boolean = true;
@@ -55,7 +55,7 @@ export class SettingsComponent implements OnInit {
   disabled: boolean = false;
 
   email: string = '';
-  userName: string = '';
+  username: string = '';
 
   notOnlyPassword: boolean = true;
 
@@ -67,7 +67,7 @@ export class SettingsComponent implements OnInit {
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      userName: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
     });
     this.audioContext = new (window.AudioContext)();
   }
@@ -76,11 +76,11 @@ export class SettingsComponent implements OnInit {
     this.jwtService.getMe().subscribe((user: User) => {
       this.userForm.patchValue({
         email: user.email,
-        userName: user.username,
+        username: user.username,
       });
       this.artist.setValue(user.artist)
       this.email = user.email;
-      this.userName = user.username;
+      this.username = user.username;
     });
   }
 
@@ -100,7 +100,7 @@ export class SettingsComponent implements OnInit {
       alert('Passwords do not match');
       return;
     }
-    this.jwtService.verifyPassword(this.userName, this.userForm.value.oldPassword).subscribe((response) => {
+    this.jwtService.verifyPassword(this.username, this.userForm.value.oldPassword).subscribe((response) => {
       console.log(response)
       if (response === false) {
         alert("old Password is incorrect");
@@ -108,19 +108,19 @@ export class SettingsComponent implements OnInit {
       }
       this.jwtService.getMe().subscribe((user: User) => {
         user.email = this.userForm.value.email;
-        user.username = this.userForm.value.userName;
+        user.username = this.userForm.value.username;
         user.password = this.userForm.value.password;
         this.jwtService.updateUsers(user).subscribe((data) =>
         {
           localStorage.clear();
-          this.jwtService.login(this.userForm.controls.userName.value, this.userForm.controls.password.value).subscribe((response) => {
+          this.jwtService.login(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe((response) => {
             localStorage.setItem('token', response.token);
             this.userForm.controls.oldPassword.setValue('');
             this.userForm.controls.password.setValue('');
             this.userForm.controls.confirmPassword.setValue('');
             this.router.navigate(['/home']);
           });
-          this.userName = user.username;
+          this.username = user.username;
           this.email = user.email;
         });
       });
