@@ -134,7 +134,7 @@ export class SettingsComponent implements OnInit {
     const nuke: HTMLElement | null = document.getElementById('nuke');
     const nukeScreen: HTMLElement | null = document.getElementById('nukeScreen');
     if (planeContainer && plane && nuke && nukeScreen) {
-      let audio: HTMLAudioElement = new Audio('assets/sounds/plane.mp3');;
+      let audio: HTMLAudioElement = new Audio('assets/sounds/plane.mp3');
       audio.play();
       planeContainer.style.display = 'block';
       this.fly = true;
