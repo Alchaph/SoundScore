@@ -35,6 +35,7 @@
     "CANCEL": "Abbräche"
   },
   "USER_SETTINGS": {
+    "USERNAME_HINT": "Din Benutzername",
     "TITLE": "Benutzeriistelligä",
     "EMAIL": "E-Mail",
     "EMAIL_HINT": "Dini E-Mail-Adresse",

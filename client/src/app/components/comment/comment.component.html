@@ -6,7 +6,7 @@
     <div [ngStyle]="{'width': 'calc(100% - ' + (level * 20) + 'px)'}" class="comment mat-elevation-z8">
       <div class="comment-content">
         <h3>{{ comment.user.username }}</h3>
-        <p [innerHTML]="comment.message | generictranslate | async"></p>
+        <p [innerHTML]="this.languageService.translate ? (comment.message | generictranslate | async) ?? comment.message : comment.message"></p>
       </div>
       <div class="comment-actions">
         <div class="comment-owner-actions">

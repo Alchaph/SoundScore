@@ -4,7 +4,7 @@
 <body>
   @if (artist) {
     <div class="artist-container">
-      <img [src]="artist?.image" alt="{{'ARTIST_SONGS.NO_IMAGE_ALT' | translate}}">
+      <img [src]="artist.image" alt="{{'ARTIST_SONGS.NO_IMAGE_ALT' | translate}}">
       <h1> {{ 'ARTIST_SONGS.SONGS_TITLE' | translate }} {{ artist.name }}</h1>
     </div>
   }

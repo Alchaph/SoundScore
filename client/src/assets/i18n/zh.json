@@ -35,6 +35,7 @@
     "CANCEL": "取消"
   },
   "USER_SETTINGS": {
+    "USERNAME_HINT": "您的用户名",
     "TITLE": "用户设置",
     "EMAIL": "邮箱",
     "EMAIL_HINT": "您的邮箱地址",

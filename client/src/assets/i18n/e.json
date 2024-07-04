@@ -35,6 +35,7 @@
     "CANCEL": "🚫"
   },
   "USER_SETTINGS": {
+    "USERNAME_HINT": "👤",
     "TITLE": "🛠️",
     "EMAIL": "📧",
     "EMAIL_HINT": "📧",

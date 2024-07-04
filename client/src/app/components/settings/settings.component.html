@@ -17,9 +17,6 @@
           <input formControlName="userName" id="userName" matInput type="userName">
           <mat-hint>{{'USER_SETTINGS.USERNAME_HINT' | translate}}</mat-hint>
         </mat-form-field>
-        @if (artist.value) {
-          <button [routerLink]="'/home/editArtist/' + artist.value?.id" class="full-width" mat-raised-button color="primary">{{'USER_SETTINGS.EDIT_ARTIST_BUTTON' | translate}}</button>
-        }
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{'USER_SETTINGS.OLD_PASSWORD' | translate}}</mat-label>
           <input [type]="hide ? 'password' : 'text'" formControlName="oldPassword" id="oldPassword" matInput>
@@ -38,10 +35,12 @@
           <mat-icon (click)="hide = !hide" matSuffix>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           <mat-hint>{{'USER_SETTINGS.RETYPE_PASSWORD_HINT' | translate}}</mat-hint>
         </mat-form-field>
-
         <div class="button-container">
           <button color="primary" mat-raised-button type="submit">{{'USER_SETTINGS.SAVE_BUTTON' | translate}}</button>
         </div>
+        @if (artist.value) {
+          <button [routerLink]="'/home/editArtist/' + artist.value.id" class="full-width" mat-raised-button color="primary">{{'USER_SETTINGS.EDIT_ARTIST_BUTTON' | translate}}</button>
+        }
       </form>
     </div>
   </mat-tab>
