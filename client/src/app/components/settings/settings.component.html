@@ -39,7 +39,7 @@
           <button color="primary" mat-raised-button type="submit">{{'USER_SETTINGS.SAVE_BUTTON' | translate}}</button>
         </div>
         @if (artist.value) {
-          <button [routerLink]="'/home/editArtist/' + artist.value?.id" class="full-width" mat-raised-button color="primary">{{'USER_SETTINGS.EDIT_ARTIST_BUTTON' | translate}}</button>
+          <button [routerLink]="'/home/editArtist/' + artist.value.id" class="full-width" mat-raised-button color="primary">{{'USER_SETTINGS.EDIT_ARTIST_BUTTON' | translate}}</button>
         }
       </form>
     </div>
