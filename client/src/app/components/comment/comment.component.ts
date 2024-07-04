@@ -43,8 +43,7 @@ export class CommentComponent {
 
   setReplyComment(comment: Comment): void {
     this.commentService.currentAction = 'Reply to';
-    this.commentService.focusedComment = comment;
-    this.commentService.newComment = {} as Comment;
+    this.commentService.newComment = {message: this.commentService.newComment.message, parent: comment} as Comment;
   }
 
   deleteComment(comment: Comment): void {
