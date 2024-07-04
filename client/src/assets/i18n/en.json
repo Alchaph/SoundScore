@@ -144,5 +144,8 @@
         "EDIT": "edit"
       }
     }
+  },
+  "SEARCH": {
+    "SEARCH_BAR": "Search"
   }
 }
