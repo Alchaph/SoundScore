@@ -16,9 +16,9 @@
     }
     <div class="posts-container">
       @for (song of artistSongs; track $index) {
-        <div class="post-card" mat-line (click)="openLink(song?.link)">
+        <div class="post-card" mat-line>
           @if (song.image) {
-            <img [src]="song.image" alt="{{song.title}}" class="post-image">
+            <img (click)="openLink(song?.link)" [src]="song.image" alt="{{song.title}}" class="post-image">
           }
           <div class="post-content">
             <h3 >{{ song.title }}
