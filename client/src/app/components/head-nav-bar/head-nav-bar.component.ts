@@ -83,7 +83,12 @@ export class HeadNavBarComponent implements OnInit {
     });
   }
 
-
+  refresh(){
+    console.log(window.location.href);
+    if(window.location.href === 'http://localhost:4200/home') {
+      window.location.reload();
+    }
+  }
 
   reload() {
     this.router.navigate(['/home/usersPosts/', this.userId]).then(() => {
