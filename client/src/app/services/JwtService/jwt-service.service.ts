@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {User} from "../../models/User";
 import { Artist } from '../../models/Artist';
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {catchError, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +21,7 @@ export class JwtServiceService {
   }
 
   public register(email: string, password: string, userName: string) {
-    console.log(email, password, userName)
-    return this.http.post('http://localhost:8080/auth/signup', {
+    return this.http.post<User>('http://localhost:8080/auth/signup', {
       email: email,
       password: password,
       userName: userName
@@ -89,6 +90,11 @@ export class JwtServiceService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     });
+  }
+
+  public emailExists(email: string) {
+    const url = `http://localhost:8080/auth/email-exists/${email}`;
+    return this.http.get<boolean>(url);
   }
 
 }

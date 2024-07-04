@@ -53,4 +53,8 @@ public class AuthenticationService {
         User user = userRepository.findByUsername(userName).orElseThrow();
         return passwordEncoder.matches(password, user.getPassword());
     }
+
+    public boolean emailExists(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
 }
