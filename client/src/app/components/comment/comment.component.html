@@ -1,6 +1,6 @@
 <div>
   <div class="comment-section">
-    @if (comment.comment) {
+    @if (comment.parent) {
       <mat-icon [ngStyle]="{'margin-left': ((level-1) * 20) + 'px'}">subdirectory_arrow_right</mat-icon>
     }
     <div [ngStyle]="{'width': 'calc(100% - ' + (level * 20) + 'px)'}" class="comment mat-elevation-z8">

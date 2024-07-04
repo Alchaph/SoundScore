@@ -5,9 +5,8 @@ export interface Comment {
   id?: number;
   title: string;
   message: string;
-  comment?: Comment;
+  parent?: Comment;
   children?: Comment[];
-  level?: number;
   post: Post;
   user: User;
 }

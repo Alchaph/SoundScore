@@ -53,8 +53,8 @@ export class CommentComponent {
         comment.children.forEach(c => this.deleteComment(c))
       } else {
         this.commentService.deleteComment(comment.id).subscribe(c => {
-          if (comment.id !== this.baseId && comment.comment) {
-            this.deleteComment(comment.comment)
+          if (comment.id !== this.baseId && comment.parent) {
+            this.deleteComment(comment.parent)
           } else {
             this.commentService.getCommentsOfPost(comment.post.id ?? 0).subscribe((comments) => {
                 this.commentService.comments = this.commentService.buildCommentTree(comments)
