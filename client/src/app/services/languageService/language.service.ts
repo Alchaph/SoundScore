@@ -16,12 +16,6 @@ export class LanguageService {
     'Authorization': 'Bearer 6eaddab8e75f4cba4d49499427ebce8e'
   });
 
-  private translateHeaders = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'x-rapidapi-host': 'rapid-translate-multi-traduction.p.rapidapi.com',
-    'x-rapidapi-key': '72535574c3mshb71887087915f24p158664jsnf5ca22245d49'
-  });
-
   constructor(private translateService: TranslateService, private http: HttpClient) {
     this.initializeTranslationSettings();
   }
@@ -34,7 +28,6 @@ export class LanguageService {
     let lang: Lang = this.getLanguage();
     this.translateService.addLangs(environment.languages);
     this.translateService.use(lang.lang);
-
   }
 
   public setLanguage(lang: string) {
@@ -42,7 +35,6 @@ export class LanguageService {
       this.setLanguageCookie(lang)
       this.translateService.use(lang);
     }
-
   }
 
   translateText(text: string) {
@@ -53,11 +45,11 @@ export class LanguageService {
     ).pipe(
       map(response => response.data.detections[0].language),
       switchMap(from => {
-        if (from === "en") {
+        if (from === "en" || this.getLanguage().lang === "en") {
           return this.http.post<{
             translatedText: string
           }>(this.translateApiUrl, {
-              source: 'en',
+              source: from,
               target: this.getLanguage().lang,
               q: text
             },
