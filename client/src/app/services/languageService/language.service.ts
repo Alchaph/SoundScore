@@ -87,10 +87,8 @@ export class LanguageService {
 
   setLanguageCookie(lang: string): void {
     const date = new Date();
-    // Set it expire in 7 days
     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
     const expires = "; expires=" + date.toUTCString();
-    // Set the cookie to the lang value with the expiry date
     document.cookie = "lang=" + lang + expires + "; path=/";
   }
 
