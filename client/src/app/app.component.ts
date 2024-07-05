@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit() {
-    let lang: Lang = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
+    let lang: Lang = this.languageService.getLanguage();
     if (lang.lang) {
       this.languageService.setLanguage(lang.lang);
     } else {
