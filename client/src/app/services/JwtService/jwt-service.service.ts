@@ -44,15 +44,15 @@ export class JwtServiceService {
   }
 
   public updateUser(artist: Artist): Observable<User> {
-    return this.http.put<User>(environment.url + '/users/update-user', artist, environment.options);
+    return this.http.put<User>(environment.url + '/users/register-artist', artist, environment.options);
   }
 
   public updateUsers(user: User): Observable<User> {
-    return this.http.put<User>(environment.url + '/users/updateUser', user, environment.options);
+    return this.http.put<User>(environment.url + '/users', user, environment.options);
   }
 
   public deleteMe(): Observable<User> {
-    return this.http.delete<User>(environment.url + '/users/delete', environment.options);
+    return this.http.delete<User>(environment.url + '/users', environment.options);
   }
 
   public emailExists(email: string): Observable<boolean> {

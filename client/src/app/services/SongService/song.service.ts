@@ -13,19 +13,18 @@ export class SongService {
   }
 
   createSong(song: Song): Observable<Song> {
-    return this.http.post<Song>(environment.url + '/songs/create', environment.options);
-
+    return this.http.post<Song>(environment.url + '/songs', environment.options);
   }
 
   deleteSong(id: number): Observable<Song> {
-    return this.http.delete<Song>(environment.url + '/songs/delete/' + id, environment.options);
+    return this.http.delete<Song>(environment.url + '/songs/' + id, environment.options);
   }
 
   getSongs(): Observable<Song[]> {
-    return this.http.get<Song[]>(environment.url + '/songs/get/all', environment.options);
+    return this.http.get<Song[]>(environment.url + '/songs/all', environment.options);
   }
 
   getSong(id: number): Observable<Song> {
-    return this.http.get<Song>(environment.url + '/songs/get/' + id, environment.options);
+    return this.http.get<Song>(environment.url + '/songs/' + id, environment.options);
   }
 }

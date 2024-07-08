@@ -14,22 +14,22 @@ export class ArtistService {
   }
 
   createArtist(artist: Artist): Observable<Artist> {
-    return this.http.post<Artist>(environment.url + '/artist/create', artist, environment.options);
+    return this.http.post<Artist>(environment.url + '/artist', artist, environment.options);
   }
 
   updateArtist(artist: Artist): Observable<Artist> {
-    return this.http.put<Artist>(environment.url + '/artist/edit', artist, environment.options)
+    return this.http.put<Artist>(environment.url + '/artist', artist, environment.options)
   }
 
   deleteArtist(id: number): Observable<Artist> {
-    return this.http.delete<Artist>(environment.url + '/artist/delete/' + id, environment.options);
+    return this.http.delete<Artist>(environment.url + '/artist/' + id, environment.options);
   }
 
   getArtists(): Observable<Artist[]> {
-    return this.http.get<Artist[]>(environment.url + '/artist/get/all', environment.options);
+    return this.http.get<Artist[]>(environment.url + '/artist/all', environment.options);
   }
 
   getArtist(id: number): Observable<Artist> {
-    return this.http.get<Artist>(environment.url + '/artist/get/' + id, environment.options);
+    return this.http.get<Artist>(environment.url + '/artist/' + id, environment.options);
   }
 }

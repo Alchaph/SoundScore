@@ -17,22 +17,22 @@ export class CommentService {
   }
 
   createComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(environment.url + '/comments/create', comment, environment.options);
+    return this.http.post<Comment>(environment.url + '/comments', comment, environment.options);
 
   }
 
   updateComment(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(environment.url + '/comments/edit', comment, environment.options)
+    return this.http.put<Comment>(environment.url + '/comments', comment, environment.options)
 
   }
 
   deleteComment(id: number): Observable<Comment> {
-    return this.http.delete<Comment>(environment.url + '/comments/delete/' + id, environment.options);
+    return this.http.delete<Comment>(environment.url + '/comments/' + id, environment.options);
 
   }
 
   getCommentsOfPost(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(environment.url + '/comments/get/commentsByPostId/' + postId, environment.options);
+    return this.http.get<Comment[]>(environment.url + '/comments/commentsByPostId/' + postId, environment.options);
   }
 
   buildCommentTree(comments: Comment[]): Comment[] {
