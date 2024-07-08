@@ -60,13 +60,13 @@
     @for (comment of commentService.comments; track comment) {
       <app-comment [comment]="comment" [activeUser]="activeUser"></app-comment>
     }
-    <div class="comment-form">
-      <h3>{{ 'POST_FORM.' + commentService.currentAction | translate }} {{ 'POST_FORM.COMMENT' | translate }}</h3>
-      <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="commentService.newComment.message"></textarea>
-      <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
-      @if (commentService.currentAction !== 'Add') {
-        <button (click)="resetAction()">{{ 'POST.CANCEL' | translate }}</button>
-      }
-    </div>
+      <div class="comment-form">
+        <h3>{{ 'POST_FORM.' + commentService.currentAction | translate }} {{ 'POST_FORM.COMMENT' | translate }}</h3>
+        <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="commentService.newComment.message"></textarea>
+        <button (click)="handleAction()" >{{ 'POST.SUBMIT' | translate }}</button>
+        @if (commentService.currentAction !== 'Add') {
+          <button (click)="resetAction()">{{ 'POST.CANCEL' | translate }}</button>
+        }
+      </div>
   </div>
 }

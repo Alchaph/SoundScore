@@ -17,6 +17,8 @@ import {CommentComponent} from "../comment/comment.component";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 import {LanguageService} from "../../services/languageService/language.service";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-post',
@@ -39,6 +41,8 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
     MatButtonToggleGroup,
     MatButtonToggle,
     MatSlideToggle,
+    MatFormField,
+    MatInput,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'

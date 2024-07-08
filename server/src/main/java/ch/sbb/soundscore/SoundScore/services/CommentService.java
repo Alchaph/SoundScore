@@ -36,3 +36,4 @@ public class CommentService {
         return commentRepository.findAllBypost(postId);
     }
 }
+

@@ -11,11 +11,9 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
 import {TranslateModule} from "@ngx-translate/core";
 import {Post} from "../../models/Post";
 import {Song} from "../../models/Song";
-import {Genre} from "../../models/Genre";
 import {Artist} from "../../models/Artist";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {PostService} from "../../services/PostService/post.service";
-import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
@@ -67,7 +65,6 @@ export class SearchComponent implements OnInit{
   users: User[] = [];
   songs: Song[] = [];
   artists: Artist[] = [];
-  selectedFilters: 'user' | 'post' | 'song' | 'artist' | 'all' = 'all';
   isMobile: boolean = false;
   combinedList: CombinedType[] = [];
   searchTerm: string = '';
@@ -102,14 +99,6 @@ export class SearchComponent implements OnInit{
         console.log('All observables completed');
       }
     });
-  }
-
-  keepMenuOpen(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
-  handlePanelClick(event: MouseEvent) {
-    event.stopPropagation();
   }
 
   openLink(event: MouseEvent, link: string) {
