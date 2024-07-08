@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, Subscriber, TeardownLogic} from "rxjs";
+import {Observable} from "rxjs";
 import {LoaderService} from "../../services/LoaderService/loader.service";
 import {AsyncPipe} from "@angular/common";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
@@ -13,23 +13,22 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss'
 })
-export class LoaderComponent implements OnInit, AfterViewInit{
+export class LoaderComponent implements OnInit, AfterViewInit {
 
-  isLoading: Observable<boolean> = new Observable<boolean>();
+  protected isLoading: Observable<boolean> = new Observable<boolean>();
 
 
   constructor(private loaderService: LoaderService) {
   }
 
-    ngOnInit() {
-      this.isLoading = this.loaderService.getIsLoading();
-    }
+  ngOnInit() {
+    this.isLoading = this.loaderService.getIsLoading();
+  }
 
-  ngAfterViewInit()
-  {
+  ngAfterViewInit() {
     const bg: HTMLCanvasElement = document.getElementById("bg") as HTMLCanvasElement;
     if (bg) {
-      const neat:NeatGradient = new NeatGradient({
+      const neat: NeatGradient = new NeatGradient({
         ref: bg,
         ...config
       });
@@ -37,6 +36,7 @@ export class LoaderComponent implements OnInit, AfterViewInit{
   }
 
 }
+
 export const config: NeatConfig = {
   "colors": [
     {

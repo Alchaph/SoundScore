@@ -55,43 +55,40 @@ public class PostService {
         return post;
     }
 
+
     public boolean likeOrDislikePost(Long id, boolean like, User user) {
-        boolean added = false;
+        boolean added;
         Post post = postRepository.findById(id).orElseThrow();
-        post.setDislikes(this.likeOrDislikeRepository.countDislikesByPostId(id));
-        post.setLikes(this.likeOrDislikeRepository.countLikesByPostId(id));
         if (like) {
-            if (post.getLikes() != null) {
-                if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user)) {
-                    likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsTrue(post, user);
-                    post.setLikes(post.getLikes() - 1);
-                } else {
-                    likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
-                    added = true;
-                    post.setLikes(post.getLikes() + 1);
-                }
-            } else {
-                likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
-                added = true;
-                post.setLikes(1L);
-            }
+            added = handleLike(post, user);
         } else {
-            if (post.getDislikes() != null) {
-                if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
-                    likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
-                    post.setDislikes(post.getDislikes() - 1);
-                } else {
-                    likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
-                    added = true;
-                    post.setDislikes(post.getDislikes() + 1);
-                }
-            } else {
-                added = true;
-                likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
-                post.setDislikes(1L);
-            }
+            added = handleDislike(post, user);
+        }return added;
+    }
+
+    private boolean handleLike(Post post, User user) {
+        boolean added = false;
+        if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user)) {
+            likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsTrue(post, user);
+            post.setLikes(post.getLikes() - 1);
+        } else {
+            likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
+            added = true;
+            post.setLikes(post.getLikes() + 1);
         }
-        postRepository.save(post);
+        return added;
+    }
+
+    private boolean handleDislike(Post post, User user) {
+        boolean added = false;
+        if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
+            likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
+            post.setDislikes(post.getDislikes() - 1);
+        } else {
+            likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
+            added = true;
+            post.setDislikes(post.getDislikes() + 1);
+        }
         return added;
     }
 
