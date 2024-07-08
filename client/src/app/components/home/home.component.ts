@@ -48,6 +48,8 @@ import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
+import {HomeMobileComponent} from "./home-mobile/home-mobile.component";
+import {HomeService} from "../../services/HomeService/home.service";
 
 export interface TreeNode {
   name: string;
@@ -105,7 +107,8 @@ export interface TreeNode {
     MatTreeNodeOutlet,
     MatSelect,
     MatOption,
-    TranslateModule
+    TranslateModule,
+    HomeMobileComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -113,16 +116,12 @@ export interface TreeNode {
 })
 
 export class HomeComponent implements OnInit {
-  protected posts: Post[] = [];
-  protected topSongs: Song[] = [];
-  protected topGenres: Genre[] = [];
-  protected topArtists: Artist[] = [];
-  protected isMobile: boolean = false;
-  protected readonly window: Window = window;
-  protected selectedFilters?: 'genre' | 'song' | 'artist';
 
-  constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
-  }
+  isMobile: boolean = false;
+  protected readonly window: Window = window;
+  selectedFilters?: 'genre' | 'song' | 'artist';
+
+  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     this.breakpointObserver.observe([
@@ -130,18 +129,6 @@ export class HomeComponent implements OnInit {
       Breakpoints.Small
     ]).subscribe(result => {
       this.isMobile = result.matches;
-    });
-    this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
-      this.topGenres = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
-      this.topArtists = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      this.topSongs = data.reverse();
     });
   }
 
@@ -153,7 +140,6 @@ export class HomeComponent implements OnInit {
   handlePanelClick(event: MouseEvent) {
     event.stopPropagation();
   }
-
   openLink(event: MouseEvent, link: string) {
     event.stopPropagation();
     window.open(link, '_blank');
