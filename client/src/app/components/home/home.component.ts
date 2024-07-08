@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButtonToggle} from "@angular/material/button-toggle";
 import {MatIcon} from "@angular/material/icon";
@@ -108,7 +108,8 @@ export interface TreeNode {
     TranslateModule
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class HomeComponent implements OnInit {
