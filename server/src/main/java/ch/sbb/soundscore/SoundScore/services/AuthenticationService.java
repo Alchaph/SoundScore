@@ -4,6 +4,8 @@ import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,16 +15,36 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserRepository userRepository;
 
+    private final OTPService otpService;
+    private final JavaMailSender mailSender;
+
 
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
+    public boolean authenticateWithOTP(String username) {
+        String otp = otpService.generateOTP(username);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(username);
+        message.setSubject("Your 2FA Code");
+        message.setText("Your Code is " + otp);
+        mailSender.send(message);
+        return true;
+    }
+
+    public boolean verifyOTP(String username, String otp) {
+        return otpService.validateOTP(username, otp);
+    }
+
+
     public AuthenticationService(
-            UserRepository userRepository,
+            UserRepository userRepository, OTPService otpService, JavaMailSender mailSender,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder
     ) {
+        this.otpService = otpService;
+        this.mailSender = mailSender;
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -38,7 +60,6 @@ public class AuthenticationService {
     }
 
     public User authenticate(LoginUserDto input) {
-        System.out.println(input.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getUsername(),
@@ -56,5 +77,10 @@ public class AuthenticationService {
 
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public String getUsernameByEmail(String email) {
+        System.out.println(userRepository.findByEmail(email).map(User::getUsername).orElseThrow());
+        return userRepository.findByEmail(email).map(User::getUsername).orElseThrow();
     }
 }

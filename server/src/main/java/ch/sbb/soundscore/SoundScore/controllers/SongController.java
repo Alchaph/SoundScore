@@ -27,7 +27,6 @@ public class SongController {
 
     @DeleteMapping("/delete/{id}")
     public Song deleteSong(@PathVariable Long id) {
-        System.out.println("deleteSong");
         return songService.deleteSong(id);
     }
 

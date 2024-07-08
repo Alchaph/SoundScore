@@ -1,9 +1,7 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
 
-import ch.sbb.soundscore.SoundScore.dtos.LoginResponse;
-import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
-import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
+import ch.sbb.soundscore.SoundScore.dtos.*;
 
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
@@ -42,7 +40,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @PostMapping("/verify-password")
+    @PostMapping("/verify/password")
     public ResponseEntity<Boolean> verifyPassword(@RequestBody LoginUserDto user) {
         return ResponseEntity.ok(authenticationService.verifyPassword(user.getUsername(), user.getPassword()));
     }
@@ -51,5 +49,21 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> emailExists(@PathVariable String email) {
         return ResponseEntity.ok(authenticationService.emailExists(email));
     }
+    @PostMapping("/authenticate")
+    public boolean authenticate(@RequestBody EmailDTO user) {
+        return authenticationService.authenticateWithOTP(user.getEmail());
+    }
+
+    @PostMapping("/verify/Otp")
+    public boolean verify(@RequestBody Verification verification) {
+        return authenticationService.verifyOTP(verification.getUserName(), verification.getOtp());
+    }
+
+    @GetMapping("/username/by/email/{email}")
+    public ResponseEntity<String> getUsernameByEmail(@PathVariable String email) {
+        System.out.println(email);
+        return ResponseEntity.ok(authenticationService.getUsernameByEmail(email));
+    }
+
 }
 

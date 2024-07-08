@@ -4,6 +4,7 @@ import {User} from "../../models/User";
 import { Artist } from '../../models/Artist';
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {catchError, throwError} from "rxjs";
+import {Verification} from "../../models/Verification";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,6 @@ export class JwtServiceService {
   }
 
   public register(email: string, password: string, username: string) {
-    console.log(email, password, username)
     return this.http.post('http://localhost:8080/auth/signup', {
       email: email,
       password: password,
@@ -29,40 +29,37 @@ export class JwtServiceService {
     });
   }
 
-  public getUsers() {
-    return this.http.get<User[]>('http://localhost:8080/users/', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
+  public authenticate(email: string) {
+    return this.http.post<boolean>('http://localhost:8080/auth/authenticate', {
+      email: email
     });
   }
 
-  public getMe() {
-    return this.http.get<User>('http://localhost:8080/users/me', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
+  public verify(verification: Verification) {
+    return this.http.post<boolean>('http://localhost:8080/auth/verify/Otp', {
+      username: verification.username,
+      otp: verification.otp
     });
+  }
+
+  public getUsers() {
+    return this.http.get<User[]>('http://localhost:8080/users/');
+  }
+
+  public getMe() {
+    return this.http.get<User>('http://localhost:8080/users/me');
   }
 
   public verifyPassword(username: string, password: string) {
     console.log(username, password)
-    return this.http.post('http://localhost:8080/auth/verify-password', {
+    return this.http.post('http://localhost:8080/auth/verify/password', {
       username: username,
       password: password
-    }, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
     });
   }
 
   public updateUser(artist: Artist) {
-    return this.http.put<User>('http://localhost:8080/users/update-user', artist, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.put<User>('http://localhost:8080/users/update-user', artist);
   }
   public updateUsers(user: User) {
     return this.http.put<User>('http://localhost:8080/users/updateUser', {
@@ -78,23 +75,21 @@ export class JwtServiceService {
       accountNonLocked: user.accountNonLocked,
       credentialsNonExpired: user.credentialsNonExpired,
       accountNonExpired: user.accountNonExpired
-    }, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
     });
   }
 
   public deleteMe() {
-    return this.http.delete<User>('http://localhost:8080/users/delete', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.delete<User>('http://localhost:8080/users/delete');
   }
 
   public emailExists(email: string) {
     const url = `http://localhost:8080/auth/email-exists/${email}`;
     return this.http.get<boolean>(url);
+  }
+
+  public getUsernameByEMail(email: string) {
+    const url = `http://localhost:8080/auth/username/by/email/${email}`;
+    console.log(url)
+    return this.http.get<string>(url);
   }
 }

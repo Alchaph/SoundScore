@@ -13,15 +13,19 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @NoArgsConstructor
 public class LikeOrDislike {
+
     @Id
     @GeneratedValue
     private Long id;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
     private boolean isLike;
 
     public LikeOrDislike(Post post, User user, boolean isLike) {
