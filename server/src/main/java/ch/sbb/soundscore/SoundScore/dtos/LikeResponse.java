@@ -1,5 +1,9 @@
 package ch.sbb.soundscore.SoundScore.dtos;
 
+
+import lombok.Data;
+
+@Data
 public class LikeResponse {
     private boolean liked;
     private boolean alreadyLikedOrDisliked;
