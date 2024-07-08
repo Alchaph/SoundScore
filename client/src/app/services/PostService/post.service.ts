@@ -12,23 +12,23 @@ export class PostService {
   }
 
   createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(environment.url + '/posts/create', post, environment.options);
+    return this.http.post<Post>(environment.url + '/posts', post, environment.options);
   }
 
   updatePost(post: Post): Observable<Post> {
-    return this.http.put<Post>(environment.url + '/posts/edit', post, environment.options);
+    return this.http.put<Post>(environment.url + '/posts', post, environment.options);
   }
 
   deletePost(id: number): Observable<Post> {
-    return this.http.delete<Post>(environment.url + '/posts/delete/' + id, environment.options);
+    return this.http.delete<Post>(environment.url + '/posts/' + id, environment.options);
   }
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(environment.url + '/posts/get/all', environment.options);
+    return this.http.get<Post[]>(environment.url + '/posts/all', environment.options);
   }
 
   getPost(id: number): Observable<Post> {
-    return this.http.get<Post>(environment.url + '/posts/get/' + id, environment.options);
+    return this.http.get<Post>(environment.url + '/posts/' + id, environment.options);
   }
 
   likeOrDislikePost(post: Post, like: boolean): Observable<Object> {
@@ -42,6 +42,6 @@ export class PostService {
     return this.http.get<{
       liked: boolean,
       alreadyLikedOrDisliked: boolean
-    }>(environment.url + '/posts/get/liked/' + postId, environment.options);
+    }>(environment.url + '/posts/likes/' + postId, environment.options);
   }
 }

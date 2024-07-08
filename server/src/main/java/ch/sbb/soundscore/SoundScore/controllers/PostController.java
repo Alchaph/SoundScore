@@ -20,25 +20,25 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public List<Post> allPosts() {
         return this.postService.allPosts();
     }
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Post getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
-    @PostMapping("/create")
+    @PostMapping("")
     public Post newPost(@RequestBody Post post) {
         return postService.newPost(post);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("")
     public Post editPost(@RequestBody Post post) {
         return postService.editPost(post);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Post deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
     }
@@ -50,7 +50,7 @@ public class PostController {
         return postService.likeOrDislikePost(id, like, currentUser);
     }
 
-    @GetMapping("/get/liked/{id}")
+    @GetMapping("/likes/{id}")
     public String hasLikedOrDisliked(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();

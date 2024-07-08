@@ -15,28 +15,28 @@ public class    CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public Comment createComment(@RequestBody Comment comment) {
         return commentService.createComment(comment);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Comment deleteComment(@PathVariable Long id) {
         commentService.baseId = id;
         return commentService.deleteComment(id);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("")
     public Comment updateComment(@RequestBody Comment comment) {
         return commentService.editComment(comment);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Comment getComment(@PathVariable Long id) {
         return commentService.getCommentById(id);
     }
 
-    @GetMapping("/get/commentsByPostId/{postId}")
+    @GetMapping("/commentsByPostId/{postId}")
     public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
         return commentService.getCommentsByPostId(postId);
     }
