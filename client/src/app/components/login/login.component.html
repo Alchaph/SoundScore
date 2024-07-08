@@ -35,7 +35,7 @@
             </div>
         }
         }
-        @if (forgotPassword) {
+        @if (forgotPassword || TwoFA) {
           <div class="input-group">
             <input required="" type="text" formControlName="otp" name="text" autocomplete="off" class="input">
             <label class="user-label">{{'LOGIN.FORM.OTP' | translate}}</label>
@@ -66,7 +66,7 @@
           </button>
           <p (click)="forgotPasswordEmail = false" style="padding-top: 15px">Back</p>
         }
-        @if (forgotPassword) {
+        @if (forgotPassword || TwoFA) {
           <button type="button" [disabled]="registerForm.controls.otp.invalid" (click)="verifyOtp()">
             <span>Weiter Otp</span>
             <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
