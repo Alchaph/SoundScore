@@ -69,6 +69,12 @@ export class JwtServiceService {
     return this.http.get<string>(url);
   }
 
+  public getEMailByUsername(username: string) {
+    const url = `http://localhost:8080/auth/email/by/username/${username}`;
+    console.log(url)
+    return this.http.get<string>(url);
+  }
+
   public authenticate(email: string): Observable<Verification> {
     return this.http.post<Verification>(environment.url + '/auth/authenticate', {
       email: email

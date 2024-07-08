@@ -116,18 +116,33 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else  {
       console.log(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
+        this.username = this.registerForm.controls.username.value;
         localStorage.setItem('token', data.token);
-        this.router.navigate(['/home']);
+        this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
+          this.email = data;
+          this.TwoFA = true;
+        });
       });
     }
+  }
+
+  verifyOtp() {
+    this.jwtService.verify({username: this.username, otp: this.registerForm.controls.otp.value}).subscribe((data) => {
+      if (data && this.TwoFA) {
+        this.router.navigate(['/home']);
+      } else if (data) {
+        this.forgotPassword = false;
+        this.newPassword = true;
+      } else {
+        alert('OTP is incorrect');
+      }
+    });
   }
 
   verifyEmail() {
     this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
       console.log(data)
       if (data) {
-        // console.log(this.registerForm.controls.email.value)
-
         this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data) => {
           console.log("Hallo", data);
           this.email = this.registerForm.controls.email.value;
@@ -148,17 +163,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
         alert('OTP has been resent');
       } else {
         alert('Could not resend OTP');
-      }
-    });
-  }
-
-  verifyOtp() {
-    this.jwtService.verify({username: this.username, otp: this.registerForm.controls.otp.value}).subscribe((data) => {
-      if (data) {
-        this.forgotPassword = false;
-        this.newPassword = true;
-      } else {
-        alert('OTP is incorrect');
       }
     });
   }

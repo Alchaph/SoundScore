@@ -61,9 +61,12 @@ public class AuthenticationController {
 
     @GetMapping("/username/by/email/{email}")
     public ResponseEntity<String> getUsernameByEmail(@PathVariable String email) {
-        System.out.println(email);
         return ResponseEntity.ok(authenticationService.getUsernameByEmail(email));
     }
 
+    @GetMapping("/email/by/username/{username}")
+    public ResponseEntity<String> getEmailByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(authenticationService.getEmailByUsername(username));
+    }
 }
 

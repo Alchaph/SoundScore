@@ -80,7 +80,10 @@ public class AuthenticationService {
     }
 
     public String getUsernameByEmail(String email) {
-        System.out.println(userRepository.findByEmail(email).map(User::getUsername).orElseThrow());
         return userRepository.findByEmail(email).map(User::getUsername).orElseThrow();
+    }
+
+    public String getEmailByUsername(String username) {
+        return userRepository.findByUsername(username).map(User::getEmail).orElseThrow();
     }
 }
