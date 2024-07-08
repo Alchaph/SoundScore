@@ -19,7 +19,7 @@ public class CommentService {
     }
 
     public Comment deleteComment(Long id) {
-        Comment comment = commentRepository.findById(id).orElse(null);
+        Comment comment = commentRepository.findById(id).orElseThrow();
         this.commentRepository.deleteById(id);
         return comment;
     }
@@ -29,7 +29,7 @@ public class CommentService {
     }
 
     public Comment getCommentById(Long id) {
-        return commentRepository.findById(id).orElse(null);
+        return commentRepository.findById(id).orElseThrow();
     }
 
     public List<Comment> getCommentsByPostId(Long postId) {

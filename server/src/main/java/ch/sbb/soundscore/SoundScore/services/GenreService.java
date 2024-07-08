@@ -26,15 +26,13 @@ public class GenreService {
     }
 
     public Genre deleteGenre(Long id) {
-        Genre genre = genreRepository.findById(id).orElse(null);
-        if (genre != null) {
-            genreRepository.delete(genre);
-        }
+        Genre genre = genreRepository.findById(id).orElseThrow();
+        genreRepository.delete(genre);
         return genre;
     }
 
     public Genre getGenreById(Long id) {
-        return genreRepository.findById(id).orElse(null);
+        return genreRepository.findById(id).orElseThrow();
     }
 
     public List<Genre> getAllGenres() {

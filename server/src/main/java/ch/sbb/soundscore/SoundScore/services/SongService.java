@@ -20,10 +20,8 @@ public class SongService {
     }
 
     public Song deleteSong(Long id) {
-        Song song = songRepository.findById(id).orElse(null);
-        if (song != null) {
-            songRepository.delete(song);
-        }
+        Song song = songRepository.findById(id).orElseThrow();
+        songRepository.delete(song);
         return song;
     }
 
@@ -32,7 +30,7 @@ public class SongService {
     }
 
     public Song getSongById(Long id) {
-        return songRepository.findById(id).orElse(null);
+        return songRepository.findById(id).orElseThrow();
     }
 
     public List<Song> getAllSongs() {
