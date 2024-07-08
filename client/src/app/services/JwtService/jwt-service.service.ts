@@ -68,4 +68,14 @@ export class JwtServiceService {
     console.log(url)
     return this.http.get<string>(url);
   }
+
+  public authenticate(email: string): Observable<Verification> {
+    return this.http.post<Verification>(environment.url + '/auth/authenticate', {
+      email: email
+    });
+  }
+
+  public verify(verification: Verification): Observable<boolean> {
+    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {verification});
+  }
 }
