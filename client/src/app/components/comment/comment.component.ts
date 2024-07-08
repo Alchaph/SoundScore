@@ -25,11 +25,11 @@ import {LanguageService} from "../../services/languageService/language.service";
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent {
-  @Input() comment: Comment = {} as Comment;
-  @Input() activeUser: User = {} as User;
-  @Input() level: number = 0;
-  @Input() postId: number = 0;
-  baseId = 0;
+  @Input() protected comment: Comment = {} as Comment;
+  @Input() protected activeUser: User = {} as User;
+  @Input() protected level: number = 0;
+  @Input() protected postId: number = 0;
+  protected baseId = 0;
 
   constructor(private commentService: CommentService, protected languageService: LanguageService) {
   }

@@ -34,10 +34,10 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './artist-profile.component.scss'
 })
 export class ArtistProfileComponent {
-  user: User | undefined;
-  artist: Artist | undefined;
-  artistSongs: Song[] = [];
-  artistId: number | undefined;
+  protected user: User | undefined;
+  protected artist: Artist | undefined;
+  protected artistSongs: Song[] = [];
+  protected artistId: number | undefined;
 
   constructor(
     private jwtService: JwtServiceService,
@@ -54,9 +54,11 @@ export class ArtistProfileComponent {
       window.open(link, '_blank');
     }
   }
+
   goBack() {
     this.location.back();
   }
+
   deleteSong(id: number) {
     this.songService.deleteSong(id).subscribe((data) => {
       this.artistSongs = [];
