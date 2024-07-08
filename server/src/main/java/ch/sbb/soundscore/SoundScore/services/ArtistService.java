@@ -27,16 +27,14 @@ public class ArtistService {
     }
 
     public Artist deleteArtist(Long id) {
-        Artist artist = artistRepository.findById(id).orElse(null);
+        Artist artist = artistRepository.findById(id).orElseThrow();
         userRepository.updateArtistByArtist(artist);
-        if (artist != null) {
-            artistRepository.delete(artist);
-        }
+        artistRepository.delete(artist);
         return artist;
     }
 
     public Artist getArtistById(Long id) {
-        return artistRepository.findById(id).orElse(null);
+        return artistRepository.findById(id).orElseThrow(null);
     }
 
     public List<Artist> getAllArtists() {
