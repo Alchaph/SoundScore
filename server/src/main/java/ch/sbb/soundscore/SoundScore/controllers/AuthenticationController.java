@@ -11,7 +11,7 @@ import ch.sbb.soundscore.SoundScore.services.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("auth")
+@RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {
     private final JwtService jwtService;

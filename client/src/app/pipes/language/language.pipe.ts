@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LanguagePipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
+  transform(value: string, ...args: unknown[]): string {
     switch (value) {
       case 'de':
         return 'Deutsch';

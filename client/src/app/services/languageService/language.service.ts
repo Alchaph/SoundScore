@@ -3,16 +3,16 @@ import {environment} from "../../../environments/environments";
 import {TranslateService} from "@ngx-translate/core";
 import {Lang} from "../../models/Lang";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, switchMap} from "rxjs";
+import {map, Observable, switchMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
   translate: boolean = JSON.parse(localStorage.getItem('translate') || 'false');
-  private detectApiUrl = 'https://ws.detectlanguage.com/0.2/detect';
-  private translateApiUrl = 'http://172.20.10.5:5000/translate';
-  private detectHeaders = new HttpHeaders({
+  private detectApiUrl: string = 'https://ws.detectlanguage.com/0.2/detect';
+  private translateApiUrl: string = 'http://172.20.10.5:5000/translate';
+  private detectHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': 'Bearer 6eaddab8e75f4cba4d49499427ebce8e'
   });
 
@@ -37,7 +37,9 @@ export class LanguageService {
     }
   }
 
-  translateText(text: string) {
+  translateText(text: string): Observable<{
+    translatedText: string
+  }> {
     return this.http.post<{ data: { detections: { language: string }[] } }>(
       this.detectApiUrl,
       {q: text},
@@ -78,9 +80,9 @@ export class LanguageService {
   }
 
   setLanguageCookie(lang: string): void {
-    const date = new Date();
+    const date: Date = new Date();
     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-    const expires = "; expires=" + date.toUTCString();
+    const expires: string = "; expires=" + date.toUTCString();
     document.cookie = "lang=" + lang + expires + "; path=/";
   }
 

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Post} from "../../models/Post";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environments";
 
 @Injectable({
   providedIn: 'root'
@@ -11,61 +12,36 @@ export class PostService {
   }
 
   createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>('http://localhost:8080/api/posts/create', post, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.post<Post>(environment.url + '/posts/create', post, environment.options);
   }
 
-  updatePost(post: Post) {
-    return this.http.put('http://localhost:8080/api/posts/edit', post, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  updatePost(post: Post): Observable<Post> {
+    return this.http.put<Post>(environment.url + '/posts/edit', post, environment.options);
   }
 
-  deletePost(id: number) {
-    return this.http.delete('http://localhost:8080/api/posts/delete/' + id, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  deletePost(id: number): Observable<Post> {
+    return this.http.delete<Post>(environment.url + '/posts/delete/' + id, environment.options);
   }
 
-  getPosts() {
-    return this.http.get<Post[]>('http://localhost:8080/api/posts/get/all', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  getPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(environment.url + '/posts/get/all', environment.options);
   }
 
-  getPost(id: number) {
-    return this.http.get<Post>('http://localhost:8080/api/posts/get/' + id, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  getPost(id: number): Observable<Post> {
+    return this.http.get<Post>(environment.url + '/posts/get/' + id, environment.options);
   }
 
-  likeOrDislikePost(post: Post, like: boolean) {
-    return this.http.post('http://localhost:8080/api/posts/like/' + post.id, like, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  likeOrDislikePost(post: Post, like: boolean): Observable<Object> {
+    return this.http.post(environment.url + '/posts/like/' + post.id, like, environment.options);
   }
 
-  hasAlreadyLikedOrDisliked(postId: number) {
+  hasAlreadyLikedOrDisliked(postId: number): Observable<{
+    liked: boolean,
+    alreadyLikedOrDisliked: boolean
+  }> {
     return this.http.get<{
       liked: boolean,
       alreadyLikedOrDisliked: boolean
-    }>('http://localhost:8080/api/posts/get/liked/' + postId, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    }>(environment.url + '/posts/get/liked/' + postId, environment.options);
   }
 }

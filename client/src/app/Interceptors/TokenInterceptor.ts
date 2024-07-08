@@ -1,10 +1,10 @@
-import { HttpInterceptorFn } from "@angular/common/http";
+import {HttpInterceptorFn} from "@angular/common/http";
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
-  const methods = ['GET', 'POST', 'PUT', 'DELETE'];
+  const methods: string[] = ['GET', 'POST', 'PUT', 'DELETE'];
   if (!(req.url.includes('auth/email-exists'))) {
     if (methods.includes(req.method)) {
-      const token = localStorage.getItem('token');
+      const token: string | null = localStorage.getItem('token');
       if (token) {
         req.headers.set('Authorization', `Bearer ${token}`);
       }
