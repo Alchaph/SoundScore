@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButtonToggle} from "@angular/material/button-toggle";
 import {MatIcon} from "@angular/material/icon";
@@ -48,6 +48,8 @@ import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
+import {HomeMobileComponent} from "./home-mobile/home-mobile.component";
+import {HomeService} from "../../services/HomeService/home.service";
 
 export interface TreeNode {
   name: string;
@@ -105,24 +107,21 @@ export interface TreeNode {
     MatTreeNodeOutlet,
     MatSelect,
     MatOption,
-    TranslateModule
+    TranslateModule,
+    HomeMobileComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class HomeComponent implements OnInit {
-  posts: Post[] = [];
 
-  topSongs: Song[] = [];
-  topGenres: Genre[] = [];
-  topArtists: Artist[] = [];
   isMobile: boolean = false;
   protected readonly window: Window = window;
   selectedFilters?: 'genre' | 'song' | 'artist';
 
-  constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
-  }
+  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     this.breakpointObserver.observe([
@@ -131,36 +130,15 @@ export class HomeComponent implements OnInit {
     ]).subscribe(result => {
       this.isMobile = result.matches;
     });
-    this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
-      this.topGenres = data.reverse();
-      // console.log(this.topGenres)
-    });
-    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
-      this.topArtists = data.reverse();
-      // console.log(this.topArtists)
-    });
-    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      this.topSongs = data.reverse();
-      // console.log(this.topSongs)
-
-    });
   }
 
   selected(selected: string) {
     this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
   }
 
-  keepMenuOpen(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
   handlePanelClick(event: MouseEvent) {
     event.stopPropagation();
   }
-
   openLink(event: MouseEvent, link: string) {
     event.stopPropagation();
     window.open(link, '_blank');

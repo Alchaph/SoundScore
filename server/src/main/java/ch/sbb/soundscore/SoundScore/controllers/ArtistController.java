@@ -15,26 +15,26 @@ public class ArtistController {
         this.artistService = artistService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public Artist createArtist(@RequestBody Artist artist) {
         return artistService.createArtist(artist);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("")
     public Artist editArtist(@RequestBody Artist artist) {
         return artistService.editArtist(artist);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Artist deleteArtist(@PathVariable Long id) {
         return artistService.deleteArtist(id);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Artist getArtistById(@PathVariable Long id) {
         return artistService.getArtistById(id);
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public List<Artist> getAllArtists() {
         return artistService.getAllArtists();
     }

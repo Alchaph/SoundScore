@@ -30,10 +30,10 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './leader-board.component.scss'
 })
 export class LeaderBoardComponent implements OnInit{
-  overallLeaderBoard: (Post | undefined)[] = [];
-  artistLeaderBoard:(Artist | undefined)[] = [];
-  songLeaderBoard: (Song | undefined)[] = [];
-  genreLeaderBoard: (Genre | undefined)[] = [];
+  protected overallLeaderBoard: (Post | undefined)[] = [];
+  protected artistLeaderBoard:(Artist | undefined)[] = [];
+  protected songLeaderBoard: (Song | undefined)[] = [];
+  protected genreLeaderBoard: (Genre | undefined)[] = [];
 
   constructor(private leaderBoardService: LeaderBoardService) {
   }
@@ -46,7 +46,6 @@ export class LeaderBoardComponent implements OnInit{
       this.artistLeaderBoard = Array.from(new Set(data));
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      console.log(data);
       this.songLeaderBoard = Array.from(new Set(data));
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {

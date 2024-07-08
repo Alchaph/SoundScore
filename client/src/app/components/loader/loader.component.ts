@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, Subscriber, TeardownLogic} from "rxjs";
+import {Observable} from "rxjs";
 import {LoaderService} from "../../services/LoaderService/loader.service";
 import {AsyncPipe} from "@angular/common";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
@@ -15,7 +15,7 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
 })
 export class LoaderComponent implements OnInit {
 
-  isLoading: Observable<boolean> = new Observable<boolean>();
+  protected isLoading: Observable<boolean> = new Observable<boolean>();
 
 
   constructor(private loaderService: LoaderService) {

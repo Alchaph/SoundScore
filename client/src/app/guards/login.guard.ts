@@ -1,11 +1,9 @@
-import { CanActivateFn, Router } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
 import {inject} from "@angular/core";
-import {Token} from "@angular/compiler";
 
 
-
-export const loginGuard: CanActivateFn = (route, state) => {
-  const token = localStorage.getItem('token');
+export const loginGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+  const token: string | null = localStorage.getItem('token');
   if (token) {
     return true;
   } else {

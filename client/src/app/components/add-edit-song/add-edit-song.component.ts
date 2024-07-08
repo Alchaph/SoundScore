@@ -7,9 +7,8 @@ import {Song} from "../../models/Song";
 import {SongService} from "../../services/SongService/song.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Genre} from "../../models/Genre";
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
-import {MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {GenreService} from "../../services/GenreService/genre.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -39,14 +38,14 @@ import {TranslateModule} from "@ngx-translate/core";
   templateUrl: './add-edit-song.component.html',
   styleUrl: './add-edit-song.component.scss'
 })
-export class AddEditSongComponent implements OnInit, AfterViewInit{
+export class AddEditSongComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadedImage')
-  uploadedImage: ElementRef | undefined;
-  imageHeight: number = 0
-  imageWidth: number = 0
-  user:User | undefined
-  gifSearchResults: string[] = []
-  formGroup: FormGroup<{
+  protected uploadedImage: ElementRef | undefined;
+  protected imageHeight: number = 0
+  protected imageWidth: number = 0
+  protected user: User | undefined
+  protected gifSearchResults: string[] = []
+  protected formGroup: FormGroup<{
     title: FormControl;
     imageUrl: FormControl;
     link: FormControl;
@@ -57,18 +56,21 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
     link: new FormControl(''),
     genre: new FormControl<Genre | null>(null, [Validators.required]),
   })
-  allGenres: Genre[] = []
-  song: Song | undefined
-  imageType: string = "Image";
-  gifSearchString: string = ""
-  constructor(private location:Location,
-              private songService:SongService,
-              private genreService:GenreService,
-              private route:ActivatedRoute,
+  protected allGenres: Genre[] = []
+  protected song: Song | undefined
+  protected imageType: string = "Image";
+  protected gifSearchString: string = ""
+
+  constructor(private location: Location,
+              private songService: SongService,
+              private genreService: GenreService,
+              private route: ActivatedRoute,
               private gifService: GifService,
               private jwtService: JwtServiceService,
               private router: Router
-  ){}
+  ) {
+  }
+
   goBack() {
     this.location.back();
   }
@@ -114,7 +116,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit{
         genre: this.formGroup.controls.genre.value as Genre,
         artist: this.user?.artist
       }
-      this.songService.updateSong(song).subscribe((data) => {
+      this.songService.createSong(song).subscribe((data) => {
         this.router.navigate(['/home/artistProfile'])
       });
     }

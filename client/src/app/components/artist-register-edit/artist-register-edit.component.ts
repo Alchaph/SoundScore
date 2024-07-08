@@ -43,12 +43,12 @@ import {NgClass, NgIf} from "@angular/common";
 })
 export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadedImage')
-  uploadedImage: ElementRef | undefined;
-  imageHeight: number = 0
-  imageWidth: number = 0
-  artist: Artist | undefined;
-  user: User | undefined;
-  formGroup: FormGroup<{
+  protected uploadedImage: ElementRef | undefined;
+  protected imageHeight: number = 0
+  protected imageWidth: number = 0
+  protected artist: Artist | undefined;
+  protected user: User | undefined;
+  protected formGroup: FormGroup<{
     artistName: FormControl<string | null>,
     artistDescription: FormControl<string | null>,
     artistImage: FormControl<string | null>
@@ -58,10 +58,10 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
     artistDescription: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]),
     artistImage: new FormControl('', [Validators.required, Validators.minLength(10)]),
   })
-  fly: boolean = false;
-  fall: boolean = false;
-  explode: boolean = false;
-  disabled: boolean = false;
+  protected fly: boolean = false;
+  protected fall: boolean = false;
+  protected explode: boolean = false;
+  protected disabled: boolean = false;
 
   constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, protected route: ActivatedRoute, private router: Router) {
   }

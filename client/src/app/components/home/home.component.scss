@@ -17,6 +17,15 @@ main {
   justify-content: space-between;
   flex-direction: column;
   overflow-y: auto;
+
+  mat-list mat-list-item p{
+    color: white !important;
+  }
+  .mat-expansion-indicator::after, .mat-expansion-panel-header-description { color: white !important;}
+  #create-post-expansion-panel {
+    background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
+    color: white !important;
+  }
 }
 
 main::-webkit-scrollbar {
@@ -26,6 +35,7 @@ main::-webkit-scrollbar {
 main {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  margin-top: 1%;
 }
 
 mat-card:hover {
@@ -33,7 +43,7 @@ mat-card:hover {
 }
 
 mat-card {
-  margin: 10px;
+  margin-block: 10px;
 }
 
 mat-card-header {
@@ -73,14 +83,6 @@ mat-sidenav-content mat-chip-listbox {
 #right-nav mat-list mat-list-item:hover{
   background: whitesmoke;
   cursor: pointer;
-}
-
-#right-nav mat-list mat-list-item p{
-  color: white !important;
-}
-#create-post-expansion-panel {
-  background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
-  color: white !important;
 }
 
 /* Styles for tablets (width between 600px and 1024px) */

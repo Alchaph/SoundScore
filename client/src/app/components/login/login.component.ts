@@ -1,4 +1,4 @@
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AfterViewInit, Component, OnInit} from "@angular/core";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
@@ -45,14 +45,14 @@ import * as module from "node:module";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements AfterViewInit, OnInit {
-  hide: boolean = true;
-  isRegister: boolean = false;
-  TwoFA: boolean = false;
-  forgotPassword: boolean = false;
-  forgotPasswordEmail: boolean = false;
-  newPassword: boolean = false;
-  username: string = '';
-  email: string = '';
+  protected hide: boolean = true;
+  protected isRegister: boolean = false;
+  protected TwoFA: boolean = false;
+  protected forgotPassword: boolean = false;
+  protected forgotPasswordEmail: boolean = false;
+  protected newPassword: boolean = false;
+  protected username: string = '';
+  protected email: string = '';
   registerForm: FormGroup<{
     email: FormControl,
     otp: FormControl,

@@ -15,27 +15,27 @@ public class SongController {
         this.songService = songService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public Song createSong(@RequestBody Song song) {
         return songService.createSong(song);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("")
     public Song updateSong(@RequestBody Song song) {
         return songService.editSong(song);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Song deleteSong(@PathVariable Long id) {
         return songService.deleteSong(id);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Song getSongById(@PathVariable Long id) {
         return songService.getSongById(id);
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public List<Song> getAllSongs() {
         return songService.getAllSongs();
     }

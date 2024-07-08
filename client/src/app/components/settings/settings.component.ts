@@ -40,26 +40,22 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
-  userForm: FormGroup<{
+  protected userForm: FormGroup<{
     oldPassword: FormControl;
     password: FormControl;
     confirmPassword: FormControl;
     email: FormControl;
     username: FormControl;
   }>;
-  artist: FormControl<Artist| null | undefined> = new FormControl<Artist | null | undefined>(null, Validators.required)
-  hide: boolean = true;
-  fly: boolean = false;
-  fall: boolean = false;
-  explode: boolean = false;
-  disabled: boolean = false;
-
-  email: string = '';
-  username: string = '';
-
-  notOnlyPassword: boolean = true;
-
-  private audioContext: AudioContext;
+  protected artist: FormControl<Artist| null | undefined> = new FormControl<Artist | null | undefined>(null, Validators.required)
+  protected hide: boolean = true;
+  protected fly: boolean = false;
+  protected fall: boolean = false;
+  protected explode: boolean = false;
+  protected disabled: boolean = false;
+  protected email: string = '';
+  protected username: string = '';
+  protected notOnlyPassword: boolean = true;
 
   constructor(private jwtService: JwtServiceService, private router: Router) {
     this.userForm = new FormGroup({
@@ -69,7 +65,6 @@ export class SettingsComponent implements OnInit {
       email: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
     });
-    this.audioContext = new (window.AudioContext)();
   }
 
   ngOnInit(): void {

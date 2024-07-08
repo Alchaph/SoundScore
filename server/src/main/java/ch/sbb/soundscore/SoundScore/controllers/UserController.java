@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @RestController
 public class UserController {
     private final UserService userService;
@@ -31,13 +31,13 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public ResponseEntity<List<User>> allUsers() {
         List <User> users = userService.allUsers();
         return ResponseEntity.ok(users);
     }
 
-    @PutMapping("/update-user")
+    @PutMapping("/register-artist")
     public ResponseEntity<User> updateUser(@RequestBody Artist artist) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
@@ -45,12 +45,12 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(artist, currentUser));
     }
 
-    @PutMapping("/updateUser")
+    @PutMapping("")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.updateUsers(user));
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     public ResponseEntity<User> deleteUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
