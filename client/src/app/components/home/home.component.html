@@ -5,7 +5,7 @@
   <mat-sidenav-container>
     <mat-sidenav>{{ 'HOME.START' | translate }}</mat-sidenav>
     <mat-sidenav-content>
-      <mat-chip-listbox [(ngModel)]="selectedFilters" aria-label="Cutest dog breeds" class="mat-mdc-chip-set-stacked">
+      <mat-chip-listbox [(ngModel)]="selectedFilters" class="mat-mdc-chip-set-stacked">
         @for (str of ['Artist', 'Song', 'Genre']; track str) {
           <mat-chip-option [value]="str.toLowerCase()">{{ 'HOME.'+str.toUpperCase() | translate }}</mat-chip-option>
         }
@@ -14,6 +14,24 @@
   </mat-sidenav-container>
   <main>
     <div>
+      <mat-expansion-panel id="create-post-expansion-panel">
+        <mat-expansion-panel-header>
+          {{ 'HOME.CREATE_POST' | translate }}
+        </mat-expansion-panel-header>
+        <mat-list class="top-list" style="color: white">
+          <mat-list-item [routerLink]="'/home/addPost/Artist'">
+            <p>{{ 'HOME.ARTIST' | translate }}</p>
+          </mat-list-item>
+          <mat-list-item [routerLink]="'/home/addPost/Song'">
+            <p>{{ 'HOME.SONG' | translate }}</p>
+          </mat-list-item>
+          <mat-list-item [routerLink]="'/home/addPost/Genre'">
+            <p> {{ 'HOME.GENRE' | translate }}</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </div>
+    <div id="posts">
       @for (post of posts; track post) {
         @if (selectedFilters && post[selectedFilters]) {
           <mat-card [routerLink]="'/home/post/'+post.id">
@@ -68,23 +86,23 @@
     </div>
   </main>
   <mat-sidenav-container id="right-nav">
-    <mat-expansion-panel id="create-post-expansion-panel">
-      <mat-expansion-panel-header>
-        {{ 'HOME.CREATE_POST' | translate }}
-      </mat-expansion-panel-header>
-      <mat-list class="top-list" style="color: white">
-        <mat-list-item [routerLink]="'/home/addPost/Artist'">
-          <p>{{ 'HOME.ARTIST' | translate }}</p>
+<!--    <mat-expansion-panel id="create-post-expansion-panel">-->
+<!--      <mat-expansion-panel-header>-->
+<!--        {{ 'HOME.CREATE_POST' | translate }}-->
+<!--      </mat-expansion-panel-header>-->
+<!--      <mat-list class="top-list" style="color: white">-->
+<!--        <mat-list-item [routerLink]="'/home/addPost/Artist'">-->
+<!--          <p>{{ 'HOME.ARTIST' | translate }}</p>-->
 
-        </mat-list-item>
-        <mat-list-item [routerLink]="'/home/addPost/Song'">
-          <p>{{ 'HOME.SONG' | translate }}</p>
-        </mat-list-item>
-        <mat-list-item [routerLink]="'/home/addPost/Genre'">
-          <p> {{ 'HOME.GENRE' | translate }}</p>
-        </mat-list-item>
-      </mat-list>
-    </mat-expansion-panel>
+<!--        </mat-list-item>-->
+<!--        <mat-list-item [routerLink]="'/home/addPost/Song'">-->
+<!--          <p>{{ 'HOME.SONG' | translate }}</p>-->
+<!--        </mat-list-item>-->
+<!--        <mat-list-item [routerLink]="'/home/addPost/Genre'">-->
+<!--          <p> {{ 'HOME.GENRE' | translate }}</p>-->
+<!--        </mat-list-item>-->
+<!--      </mat-list>-->
+<!--    </mat-expansion-panel>-->
       @for (str of ['LEADERBOARD.TOP_ARTISTS' | translate, 'LEADERBOARD.TOP_SONGS' | translate, 'LEADERBOARD.TOP_GENRE' | translate]; track str) {
         <mat-expansion-panel>
           <mat-expansion-panel-header>
