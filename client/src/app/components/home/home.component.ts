@@ -113,14 +113,13 @@ export interface TreeNode {
 })
 
 export class HomeComponent implements OnInit {
-  posts: Post[] = [];
-
-  topSongs: Song[] = [];
-  topGenres: Genre[] = [];
-  topArtists: Artist[] = [];
-  isMobile: boolean = false;
+  protected posts: Post[] = [];
+  protected topSongs: Song[] = [];
+  protected topGenres: Genre[] = [];
+  protected topArtists: Artist[] = [];
+  protected isMobile: boolean = false;
   protected readonly window: Window = window;
-  selectedFilters?: 'genre' | 'song' | 'artist';
+  protected selectedFilters?: 'genre' | 'song' | 'artist';
 
   constructor(private breakpointObserver: BreakpointObserver, private postService: PostService, private leaderBoardService: LeaderBoardService) {
   }
@@ -137,26 +136,18 @@ export class HomeComponent implements OnInit {
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data.reverse();
-      // console.log(this.topGenres)
     });
     this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
       this.topArtists = data.reverse();
-      // console.log(this.topArtists)
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
       this.topSongs = data.reverse();
-      // console.log(this.topSongs)
-
     });
   }
 
   selected(selected: string) {
     console.log(selected.toLowerCase());
     this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
-  }
-
-  keepMenuOpen(event: MouseEvent) {
-    event.stopPropagation();
   }
 
   handlePanelClick(event: MouseEvent) {

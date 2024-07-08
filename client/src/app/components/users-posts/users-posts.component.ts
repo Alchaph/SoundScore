@@ -25,9 +25,9 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './users-posts.component.scss'
 })
 export class UsersPostsComponent implements OnInit {
-  posts: Post[] = [];
-  userId: number = parseInt(this.route.snapshot.params['id']);
-  localUserId: number = 0;
+  protected posts: Post[] = [];
+  protected userId: number = parseInt(this.route.snapshot.params['id']);
+  protected localUserId: number = 0;
 
   constructor(protected postService: PostService, private jwtService: JwtServiceService, private router: Router, private route: ActivatedRoute) {
   }

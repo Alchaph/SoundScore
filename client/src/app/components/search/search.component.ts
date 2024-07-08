@@ -61,13 +61,13 @@ type CombinedType = Artist | Song | User | Post;
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit{
-  posts: Post[] = [];
-  users: User[] = [];
-  songs: Song[] = [];
-  artists: Artist[] = [];
-  isMobile: boolean = false;
-  combinedList: CombinedType[] = [];
-  searchTerm: string = '';
+  protected posts: Post[] = [];
+  protected users: User[] = [];
+  protected songs: Song[] = [];
+  protected artists: Artist[] = [];
+  protected isMobile: boolean = false;
+  protected combinedList: CombinedType[] = [];
+  protected searchTerm: string = '';
   constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService : ArtistService, private breakpointObserver: BreakpointObserver, private postService: PostService) {
   }
 

@@ -48,9 +48,9 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 export class HeadNavBarComponent implements OnInit {
   protected readonly sessionStorage: Storage = sessionStorage;
   protected readonly window: Window = window;
-  langs: string[] = this.service.getLanguages()
-  userId: number = 0;
-  isLoading: Observable<boolean> = new Observable<boolean>();
+  protected langs: string[] = this.service.getLanguages()
+  protected userId: number = 0;
+  protected isLoading: Observable<boolean> = new Observable<boolean>();
 
 
   constructor(

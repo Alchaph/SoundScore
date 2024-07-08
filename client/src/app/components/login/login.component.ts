@@ -43,9 +43,9 @@ import {NgClass} from "@angular/common";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements AfterViewInit, OnInit {
-  hide: boolean = true;
-  isRegister: boolean = false;
-  registerForm: FormGroup<{
+  protected hide: boolean = true;
+  protected isRegister: boolean = false;
+  protected registerForm: FormGroup<{
     email: FormControl,
     username: FormControl,
     password: FormControl,

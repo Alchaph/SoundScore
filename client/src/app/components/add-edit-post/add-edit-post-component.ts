@@ -46,23 +46,23 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './add-edit-post-component.scss'
 })
 export class AddEditPostComponent implements AfterViewInit, OnInit {
-  allGenres: Genre[] = []
-  allArtists: Artist[] = []
-  allSongs: Song[] = []
+  protected allGenres: Genre[] = [];
+  protected allArtists: Artist[] = [];
+  protected allSongs: Song[] = [];
 
-  showedType: 'Song' | 'Artist' | 'Genre' = 'Song'
+  protected showedType: 'Song' | 'Artist' | 'Genre' = 'Song';
   @ViewChild('uploadedImage')
-  uploadedImage: ElementRef | undefined;
-  imageHeight: number = 0
-  imageWidth: number = 0
+  protected uploadedImage: ElementRef | undefined;
+  protected imageHeight: number = 0;
+  protected imageWidth: number = 0;
 
-  imageType: string = "Image";
-  postDefaultType:string ="";
-  gifSearchString: string = ""
-  gifSearchResults: string[] = []
-  post: Post | undefined;
+  protected imageType: string = "Image";
+  protected postDefaultType: string = "";
+  protected gifSearchString: string = "";
+  protected gifSearchResults: string[] = [];
+  protected post: Post | undefined;
 
-  formGroup: FormGroup<{
+  protected formGroup: FormGroup<{
     title: FormControl,
     content: FormControl,
     imageUrl: FormControl,
@@ -72,7 +72,8 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
     content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]),
     imageUrl: new FormControl(''),
     songOrGenreOrArtist: new FormControl<Song | Artist | Genre | null>(null, [Validators.required])
-  })
+  });
+
 
   constructor(private songService: SongService,
               private genreService: GenreService,

@@ -49,14 +49,13 @@ import {MatInput} from "@angular/material/input";
 })
 
 export class PostComponent implements OnInit {
-  post: Post;
-  replies: Comment[] = []
-  activeUser: User;
-  postId: number = Number(this.route.snapshot.paramMap.get('postId'));
-  likeProcessing: boolean = false;
-  liked: boolean = false;
-  disliked: boolean = false;
-  translate: boolean = false;
+  protected post: Post;
+  protected activeUser: User;
+  protected postId: number = Number(this.route.snapshot.paramMap.get('postId'));
+  protected likeProcessing: boolean = false;
+  protected liked: boolean = false;
+  protected disliked: boolean = false;
+  protected translate: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
@@ -186,10 +185,6 @@ export class PostComponent implements OnInit {
     this.commentService.currentAction = 'Add';
     this.commentService.newComment = {} as Comment;
     this.commentService.focusedComment = {} as Comment;
-  }
-
-  trackByCommentId(index: number, comment: Comment): number {
-    return comment.id!;
   }
 
   protected readonly window = window;
