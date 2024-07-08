@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
 import {NgClass} from "@angular/common";
+import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
+import * as module from "node:module";
 
 @Component({
   selector: 'app-login',
@@ -45,13 +47,21 @@ import {NgClass} from "@angular/common";
 export class LoginComponent implements AfterViewInit, OnInit {
   protected hide: boolean = true;
   protected isRegister: boolean = false;
-  protected registerForm: FormGroup<{
+  protected TwoFA: boolean = false;
+  protected forgotPassword: boolean = false;
+  protected forgotPasswordEmail: boolean = false;
+  protected newPassword: boolean = false;
+  protected username: string = '';
+  protected email: string = '';
+  registerForm: FormGroup<{
     email: FormControl,
+    otp: FormControl,
     username: FormControl,
     password: FormControl,
     repeatPassword: FormControl
   }> = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required]),
+    otp: new FormControl('', Validators.required),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     repeatPassword: new FormControl('', [Validators.required]),
@@ -71,7 +81,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
-
     this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
     if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
       if (!this.registerForm.controls.username.valid) {
@@ -113,6 +122,60 @@ export class LoginComponent implements AfterViewInit, OnInit {
     }
   }
 
+  verifyEmail() {
+    this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
+      console.log(data)
+      if (data) {
+        // console.log(this.registerForm.controls.email.value)
+
+        this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data) => {
+          console.log("Hallo", data);
+          this.email = this.registerForm.controls.email.value;
+          this.forgotPasswordEmail = false
+          this.forgotPassword = true;
+          this.username = data;
+          this.TwoFA = true;
+        });
+      } else {
+        alert('Email is not registered');
+      }
+    });
+  }
+
+  resendOtp() {
+    this.jwtService.authenticate(this.email).subscribe((data) => {
+      if (data) {
+        alert('OTP has been resent');
+      } else {
+        alert('Could not resend OTP');
+      }
+    });
+  }
+
+  verifyOtp() {
+    this.jwtService.verify({username: this.username, otp: this.registerForm.controls.otp.value}).subscribe((data) => {
+      if (data) {
+        this.forgotPassword = false;
+        this.newPassword = true;
+      } else {
+        alert('OTP is incorrect');
+      }
+    });
+  }
+
+  changePassword() {
+    this.jwtService.login(this.username, this.registerForm.controls.password.value).subscribe((data) => {
+      localStorage.setItem('token', data.token);
+      this.jwtService.getMe().subscribe((user) => {
+        user.password = this.registerForm.controls.password.value;
+        this.jwtService.updateUsers(user).subscribe((data) => {
+          this.newPassword = false;
+          this.router.navigate(['/home']);
+        });
+      });
+    });
+  }
+
   ngAfterViewInit() {
     const bg: HTMLCanvasElement = document.getElementById("bg") as HTMLCanvasElement;
     if (bg) {
@@ -122,6 +185,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
       });
     }
   }
+
+  protected readonly console = module
 }
 
 export const config: NeatConfig = {

@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../models/User";
-import {Artist} from '../../models/Artist';
+import { Artist } from '../../models/Artist';
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {catchError, throwError} from "rxjs";
+import {Verification} from "../../models/Verification";
 import {environment} from "../../../environments/environments";
 import {Observable} from "rxjs";
 
@@ -58,5 +61,11 @@ export class JwtServiceService {
   public emailExists(email: string): Observable<boolean> {
     const url: string = environment.url + `/auth/email-exists/${email}`;
     return this.http.get<boolean>(url);
+  }
+
+  public getUsernameByEMail(email: string) {
+    const url = `http://localhost:8080/auth/username/by/email/${email}`;
+    console.log(url)
+    return this.http.get<string>(url);
   }
 }
