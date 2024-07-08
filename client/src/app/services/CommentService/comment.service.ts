@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Comment} from '../../models/Comment';
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environments";
 
 @Injectable({
   providedIn: 'root'
@@ -16,43 +17,22 @@ export class CommentService {
   }
 
   createComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>('http://localhost:8080/api/comments/create', comment, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.post<Comment>(environment.url + '/comments/create', comment, environment.options);
+
   }
 
   updateComment(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>('http://localhost:8080/api/comments/edit', comment, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+    return this.http.put<Comment>(environment.url + '/comments/edit', comment, environment.options)
+
   }
 
-  deleteComment(id: number) {
-    return this.http.delete('http://localhost:8080/api/comments/delete/' + id, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  deleteComment(id: number): Observable<Comment> {
+    return this.http.delete<Comment>(environment.url + '/comments/delete/' + id, environment.options);
+
   }
 
-  getCommentsOfPost(postId: number) {
-    return this.http.get<Comment[]>('http://localhost:8080/api/comments/get/commentsByPostId/' + postId, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
-  }
-
-  getCommentById(id: number) {
-    return this.http.get<Comment>('http://localhost:8080/api/comments/get/' + id, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    });
+  getCommentsOfPost(postId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(environment.url + '/comments/get/commentsByPostId/' + postId, environment.options);
   }
 
   buildCommentTree(comments: Comment[]): Comment[] {

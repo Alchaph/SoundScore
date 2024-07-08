@@ -4,7 +4,7 @@ import {LoaderService} from "../services/LoaderService/loader.service";
 import {inject} from "@angular/core";
 
 export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
-  const loaderService = inject(LoaderService);
+  const loaderService: LoaderService = inject(LoaderService);
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
         if (error) {
