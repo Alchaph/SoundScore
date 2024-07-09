@@ -64,14 +64,12 @@ export class JwtServiceService {
   }
 
   public getUsernameByEMail(email: string) {
-    const url = `http://localhost:8080/auth/username/by/email/${email}`;
-    console.log(url)
+    const url = environment.url+'/auth/username/by/email/'+email;
     return this.http.get<string>(url);
   }
 
   public getEMailByUsername(username: string) {
-    const url = `http://localhost:8080/auth/email/by/username/${username}`;
-    console.log(url)
+    const url = environment.url+'/auth/email/by/username/'+username;
     return this.http.get<string>(url);
   }
 
