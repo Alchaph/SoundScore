@@ -22,7 +22,7 @@
         [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
       <div class="post-meta">
         <span
-          [routerLink]="['/home/usersPosts/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>
+          [routerLink]="['/home/userProfile/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>
         <div class="like-dislike-container">
           <div class="icons-box">
             <div>
