@@ -45,4 +45,18 @@ public class Post {
         this.artist = artist;
         this.song = song;
     }
+
+    public Long getLikes() {
+        if (likes == null) {
+            return 0L;
+        }
+        return likes;
+    }
+
+    public Long getDislikes() {
+        if (dislikes == null) {
+            return 0L;
+        }
+        return dislikes;
+    }
 }

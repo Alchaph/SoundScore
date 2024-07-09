@@ -19,6 +19,7 @@ import {LanguageService} from "../../services/languageService/language.service";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-post',
@@ -85,28 +86,38 @@ export class PostComponent implements OnInit {
   likePost(): void {
     this.likeProcessing = true;
     this.liked = !this.liked;
-    this.postService.likeOrDislikePost(this.post, true).subscribe((data) => {
-      if (data) {
-        this.post.likes++;
-      } else {
-        this.post.likes--;
-      }
-      this.likeProcessing = false;
-    });
+    this.disliked ? this.dislike().subscribe((data) => {
+      this.handleLikeDislikeResponse(data, false)
+      this.like().subscribe(data => this.handleLikeDislikeResponse(data, true))
+    }) : this.like().subscribe(data => this.handleLikeDislikeResponse(data, true));
+  }
+
+  handleLikeDislikeResponse(data: boolean, likeOrDislike: boolean): void {
+    likeOrDislike ? this.liked = data : this.disliked = data;
+    if (data) {
+      likeOrDislike ? this.post.likes++ : this.post.dislikes++;
+    } else {
+      likeOrDislike ? this.post.likes-- : this.post.dislikes--;
+    }
+    this.likeProcessing = false;
+  }
+
+  like(): Observable<boolean> {
+    return this.postService.likeOrDislikePost(this.post, true);
   }
 
   dislikePost(): void {
     this.likeProcessing = true;
-    this.disliked = !this.disliked;
-    this.postService.likeOrDislikePost(this.post, false).subscribe((data) => {
-      if (data) {
-        this.post.dislikes++;
-      } else {
-        this.post.dislikes--;
-      }
-      this.likeProcessing = false;
-    });
+    this.liked ? this.like().subscribe((data) => {
+      this.handleLikeDislikeResponse(data, true)
+      this.dislike().subscribe(data => this.handleLikeDislikeResponse(data, false))
+    }) : this.dislike().subscribe(data => this.handleLikeDislikeResponse(data, false));
   }
+
+  dislike(): Observable<boolean> {
+    return this.postService.likeOrDislikePost(this.post, false);
+  }
+
 
   ngOnInit(): void {
     this.postService.getPost(this.postId).subscribe(post => {
