@@ -7,10 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EmailDTO {
-    private String email;
+public class DataTransferDTO {
+    private String data;
 
-    public EmailDTO(String email) {
-        this.email = email;
+    public DataTransferDTO(String data) {
+        this.data = data;
     }
 }

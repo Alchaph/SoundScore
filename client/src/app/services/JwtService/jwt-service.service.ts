@@ -3,10 +3,12 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../../models/User";
 import { Artist } from '../../models/Artist';
 import {error} from "@angular/compiler-cli/src/transformers/util";
-import {catchError, throwError} from "rxjs";
+import {catchError, tap, throwError} from "rxjs";
 import {Verification} from "../../models/Verification";
 import {environment} from "../../../environments/environments";
 import {Observable} from "rxjs";
+import {DataTranfer} from "../../models/DataTranfer";
+import {Lang} from "../../models/Lang";
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +42,7 @@ export class JwtServiceService {
   }
 
   public verifyPassword(username: string, password: string): Observable<Object> {
-    return this.http.post(environment.url + '/auth/verify-password', {
+    return this.http.post(environment.url + '/auth/verify/password', {
       username: username,
       password: password
     }, environment.options);
@@ -63,23 +65,60 @@ export class JwtServiceService {
     return this.http.get<boolean>(url);
   }
 
-  public getUsernameByEMail(email: string) {
-    const url = environment.url+'/auth/username/by/email/'+email;
-    return this.http.get<string>(url);
+  public getUsernameByEMail(email: string)   {
+    const url = environment.url + `/auth/username/by/email/${email}`;
+    console.log(url)
+    return this.http.get<DataTranfer>(url);
   }
 
   public getEMailByUsername(username: string) {
-    const url = environment.url+'/auth/email/by/username/'+username;
-    return this.http.get<string>(url);
+    const url = environment.url + `/auth/email/by/username/${username}`;
+    console.log(url)
+    return this.http.get<DataTranfer>(url);
   }
 
   public authenticate(email: string): Observable<Verification> {
     return this.http.post<Verification>(environment.url + '/auth/authenticate', {
-      email: email
+      data: email
     });
   }
 
-  public verify(verification: Verification): Observable<boolean> {
-    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {verification});
+  private setSecureCookie(name: string, value: string, expiresIn: number): void {
+    const date: Date = new Date();
+    date.setTime(date.getTime() + expiresIn);
+    const expires: string = "; expires=" + date.toUTCString();
+    document.cookie = `${name}=${value}${expires}; path=/; Secure; HttpOnly; SameSite=Strict`;
+  }
+
+  public verify(username: string, otp: string): Observable<boolean> {
+    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {
+      username: username,
+      otp: otp
+    }).pipe(
+      tap((isVerified) => {
+        console.log(isVerified)
+        if (isVerified) {
+          this.setSecureCookie('2fa_verified', 'true', 86400 * 1000);
+        }
+      })
+    );
+  }
+
+  public getSecureCookie(name: string): string | null {
+    const cookies: string[] = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie: string = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+
+  public updatePassword(email: string, password: string): Observable<User> {
+    return this.http.put<User>(environment.url + '/auth/update/password', {
+      email: email,
+      password: password
+    });
   }
 }

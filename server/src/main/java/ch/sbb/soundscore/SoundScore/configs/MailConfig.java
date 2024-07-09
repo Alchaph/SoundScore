@@ -1,5 +1,6 @@
 package ch.sbb.soundscore.SoundScore.configs;
 
+import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
