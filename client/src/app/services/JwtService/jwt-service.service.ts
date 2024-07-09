@@ -36,7 +36,7 @@ export class JwtServiceService {
   }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.url + '/users/', environment.options);
+    return this.http.get<User[]>(environment.url + '/users/all', environment.options);
   }
 
   public getMe(): Observable<User> {
