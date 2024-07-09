@@ -4,6 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {Lang} from "../../models/Lang";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
+import {CookieService} from "../CookieService/cookie.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class LanguageService {
     'Authorization': 'Bearer 6eaddab8e75f4cba4d49499427ebce8e'
   });
 
-  constructor(private translateService: TranslateService, private http: HttpClient) {
+  constructor(private translateService: TranslateService, private http: HttpClient, private cookieService: CookieService) {
     this.initializeTranslationSettings();
   }
 
@@ -25,14 +26,17 @@ export class LanguageService {
   }
 
   private initializeTranslationSettings() {
-    let lang: Lang = this.getLanguage();
+    let lang: string | null = this.cookieService.getCookie('lang');
+    if (!lang) {
+      lang = 'en';
+    }
     this.translateService.addLangs(environment.languages);
-    this.translateService.use(lang.lang);
+    this.translateService.use(lang);
   }
 
   public setLanguage(lang: string) {
     if (lang) {
-      this.setLanguageCookie(lang)
+      this.cookieService.setCookie('lang', lang, 7 * 24 * 60 * 60 * 1000);
       this.translateService.use(lang);
     }
   }
@@ -47,12 +51,12 @@ export class LanguageService {
     ).pipe(
       map(response => response.data.detections[0].language),
       switchMap(from => {
-        if (from === "en" || this.getLanguage().lang === "en") {
+        if (from === "en" || this.cookieService.getCookie('lang') === "en") {
           return this.http.post<{
             translatedText: string
           }>(this.translateApiUrl, {
               source: from,
-              target: this.getLanguage().lang,
+              target: this.cookieService.getCookie('lang') || 'en',
               q: text
             },
           )
@@ -65,7 +69,7 @@ export class LanguageService {
                 translatedText: string
               }>(this.translateApiUrl, {
                 source: 'en',
-                target: this.getLanguage().lang,
+                target: this.cookieService.getCookie('lang') || 'en',
                 q: translatedText
               })
             )
@@ -75,15 +79,15 @@ export class LanguageService {
     );
   }
 
-  getLanguage(): Lang {
-    return document.cookie.split(";").reduce((ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
-  }
-
-  setLanguageCookie(lang: string): void {
-    const date: Date = new Date();
-    date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-    const expires: string = "; expires=" + date.toUTCString();
-    document.cookie = "lang=" + lang + expires + "; path=/";
-  }
+  // getLanguage(): Lang {
+  //   return document.cookie.split(";").reduce((ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
+  // }
+  //
+  // setLanguageCookie(lang: string): void {
+  //   const date: Date = new Date();
+  //   date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+  //   const expires: string = "; expires=" + date.toUTCString();
+  //   document.cookie = "lang=" + lang + expires + "; path=/";
+  // }
 
 }

@@ -9,13 +9,15 @@ import {environment} from "../../../environments/environments";
 import {Observable} from "rxjs";
 import {DataTranfer} from "../../models/DataTranfer";
 import {Lang} from "../../models/Lang";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {CookieService} from "../CookieService/cookie.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtServiceService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cookieService: CookieService) {
   }
 
   public login(username: string, password: string): Observable<{ token: string, expiresIn: number }> {
@@ -82,37 +84,19 @@ export class JwtServiceService {
       data: email
     });
   }
-
-  private setSecureCookie(name: string, value: string, expiresIn: number): void {
-    const date: Date = new Date();
-    date.setTime(date.getTime() + expiresIn);
-    const expires: string = "; expires=" + date.toUTCString();
-    document.cookie = `${name}=${value}${expires}; path=/; Secure; HttpOnly; SameSite=Strict`;
-  }
-
   public verify(username: string, otp: string): Observable<boolean> {
     return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {
       username: username,
       otp: otp
     }).pipe(
       tap((isVerified) => {
+        console.log('isVerified')
         console.log(isVerified)
         if (isVerified) {
-          this.setSecureCookie('2fa_verified', 'true', 86400 * 1000);
+          this.cookieService.setCookie('2fa_verified', 'true', 24 * 60 * 60 * 1000);
         }
       })
     );
-  }
-
-  public getSecureCookie(name: string): string | null {
-    const cookies: string[] = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie: string = cookies[i].trim();
-      if (cookie.startsWith(name + '=')) {
-        return cookie.substring(name.length + 1);
-      }
-    }
-    return null;
   }
 
   public updatePassword(email: string, password: string): Observable<User> {

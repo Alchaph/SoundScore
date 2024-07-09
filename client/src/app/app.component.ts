@@ -4,6 +4,7 @@ import {LanguageService} from "./services/languageService/language.service";
 import {Lang} from "./models/Lang";
 import {TranslateService} from "@ngx-translate/core";
 import {LoaderComponent} from "./components/loader/loader.component";
+import {CookieService} from "./services/CookieService/cookie.service";
 
 
 @Component({
@@ -16,17 +17,17 @@ import {LoaderComponent} from "./components/loader/loader.component";
 export class AppComponent implements OnInit{
   title = 'client';
 
-  constructor(private languageService: LanguageService, private TranslateService: TranslateService) {
+  constructor(private languageService: LanguageService, private TranslateService: TranslateService, private cookieService: CookieService) {
 
   }
 
 
   ngOnInit() {
-    let lang: Lang = this.languageService.getLanguage();
-    if (lang.lang) {
-      this.languageService.setLanguage(lang.lang);
+    let lang: string | null = this.cookieService.getCookie('lang')
+    if (lang) {
+      this.languageService.setLanguage(lang);
     } else {
-      this.languageService.setLanguageCookie(this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en');
+      this.cookieService.setCookie('lang', this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en', 7 * 24 * 60 * 60 * 1000);
       this.languageService.setLanguage(this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en');
     }
   }
