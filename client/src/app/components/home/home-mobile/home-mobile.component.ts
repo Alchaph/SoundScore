@@ -7,9 +7,10 @@ import {MatIcon} from "@angular/material/icon";
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {RouterLink} from "@angular/router";
-import {HomeComponent} from "../home.component";
 import {HomeService} from "../../../services/HomeService/home.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {TranslateModule} from "@ngx-translate/core";
+import {Post} from "../../../models/Post";
 
 @Component({
   selector: 'app-home-mobile',
@@ -29,18 +30,18 @@ import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
     MatMenu,
     MatMenuItem,
     RouterLink,
-    MatMenuTrigger
+    MatMenuTrigger,
+    TranslateModule
   ],
   templateUrl: './home-mobile.component.html',
   styleUrl: './home-mobile.component.scss'
 })
 export class HomeMobileComponent implements OnInit {
+  protected isMobile: boolean = false;
+  protected selectedFilters?: 'genre' | 'song' | 'artist';
 
-  isMobile: boolean = false;
-protected readonly window: Window = window;
-  selectedFilters?: 'genre' | 'song' | 'artist';
-
-  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver) { }
+  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver) {
+  }
 
   ngOnInit() {
     this.breakpointObserver.observe([
@@ -59,6 +60,7 @@ protected readonly window: Window = window;
   handlePanelClick(event: MouseEvent) {
     event.stopPropagation();
   }
+
   openLink(event: MouseEvent, link: string) {
     event.stopPropagation();
     window.open(link, '_blank');

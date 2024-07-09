@@ -26,12 +26,12 @@
         <div class="like-dislike-container">
           <div class="icons-box">
             <div>
-              <button [disabled]="likeProcessing || disliked" mat-button (click)="likePost()"
+              <button [disabled]="likeProcessing " mat-button (click)="likePost()"
                       color="{{ liked ? 'primary' : '' }}">
                 <mat-icon>{{ liked ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
                 <p>{{ post.likes }}</p>
               </button>
-              <button [disabled]="likeProcessing || liked" class="dislike-button" mat-button (click)="dislikePost()"
+              <button [disabled]="likeProcessing" class="dislike-button" mat-button (click)="dislikePost()"
                       color="{{ disliked ? 'warn' : '' }}">
                 <mat-icon>{{ disliked ? 'thumb_down' : 'thumb_down_off_alt' }}</mat-icon>
                 <p>{{ post.dislikes }}</p>

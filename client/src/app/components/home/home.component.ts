@@ -40,11 +40,6 @@ import {
 } from "@angular/material/tree";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {Post} from "../../models/Post";
-import {Genre} from "../../models/Genre";
-import {Artist} from "../../models/Artist";
-import {Song} from "../../models/Song";
-import {PostService} from "../../services/PostService/post.service";
-import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
@@ -117,11 +112,12 @@ export interface TreeNode {
 
 export class HomeComponent implements OnInit {
 
-  isMobile: boolean = false;
+  protected isMobile: boolean = false;
   protected readonly window: Window = window;
-  selectedFilters?: 'genre' | 'song' | 'artist';
+  protected selectedFilters?: 'genre' | 'song' | 'artist';
 
-  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver) { }
+  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver) {
+  }
 
   ngOnInit() {
     this.breakpointObserver.observe([
@@ -139,6 +135,7 @@ export class HomeComponent implements OnInit {
   handlePanelClick(event: MouseEvent) {
     event.stopPropagation();
   }
+
   openLink(event: MouseEvent, link: string) {
     event.stopPropagation();
     window.open(link, '_blank');
