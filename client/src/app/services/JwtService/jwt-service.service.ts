@@ -68,13 +68,13 @@ export class JwtServiceService {
   }
 
   public getUsernameByEMail(email: string)   {
-    const url = environment.url + `/auth/username/by/email/${email}`;
+    const url = environment.url + `/auth/username-by-email/${email}`;
     console.log(url)
     return this.http.get<DataTranfer>(url);
   }
 
   public getEMailByUsername(username: string) {
-    const url = environment.url + `/auth/email/by/username/${username}`;
+    const url = environment.url + `/auth/email-by-username/${username}`;
     console.log(url)
     return this.http.get<DataTranfer>(url);
   }
@@ -101,7 +101,7 @@ export class JwtServiceService {
   }
 
   public updatePassword(email: string, password: string): Observable<User> {
-    return this.http.put<User>(environment.url + '/auth/update/password', {
+    return this.http.put<User>(environment.url + '/auth/update-password', {
       email: email,
       password: password
     });
