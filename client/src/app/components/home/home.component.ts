@@ -120,9 +120,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.breakpointObserver.observe(
-      Breakpoints.Small
+      [
+        Breakpoints.XSmall,
+        Breakpoints.Small]
     ).subscribe(result => {
-      if (window.outerHeight > 700) {
+      console.log(result.matches)
+      if (window.innerHeight > 700) {
         this.isMobile = result.matches;
       }
     });
