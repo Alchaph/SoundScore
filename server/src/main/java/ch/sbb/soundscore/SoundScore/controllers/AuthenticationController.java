@@ -74,5 +74,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.updatePassword(updatePasswordDto));
     }
 
+    @DeleteMapping("/delete-account/{username}")
+    public ResponseEntity<User> deleteAccount(@PathVariable String username) {
+        return ResponseEntity.ok(authenticationService.deleteAccount(username));
+    }
+
 }
 

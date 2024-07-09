@@ -1,6 +1,6 @@
 <body>
 <canvas id="bg" class="card-container"></canvas>
-  <div [ngClass]="{'card-container3': forgotPassword || forgotPasswordEmail || newPassword || TwoFA, 'card-container2': !forgotPasswordEmail && !forgotPassword && !newPassword && !TwoFA}">
+  <div [ngClass]="{'card-container3': Otp || forgotPasswordEmail || newPassword || TwoFA, 'card-container2': !forgotPasswordEmail && !Otp && !newPassword && !TwoFA}">
   <mat-card id="card">
     <mat-card-header>
       <mat-card-title id="title">Sound score</mat-card-title>
@@ -9,18 +9,17 @@
       <mat-card-content [ngClass]="{'extra': isRegister}">
         @if (isRegister || forgotPasswordEmail) {
           <div class="input-group">
-            <input required="" type="text" formControlName="email" name="text" autocomplete="off" class="input">
+            <input required="" type="text" formControlName="email" name="text" autocomplete="off" [ngClass]="{'input': registerForm.controls.email.valid, 'input-invalid': registerForm.controls.email.invalid}">
             <label class="user-label">{{ 'LOGIN.FORM.EMAIL' | translate }}</label>
           </div>
         }
-        @if (!forgotPassword || !forgotPasswordEmail || newPassword) {
-          @if (!newPassword && !forgotPasswordEmail && !forgotPassword && !TwoFA) {
+          @if (!newPassword && !forgotPasswordEmail && !Otp && !TwoFA) {
             <div class="input-group">
               <input required="" type="text" formControlName="username" name="text" autocomplete="off" class="input">
               <label class="user-label">{{'LOGIN.FORM.USERNAME' | translate}}</label>
             </div>
           }
-          @if (!forgotPasswordEmail && !forgotPassword && !TwoFA) {
+          @if (!forgotPasswordEmail && !Otp && !TwoFA) {
         <div>
           <div class="input-group">
             <input required="" [type]="hide ? 'password' : 'text'" formControlName="password" name="text" autocomplete="off" class="input">
@@ -34,8 +33,7 @@
               <label class="user-label">{{'LOGIN.FORM.REPEAT_PASSWORD' | translate}}</label>
             </div>
         }
-        }
-        @if (forgotPassword || TwoFA) {
+        @if (Otp || TwoFA) {
           <div class="input-group">
             <input required="" type="text" formControlName="otp" name="text" autocomplete="off" class="input">
             <label class="user-label">{{'LOGIN.FORM.OTP' | translate}}</label>
@@ -43,7 +41,7 @@
         }
       </mat-card-content>
       <mat-card-actions style="padding-left: 16px;">
-        @if (!forgotPassword && !forgotPasswordEmail && !newPassword && !TwoFA) {
+        @if (!Otp && !forgotPasswordEmail && !newPassword && !TwoFA) {
           <div id="ac">
         <button type="submit">
           <span>{{ isRegister ? ('LOGIN.FORM.REGISTER_BUTTON'| translate) : ('LOGIN.FORM.LOGIN_BUTTON' | translate) }}</span>
@@ -54,7 +52,7 @@
         </button>
         <p (click)="changeForm()" style="padding-left: 7px; padding-top: 15px">{{ isRegister ? ('LOGIN.ALREADY_ACCOUNT' | translate) : ('LOGIN.NO_ACCOUNT' | translate) }}</p>
           </div>
-        <p (click)="forgotPasswordEmail = true">Forgot Password</p>
+        <p (click)="forgotPasswordEmail = true; isRegister = false">Forgot Password</p>
         }
         @if (forgotPasswordEmail) {
           <button type="button" [disabled]="registerForm.controls.email.invalid" (click)="verifyEmail()">
@@ -66,7 +64,7 @@
           </button>
           <p (click)="forgotPasswordEmail = false" style="padding-top: 15px">Back</p>
         }
-        @if (forgotPassword || TwoFA) {
+        @if (Otp || TwoFA) {
           <button type="button" [disabled]="registerForm.controls.otp.invalid" (click)="verifyOtp()">
             <span>Weiter Otp</span>
             <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -44,7 +44,7 @@ export class JwtServiceService {
   }
 
   public verifyPassword(username: string, password: string): Observable<Object> {
-    return this.http.post(environment.url + '/auth/verify/password', {
+    return this.http.post(environment.url + '/auth/verify-password', {
       username: username,
       password: password
     }, environment.options);
@@ -83,7 +83,7 @@ export class JwtServiceService {
     });
   }
   public verify(email: string, username: string, otp: string): Observable<boolean> {
-    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {
+    return this.http.post<boolean>(environment.url + '/auth/verify-Otp', {
       username: email,
       otp: otp
     }).pipe(
@@ -101,5 +101,9 @@ export class JwtServiceService {
       email: email,
       password: password
     });
+  }
+
+  public deleteAccountByUsername(username: string): Observable<User> {
+    return this.http.delete<User>(environment.url + `/auth/delete-account/${username}`);
   }
 }

@@ -50,7 +50,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   protected hide: boolean = true;
   protected isRegister: boolean = false;
   protected TwoFA: boolean = false;
-  protected forgotPassword: boolean = false;
+  protected Otp: boolean = false;
   protected forgotPasswordEmail: boolean = false;
   protected newPassword: boolean = false;
   protected username: string = '';
@@ -62,7 +62,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     password: FormControl,
     repeatPassword: FormControl
   }> = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]),
     otp: new FormControl('', Validators.required),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -123,6 +123,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
           this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
             this.email = data.data;
             this.jwtService.authenticate(this.email).subscribe((data) => {
+              this.isRegister = false;
               this.TwoFA = true;
             });
           });
@@ -138,11 +139,15 @@ export class LoginComponent implements AfterViewInit, OnInit {
     this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).subscribe((data) => {
       if (data && this.TwoFA) {
         this.router.navigate(['/home']);
+      } else if (this.Otp && data){
+        this.jwtService.deleteAccountByUsername(this.username).subscribe((data) => {
+          alert('Account could not been created');
+        });
       } else if (data) {
-        this.forgotPassword = false;
+        this.Otp = false;
         this.newPassword = true;
       } else {
-        alert('OTP is incorrect');
+        alert('Could not verify OTP');
       }
     });
   }
@@ -153,7 +158,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
         this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data: DataTranfer) => {
           this.email = this.registerForm.controls.email.value;
           this.forgotPasswordEmail = false
-          this.forgotPassword = true;
+          this.Otp = true;
           this.username = data.data;
         });
       } else {
