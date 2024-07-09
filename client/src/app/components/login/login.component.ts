@@ -15,6 +15,7 @@ import {NgClass} from "@angular/common";
 import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 import * as module from "node:module";
 import {DataTranfer} from "../../models/DataTranfer";
+import {CookieService} from "../../services/CookieService/cookie.service";
 
 @Component({
   selector: 'app-login',
@@ -68,7 +69,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService) {
   }
 
   ngOnInit() {
@@ -117,13 +118,18 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else  {
       console.log(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
-        if (this.jwtService.getSecureCookie('2fa_verified') === null) {
+        if (this.cookieService.getCookie('2fa_verified') === null) {
           this.username = this.registerForm.controls.username.value;
           localStorage.setItem('token', data.token);
           this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
             this.email = data.data;
-            this.TwoFA = true;
+            this.jwtService.authenticate(this.email).subscribe((data) => {
+              this.TwoFA = true;
+            });
           });
+        } else {
+          localStorage.setItem('token', data.token);
+          this.router.navigate(['/home']);
         }
       });
     }
