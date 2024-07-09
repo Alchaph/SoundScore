@@ -2,7 +2,6 @@ package ch.sbb.soundscore.SoundScore.controllers;
 
 
 import ch.sbb.soundscore.SoundScore.dtos.*;
-
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
 import ch.sbb.soundscore.SoundScore.services.JwtService;
@@ -49,6 +48,7 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> emailExists(@PathVariable String email) {
         return ResponseEntity.ok(authenticationService.emailExists(email));
     }
+
     @PostMapping("/authenticate")
     public boolean authenticate(@RequestBody DataTransferDTO user) {
         return authenticationService.authenticateWithOTP(user.getData());
