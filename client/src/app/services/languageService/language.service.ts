@@ -5,6 +5,7 @@ import {Lang} from "../../models/Lang";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
 import {CookieService} from "../CookieService/cookie.service";
+import {Language} from "../../enums/language";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class LanguageService {
     this.initializeTranslationSettings();
   }
 
-  public getLanguages(): string[] {
+  public getLanguages(): (keyof typeof Language)[] {
     return environment.languages;
   }
 
