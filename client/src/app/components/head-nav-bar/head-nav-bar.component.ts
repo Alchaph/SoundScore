@@ -6,7 +6,6 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {MatInput} from "@angular/material/input";
 import {MatSelect} from "@angular/material/select";
-import {LanguagePipe} from "../../pipes/language/language.pipe";
 import {MatIcon} from "@angular/material/icon";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
@@ -16,6 +15,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Observable} from "rxjs";
 import {LoaderService} from "../../services/LoaderService/loader.service";
+import {Language} from "../../enums/language";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -30,7 +30,6 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
     MatLabel,
     MatIcon,
     RouterLink,
-    LanguagePipe,
     MatToolbarRow,
     MatToolbar,
     MatIconButton,
@@ -48,10 +47,10 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 export class HeadNavBarComponent implements OnInit {
   protected readonly sessionStorage: Storage = sessionStorage;
   protected readonly window: Window = window;
-  protected langs: string[] = this.service.getLanguages()
+  protected langs: (keyof typeof Language)[] = this.service.getLanguages()
   protected userId: number = 0;
   protected isLoading: Observable<boolean> = new Observable<boolean>();
-
+  protected readonly Language = Language;
 
   constructor(
     protected service: LanguageService,

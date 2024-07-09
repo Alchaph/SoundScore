@@ -9,13 +9,14 @@
       </button>
       <mat-menu #languageMenu="matMenu" xPosition="before">
         @for (lang of langs; track $index) {
-          <p mat-menu-item (click)="service.setLanguage(lang); window.location.reload();">{{ lang | language }}
+          <p mat-menu-item (click)="service.setLanguage(lang); window.location.reload();">
+            {{ Language[lang] }}
           </p>
         }
       </mat-menu>
     </div>
     <div class="toolbarMiddle">
-      <span routerLink="/home" style="color: white" (click)="refresh()">Sound Score</span>
+      <span (click)="refresh()" routerLink="/home" style="color: white">Sound Score</span>
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">

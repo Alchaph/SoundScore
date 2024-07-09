@@ -39,8 +39,7 @@ import {
   MatTreeNodeToggle
 } from "@angular/material/tree";
 import {MatProgressBar} from "@angular/material/progress-bar";
-import {Post} from "../../models/Post";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {BreakpointObserver} from "@angular/cdk/layout";
 import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeMobileComponent} from "./home-mobile/home-mobile.component";
@@ -121,10 +120,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Small
+      '{min-height: 1000px}'
     ]).subscribe(result => {
-      this.isMobile = result.matches;
+      if (window.outerHeight > 1000) {
+        this.isMobile = result.matches;
+      }
     });
     this.homeService.loadPosts();
   }

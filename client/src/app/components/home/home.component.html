@@ -39,7 +39,9 @@
             <mat-card-title>{{ post.title }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <img [src]="post.image">
+            <div class="post-image-container">
+              <img [src]="post.image">
+            </div>
             <div>
               <p>{{ 'HOME.POSTED_BY' | translate }}  {{ post.user.username }}</p>
             </div>
