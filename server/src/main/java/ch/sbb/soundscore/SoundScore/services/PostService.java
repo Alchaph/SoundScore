@@ -63,7 +63,8 @@ public class PostService {
             added = handleLike(post, user);
         } else {
             added = handleDislike(post, user);
-        }return added;
+        }
+        return added;
     }
 
     private boolean handleLike(Post post, User user) {
