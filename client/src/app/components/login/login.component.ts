@@ -207,8 +207,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
       });
     }
   }
-
-  protected readonly console = module
 }
 
 export const config: NeatConfig = {
