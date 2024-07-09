@@ -47,4 +47,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("DELETE FROM LikeOrDislike l WHERE l.post = :post")
     void deleteLikes(Post post);
 
+    @Query("select p from Post p ")
+    @Override
+    List<Post> findAll();
+
 }
