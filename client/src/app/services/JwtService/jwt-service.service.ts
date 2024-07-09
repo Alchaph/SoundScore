@@ -55,6 +55,7 @@ export class JwtServiceService {
   }
 
   public updateUser(user: User): Observable<User> {
+    this.cookieService.setCookie('2fa_verified' + user.username, 'false', 24 * 60 * 60 * 1000);
     return this.http.put<User>(environment.url + '/users', user, environment.options);
   }
 
