@@ -44,7 +44,7 @@ export class JwtServiceService {
   }
 
   public verifyPassword(username: string, password: string): Observable<Object> {
-    return this.http.post(environment.url + '/auth/verify/password', {
+    return this.http.post(environment.url + '/auth/verify-password', {
       username: username,
       password: password
     }, environment.options);
@@ -68,13 +68,13 @@ export class JwtServiceService {
   }
 
   public getUsernameByEMail(email: string)   {
-    const url = environment.url + `/auth/username/by/email/${email}`;
+    const url = environment.url + `/auth/username-by-email/${email}`;
     console.log(url)
     return this.http.get<DataTranfer>(url);
   }
 
   public getEMailByUsername(username: string) {
-    const url = environment.url + `/auth/email/by/username/${username}`;
+    const url = environment.url + `/auth/email-by-username/${username}`;
     console.log(url)
     return this.http.get<DataTranfer>(url);
   }
@@ -85,7 +85,7 @@ export class JwtServiceService {
     });
   }
   public verify(username: string, otp: string): Observable<boolean> {
-    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {
+    return this.http.post<boolean>(environment.url + '/auth/verify-Otp', {
       username: username,
       otp: otp
     }).pipe(
@@ -100,7 +100,7 @@ export class JwtServiceService {
   }
 
   public updatePassword(email: string, password: string): Observable<User> {
-    return this.http.put<User>(environment.url + '/auth/update/password', {
+    return this.http.put<User>(environment.url + '/auth/update-password', {
       email: email,
       password: password
     });
