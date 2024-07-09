@@ -34,11 +34,13 @@
                 </mat-card>
               } @else if (this.isArtist(combinedItem)) {
               <mat-card [routerLink]="'/home/artistProfile/'+combinedItem.id">
-                  <img  [src]="combinedItem.image">
-                  <p>{{ combinedItem.description }}</p>
+                <mat-card-content>
                   <mat-card-header>
                     <mat-card-title>{{ combinedItem.name }}</mat-card-title>
                   </mat-card-header>
+                  <img  [src]="combinedItem.image">
+                  <p>{{ combinedItem.description }}</p>
+                </mat-card-content>
               </mat-card>
               } @else if (this.isSong(combinedItem)) {
               <mat-card (click)="openLink($event, combinedItem.link)">
@@ -68,8 +70,6 @@
           <mat-card>
             <mat-card-content>
               <mat-card-title>{{ 'ARTIST_SONGS.QUIET_HERE_TITLE' | translate }}</mat-card-title>
-              <p>{{ 'ARTIST_SONGS.QUIET_HERE_MESSAGE' | translate }}
-              </p>
             </mat-card-content>
           </mat-card>
         </div>
@@ -77,4 +77,3 @@
   </main>
   </body>
 }
-
