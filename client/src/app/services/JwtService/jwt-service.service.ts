@@ -8,7 +8,7 @@ import {Verification} from "../../models/Verification";
 import {environment} from "../../../environments/environments";
 import {Observable} from "rxjs";
 import {DataTranfer} from "../../models/DataTranfer";
-import {Lang} from "../../models/Lang";
+import {Language} from "../../models/Language";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {CookieService} from "../CookieService/cookie.service";
 
@@ -36,7 +36,7 @@ export class JwtServiceService {
   }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.url + '/users/', environment.options);
+    return this.http.get<User[]>(environment.url + '/users/all', environment.options);
   }
 
   public getMe(): Observable<User> {
@@ -44,17 +44,17 @@ export class JwtServiceService {
   }
 
   public verifyPassword(username: string, password: string): Observable<Object> {
-    return this.http.post(environment.url + '/auth/verify-password', {
+    return this.http.post(environment.url + '/auth/verify/password', {
       username: username,
       password: password
     }, environment.options);
   }
 
-  public updateUser(artist: Artist): Observable<User> {
+  public registerArtist(artist: Artist): Observable<User> {
     return this.http.put<User>(environment.url + '/users/register-artist', artist, environment.options);
   }
 
-  public updateUsers(user: User): Observable<User> {
+  public updateUser(user: User): Observable<User> {
     return this.http.put<User>(environment.url + '/users', user, environment.options);
   }
 
@@ -69,13 +69,11 @@ export class JwtServiceService {
 
   public getUsernameByEMail(email: string)   {
     const url = environment.url + `/auth/username-by-email/${email}`;
-    console.log(url)
     return this.http.get<DataTranfer>(url);
   }
 
   public getEMailByUsername(username: string) {
     const url = environment.url + `/auth/email-by-username/${username}`;
-    console.log(url)
     return this.http.get<DataTranfer>(url);
   }
 
@@ -84,16 +82,15 @@ export class JwtServiceService {
       data: email
     });
   }
-  public verify(username: string, otp: string): Observable<boolean> {
-    return this.http.post<boolean>(environment.url + '/auth/verify-Otp', {
-      username: username,
+  public verify(email: string, username: string, otp: string): Observable<boolean> {
+    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {
+      username: email,
       otp: otp
     }).pipe(
       tap((isVerified) => {
-        console.log('isVerified')
-        console.log(isVerified)
         if (isVerified) {
-          this.cookieService.setCookie('2fa_verified', 'true', 24 * 60 * 60 * 1000);
+          const name = '2fa_verified' + username;
+          this.cookieService.setCookie(name, 'true', 24 * 60 * 60 * 1000);
         }
       })
     );

@@ -17,8 +17,6 @@ public class OTPService {
 
     public String generateOTP(String key) {
         String otp = String.valueOf(100000 + random.nextInt(900000));
-        System.out.println("Generated OTP: " + otp);
-        System.out.println("Generated OTP for: " + key);
         otps.put(key, otp);
         return otp;
     }

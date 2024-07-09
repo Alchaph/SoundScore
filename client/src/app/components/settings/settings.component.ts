@@ -96,7 +96,6 @@ export class SettingsComponent implements OnInit {
       return;
     }
     this.jwtService.verifyPassword(this.username, this.userForm.value.oldPassword).subscribe((response) => {
-      console.log(response)
       if (response === false) {
         alert("old Password is incorrect");
         return;
@@ -105,7 +104,7 @@ export class SettingsComponent implements OnInit {
         user.email = this.userForm.value.email;
         user.username = this.userForm.value.username;
         user.password = this.userForm.value.password;
-        this.jwtService.updateUsers(user).subscribe((data) =>
+        this.jwtService.updateUser(user).subscribe((data) =>
         {
           localStorage.clear();
           this.jwtService.login(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe((response) => {

@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -25,8 +26,23 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.email = :name , u.username = :name, u.password = 'Deleted'  WHERE u = :u")
-    void deletes(User u, String name);
+    @Query("Update Comment c set c.user = :deletedUser where c.user = :user")
+    void UpdateUsersComments(@Param("user") User user, @Param("deletedUser") User deletedUser);
+
+    @Transactional
+    @Modifying
+    @Query("Update LikeOrDislike l set l.user = :deletedUser where l.user = :user")
+    void UpdateUsersLikes(@Param("user") User user, @Param("deletedUser") User deletedUser);
+
+    @Transactional
+    @Modifying
+    @Query("Update Post p set p.user = :deletedUser where p.user = :user")
+    void UpdateUsersPosts(@Param("user") User user, @Param("deletedUser") User deletedUser);
+
+    @Transactional
+    @Modifying
+    @Query("Delete from User u where u = :user")
+    void deleteUser(@Param("user") User user);
 
 
     @Transactional

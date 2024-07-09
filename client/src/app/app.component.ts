@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {LanguageService} from "./services/languageService/language.service";
-import {Lang} from "./models/Lang";
+import {Language} from "./models/Language";
 import {TranslateService} from "@ngx-translate/core";
 import {LoaderComponent} from "./components/loader/loader.component";
 import {CookieService} from "./services/CookieService/cookie.service";

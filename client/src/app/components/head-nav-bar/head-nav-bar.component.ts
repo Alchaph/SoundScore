@@ -68,12 +68,10 @@ export class HeadNavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = this.loaderService.getIsLoading();
-    console.log(sessionStorage.getItem('profilPicture'));
     if (sessionStorage.getItem('profilPicture') === null) {
       fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')
         .then(response => response.json())
         .then(data => {
-          console.log(data[0].url);
           sessionStorage.setItem('profilPicture', data[0].url);
         });
     }
@@ -82,9 +80,8 @@ export class HeadNavBarComponent implements OnInit {
     });
   }
 
-  refresh() {
-    console.log(window.location.href);
-    if (window.location.href === 'http://localhost:4200/home') {
+  refresh(){
+    if(window.location.href === 'http://localhost:4200/home') {
       window.location.reload();
     }
   }
@@ -96,5 +93,4 @@ export class HeadNavBarComponent implements OnInit {
       }
     });
   }
-
 }

@@ -1,8 +1,8 @@
 package ch.sbb.soundscore.SoundScore.services;
 
 
-import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.entities.Artist;
+import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,9 +36,20 @@ public class UserService {
         return userRepository.save(currentuser);
     }
 
-    public User deleteUser(User user) {
-        String name = "An deleted User" + user.getId();
-        userRepository.deletes(user, name);
+    //    public User deleteUser(User user) {
+//        String name = "An deleted User" + user.getId();
+//        userRepository.deletes(user, name);
+//        return user;
+//    }
+    public User deleteUser(User user, User user0) {
+        userRepository.UpdateUsersPosts(user, user0);
+        userRepository.UpdateUsersLikes(user, user0);
+        userRepository.UpdateUsersComments(user, user0);
+        userRepository.deleteUser(user);
         return user;
+    }
+
+    public User getUser0() {
+        return userRepository.findById(0).orElseThrow();
     }
 }

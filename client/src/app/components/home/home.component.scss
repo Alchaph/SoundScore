@@ -62,11 +62,10 @@ mat-card-content {
 }
 
 mat-card-content img {
-  margin-block: 10%;
+  margin: 10%;
+  width: 60%;
   height: auto;
-  max-height: 30%;
-  width: 40vw;
-  max-width: 80%;
+  max-height: 60%;
   align-self: center;
 }
 

@@ -51,7 +51,7 @@ export class UsersPostsComponent implements OnInit {
 
   navigateToPost(postId: number | undefined) {
     const currentPath = this.router.url
-    console.log(currentPath)
+
     sessionStorage.setItem('previousPath', currentPath)
     this.router.navigate(['/home/post/', postId])
   }

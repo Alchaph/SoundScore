@@ -82,7 +82,7 @@ public class AuthenticationService {
     }
 
     public DataTransferDTO getUsernameByEmail(String email) {
-        System.out.println(userRepository.findByEmail(email).map(User::getUsername).orElseThrow());
+
         String username = userRepository.findByEmail(email).map(User::getUsername).orElseThrow();
         DataTransferDTO dataTransferDTO = new DataTransferDTO();
         dataTransferDTO.setData(username);
@@ -90,7 +90,7 @@ public class AuthenticationService {
     }
 
     public DataTransferDTO getEmailByUsername(String username) {
-        System.out.println(userRepository.findByUsername(username).map(User::getEmail).orElseThrow());
+
         String email = userRepository.findByUsername(username).map(User::getEmail).orElseThrow();
         DataTransferDTO dataTransferDTO = new DataTransferDTO();
         dataTransferDTO.setData(email);

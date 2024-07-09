@@ -50,10 +50,10 @@ export class HomeMobileComponent implements OnInit {
     ]).subscribe(result => {
       this.isMobile = result.matches;
     });
+    this.homeService.loadPosts();
   }
 
   selected(selected: string) {
-    console.log(selected.toLowerCase());
     this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
   }
 
