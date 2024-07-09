@@ -44,6 +44,7 @@ export class HomeMobileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(123)
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small
