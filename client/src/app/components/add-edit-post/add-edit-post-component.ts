@@ -126,9 +126,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
 
   searchGif(): void {
     this.gifService.searchGif(this.gifSearchString).subscribe(data => {
-      // console.log(data.results)
       this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
-      // console.log(this.gifSearchResults)
       this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
     });
   }

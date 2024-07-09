@@ -61,13 +61,11 @@ public class AuthenticationController {
 
     @GetMapping("/username-by-email/{email}")
     public ResponseEntity<DataTransferDTO> getUsernameByEmail(@PathVariable String email) {
-        System.out.println("Email: " + email);
         return ResponseEntity.ok(authenticationService.getUsernameByEmail(email));
     }
 
     @GetMapping("/email-by-username/{username}")
     public ResponseEntity<DataTransferDTO> getEmailByUsername(@PathVariable String username) {
-        System.out.println("Username: " + username);
         return ResponseEntity.ok(authenticationService.getEmailByUsername(username));
     }
 

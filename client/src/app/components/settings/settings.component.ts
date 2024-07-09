@@ -96,7 +96,6 @@ export class SettingsComponent implements OnInit {
       return;
     }
     this.jwtService.verifyPassword(this.username, this.userForm.value.oldPassword).subscribe((response) => {
-      console.log(response)
       if (response === false) {
         alert("old Password is incorrect");
         return;

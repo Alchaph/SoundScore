@@ -91,7 +91,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
         alert('Email is not valid');
       } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
         alert('Passwords do not match');
-        console.log(this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe());
       } else if (!data) {
         this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
           (data) => {
@@ -116,11 +115,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else if (!this.registerForm.controls.password.valid) {
       alert('Password is not valid');
     } else  {
-      console.log(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
-        console.log(this.registerForm.controls.username.value)
         const name = '2fa_verified' + this.registerForm.controls.username.value;
-        console.log(name)
         if (this.cookieService.getCookie(name) === null) {
           this.username = this.registerForm.controls.username.value;
           localStorage.setItem('token', data.token);
@@ -140,8 +136,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   verifyOtp() {
     this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).subscribe((data) => {
-      console.log(data)
-      console.log(this.TwoFA)
       if (data && this.TwoFA) {
         this.router.navigate(['/home']);
       } else if (data) {
@@ -155,11 +149,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   verifyEmail() {
     this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
-      console.log(data)
       if (data) {
-        console.log(this.registerForm.controls.email.value)
         this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data: DataTranfer) => {
-          console.log("Hallo", data);
           this.email = this.registerForm.controls.email.value;
           this.forgotPasswordEmail = false
           this.forgotPassword = true;
