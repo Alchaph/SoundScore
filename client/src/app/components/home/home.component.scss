@@ -66,6 +66,15 @@ mat-card-content img {
   align-self: center;
 }
 
+mat-card-content p {
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+
+}
+
+
+
 mat-sidenav-container {
   height: calc(100vh - 64px);
   width: 23%;
