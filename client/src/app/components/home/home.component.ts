@@ -126,6 +126,7 @@ export class HomeComponent implements OnInit {
     ]).subscribe(result => {
       this.isMobile = result.matches;
     });
+    this.homeService.loadPosts();
   }
 
   selected(selected: string) {

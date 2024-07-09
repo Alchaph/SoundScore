@@ -17,18 +17,6 @@ export class HomeService {
   topArtists: Artist[] = [];
 
   constructor(private postService: PostService, private leaderBoardService: LeaderBoardService) {
-    this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
-      this.topGenres = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
-      this.topArtists = data.reverse();
-    });
-    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      this.topSongs = data.reverse();
-    });
   }
 
   getPosts() {
@@ -48,4 +36,18 @@ export class HomeService {
   }
 
 
+  loadPosts() {
+    this.postService.getPosts().subscribe((data: Post[]) => {
+      this.posts = data.reverse();
+    });
+    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
+      this.topGenres = data.reverse();
+    });
+    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
+      this.topArtists = data.reverse();
+    });
+    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
+      this.topSongs = data.reverse();
+    });
+  }
 }
