@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {PostService} from "../../services/PostService/post.service";
-import {Post} from '../../models/Post';
-import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
+import {PostService} from "../../../services/PostService/post.service";
+import {Post} from '../../../models/Post';
+import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
-import {User} from "../../models/User";
+import {JwtServiceService} from "../../../services/JwtService/jwt-service.service";
+import {User} from "../../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {TranslateModule} from "@ngx-translate/core";

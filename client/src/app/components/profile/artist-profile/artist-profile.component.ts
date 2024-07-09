@@ -1,16 +1,16 @@
 import {Component} from '@angular/core';
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
-import {User} from "../../models/User";
-import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
+import {JwtServiceService} from "../../../services/JwtService/jwt-service.service";
+import {User} from "../../../models/User";
+import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {Song} from '../../models/Song';
-import {SongService} from "../../services/SongService/song.service";
+import {Song} from '../../../models/Song';
+import {SongService} from "../../../services/SongService/song.service";
 import {MatIcon} from "@angular/material/icon";
 import {MatLine} from "@angular/material/core";
-import {ArtistService} from "../../services/ArtistService/artist.service";
-import {Artist} from "../../models/Artist";
+import {ArtistService} from "../../../services/ArtistService/artist.service";
+import {Artist} from "../../../models/Artist";
 import {Location} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -44,7 +44,6 @@ export class ArtistProfileComponent {
     private songService: SongService,
     private artistService: ArtistService,
     private route: ActivatedRoute,
-    private location: Location,
   ) {
     this.init()
   }
@@ -55,9 +54,6 @@ export class ArtistProfileComponent {
     }
   }
 
-  goBack() {
-    this.location.back();
-  }
 
   deleteSong(id: number) {
     this.songService.deleteSong(id).subscribe((data) => {

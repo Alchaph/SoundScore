@@ -87,8 +87,8 @@ export class HeadNavBarComponent implements OnInit {
   }
 
   reload() {
-    this.router.navigate(['/home/usersPosts/', this.userId]).then(() => {
-      if (window.location.href.includes('home/usersPosts')) {
+    this.router.navigate(['/home/userProfile/', this.userId]).then(() => {
+      if (window.location.href.includes('home/userProfile')) {
         window.location.reload();
       }
     });
