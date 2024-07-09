@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environments";
 import {TranslateService} from "@ngx-translate/core";
-import {Lang} from "../../models/Lang";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
 import {CookieService} from "../CookieService/cookie.service";

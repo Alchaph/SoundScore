@@ -8,7 +8,7 @@ import {Verification} from "../../models/Verification";
 import {environment} from "../../../environments/environments";
 import {Observable} from "rxjs";
 import {DataTranfer} from "../../models/DataTranfer";
-import {Lang} from "../../models/Lang";
+import {Language} from "../../models/Language";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {CookieService} from "../CookieService/cookie.service";
 
@@ -50,11 +50,11 @@ export class JwtServiceService {
     }, environment.options);
   }
 
-  public updateUser(artist: Artist): Observable<User> {
+  public registerArtist(artist: Artist): Observable<User> {
     return this.http.put<User>(environment.url + '/users/register-artist', artist, environment.options);
   }
 
-  public updateUsers(user: User): Observable<User> {
+  public updateUser(user: User): Observable<User> {
     return this.http.put<User>(environment.url + '/users', user, environment.options);
   }
 
