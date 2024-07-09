@@ -54,7 +54,6 @@ export class HomeMobileComponent implements OnInit {
   }
 
   selected(selected: string) {
-    console.log(selected.toLowerCase());
     this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
   }
 

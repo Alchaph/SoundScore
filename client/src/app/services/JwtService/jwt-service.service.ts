@@ -69,13 +69,11 @@ export class JwtServiceService {
 
   public getUsernameByEMail(email: string)   {
     const url = environment.url + `/auth/username-by-email/${email}`;
-    console.log(url)
     return this.http.get<DataTranfer>(url);
   }
 
   public getEMailByUsername(username: string) {
     const url = environment.url + `/auth/email-by-username/${username}`;
-    console.log(url)
     return this.http.get<DataTranfer>(url);
   }
 
@@ -90,8 +88,6 @@ export class JwtServiceService {
       otp: otp
     }).pipe(
       tap((isVerified) => {
-        console.log('isVerified')
-        console.log(isVerified)
         if (isVerified) {
           const name = '2fa_verified' + username;
           this.cookieService.setCookie(name, 'true', 24 * 60 * 60 * 1000);

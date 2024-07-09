@@ -101,7 +101,6 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         this.artistService.updateArtist(artist).subscribe(
           () => this.updateUser(artist)
         ) :
-        console.log(this.user)
       this.artistService.createArtist(artist).subscribe(
         (a) => {
           artist.id = a.id
