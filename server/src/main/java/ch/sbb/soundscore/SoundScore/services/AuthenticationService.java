@@ -1,7 +1,9 @@
 package ch.sbb.soundscore.SoundScore.services;
 
+import ch.sbb.soundscore.SoundScore.dtos.DataTransferDTO;
 import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
 import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
+import ch.sbb.soundscore.SoundScore.dtos.UpdatePasswordDto;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.mail.SimpleMailMessage;
@@ -79,11 +81,25 @@ public class AuthenticationService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public String getUsernameByEmail(String email) {
-        return userRepository.findByEmail(email).map(User::getUsername).orElseThrow();
+    public DataTransferDTO getUsernameByEmail(String email) {
+        System.out.println(userRepository.findByEmail(email).map(User::getUsername).orElseThrow());
+        String username = userRepository.findByEmail(email).map(User::getUsername).orElseThrow();
+        DataTransferDTO dataTransferDTO = new DataTransferDTO();
+        dataTransferDTO.setData(username);
+        return dataTransferDTO;
     }
 
-    public String getEmailByUsername(String username) {
-        return userRepository.findByUsername(username).map(User::getEmail).orElseThrow();
+    public DataTransferDTO getEmailByUsername(String username) {
+        System.out.println(userRepository.findByUsername(username).map(User::getEmail).orElseThrow());
+        String email = userRepository.findByUsername(username).map(User::getEmail).orElseThrow();
+        DataTransferDTO dataTransferDTO = new DataTransferDTO();
+        dataTransferDTO.setData(email);
+        return dataTransferDTO;
+    }
+
+    public User updatePassword(UpdatePasswordDto user) {
+        User currentUser = userRepository.findByEmail(user.getEmail()).orElseThrow();
+        currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(currentUser);
     }
 }

@@ -1,6 +1,6 @@
 <body>
 <canvas id="bg" class="card-container"></canvas>
-  <div [ngClass]="{'card-container3': forgotPassword || forgotPasswordEmail || newPassword, 'card-container2': !forgotPasswordEmail && !forgotPassword && !newPassword}">
+  <div [ngClass]="{'card-container3': forgotPassword || forgotPasswordEmail || newPassword || TwoFA, 'card-container2': !forgotPasswordEmail && !forgotPassword && !newPassword && !TwoFA}">
   <mat-card id="card">
     <mat-card-header>
       <mat-card-title id="title">Sound score</mat-card-title>
@@ -14,13 +14,13 @@
           </div>
         }
         @if (!forgotPassword || !forgotPasswordEmail || newPassword) {
-          @if (!newPassword && !forgotPasswordEmail && !forgotPassword) {
+          @if (!newPassword && !forgotPasswordEmail && !forgotPassword && !TwoFA) {
             <div class="input-group">
               <input required="" type="text" formControlName="username" name="text" autocomplete="off" class="input">
               <label class="user-label">{{'LOGIN.FORM.USERNAME' | translate}}</label>
             </div>
           }
-          @if (!forgotPasswordEmail && !forgotPassword) {
+          @if (!forgotPasswordEmail && !forgotPassword && !TwoFA) {
         <div>
           <div class="input-group">
             <input required="" [type]="hide ? 'password' : 'text'" formControlName="password" name="text" autocomplete="off" class="input">
@@ -43,7 +43,7 @@
         }
       </mat-card-content>
       <mat-card-actions style="padding-left: 16px;">
-        @if (!forgotPassword && !forgotPasswordEmail && !newPassword) {
+        @if (!forgotPassword && !forgotPasswordEmail && !newPassword && !TwoFA) {
           <div id="ac">
         <button type="submit">
           <span>{{ isRegister ? ('LOGIN.FORM.REGISTER_BUTTON'| translate) : ('LOGIN.FORM.LOGIN_BUTTON' | translate) }}</span>

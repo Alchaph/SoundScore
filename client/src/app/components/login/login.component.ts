@@ -14,6 +14,7 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
 import {NgClass} from "@angular/common";
 import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 import * as module from "node:module";
+import {DataTranfer} from "../../models/DataTranfer";
 
 @Component({
   selector: 'app-login',
@@ -116,18 +117,22 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else  {
       console.log(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
-        this.username = this.registerForm.controls.username.value;
-        localStorage.setItem('token', data.token);
-        this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
-          this.email = data;
-          this.TwoFA = true;
-        });
+        if (this.jwtService.getSecureCookie('2fa_verified') === null) {
+          this.username = this.registerForm.controls.username.value;
+          localStorage.setItem('token', data.token);
+          this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
+            this.email = data.data;
+            this.TwoFA = true;
+          });
+        }
       });
     }
   }
 
   verifyOtp() {
-    this.jwtService.verify({username: this.username, otp: this.registerForm.controls.otp.value}).subscribe((data) => {
+    this.jwtService.verify(this.email, this.registerForm.controls.otp.value).subscribe((data) => {
+      console.log(data)
+      console.log(this.TwoFA)
       if (data && this.TwoFA) {
         this.router.navigate(['/home']);
       } else if (data) {
@@ -143,13 +148,13 @@ export class LoginComponent implements AfterViewInit, OnInit {
     this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
       console.log(data)
       if (data) {
-        this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data) => {
+        console.log(this.registerForm.controls.email.value)
+        this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data: DataTranfer) => {
           console.log("Hallo", data);
           this.email = this.registerForm.controls.email.value;
           this.forgotPasswordEmail = false
           this.forgotPassword = true;
-          this.username = data;
-          this.TwoFA = true;
+          this.username = data.data;
         });
       } else {
         alert('Email is not registered');
@@ -168,16 +173,20 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   changePassword() {
-    this.jwtService.login(this.username, this.registerForm.controls.password.value).subscribe((data) => {
-      localStorage.setItem('token', data.token);
-      this.jwtService.getMe().subscribe((user) => {
-        user.password = this.registerForm.controls.password.value;
-        this.jwtService.updateUsers(user).subscribe((data) => {
-          this.newPassword = false;
-          this.router.navigate(['/home']);
-        });
+      this.jwtService.updatePassword(this.email, this.registerForm.controls.password.value).subscribe((data) => {
+        if (data) {
+          this.jwtService.login(this.username, this.registerForm.controls.password.value).subscribe((data) => {
+            if (data) {
+              localStorage.setItem('token', data.token);
+              this.router.navigate(['/home']);
+            } else {
+              alert('Could not login');
+            }
+          });
+        } else {
+          alert('Could not update password');
+        }
       });
-    });
   }
 
   ngAfterViewInit() {

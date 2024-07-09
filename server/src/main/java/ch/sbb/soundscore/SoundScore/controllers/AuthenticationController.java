@@ -50,23 +50,31 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.emailExists(email));
     }
     @PostMapping("/authenticate")
-    public boolean authenticate(@RequestBody EmailDTO user) {
-        return authenticationService.authenticateWithOTP(user.getEmail());
+    public boolean authenticate(@RequestBody DataTransferDTO user) {
+        return authenticationService.authenticateWithOTP(user.getData());
     }
 
     @PostMapping("/verify/Otp")
     public boolean verify(@RequestBody Verification verification) {
-        return authenticationService.verifyOTP(verification.getUserName(), verification.getOtp());
+        return authenticationService.verifyOTP(verification.getUsername(), verification.getOtp());
     }
 
     @GetMapping("/username/by/email/{email}")
-    public ResponseEntity<String> getUsernameByEmail(@PathVariable String email) {
+    public ResponseEntity<DataTransferDTO> getUsernameByEmail(@PathVariable String email) {
+        System.out.println("Email: " + email);
         return ResponseEntity.ok(authenticationService.getUsernameByEmail(email));
     }
 
     @GetMapping("/email/by/username/{username}")
-    public ResponseEntity<String> getEmailByUsername(@PathVariable String username) {
+    public ResponseEntity<DataTransferDTO> getEmailByUsername(@PathVariable String username) {
+        System.out.println("Username: " + username);
         return ResponseEntity.ok(authenticationService.getEmailByUsername(username));
     }
+
+    @PutMapping("/update/password")
+    public ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
+        return ResponseEntity.ok(authenticationService.updatePassword(updatePasswordDto));
+    }
+
 }
 
