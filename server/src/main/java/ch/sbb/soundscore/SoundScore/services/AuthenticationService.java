@@ -102,4 +102,10 @@ public class AuthenticationService {
         currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(currentUser);
     }
+
+    public User deleteAccount(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        userRepository.deleteUser(user);
+        return user;
+    }
 }
