@@ -44,7 +44,7 @@ export class JwtServiceService {
   }
 
   public verifyPassword(username: string, password: string): Observable<Object> {
-    return this.http.post(environment.url + '/auth/verify-password', {
+    return this.http.post(environment.url + '/auth/verify/password', {
       username: username,
       password: password
     }, environment.options);
@@ -84,16 +84,17 @@ export class JwtServiceService {
       data: email
     });
   }
-  public verify(username: string, otp: string): Observable<boolean> {
-    return this.http.post<boolean>(environment.url + '/auth/verify-Otp', {
-      username: username,
+  public verify(email: string, username: string, otp: string): Observable<boolean> {
+    return this.http.post<boolean>(environment.url + '/auth/verify/Otp', {
+      username: email,
       otp: otp
     }).pipe(
       tap((isVerified) => {
         console.log('isVerified')
         console.log(isVerified)
         if (isVerified) {
-          this.cookieService.setCookie('2fa_verified', 'true', 24 * 60 * 60 * 1000);
+          const name = '2fa_verified' + username;
+          this.cookieService.setCookie(name, 'true', 24 * 60 * 60 * 1000);
         }
       })
     );

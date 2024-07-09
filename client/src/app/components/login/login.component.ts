@@ -118,7 +118,10 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else  {
       console.log(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
-        if (this.cookieService.getCookie('2fa_verified') === null) {
+        console.log(this.registerForm.controls.username.value)
+        const name = '2fa_verified' + this.registerForm.controls.username.value;
+        console.log(name)
+        if (this.cookieService.getCookie(name) === null) {
           this.username = this.registerForm.controls.username.value;
           localStorage.setItem('token', data.token);
           this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
@@ -136,7 +139,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   verifyOtp() {
-    this.jwtService.verify(this.email, this.registerForm.controls.otp.value).subscribe((data) => {
+    this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).subscribe((data) => {
       console.log(data)
       console.log(this.TwoFA)
       if (data && this.TwoFA) {
@@ -179,6 +182,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   changePassword() {
+    if (this.registerForm.controls.password.value === this.registerForm.controls.repeatPassword.value) {
       this.jwtService.updatePassword(this.email, this.registerForm.controls.password.value).subscribe((data) => {
         if (data) {
           this.jwtService.login(this.username, this.registerForm.controls.password.value).subscribe((data) => {
@@ -193,6 +197,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
           alert('Could not update password');
         }
       });
+    } else {
+      alert('Passwords do not match');
+    }
   }
 
   ngAfterViewInit() {
