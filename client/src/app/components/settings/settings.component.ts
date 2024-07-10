@@ -14,6 +14,7 @@ import {Router, RouterLink} from "@angular/router";
 import {NgClass} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CookieService} from "../../services/CookieService/cookie.service";
+import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 
 @Component({
   selector: 'app-settings',
@@ -57,7 +58,7 @@ export class SettingsComponent implements OnInit {
   protected username: string = '';
   protected notOnlyPassword: boolean = true;
 
-  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -86,18 +87,18 @@ export class SettingsComponent implements OnInit {
       this.notOnlyPassword = false;
     }
     if (this.userForm.invalid) {
-      alert('Please fill out all fields')
+      this.userInformationService.setMessage('Please fill in all fields');
       return;
     } else if (this.userForm.value.password === this.userForm.value.oldPassword && this.notOnlyPassword) {
-      alert('New password cannot be the same as the old password');
+      this.userInformationService.setMessage('New password must be different from old password');
       return;
     } else if(this.userForm.value.password !== this.userForm.value.confirmPassword) {
-      alert('Passwords do not match');
+      this.userInformationService.setMessage('Passwords do not match');
       return;
     }
     this.jwtService.verifyPassword(this.username, this.userForm.value.oldPassword).subscribe((response) => {
       if (response === false) {
-        alert("old Password is incorrect");
+        this.userInformationService.setMessage('Old password is incorrect');
         return;
       }
       this.jwtService.authenticate(this.userForm.value.email).subscribe((data) => {
@@ -121,8 +122,10 @@ export class SettingsComponent implements OnInit {
             });
           });
         } else {
-          alert('Email does not exist');
+          this.userInformationService.setMessage('Email is already registered');
         }
+      }, (error) => {
+        this.userInformationService.setMessage('Email is not valid');
       });
     });
   }

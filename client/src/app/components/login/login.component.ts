@@ -16,6 +16,7 @@ import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/comp
 import * as module from "node:module";
 import {DataTranfer} from "../../models/DataTranfer";
 import {CookieService} from "../../services/CookieService/cookie.service";
+import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 
 @Component({
   selector: 'app-login',
@@ -70,7 +71,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {
@@ -87,21 +88,21 @@ export class LoginComponent implements AfterViewInit, OnInit {
     this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
     if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
       if (!this.registerForm.controls.username.valid) {
-        alert('Username is not valid');
+        this.userInformationService.setMessage('Username is not valid');
       } else if (!this.registerForm.controls.email.valid) {
-        alert('Email is not valid');
+        this.userInformationService.setMessage('Email is not valid');
       } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
-        alert('Passwords do not match');
+        this.userInformationService.setMessage('Passwords do not match');
       } else if (!data) {
         this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
           (data) => {
             this.login();
           });
       } else {
-        alert('Email is already in use');
+        this.userInformationService.setMessage('Email is already registered');
       }
     } else {
-      alert('You cant use this Username');
+      this.userInformationService.setMessage('You cannot use this username');
     }
   });
   }
@@ -112,9 +113,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   login() {
     if (!this.registerForm.controls.username.valid) {
-      alert('Username is not valid');
+      this.userInformationService.setMessage('Username is not valid');
     } else if (!this.registerForm.controls.password.valid) {
-      alert('Password is not valid');
+      this.userInformationService.setMessage('Password is not valid');
     } else  {
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
         const name = '2fa_verified' + this.registerForm.controls.username.value;
@@ -133,6 +134,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
           localStorage.setItem('token', data.token);
           this.router.navigate(['/home']);
         }
+      }, (error) => {
+        this.userInformationService.setMessage('Username or password is not correct');
       });
     }
   }
@@ -144,13 +147,13 @@ export class LoginComponent implements AfterViewInit, OnInit {
         this.router.navigate(['/home']);
       } else if (this.Otp && data){
         this.jwtService.deleteAccountByUsername(this.username).subscribe((data) => {
-          alert('Account could not been created');
+          this.userInformationService.setMessage('Account could not be created');
         });
       } else if (data) {
         this.Otp = false;
         this.newPassword = true;
       } else {
-        alert('Conumberuld not verify OTP');
+        this.userInformationService.setMessage('OTP is not valid');
       }
     });
   }
@@ -165,7 +168,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
           this.username = data.data;
         });
       } else {
-        alert('Email is not registered');
+        this.userInformationService.setMessage('Email is not valid');
       }
     });
   }
@@ -173,9 +176,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
   resendOtp() {
     this.jwtService.authenticate(this.email).subscribe((data) => {
       if (data) {
-        alert('OTP has been resent');
+        this.userInformationService.setMessage('OTP was resent');
       } else {
-        alert('Could not resend OTP');
+        this.userInformationService.setMessage('Could not resend OTP');
       }
     });
   }
@@ -189,15 +192,15 @@ export class LoginComponent implements AfterViewInit, OnInit {
               localStorage.setItem('token', data.token);
               this.router.navigate(['/home']);
             } else {
-              alert('Could not login');
+              this.userInformationService.setMessage('Could not login');
             }
           });
         } else {
-          alert('Could not update password');
+          this.userInformationService.setMessage('Could not update password');
         }
       });
     } else {
-      alert('Passwords do not match');
+      this.userInformationService.setMessage('Passwords do not match');
     }
   }
 

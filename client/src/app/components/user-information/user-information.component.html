@@ -1,0 +1,10 @@
+@if (isMessage | async) {
+  <div class="box">
+    <div class="alert-box">
+      <div class="alert-message">{{ message | async }}</div>
+      <div class="alert-button">
+        <button (click)="hide()">Ok</button>
+      </div>
+    </div>
+  </div>
+}
