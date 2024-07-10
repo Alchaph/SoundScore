@@ -8,8 +8,8 @@
       "LOGIN_BUTTON": "Anmelden",
       "REGISTER_BUTTON": "Registrieren",
       "REPEAT_PASSWORD": "Passwort wiederholen",
-      "OTP_EXPLAIN": "Überprüfen Sie Ihren E-Mail-Posteingang",
-      "OTP": "Einmaliges Passwort eingeben",
+      "OTP_EXPLAIN": "Überprüfen Sie Ihren Posteingang",
+      "OTP": "6-stelliger Code eingeben",
       "CONTINUE_OTP": "Einreichen",
       "CONTINUE_PASSWORD": "Bestätigen Sie das",
       "CONTINUE_EMAIL": "Senden"
