@@ -13,7 +13,7 @@ export class SongService {
   }
 
   createSong(song: Song): Observable<Song> {
-    return this.http.post<Song>(environment.url + '/songs', environment.options);
+    return this.http.post<Song>(environment.url + '/songs', song, environment.options);
   }
 
   deleteSong(id: number): Observable<Song> {

@@ -14,7 +14,7 @@ export class ArtistService {
   }
 
   createArtist(artist: Artist): Observable<Artist> {
-    return this.http.post<Artist>(environment.url + '/artist', artist, environment.options);
+    return this.http.put<Artist>(environment.url + '/users/register-artist', artist, environment.options);
   }
 
   updateArtist(artist: Artist): Observable<Artist> {

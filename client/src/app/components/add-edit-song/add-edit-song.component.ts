@@ -117,9 +117,9 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
         artist: this.user?.artist
       }
       this.songService.createSong(song).subscribe((data) => {
-        this.router.navigate(['/home/artistProfile'])
+        this.router.navigate(['/home/userProfile/' + this.user?.id])
       });
     }
-    this.router.navigate(['/home/artistProfile'])
+    this.router.navigate(['/home/userProfile/' + this.user?.id])
   }
 }

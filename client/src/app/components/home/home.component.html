@@ -31,7 +31,7 @@
         </mat-list>
       </mat-expansion-panel>
     </div>
-    <div id="posts">
+    <div style="overflow-y: auto" id="posts" #scrollContainer>
       @for (post of this.homeService.getPosts(); track post) {
         @if (!selectedFilters || post[selectedFilters]) {
           <mat-card>
