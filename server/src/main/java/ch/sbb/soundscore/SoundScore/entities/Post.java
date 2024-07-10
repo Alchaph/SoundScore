@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.List;
+
 @Table(name = "posts")
 @Entity
 @Getter
@@ -21,9 +23,9 @@ public class Post {
     @Column(columnDefinition = "LONGTEXT")
     private String image;
     @Transient
-    private Long likes;
+    private List<LikeOrDislike> likes;
     @Transient
-    private Long dislikes;
+    private List<LikeOrDislike> dislikes;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
@@ -37,26 +39,10 @@ public class Post {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Song song;
 
-    public Post(Long likes, Long dislikes, User user, Genre genre, Artist artist, Song song) {
-        this.likes = likes;
-        this.dislikes = dislikes;
+    public Post(User user, Genre genre, Artist artist, Song song) {
         this.user = user;
         this.genre = genre;
         this.artist = artist;
         this.song = song;
-    }
-
-    public Long getLikes() {
-        if (likes == null) {
-            return 0L;
-        }
-        return likes;
-    }
-
-    public Long getDislikes() {
-        if (dislikes == null) {
-            return 0L;
-        }
-        return dislikes;
     }
 }

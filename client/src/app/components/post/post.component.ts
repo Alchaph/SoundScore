@@ -95,9 +95,17 @@ export class PostComponent implements OnInit {
   handleLikeDislikeResponse(data: boolean, likeOrDislike: boolean): void {
     likeOrDislike ? this.liked = data : this.disliked = data;
     if (data) {
-      likeOrDislike ? this.post.likes++ : this.post.dislikes++;
+      likeOrDislike ? this.post.likes.push({
+        post: this.post,
+        user: this.activeUser,
+        isLike: true
+      }) : this.post.dislikes.push({
+        post: this.post,
+        user: this.activeUser,
+        isLike: false
+      });
     } else {
-      likeOrDislike ? this.post.likes-- : this.post.dislikes--;
+      likeOrDislike ? this.post.likes = this.post.likes.filter(data => data.user.id !== this.activeUser.id) : this.post.dislikes = this.post.dislikes.filter(data => data.user.id !== this.activeUser.id);
     }
     this.likeProcessing = false;
   }
@@ -105,6 +113,7 @@ export class PostComponent implements OnInit {
   like(): Observable<boolean> {
     return this.postService.likeOrDislikePost(this.post, true);
   }
+
 
   dislikePost(): void {
     this.likeProcessing = true;
@@ -122,22 +131,24 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPost(this.postId).subscribe(post => {
       this.post = post;
-    });
-    this.postService.hasAlreadyLikedOrDisliked(this.postId).subscribe(data => {
-      if (data.alreadyLikedOrDisliked) {
-        if (data.liked) {
-          this.liked = true;
-        } else {
-          this.disliked = true;
-        }
-      }
+      this.jwtService.getMe().subscribe(user => {
+        this.activeUser = user;
+        post.likes.forEach(data => {
+          if (data.user.id === this.activeUser.id) {
+            this.liked = true;
+          }
+        });
+        post.dislikes.forEach(data => {
+          if (data.user.id === this.activeUser.id) {
+            this.disliked = true;
+          }
+        });
+      })
     });
     this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
       this.commentService.comments = this.commentService.buildCommentTree(comments);
     });
-    this.jwtService.getMe().subscribe(user => {
-      this.activeUser = user;
-    });
+
   }
 
   handleAction(): void {

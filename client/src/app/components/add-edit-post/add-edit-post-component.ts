@@ -139,8 +139,8 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
         title: this.formGroup.controls.title.value,
         content: this.formGroup.controls.content.value,
         image: this.formGroup.controls.imageUrl.value,
-        likes: this.post ? this.post.likes : 0,
-        dislikes: this.post ? this.post.dislikes : 0,
+        likes: this.post ? this.post.likes : [],
+        dislikes: this.post ? this.post.dislikes : [],
         user: this.post ? this.post.user : data,
         [this.showedType.toLowerCase()]: this.formGroup.controls.songOrGenreOrArtist.value
       }

@@ -26,8 +26,8 @@ public class PostService {
 
     public List<Post> allPosts() {
         return postRepository.findAll().stream().map(post -> {
-            post.setDislikes(this.likeOrDislikeRepository.countDislikesByPostId(post.getId()));
-            post.setLikes(this.likeOrDislikeRepository.countLikesByPostId(post.getId()));
+            post.setDislikes(this.likeOrDislikeRepository.dislikesByPostId(post.getId()));
+            post.setLikes(this.likeOrDislikeRepository.likesByPostId(post.getId()));
             return post;
         }).collect(Collectors.toList());
     }
@@ -50,8 +50,8 @@ public class PostService {
 
     public Post getPost(Long id) {
         Post post = postRepository.findById(id).orElseThrow();
-        post.setDislikes(this.likeOrDislikeRepository.countDislikesByPostId(id));
-        post.setLikes(this.likeOrDislikeRepository.countLikesByPostId(id));
+        post.setDislikes(this.likeOrDislikeRepository.dislikesByPostId(post.getId()));
+        post.setLikes(this.likeOrDislikeRepository.likesByPostId(post.getId()));
         return post;
     }
 
@@ -71,11 +71,9 @@ public class PostService {
         boolean added = false;
         if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user)) {
             likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsTrue(post, user);
-            post.setLikes(post.getLikes() - 1);
         } else {
             likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
             added = true;
-            post.setLikes(post.getLikes() + 1);
         }
         return added;
     }
@@ -84,11 +82,9 @@ public class PostService {
         boolean added = false;
         if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
             likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
-            post.setDislikes(post.getDislikes() - 1);
         } else {
             likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
             added = true;
-            post.setDislikes(post.getDislikes() + 1);
         }
         return added;
     }

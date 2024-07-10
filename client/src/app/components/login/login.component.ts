@@ -147,7 +147,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
         this.Otp = false;
         this.newPassword = true;
       } else {
-        alert('Could not verify OTP');
+        alert('Conumberuld not verify OTP');
       }
     });
   }

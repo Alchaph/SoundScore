@@ -7,6 +7,7 @@
   </mat-slide-toggle>
 </div>
 @if (post) {
+
   <div class="post-container">
     @if (post.image) {
       <img [src]="post.image" alt="{{post.title}}" class="post-image">
@@ -22,19 +23,20 @@
         [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
       <div class="post-meta">
         <span
-          [routerLink]="['/home/userProfile/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}</span>
+          [routerLink]="['/home/userProfile/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
+        </span>
         <div class="like-dislike-container">
           <div class="icons-box">
             <div>
               <button [disabled]="likeProcessing " mat-button (click)="likePost()"
                       color="{{ liked ? 'primary' : '' }}">
                 <mat-icon>{{ liked ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
-                <p>{{ post.likes }}</p>
+                <p>{{ post.likes.length }}</p>
               </button>
               <button [disabled]="likeProcessing" class="dislike-button" mat-button (click)="dislikePost()"
                       color="{{ disliked ? 'warn' : '' }}">
                 <mat-icon>{{ disliked ? 'thumb_down' : 'thumb_down_off_alt' }}</mat-icon>
-                <p>{{ post.dislikes }}</p>
+                <p>{{ post.dislikes.length }}</p>
               </button>
             </div>
           </div>
