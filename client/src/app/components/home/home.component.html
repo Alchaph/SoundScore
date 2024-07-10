@@ -31,7 +31,7 @@
         </mat-list>
       </mat-expansion-panel>
     </div>
-    <div id="posts">
+    <div style="overflow-y: auto" id="posts" #scrollContainer>
       @for (post of this.homeService.getPosts(); track post) {
         @if (!selectedFilters || post[selectedFilters]) {
           <mat-card>
@@ -44,18 +44,7 @@
               </div>
               <div class="post-meta">
                 <p>{{ 'HOME.POSTED_BY' | translate }}  {{ post.user.username }}</p>
-                <div>
-                  <button [disabled]="likeProcessing " mat-button (click)="likePost(post)"
-                          color="{{ this.postLiked(post) ? 'primary' : '' }}">
-                    <mat-icon>{{ this.postLiked(post) ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
-                    <p>{{ post.likes.length }}</p>
-                  </button>
-                  <button [disabled]="likeProcessing" class="dislike-button" mat-button (click)="dislikePost(post)"
-                          color="{{ this.postDisliked(post) ? 'warn' : '' }}">
-                    <mat-icon>{{ this.postDisliked(post) ? 'thumb_down' : 'thumb_down_off_alt' }}</mat-icon>
-                    <p>{{ post.dislikes.length }}</p>
-                  </button>
-                </div>
+                <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
               </div>
               <div [routerLink]="'/home/post/'+post.id">
                 <p>{{ post.content }}</p>

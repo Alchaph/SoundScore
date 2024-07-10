@@ -11,8 +11,9 @@
           </mat-card-header>
           <mat-card-content>
             <img [src]="post.image">
-            <div>
+            <div class="post-meta">
               <p>{{ 'HOME.POSTED_BY' | translate }}  {{ post.user.username }}</p>
+              <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
             </div>
             <p>{{ post.content }}</p>
             @if (post.genre || post.artist || post.song) {

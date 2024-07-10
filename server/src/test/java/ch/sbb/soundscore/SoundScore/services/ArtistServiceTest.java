@@ -9,7 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class ArtistServiceTest {
@@ -39,7 +40,6 @@ class ArtistServiceTest {
         when(artistRepository.save(artist)).thenReturn(artist);
 
         Artist result = artistService.createArtist(artist);
-
         verify(artistRepository, times(1)).save(artist);
         assertEquals(artist, result);
     }

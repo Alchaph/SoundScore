@@ -101,12 +101,12 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         this.artistService.updateArtist(artist).subscribe(
           () => this.updateUser(artist)
         ) :
-      this.artistService.createArtist(artist).subscribe(
-        (a) => {
-          artist.id = a.id
-          this.updateUser(artist)
-        }
-      )
+        this.artistService.createArtist(artist).subscribe(
+          (a) => {
+            this.router.navigate(['home/userProfile/' + this.user?.id])
+
+          }
+        )
     } else {
       alert('Please fill out all fields')
     }
@@ -155,7 +155,6 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         image: artist?.image!,
       }).subscribe(
         () => {
-          this.router.navigate(['home/artistProfile/' + artist.id])
 
         }
       )
