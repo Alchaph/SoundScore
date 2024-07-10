@@ -7,7 +7,12 @@
       "PASSWORD": "🔑",
       "LOGIN_BUTTON": "🔓",
       "REGISTER_BUTTON": "📝",
-      "REPEAT_PASSWORD": "🔁"
+      "REPEAT_PASSWORD": "🔁",
+      "OTP_EXPLAIN": "📥",
+      "OTP": "🔢",
+      "CONTINUE_OTP": "📤",
+      "CONTINUE_PASSWORD": "🔑",
+      "CONTINUE_EMAIL": "📤"
     },
     "NO_ACCOUNT": "🚫",
     "ALREADY_ACCOUNT": "✅"

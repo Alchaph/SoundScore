@@ -7,7 +7,12 @@
       "PASSWORD": "Mot de passe",
       "LOGIN_BUTTON": "Connexion",
       "REGISTER_BUTTON": "S'inscrire",
-      "REPEAT_PASSWORD": "Répéter le mot de passe"
+      "REPEAT_PASSWORD": "Répéter le mot de passe",
+      "OTP_EXPLAIN": "Vérifiez votre boîte de réception de courrier électronique",
+      "OTP": "Entrez le mot de passe unique",
+      "CONTINUE_OTP": "Soumettre",
+      "CONTINUE_PASSWORD": "Confirmez le mot de passe",
+      "CONTINUE_EMAIL": "Envoyer"
     },
     "NO_ACCOUNT": "Pas de compte?",
     "ALREADY_ACCOUNT": "Déjà inscrit?"
