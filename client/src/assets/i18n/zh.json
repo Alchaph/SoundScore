@@ -7,7 +7,12 @@
       "PASSWORD": "密码",
       "LOGIN_BUTTON": "登录",
       "REGISTER_BUTTON": "注册",
-      "REPEAT_PASSWORD": "重复密码"
+      "REPEAT_PASSWORD": "重复密码",
+      "OTP_EXPLAIN": "检查您的电子邮件收件箱",
+      "OTP": "输入一次性密码",
+      "CONTINUE_OTP": "提交",
+      "CONTINUE_PASSWORD": "确认密码",
+      "CONTINUE_EMAIL": "发送"
     },
     "NO_ACCOUNT": "没有账号？",
     "ALREADY_ACCOUNT": "已注册？"

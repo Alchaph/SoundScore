@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {User} from "../../models/User";
-import {ArtistService} from "../../services/ArtistService/artist.service";
 import {JwtServiceService} from '../../services/JwtService/jwt-service.service';
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
@@ -14,6 +13,7 @@ import {Artist} from "../../models/Artist";
 import {Router, RouterLink} from "@angular/router";
 import {NgClass} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {CookieService} from "../../services/CookieService/cookie.service";
 
 @Component({
   selector: 'app-settings',
@@ -57,12 +57,12 @@ export class SettingsComponent implements OnInit {
   protected username: string = '';
   protected notOnlyPassword: boolean = true;
 
-  constructor(private jwtService: JwtServiceService, private router: Router) {
+  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl(['', Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]),
       username: new FormControl('', Validators.required),
     });
   }
@@ -100,23 +100,29 @@ export class SettingsComponent implements OnInit {
         alert("old Password is incorrect");
         return;
       }
-      this.jwtService.getMe().subscribe((user: User) => {
-        user.email = this.userForm.value.email;
-        user.username = this.userForm.value.username;
-        user.password = this.userForm.value.password;
-        this.jwtService.updateUser(user).subscribe((data) =>
-        {
-          localStorage.clear();
-          this.jwtService.login(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe((response) => {
-            localStorage.setItem('token', response.token);
-            this.userForm.controls.oldPassword.setValue('');
-            this.userForm.controls.password.setValue('');
-            this.userForm.controls.confirmPassword.setValue('');
-            this.router.navigate(['/home']);
+      this.jwtService.authenticate(this.userForm.value.email).subscribe((data) => {
+        if (data) {
+          this.jwtService.getMe().subscribe((user: User) => {
+            user.email = this.userForm.value.email;
+            user.username = this.userForm.value.username;
+            user.password = this.userForm.value.password;
+            this.jwtService.updateUser(user).subscribe((data) =>
+            {
+              localStorage.clear();
+              this.jwtService.login(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe((response) => {
+                localStorage.setItem('token', response.token);
+                this.userForm.controls.oldPassword.setValue('');
+                this.userForm.controls.password.setValue('');
+                this.userForm.controls.confirmPassword.setValue('');
+                this.router.navigate(['/home']);
+              });
+              this.username = user.username;
+              this.email = user.email;
+            });
           });
-          this.username = user.username;
-          this.email = user.email;
-        });
+        } else {
+          alert('Email does not exist');
+        }
       });
     });
   }
@@ -147,9 +153,11 @@ export class SettingsComponent implements OnInit {
           nuke.style.visibility = 'hidden';
           this.explode = true;
           setTimeout(() => {
-            this.jwtService.deleteMe().subscribe();
-            this.router.navigate(['']);
-            localStorage.clear();
+            this.jwtService.deleteMe().subscribe((data) => {
+              this.cookieService.deleteCookie('2fa_verified' + data.username);
+              this.router.navigate(['']);
+              localStorage.clear();
+            });
           }, 500);
         }, 2000);
       }, 3000);

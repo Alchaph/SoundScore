@@ -44,6 +44,8 @@ import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeMobileComponent} from "./home-mobile/home-mobile.component";
 import {HomeService} from "../../services/HomeService/home.service";
+import {Observable} from "rxjs";
+import {Post} from "../../models/Post";
 import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
