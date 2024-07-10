@@ -49,6 +49,7 @@ import {Post} from "../../models/Post";
 import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
 
 export interface TreeNode {
   name: string;
@@ -107,7 +108,8 @@ export interface TreeNode {
     MatSelect,
     MatOption,
     TranslateModule,
-    HomeMobileComponent
+    HomeMobileComponent,
+    LikeOrDislikeComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -154,8 +156,28 @@ export class HomeComponent implements OnInit {
     this.likeProcessing = true;
     this.postDisliked(post) ? this.dislike(post).subscribe((data) => {
       this.handleLikeDislikeResponse(data, false, post)
-      this.like(post).subscribe(data => this.handleLikeDislikeResponse(data, true, post))
-    }) : this.like(post).subscribe(data => this.handleLikeDislikeResponse(data, true, post));
+      this.like(post).subscribe(data => {
+        this.handleLikeDislikeResponse(data, true, post)
+        this.likeProcessing = false;
+      })
+    }) : this.like(post).subscribe(data => {
+      this.handleLikeDislikeResponse(data, true, post)
+      this.likeProcessing = false;
+    })
+  }
+
+  dislikePost(post: Post): void {
+    this.likeProcessing = true;
+    this.postLiked(post) ? this.like(post).subscribe((data) => {
+      this.handleLikeDislikeResponse(data, true, post)
+      this.dislike(post).subscribe(data => {
+        this.handleLikeDislikeResponse(data, false, post)
+        this.likeProcessing = false;
+      })
+    }) : this.dislike(post).subscribe(data => {
+      this.handleLikeDislikeResponse(data, false, post)
+      this.likeProcessing = false;
+    })
   }
 
   handleLikeDislikeResponse(data: boolean, likeOrDislike: boolean, post: Post): void {
@@ -172,20 +194,12 @@ export class HomeComponent implements OnInit {
     } else {
       likeOrDislike ? post.likes = post.likes.filter(data => data.user.id !== this.activeUser.id) : post.dislikes = post.dislikes.filter(data => data.user.id !== this.activeUser.id);
     }
-    this.likeProcessing = false;
   }
 
   like(post: Post): Observable<boolean> {
     return this.postService.likeOrDislikePost(post, true);
   }
 
-  dislikePost(post: Post): void {
-    this.likeProcessing = true;
-    this.postLiked(post) ? this.like(post).subscribe((data) => {
-      this.handleLikeDislikeResponse(data, true, post)
-      this.dislike(post).subscribe(data => this.handleLikeDislikeResponse(data, false, post))
-    }) : this.dislike(post).subscribe(data => this.handleLikeDislikeResponse(data, false, post));
-  }
 
   dislike(post: Post): Observable<boolean> {
     return this.postService.likeOrDislikePost(post, false);

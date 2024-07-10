@@ -25,50 +25,35 @@
         <span
           [routerLink]="['/home/userProfile/' + post.user.id]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
         </span>
-        <div class="like-dislike-container">
-          <div class="icons-box">
-            <div>
-              <button [disabled]="likeProcessing " mat-button (click)="likePost()"
-                      color="{{ liked ? 'primary' : '' }}">
-                <mat-icon>{{ liked ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
-                <p>{{ post.likes.length }}</p>
-              </button>
-              <button [disabled]="likeProcessing" class="dislike-button" mat-button (click)="dislikePost()"
-                      color="{{ disliked ? 'warn' : '' }}">
-                <mat-icon>{{ disliked ? 'thumb_down' : 'thumb_down_off_alt' }}</mat-icon>
-                <p>{{ post.dislikes.length }}</p>
-              </button>
-            </div>
-          </div>
-        </div>
+        <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
       </div>
-      @if (post.genre || post.artist || post.song) {
-        <div class="post-tags">
-          @if (post.genre) {
-            <span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>
-          }
-          @if (post.artist) {
-            <span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>
-          }
-          @if (post.song) {
-            <span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>
-          }
-        </div>
-      }
     </div>
+    @if (post.genre || post.artist || post.song) {
+      <div class="post-tags">
+        @if (post.genre) {
+          <span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>
+        }
+        @if (post.artist) {
+          <span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>
+        }
+        @if (post.song) {
+          <span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>
+        }
+      </div>
+    }
   </div>
   <div class="comments-section">
     <h2>{{ 'POST.COMMENTS' | translate }}</h2>
     @for (comment of commentService.comments; track comment) {
       <app-comment [comment]="comment" [activeUser]="activeUser"></app-comment>
     }
-      <div class="comment-form">
-        <h3>{{ 'POST_FORM.' + commentService.currentAction | translate }} {{ 'POST_FORM.COMMENT' | translate }}</h3>
-        <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="commentService.newComment.message"></textarea>
-        <button (click)="handleAction()" >{{ 'POST.SUBMIT' | translate }}</button>
-        @if (commentService.currentAction !== 'Add') {
-          <button (click)="resetAction()">{{ 'POST.CANCEL' | translate }}</button>
-        }
-      </div>
+    <div class="comment-form">
+      <h3>{{ 'POST_FORM.' + commentService.currentAction | translate }} {{ 'POST_FORM.COMMENT' | translate }}</h3>
+      <textarea placeholder="{{'POST.MESSAGE' | translate}}" [(ngModel)]="commentService.newComment.message"></textarea>
+      <button (click)="handleAction()">{{ 'POST.SUBMIT' | translate }}</button>
+      @if (commentService.currentAction !== 'Add') {
+        <button (click)="resetAction()">{{ 'POST.CANCEL' | translate }}</button>
+      }
+    </div>
   </div>
 }
