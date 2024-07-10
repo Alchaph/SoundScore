@@ -7,7 +7,12 @@
       "PASSWORD": "Passwort",
       "LOGIN_BUTTON": "Aaloggä",
       "REGISTER_BUTTON": "Regischtriere",
-      "REPEAT_PASSWORD": "Passwort widrholä"
+      "REPEAT_PASSWORD": "Passwort widrholä",
+      "OTP_EXPLAIN": "Überprüef din E-Mail-Posteingang",
+      "OTP": "Einmaligs Passwort iigebä",
+      "CONTINUE_OTP": "Abschickä",
+      "CONTINUE_PASSWORD": "Bestätigä Passwort",
+      "CONTINUE_EMAIL": "Abschickä"
     },
     "NO_ACCOUNT": "No kei Account?",
     "ALREADY_ACCOUNT": "Scho registriert?"

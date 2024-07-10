@@ -7,7 +7,12 @@
       "PASSWORD": "Senha",
       "LOGIN_BUTTON": "Entrar",
       "REGISTER_BUTTON": "Registrar",
-      "REPEAT_PASSWORD": "Repita a senha"
+      "REPEAT_PASSWORD": "Repita a senha",
+      "OTP_EXPLAIN": "Verifique sua caixa de entrada de e-mail",
+      "OTP": "Digite a senha única",
+      "CONTINUE_OTP": "Enviar",
+      "CONTINUE_PASSWORD": "Confirmar Senha",
+      "CONTINUE_EMAIL": "Enviar"
     },
     "NO_ACCOUNT": "Sem conta?",
     "ALREADY_ACCOUNT": "Já registrado?"

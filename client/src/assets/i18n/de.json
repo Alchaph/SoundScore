@@ -7,7 +7,12 @@
       "PASSWORD": "Passwort",
       "LOGIN_BUTTON": "Anmelden",
       "REGISTER_BUTTON": "Registrieren",
-      "REPEAT_PASSWORD": "Passwort wiederholen"
+      "REPEAT_PASSWORD": "Passwort wiederholen",
+      "OTP_EXPLAIN": "Überprüfen Sie Ihren E-Mail-Posteingang",
+      "OTP": "Einmaliges Passwort eingeben",
+      "CONTINUE_OTP": "Einreichen",
+      "CONTINUE_PASSWORD": "Bestätigen Sie das",
+      "CONTINUE_EMAIL": "Senden"
     },
     "NO_ACCOUNT": "Kein Konto?",
     "ALREADY_ACCOUNT": "Bereits registriert?"
