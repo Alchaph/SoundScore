@@ -5,12 +5,13 @@ import {Language} from "./models/Language";
 import {TranslateService} from "@ngx-translate/core";
 import {LoaderComponent} from "./components/loader/loader.component";
 import {CookieService} from "./services/CookieService/cookie.service";
+import {UserInformationComponent} from "./components/user-information/user-information.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoaderComponent],
+  imports: [RouterOutlet, LoaderComponent, UserInformationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
