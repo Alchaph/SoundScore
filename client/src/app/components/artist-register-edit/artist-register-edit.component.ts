@@ -15,6 +15,7 @@ import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {NgClass, NgIf} from "@angular/common";
+import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 
 @Component({
   selector: 'app-artist-register',
@@ -63,7 +64,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   protected explode: boolean = false;
   protected disabled: boolean = false;
 
-  constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, protected route: ActivatedRoute, private router: Router) {
+  constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, protected route: ActivatedRoute, private router: Router, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {
@@ -108,7 +109,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
           }
         )
     } else {
-      alert('Please fill out all fields')
+      this.userInformationService.setMessage('Please fill in all fields')
     }
   }
 

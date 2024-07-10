@@ -41,13 +41,13 @@ export class HomeService {
       this.posts.push(...data.reverse());
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
-      this.topGenres = data.reverse();
+      this.topGenres = data.reverse().slice(0, 5);
     });
     this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
-      this.topArtists = data.reverse();
+      this.topArtists = data.reverse().slice(0, 5);
     });
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
-      this.topSongs = data.reverse();
+      this.topSongs = data.reverse().slice(0, 5);
     });
   }
 }
