@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Comment} from '../../models/Comment';
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environments";
+import {HttpService} from "../HttpService/http.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,26 +14,26 @@ export class CommentService {
   comments: Comment[] = [];
   newComment: Comment = {} as Comment;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private httpService: HttpService) {
   }
 
   createComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(environment.url + '/comments', comment, environment.options);
+    return this.http.post<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions());
 
   }
 
   updateComment(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(environment.url + '/comments', comment, environment.options)
+    return this.http.put<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions())
 
   }
 
   deleteComment(id: number): Observable<Comment> {
-    return this.http.delete<Comment>(environment.url + '/comments/' + id, environment.options);
+    return this.http.delete<Comment>(environment.url + '/comments/' + id, this.httpService.getHttpOptions());
 
   }
 
   getCommentsOfPost(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(environment.url + '/comments/commentsByPostId/' + postId, environment.options);
+    return this.http.get<Comment[]>(environment.url + '/comments/commentsByPostId/' + postId, this.httpService.getHttpOptions());
   }
 
   buildCommentTree(comments: Comment[]): Comment[] {

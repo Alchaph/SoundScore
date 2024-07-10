@@ -20,6 +20,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {Observable} from "rxjs";
+import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
 
 @Component({
   selector: 'app-post',
@@ -44,6 +45,7 @@ import {Observable} from "rxjs";
     MatSlideToggle,
     MatFormField,
     MatInput,
+    LikeOrDislikeComponent,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'

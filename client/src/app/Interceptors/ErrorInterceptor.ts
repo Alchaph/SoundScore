@@ -10,7 +10,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
         if (error) {
           switch (error.status) {
             case 401:
-              alert('Passowrd or Username is incorrect');
+              alert('Password or Username is incorrect');
               break;
           }
         }

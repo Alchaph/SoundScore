@@ -5,7 +5,6 @@ import { routes } from './app.routes';
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {HttpClient, provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {provideAnimations} from "@angular/platform-browser/animations";
-import {tokenInterceptor} from "./Interceptors/TokenInterceptor";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {LanguageService} from "./services/languageService/language.service";
 import {immediateProvider} from "rxjs/internal/scheduler/immediateProvider";
@@ -19,7 +18,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([tokenInterceptor, LoadingInterceptor, ErrorInterceptor])), provideAnimationsAsync(), LanguageService,
+  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([LoadingInterceptor, ErrorInterceptor])), provideAnimationsAsync(), LanguageService,
               importProvidersFrom(TranslateModule.forRoot({
                 loader: {
                   provide: TranslateLoader,

@@ -11,10 +11,10 @@ import {LeaderBoardService} from "../LeaderBoardService/leader-board.service";
 })
 export class HomeService {
   posts: Post[] = [];
-
   topSongs: Song[] = [];
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
+  displayedPosts: number = JSON.parse(localStorage.getItem("displayedPosts") ?? "0")
 
   constructor(private postService: PostService, private leaderBoardService: LeaderBoardService) {
   }
@@ -38,7 +38,7 @@ export class HomeService {
 
   loadPosts() {
     this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts = data.reverse();
+      this.posts.push(...data.reverse());
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data.reverse();
