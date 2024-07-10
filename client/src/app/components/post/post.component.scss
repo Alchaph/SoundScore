@@ -54,6 +54,8 @@
   }
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
   margin-top: 10px;
   font-size: 0.9em;
   color: #666;
