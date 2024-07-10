@@ -143,11 +143,11 @@ export class HomeComponent implements OnInit {
   }
 
   postLiked(post: Post): boolean {
-    return post.likes.find(dislike => dislike.user.id === this.activeUser.id) !== undefined
+    return post.likes.some(dislike => dislike.user.id === this.activeUser.id)
   }
 
   postDisliked(post: Post): boolean {
-    return post.dislikes.find(dislike => dislike.user.id === this.activeUser.id) !== undefined
+    return post.dislikes.some(dislike => dislike.user.id === this.activeUser.id) !== undefined
   }
 
   likePost(post: Post): void {
