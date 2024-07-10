@@ -11,13 +11,14 @@ import {DataTranfer} from "../../models/DataTranfer";
 import {Language} from "../../models/Language";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {CookieService} from "../CookieService/cookie.service";
+import {HttpService} from "../HttpService/http.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtServiceService {
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private httpService: HttpService) {
   }
 
   public login(username: string, password: string): Observable<{ token: string, expiresIn: number }> {
@@ -36,31 +37,31 @@ export class JwtServiceService {
   }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.url + '/users/all', environment.options);
+    return this.http.get<User[]>(environment.url + '/users/all', this.httpService.getHttpOptions());
   }
 
   public getMe(): Observable<User> {
-    return this.http.get<User>(environment.url + '/users/me', environment.options);
+    return this.http.get<User>(environment.url + '/users/me', this.httpService.getHttpOptions());
   }
 
   public verifyPassword(username: string, password: string): Observable<Object> {
     return this.http.post(environment.url + '/auth/verify-password', {
       username: username,
       password: password
-    }, environment.options);
+    }, this.httpService.getHttpOptions());
   }
 
   public registerArtist(artist: Artist): Observable<User> {
-    return this.http.put<User>(environment.url + '/users/register-artist', artist, environment.options);
+    return this.http.put<User>(environment.url + '/users/register-artist', artist, this.httpService.getHttpOptions());
   }
 
   public updateUser(user: User): Observable<User> {
     this.cookieService.setCookie('2fa_verified' + user.username, 'false', 24 * 60 * 60 * 1000);
-    return this.http.put<User>(environment.url + '/users', user, environment.options);
+    return this.http.put<User>(environment.url + '/users', user, this.httpService.getHttpOptions());
   }
 
   public deleteMe(): Observable<User> {
-    return this.http.delete<User>(environment.url + '/users', environment.options);
+    return this.http.delete<User>(environment.url + '/users', this.httpService.getHttpOptions());
   }
 
   public emailExists(email: string): Observable<boolean> {
