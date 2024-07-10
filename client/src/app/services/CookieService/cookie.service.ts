@@ -24,4 +24,8 @@ export class CookieService {
     }
     return null;
   }
+
+  deleteCookie(name: string): void {
+    this.setCookie(name, '', -1);
+  }
 }

@@ -55,6 +55,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   protected newPassword: boolean = false;
   protected username: string = '';
   protected email: string = '';
+  private token: string = '';
   registerForm: FormGroup<{
     email: FormControl,
     otp: FormControl,
@@ -119,7 +120,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
         const name = '2fa_verified' + this.registerForm.controls.username.value;
         if (this.cookieService.getCookie(name) === null) {
           this.username = this.registerForm.controls.username.value;
-          localStorage.setItem('token', data.token);
+          this.token = data.token;
           this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
             this.email = data.data;
             this.jwtService.authenticate(this.email).subscribe((data) => {
@@ -138,6 +139,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   verifyOtp() {
     this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).subscribe((data) => {
       if (data && this.TwoFA) {
+        localStorage.setItem('token', this.token);
         this.router.navigate(['/home']);
       } else if (this.Otp && data){
         this.jwtService.deleteAccountByUsername(this.username).subscribe((data) => {
