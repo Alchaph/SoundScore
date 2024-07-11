@@ -48,5 +48,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Transactional
     @Query("select u from User u where u.email = ?1")
     Optional<User> findByEmail(String email);
+
+    @Query("select u from User u where u.artist.id = ?1")
+    User getUserByArtistId(int id);
 }
 

@@ -23,7 +23,7 @@
         [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
       <div class="post-meta">
         <span
-          [routerLink]="['/home/userProfile', activeUser.id, localStorage.getItem('selectedTabProfileTab')]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
+          [routerLink]="['/home/userProfile', post.user.id, localStorage.getItem('selectedTabProfileTab')]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
         </span>
         <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
       </div>

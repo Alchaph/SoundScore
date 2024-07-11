@@ -78,7 +78,7 @@
           @if (str === ('LEADERBOARD.TOP_ARTISTS' | translate)) {
             <mat-list>
               @for (item of this.homeService.getTopArtists(); track item) {
-                <mat-list-item [routerLink]="'/home/artistProfile/'+ item.id">
+                <mat-list-item (click)="gotoArtist(item.id)">
                   {{ item.name }}
                 </mat-list-item>
               }

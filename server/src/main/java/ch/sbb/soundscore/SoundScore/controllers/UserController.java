@@ -37,6 +37,16 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @GetMapping("/getByArtistId/{id}")
+    public ResponseEntity<User> getUserByArtistId(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getUserByArtistId(id));
+    }
+
     @PutMapping("/register-artist")
     public ResponseEntity<User> updateUser(@RequestBody Artist artist) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

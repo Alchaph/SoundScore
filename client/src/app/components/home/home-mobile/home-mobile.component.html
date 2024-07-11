@@ -72,7 +72,7 @@
               @if (str === 'Top Artists') {
                 <mat-list>
                   @for (artist of this.homeService.getTopArtists(); track artist) {
-                    <mat-list-item [routerLink]="'/home/artistProfile/'+ artist.id">
+                    <mat-list-item (click)="gotoArtist(artist.id)">
                       {{ artist.name }}
                     </mat-list-item>
                   }
