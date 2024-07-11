@@ -68,6 +68,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    if (this.route.snapshot.paramMap.get('artistId'))
     this.artistService.getArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).subscribe((a: Artist) => {
       this.artist = a;
       if (this.artist) {
