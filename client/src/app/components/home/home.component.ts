@@ -143,16 +143,8 @@ export class HomeComponent implements OnInit {
       this.homeService.loadPosts();
     })
   }
-  selected(selected: string) {
-    this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
-  }
 
-  handlePanelClick(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
-  openLink(event: MouseEvent, link: string) {
-    event.stopPropagation();
-    window.open(link, '_blank');
+  gotoArtist(id:number | undefined) {
+    this.homeService.gotoArtist(id);
   }
 }

@@ -22,7 +22,7 @@ export const routes: Routes = [
   {path: 'home/leaderBoard',canActivate: [loginGuard], component: LeaderBoardComponent},
   {path: 'home/settings',canActivate: [loginGuard], component: SettingsComponent},
   { path: 'home/userProfile/:id/:tab', canActivate: [loginGuard], component: ProfileComponent },
-  {path: 'home/artistProfile',canActivate: [loginGuard], component: ArtistProfileComponent},
+  // {path: 'home/artistProfile',canActivate: [loginGuard], component: ArtistProfileComponent},
   {path: 'home/addArtist',canActivate: [loginGuard], component: ArtistRegisterEditComponent},
   {path: 'home/editArtist/:artistId',canActivate: [loginGuard], component: ArtistRegisterEditComponent},
   {path: 'home/addSong',canActivate: [loginGuard], component: AddEditSongComponent},

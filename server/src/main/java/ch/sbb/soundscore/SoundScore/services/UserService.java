@@ -35,7 +35,13 @@ public class UserService {
         currentuser.setPassword(passwordEncoder.encode(currentuser.getPassword()));
         return userRepository.save(currentuser);
     }
+    public User getUserById(int id) {
+        return userRepository.findById(id).orElseThrow();
+    }
 
+    public User getUserByArtistId(int id) {
+        return userRepository.getUserByArtistId(id);
+    }
     //    public User deleteUser(User user) {
 //        String name = "An deleted User" + user.getId();
 //        userRepository.deletes(user, name);

@@ -24,6 +24,7 @@ import {User} from "../../models/User";
 import {SongService} from "../../services/SongService/song.service";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import {forkJoin} from "rxjs";
+import {HomeService} from "../../services/HomeService/home.service";
 
 type CombinedType = Artist | Song | User | Post;
 
@@ -68,7 +69,7 @@ export class SearchComponent implements OnInit{
   protected isMobile: boolean = false;
   protected combinedList: CombinedType[] = [];
   protected searchTerm: string = '';
-  constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService : ArtistService, private breakpointObserver: BreakpointObserver, private postService: PostService) {
+  constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService : ArtistService, private breakpointObserver: BreakpointObserver, private postService: PostService, private homeService: HomeService) {
   }
 
   ngOnInit() {
@@ -143,4 +144,8 @@ export class SearchComponent implements OnInit{
   }
 
     protected readonly localStorage = localStorage;
+
+  gotoArtist(id: number | undefined) {
+    this.homeService.gotoArtist(id);
+  }
 }

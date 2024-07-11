@@ -38,4 +38,5 @@ public class ArtistController {
     public List<Artist> getAllArtists() {
         return artistService.getAllArtists();
     }
+
 }
