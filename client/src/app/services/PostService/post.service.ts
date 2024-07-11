@@ -35,14 +35,4 @@ export class PostService {
   likeOrDislikePost(post: Post, like: boolean): Observable<boolean> {
     return this.http.post<boolean>(environment.url + '/posts/like/' + post.id, like, this.httpService.getHttpOptions());
   }
-
-  hasAlreadyLikedOrDisliked(postId: number): Observable<{
-    liked: boolean,
-    alreadyLikedOrDisliked: boolean
-  }> {
-    return this.http.get<{
-      liked: boolean,
-      alreadyLikedOrDisliked: boolean
-    }>(environment.url + '/posts/likes/' + postId, this.httpService.getHttpOptions());
-  }
 }

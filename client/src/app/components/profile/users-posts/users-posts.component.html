@@ -22,18 +22,19 @@
         <p>{{ post.content }}</p>
         <div class="post-meta">
           <span>{{ 'POSTS_CONTAINER.POST_CARD.META.BY_USER' | translate }} {{ post.user.username }}</span>
-          <span>{{ 'POSTS_CONTAINER.POST_CARD.META.LIKES' | translate}}: {{ post.likes }} | {{ 'POSTS_CONTAINER.POST_CARD.META.DISLIKES' | translate}}: {{ post.dislikes }}</span>
+          <span>{{ 'POSTS_CONTAINER.POST_CARD.META.LIKES' | translate }}: {{ post.likes.length }}
+            | {{ 'POSTS_CONTAINER.POST_CARD.META.DISLIKES' | translate }}: {{ post.dislikes.length }}</span>
         </div>
         @if ((post.genre || post.artist || post.song) && post.id) {
           <div class="post-meta">
             @if (post.genre) {
-              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.GENRE' | translate}}: {{ post.genre.name }}</span>
+              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.GENRE' | translate }}: {{ post.genre.name }}</span>
             }
             @if (post.artist) {
-              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.ARTIST' | translate}}: {{ post.artist.name }}</span>
+              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.ARTIST' | translate }}: {{ post.artist.name }}</span>
             }
             @if (post.song) {
-              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.SONG' | translate}}: {{ post.song.title }}</span>
+              <span>{{ 'POSTS_CONTAINER.POST_CARD.META.SONG' | translate }}: {{ post.song.title }}</span>
             }
             @if (localUserId === userId) {
               <span class="actions-container">
