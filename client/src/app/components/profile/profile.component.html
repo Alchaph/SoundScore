@@ -1,11 +1,11 @@
 <app-head-nav-bar>
 </app-head-nav-bar>
-<mat-tab-group>
-  <mat-tab label="My Posts">
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="onTabChange($event)">
+  <mat-tab label="{{ 'HEADER.PROFILE' | translate}}">
     <button (click)="goBack()" color="primary" mat-button>❮ {{ 'ARTIST_SONGS.GO_BACK_BUTTON' | translate }}</button>
     <app-users-posts></app-users-posts>
   </mat-tab>
-  <mat-tab label="Artist Profile">
+  <mat-tab label="{{'HEADER.ARTIST_PROFILE' | translate}}">
     <button (click)="goBack()" color="primary" mat-button>❮ {{ 'ARTIST_SONGS.GO_BACK_BUTTON' | translate }}</button>
     <app-artist-profile></app-artist-profile>
   </mat-tab>

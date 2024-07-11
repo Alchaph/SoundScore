@@ -54,7 +54,7 @@
                 </mat-card-content>
                 </mat-card>
                 } @else if (this.isUser(combinedItem)) {
-              <mat-card [routerLink]="'/home/userProfile/'+combinedItem.id">
+              <mat-card [routerLink]="['/home/userProfile', combinedItem.id, localStorage.getItem('selectedTabProfileTab')]">
                 <mat-card-header>
                   <mat-card-title>{{ combinedItem.username }}</mat-card-title>
                 </mat-card-header>
