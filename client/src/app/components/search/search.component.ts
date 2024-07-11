@@ -141,4 +141,6 @@ export class SearchComponent implements OnInit{
       return false;
     });
   }
+
+    protected readonly localStorage = localStorage;
 }

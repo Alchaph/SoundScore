@@ -63,7 +63,7 @@ export class HeadNavBarComponent implements OnInit {
 
   logout() {
     this.router.navigate(['']);
-    localStorage.clear();
+    localStorage.setItem('token', '');
   }
 
   ngOnInit(): void {
@@ -86,8 +86,16 @@ export class HeadNavBarComponent implements OnInit {
     }
   }
 
-  reload() {
-    this.router.navigate(['/home/userProfile/', this.userId]).then(() => {
+  gotoUserProfile() {
+    console.log(this.userId);
+    if (localStorage.getItem('selectedTabProfileTab') === null) {
+      localStorage.setItem('selectedTabProfileTab', '0');
+    }
+    this.router.navigate([
+      '/home/userProfile',
+      this.userId.toString(),
+      localStorage.getItem('selectedTabProfileTab')
+    ]).then(() => {
       if (window.location.href.includes('home/userProfile')) {
         window.location.reload();
       }

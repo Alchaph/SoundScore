@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {ArtistProfileComponent} from "./artist-profile/artist-profile.component";
@@ -6,6 +6,7 @@ import {UsersPostsComponent} from "./users-posts/users-posts.component";
 import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
 import {Location} from "@angular/common";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -22,9 +23,22 @@ import {Location} from "@angular/common";
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
-  constructor(private location: Location) {}
+export class ProfileComponent implements OnInit{
+  selectedTab: string | undefined;
+  constructor(private location: Location,private route: ActivatedRoute, private router: Router) {}
   goBack() {
     this.location.back();
+  }
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const tab = params.get('tab');
+      this.selectedTab = tab ?? '0';
+      localStorage.setItem('selectedTabProfileTab', this.selectedTab);
+    });
+  }
+
+  onTabChange($event: number) {
+    localStorage.setItem('selectedTabProfileTab', $event.toString());
+    this.router.navigate(['home/userProfile', this.route.snapshot.params['id'], $event.toString()]);
   }
 }

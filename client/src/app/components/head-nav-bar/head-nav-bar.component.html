@@ -26,7 +26,7 @@
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
            class="catPic">
       <mat-menu #userMenu="matMenu">
-        <button (click)="reload()" mat-menu-item>{{ 'HEADER.PROFILE' | translate }}</button>
+        <button (click)="gotoUserProfile()" mat-menu-item>{{ 'HEADER.PROFILE' | translate }}</button>
         <button mat-menu-item routerLink="/home/settings">{{ 'HEADER.SETTINGS' | translate }}</button>
         <button (click)="logout()" mat-menu-item>{{ 'HEADER.LOGOUT' | translate }}</button>
       </mat-menu>

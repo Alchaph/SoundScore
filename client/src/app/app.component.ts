@@ -19,7 +19,6 @@ export class AppComponent implements OnInit{
   title = 'client';
 
   constructor(private languageService: LanguageService, private TranslateService: TranslateService, private cookieService: CookieService) {
-
   }
 
 
@@ -28,8 +27,9 @@ export class AppComponent implements OnInit{
     if (lang) {
       this.languageService.setLanguage(lang);
     } else {
-      this.cookieService.setCookie('lang', this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en', 7 * 24 * 60 * 60 * 1000);
-      this.languageService.setLanguage(this.TranslateService.getBrowserLang()? this.TranslateService.getBrowserLang()! : 'en');
+      this.cookieService.setCookie('lang', this.TranslateService.getBrowserLang() ? this.TranslateService.getBrowserLang()! : 'en', 7 * 24 * 60 * 60 * 1000);
+      this.languageService.setLanguage(this.TranslateService.getBrowserLang() ? this.TranslateService.getBrowserLang()! : 'en');
     }
+    localStorage.setItem('selectedTabProfileTab', '0');
   }
-}
+  }

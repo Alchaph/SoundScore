@@ -213,4 +213,5 @@ export class PostComponent implements OnInit {
 
   protected readonly window = window;
   protected readonly JSON = JSON;
+    protected readonly localStorage = localStorage;
 }
