@@ -15,7 +15,7 @@ public class SongService {
         this.songRepository = songRepository;
     }
 
-    public Song createSong(Song song) {
+    public Song createEditSong(Song song) {
         return songRepository.save(song);
     }
 

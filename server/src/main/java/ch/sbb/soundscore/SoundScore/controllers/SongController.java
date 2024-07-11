@@ -16,8 +16,8 @@ public class SongController {
     }
 
     @PostMapping("")
-    public Song createSong(@RequestBody Song song) {
-        return songService.createSong(song);
+    public Song createEditSong(@RequestBody Song song) {
+        return songService.createEditSong(song);
     }
 
     @PutMapping("")

@@ -121,11 +121,10 @@ export class HomeComponent implements OnInit {
   protected isMobile: boolean = false;
   protected readonly window: Window = window;
   protected selectedFilters?: 'genre' | 'song' | 'artist';
-  protected likeProcessing: boolean = false;
   protected activeUser: User = {} as User
 
 
-  constructor(protected jwtService: JwtServiceService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService) {
+  constructor(protected jwtService: JwtServiceService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver) {
 
   }
   ngOnInit() {
@@ -142,17 +141,5 @@ export class HomeComponent implements OnInit {
       this.activeUser = data
       this.homeService.loadPosts();
     })
-  }
-  selected(selected: string) {
-    this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
-  }
-
-  handlePanelClick(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
-  openLink(event: MouseEvent, link: string) {
-    event.stopPropagation();
-    window.open(link, '_blank');
   }
 }

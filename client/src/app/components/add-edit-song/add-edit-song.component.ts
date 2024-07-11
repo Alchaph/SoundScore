@@ -116,7 +116,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
         genre: this.formGroup.controls.genre.value as Genre,
         artist: this.user?.artist
       }
-      this.songService.createSong(song).subscribe((data) => {
+      this.songService.createEditSong(song).subscribe((data) => {
         this.router.navigate(['/home/userProfile/' + this.user?.id?.toString() + '/'  + '1'])
       });
     }
