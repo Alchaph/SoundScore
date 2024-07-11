@@ -85,51 +85,6 @@ export class PostComponent implements OnInit {
     }
   }
 
-  likePost(): void {
-    this.likeProcessing = true;
-    this.liked = !this.liked;
-    this.disliked ? this.dislike().subscribe((data) => {
-      this.handleLikeDislikeResponse(data, false)
-      this.like().subscribe(data => this.handleLikeDislikeResponse(data, true))
-    }) : this.like().subscribe(data => this.handleLikeDislikeResponse(data, true));
-  }
-
-  handleLikeDislikeResponse(data: boolean, likeOrDislike: boolean): void {
-    likeOrDislike ? this.liked = data : this.disliked = data;
-    if (data) {
-      likeOrDislike ? this.post.likes.push({
-        post: this.post,
-        user: this.activeUser,
-        isLike: true
-      }) : this.post.dislikes.push({
-        post: this.post,
-        user: this.activeUser,
-        isLike: false
-      });
-    } else {
-      likeOrDislike ? this.post.likes = this.post.likes.filter(data => data.user.id !== this.activeUser.id) : this.post.dislikes = this.post.dislikes.filter(data => data.user.id !== this.activeUser.id);
-    }
-    this.likeProcessing = false;
-  }
-
-  like(): Observable<boolean> {
-    return this.postService.likeOrDislikePost(this.post, true);
-  }
-
-
-  dislikePost(): void {
-    this.likeProcessing = true;
-    this.liked ? this.like().subscribe((data) => {
-      this.handleLikeDislikeResponse(data, true)
-      this.dislike().subscribe(data => this.handleLikeDislikeResponse(data, false))
-    }) : this.dislike().subscribe(data => this.handleLikeDislikeResponse(data, false));
-  }
-
-  dislike(): Observable<boolean> {
-    return this.postService.likeOrDislikePost(this.post, false);
-  }
-
-
   ngOnInit(): void {
     this.postService.getPost(this.postId).subscribe(post => {
       this.post = post;
@@ -192,16 +147,6 @@ export class PostComponent implements OnInit {
       this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
         this.commentService.comments = this.commentService.buildCommentTree(comments)
       )
-    });
-  }
-
-
-  removeCommentFromTree(comments: Comment[], commentId: number): Comment[] {
-    return comments.filter(c => c.id !== commentId).map(c => {
-      if (c.children) {
-        c.children = this.removeCommentFromTree(c.children, commentId);
-      }
-      return c;
     });
   }
 

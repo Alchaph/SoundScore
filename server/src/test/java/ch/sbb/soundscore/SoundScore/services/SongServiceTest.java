@@ -39,7 +39,7 @@ class SongServiceTest {
         Song song = new Song();
         when(songRepository.save(song)).thenReturn(song);
 
-        Song result = songService.createSong(song);
+        Song result = songService.createEditSong(song);
 
         verify(songRepository, times(1)).save(song);
         assertEquals(song, result);

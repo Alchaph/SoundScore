@@ -13,10 +13,6 @@ export class UserInformationService {
 
   constructor() { }
 
-  show() {
-    this.isMessage.next(true);
-  }
-
   hide() {
     this.isMessage.next(false);
   }

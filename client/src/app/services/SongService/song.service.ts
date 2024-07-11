@@ -13,7 +13,7 @@ export class SongService {
   constructor(private http: HttpClient, private httpService: HttpService) {
   }
 
-  createSong(song: Song): Observable<Song> {
+  createEditSong(song: Song): Observable<Song> {
     return this.http.post<Song>(environment.url + '/songs', song, this.httpService.getHttpOptions());
   }
 
