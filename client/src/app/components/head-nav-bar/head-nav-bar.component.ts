@@ -87,7 +87,7 @@ export class HeadNavBarComponent implements OnInit {
   }
 
   gotoUserProfile() {
-    console.log(this.userId);
+    // console.log(this.userId);
     if (localStorage.getItem('selectedTabProfileTab') === null) {
       localStorage.setItem('selectedTabProfileTab', '0');
     }

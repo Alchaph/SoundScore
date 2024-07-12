@@ -38,7 +38,7 @@ export class HomeService {
 
   loadPosts() {
     this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts.push(...data.reverse());
+      this.posts = data.reverse();
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data.reverse().slice(0, 5);

@@ -65,7 +65,7 @@ export class ArtistProfileComponent {
   init() {
     this.jwtService.getUserById(Number(this.route.snapshot.paramMap.get('id'))).subscribe((u: User) => {
       this.artistId = u.artist?.id;
-      console.log(this.artistId)
+      // console.log(this.artistId)
       this.jwtService.getMe().subscribe((u: User) => {
         this.user = u;
         this.songService.getSongs().subscribe((songs: Song[]) => {
