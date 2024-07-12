@@ -19,12 +19,10 @@ export class CommentService {
 
   createComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions());
-
   }
 
   updateComment(comment: Comment): Observable<Comment> {
     return this.http.put<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions())
-
   }
 
   deleteComment(id: number): Observable<Comment> {

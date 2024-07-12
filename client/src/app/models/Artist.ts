@@ -5,3 +5,5 @@ export interface Artist {
     description: string;
     image: string;
 }
+
+

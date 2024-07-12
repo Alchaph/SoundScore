@@ -108,4 +108,8 @@ public class AuthenticationService {
         userRepository.deleteUser(user);
         return user;
     }
+
+    public boolean usernameExists(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
 }
