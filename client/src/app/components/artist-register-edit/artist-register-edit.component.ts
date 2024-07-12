@@ -101,8 +101,10 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
       this.artist ? artist.id = this.artist.id : null
       this.artist ?
         this.artistService.updateArtist(artist).subscribe(
-          () => this.updateUser(artist)
-        ) :
+          () => {this.updateUser(artist)
+        this.router.navigate(['home/userProfile/' + this.user?.id + '/1'])
+          }
+    ) :
         this.artistService.createArtist(artist).subscribe(
           (a) => {
             this.router.navigate(['home/userProfile/' + this.user?.id + '/1'])
