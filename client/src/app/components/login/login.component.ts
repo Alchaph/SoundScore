@@ -114,7 +114,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   isUsernameLike(username: string): boolean {
-    return username.startsWith("An deleted User");
+    return username.startsWith("Deleted User");
   }
 
   login() {
