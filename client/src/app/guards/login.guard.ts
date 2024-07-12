@@ -1,6 +1,5 @@
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
-import {inject} from "@angular/core";
-
+import {inject, Injectable} from "@angular/core";
 
 export const loginGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
   const token: string | null = localStorage.getItem('token');
