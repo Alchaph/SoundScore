@@ -119,7 +119,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else  {
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
         const name = '2fa_verified' + this.registerForm.controls.username.value;
-        console.log(data.token);
+        // console.log(data.token);
         if (this.cookieService.getCookie(name) === null) {
           this.username = this.registerForm.controls.username.value;
           this.token = data.token;
