@@ -1,6 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { loginGuard } from './login.guard';
+import { Router } from '@angular/router';
 
 class RouterStub {
   navigate(url: string[]) { return url; }
@@ -10,12 +9,7 @@ describe('loginGuard', () => {
   let router: Router;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        { provide: Router, useClass: RouterStub }
-      ]
-    });
-    router = TestBed.inject(Router);
+    router = new RouterStub() as any;
   });
 
   it('should allow the authenticated user to access app', () => {
