@@ -50,6 +50,8 @@ import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
+import {ArtistService} from "../../services/ArtistService/artist.service";
+import {Artist} from "../../models/Artist";
 
 export interface TreeNode {
   name: string;

@@ -85,26 +85,32 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
-    this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
-    if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
-      if (!this.registerForm.controls.username.valid) {
-        this.userInformationService.setMessage('Username is not valid');
-      } else if (!this.registerForm.controls.email.valid) {
-        this.userInformationService.setMessage('Email is not valid');
-      } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
-        this.userInformationService.setMessage('Passwords do not match');
-      } else if (!data) {
-        this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
-          (data) => {
-            this.login();
-          });
+    this.jwtService.usernameExists(this.registerForm.controls.username.value).subscribe( (data) => {
+      if (!data) {
+        this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
+          if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
+            if (!this.registerForm.controls.username.valid) {
+              this.userInformationService.setMessage('Username is not valid');
+            } else if (!this.registerForm.controls.email.valid) {
+              this.userInformationService.setMessage('Email is not valid');
+            } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
+              this.userInformationService.setMessage('Passwords do not match');
+            } else if (!data) {
+              this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
+                (data) => {
+                  this.login();
+                });
+            } else {
+              this.userInformationService.setMessage('Email is already registered');
+            }
+          } else {
+            this.userInformationService.setMessage('You cannot use this username');
+          }
+        });
       } else {
-        this.userInformationService.setMessage('Email is already registered');
+        this.userInformationService.setMessage('Username is already taken');
       }
-    } else {
-      this.userInformationService.setMessage('You cannot use this username');
-    }
-  });
+    });
   }
 
   isUsernameLike(username: string): boolean {

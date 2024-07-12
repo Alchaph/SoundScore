@@ -78,6 +78,11 @@ export class JwtServiceService {
     return this.http.get<boolean>(url);
   }
 
+  public usernameExists(username: string): Observable<boolean> {
+    const url: string = environment.url + `/auth/username-exists/${username}`;
+    return this.http.get<boolean>(url);
+  }
+
   public getUsernameByEMail(email: string)   {
     const url = environment.url + `/auth/username-by-email/${email}`;
     return this.http.get<DataTranfer>(url);
