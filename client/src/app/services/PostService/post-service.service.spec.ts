@@ -143,6 +143,18 @@ describe('PostService', () => {
     req.flush(mockPost);
   });
 
+  it('getPost should throw an error with invalid http Options', () => {
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    service.getPost(mockPost.id!).subscribe({
+      next: () => fail('Expected to fail due to invalid HTTP options'),
+      error: (error) => expect(error).toBeTruthy()
+    });
+
+    const req = httpMock.expectOne(`${environment.url}/posts/${mockPost.id}`);
+    expect(req.request.method).toBe('GET');
+    req.error(new ErrorEvent('Unauthorized'), { status: 401 });
+  });
+
   it('likeOrDislikePost should post and return a boolean', () => {
     const postId = 1;
     const like = true;
@@ -153,5 +165,18 @@ describe('PostService', () => {
     const req = httpMock.expectOne(`${environment.url}/posts/like/${postId}`);
     expect(req.request.method).toBe('POST');
     req.flush(true);
+  });
+
+  it('likeOrDislike should throw an error with invalid http Options', () => {
+    const postId = 1;
+    const like = true;
+    service.likeOrDislikePost({id: postId} as Post, like).subscribe({
+      next: () => fail('Expected to fail due to invalid HTTP options'),
+      error: (error) => expect(error).toBeTruthy()
+    });
+
+    const req = httpMock.expectOne(`${environment.url}/posts/like/${postId}`);
+    expect(req.request.method).toBe('POST');
+    req.error(new ErrorEvent('Unauthorized'), { status: 401 });
   });
 });
