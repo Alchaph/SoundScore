@@ -26,6 +26,7 @@ describe('UserInformationService', () => {
     service.getIsMessage().subscribe(isMessage => {
       expect(isMessage).toBeFalse();
     });
+
     service.setMessage('Test Message');
     tick();
     service.getIsMessage().subscribe(isMessage => {
