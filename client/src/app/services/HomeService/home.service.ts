@@ -55,7 +55,6 @@ export class HomeService {
     if (!artistId){
       alert('Artist not found')
     }
-    //get user by artist id
     this.jwtService.getUserByArtistId(artistId).subscribe(user => {
       this.router.navigate(['/home/userProfile/' + user?.id?.toString()+ '/'  + '1'])
     })
