@@ -73,16 +73,4 @@ export class LanguageService {
     this.translateService.addLangs(environment.languages);
     this.translateService.use(lang);
   }
-
-  // getLanguage(): Lang {
-  //   return document.cookie.split(";").reduce((ac, cv, i) => Object.assign(ac, {[cv.split('=')[0].trim()]: cv.split('=')[1]}), {}) as Lang;
-  // }
-  //
-  // setLanguageCookie(lang: string): void {
-  //   const date: Date = new Date();
-  //   date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-  //   const expires: string = "; expires=" + date.toUTCString();
-  //   document.cookie = "lang=" + lang + expires + "; path=/";
-  // }
-
 }
