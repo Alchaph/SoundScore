@@ -43,7 +43,7 @@ public class ArtistControllerTest {
         Artist artist = new Artist();
         artist.setId(1L);
         when(artistService.createArtist(any(Artist.class))).thenReturn(artist);
-        mockMvc.perform(post("/api/artist/create")
+        mockMvc.perform(post("/api/artist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(artist)))
                 .andExpect(status().isOk());
@@ -57,7 +57,7 @@ public class ArtistControllerTest {
         Artist artist = new Artist();
         artist.setId(1L);
         when(artistService.editArtist(any(Artist.class))).thenReturn(artist);
-        mockMvc.perform(put("/api/artist/edit")
+        mockMvc.perform(put("/api/artist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(artist)))
                 .andExpect(status().isOk());
@@ -71,7 +71,7 @@ public class ArtistControllerTest {
         Artist artist = new Artist();
         artist.setId(1L);
         when(artistService.getArtistById(1L)).thenReturn(artist);
-        mockMvc.perform(delete("/api/artist/delete/1")
+        mockMvc.perform(delete("/api/artist/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -84,7 +84,7 @@ public class ArtistControllerTest {
         Artist artist = new Artist();
         artist.setId(1L);
         when(artistService.getArtistById(1L)).thenReturn(artist);
-        mockMvc.perform(get("/api/artist/get/1")
+        mockMvc.perform(get("/api/artist/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -100,7 +100,7 @@ public class ArtistControllerTest {
         artist2.setId(2L);
         List<Artist> artists = Arrays.asList(artist1, artist2);
         when(artistService.getAllArtists()).thenReturn(artists);
-        mockMvc.perform(get("/api/artist/get/all")
+        mockMvc.perform(get("/api/artist/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -112,25 +112,25 @@ public class ArtistControllerTest {
     void shouldNotPerformArtistOperations() throws Exception {
         Artist artist = new Artist();
         artist.setId(1L);
-        mockMvc.perform(post("/api/artist/create")
+        mockMvc.perform(post("/api/artist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(artist)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(put("/api/artist/edit")
+        mockMvc.perform(put("/api/artist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(artist)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(delete("/api/artist/delete/1")
+        mockMvc.perform(delete("/api/artist/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/api/artist/get/1")
+        mockMvc.perform(get("/api/artist/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/api/artist/get/all")
+        mockMvc.perform(get("/api/artist/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }

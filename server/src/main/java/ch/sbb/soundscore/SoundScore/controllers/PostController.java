@@ -6,6 +6,7 @@ import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.PostService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class PostController {
     @PostMapping("/like/{id}")
     public boolean likeOrDislikePost(@PathVariable Long id, @RequestBody boolean like) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
+        UserDetails currentUser = (UserDetails) authentication.getPrincipal();
         return postService.likeOrDislikePost(id, like, currentUser);
     }
 

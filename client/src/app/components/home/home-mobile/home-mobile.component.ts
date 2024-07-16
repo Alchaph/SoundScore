@@ -106,11 +106,11 @@ export class HomeMobileComponent implements OnInit {
       likeOrDislike ? post.likes.push({
         post: post,
         user: this.activeUser,
-        isLike: true
+        like: true
       }) : post.dislikes.push({
         post: post,
         user: this.activeUser,
-        isLike: false
+        like: false
       });
     } else {
       likeOrDislike ? post.likes = post.likes.filter(data => data.user.id !== this.activeUser.id) : post.dislikes = post.dislikes.filter(data => data.user.id !== this.activeUser.id);

@@ -26,40 +26,38 @@ class CommentServiceTest {
 
     @Test
     void createComment() {
-        Comment comment = new Comment();
+        Comment comment = new Comment("Test Comment", null, null, null);
         when(commentRepository.save(comment)).thenReturn(comment);
-
         Comment result = commentService.createComment(comment);
-
         verify(commentRepository, times(1)).save(comment);
-        assertEquals(comment, result);
+        assertEquals("Test Comment", result.getMessage());
     }
 
     @Test
     void deleteComment() {
-        Comment comment = new Comment();
+        Comment comment = new Comment("Test Comment", null, null, null);
         when(commentRepository.findById(1L)).thenReturn(Optional.of(comment));
 
         Comment result = commentService.deleteComment(1L);
 
-        verify(commentRepository, times(1)).delete(comment);
-        assertEquals(comment, result);
+        verify(commentRepository, times(1)).deleteById(1L);
+        assertEquals("Test Comment", result.getMessage());
     }
 
     @Test
     void updateComment() {
-        Comment comment = new Comment();
+        Comment comment = new Comment("Test Comment", null, null, null);
         when(commentRepository.save(comment)).thenReturn(comment);
 
         Comment result = commentService.editComment(comment);
 
         verify(commentRepository, times(1)).save(comment);
-        assertEquals(comment, result);
+        assertEquals("Test Comment", result.getMessage());
     }
 
     @Test
     void getComment() {
-        Comment comment = new Comment();
+        Comment comment = new Comment("Test Comment", null, null, null);
         when(commentRepository.save(comment)).thenReturn(comment);
         Comment result = commentService.editComment(comment);
 
@@ -68,16 +66,14 @@ class CommentServiceTest {
 
     @Test
     void getCommentsByPostId() {
-        User user = new User();
+        User user = new User("test", "test", "test", null);
         user.setId(1L);
-        user.setUsername("User Name");
-        user.setEmail("user@email.com");
 
         Post post = new Post();
         post.setId(2L);
 
-        Comment comment1 = new Comment();
-        Comment comment2 = new Comment();
+        Comment comment1 = new Comment("Test Comment", user, post, null);
+        Comment comment2 = new Comment("Test Comment", user, post, null);
         List<Comment> comments = Arrays.asList(comment1, comment2);
         when(commentRepository.findAllBypost(1L)).thenReturn(comments);
 
