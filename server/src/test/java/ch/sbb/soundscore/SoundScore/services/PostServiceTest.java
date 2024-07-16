@@ -3,10 +3,7 @@ package ch.sbb.soundscore.SoundScore.services;
 import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
-import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
-import ch.sbb.soundscore.SoundScore.repositories.LikeOrDislikeRepository;
-import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
-import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
+import ch.sbb.soundscore.SoundScore.repositories.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,19 +21,16 @@ class PostServiceTest {
     private PostService postService;
     private LikeOrDislikeRepository likeOrDislikeRepository;
     private UserRepository userRepository;
+    private UserNotificationsRepository userNotificationsRepository;
 
     @BeforeEach
     void setUp() {
         postRepository = mock(PostRepository.class);
-<<<<<<< HEAD
-        LikeOrDislikeRepository likeOrDislikeRepository = mock(LikeOrDislikeRepository.class);
-        postService = new PostService(postRepository, likeOrDislikeRepository, commentRepository);
-=======
         likeOrDislikeRepository = mock(LikeOrDislikeRepository.class);
         CommentRepository commentRepository = mock(CommentRepository.class);
         userRepository = mock(UserRepository.class);
-        postService = new PostService(postRepository, likeOrDislikeRepository, commentRepository, userRepository);
->>>>>>> 7d8b2bd11b3c4e6620ec0b7048ec802fa92d114f
+        userNotificationsRepository = mock(UserNotificationsRepository.class);
+        postService = new PostService(postRepository, likeOrDislikeRepository, commentRepository, userRepository, userNotificationsRepository);
     }
 
     @Test

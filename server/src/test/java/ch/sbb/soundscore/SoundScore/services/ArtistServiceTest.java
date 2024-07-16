@@ -26,12 +26,9 @@ class ArtistServiceTest {
     @BeforeEach
     void setUp() {
         artistRepository = mock(ArtistRepository.class);
-<<<<<<< HEAD
-=======
         UserRepository userRepository = mock(UserRepository.class);
         PostRepository postRepository = mock(PostRepository.class);
         SongRepository songRepository = mock(SongRepository.class);
->>>>>>> 7d8b2bd11b3c4e6620ec0b7048ec802fa92d114f
         artistService = new ArtistService(artistRepository, userRepository, postRepository, songRepository);
     }
 

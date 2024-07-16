@@ -4,6 +4,7 @@ import ch.sbb.soundscore.SoundScore.entities.Comment;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +18,13 @@ import static org.mockito.Mockito.*;
 class CommentServiceTest {
     private CommentRepository commentRepository;
     private CommentService commentService;
+    private UserNotificationsRepository userNotificationsRepository;
 
     @BeforeEach
     void setUp() {
         commentRepository = mock(CommentRepository.class);
-        commentService = new CommentService(commentRepository);
+        userNotificationsRepository = mock(UserNotificationsRepository.class);
+        commentService = new CommentService(commentRepository, userNotificationsRepository);
     }
 
     @Test
