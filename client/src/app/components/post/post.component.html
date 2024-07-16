@@ -21,7 +21,7 @@
         [innerHTML]="this.languageService.translate ? (post.title | generictranslate | async) ?? post.title : post.title"></h1>
       <p
         [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
-      <div class="post-meta">
+      <div class="post-meta">123456789
         <span
           [routerLink]="['/home/userProfile', post.user.id, localStorage.getItem('selectedTabProfileTab')]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
         </span>

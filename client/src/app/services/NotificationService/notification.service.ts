@@ -13,7 +13,7 @@ export class NotificationService {
   }
 
   markAsRead(notification: Notification) {
-    return this.http.put<Notification>("http://localhost:8080/api/notifications/markAsRead/" + notification.id ?? 0, null, this.httpService.getHttpOptions())
+    return this.http.put<Notification>("http://localhost:8080/api/notifications/markAsRead/" + notification.id, null, this.httpService.getHttpOptions())
   }
 
   markAllAsRead(user: User) {
