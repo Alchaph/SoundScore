@@ -3,9 +3,9 @@ package ch.sbb.soundscore.SoundScore.services;
 import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
-import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
-import ch.sbb.soundscore.SoundScore.repositories.LikeOrDislikeRepository;
-import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
+import ch.sbb.soundscore.SoundScore.entities.UserNotifications;
+import ch.sbb.soundscore.SoundScore.repositories.*;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +17,15 @@ public class PostService {
     private final PostRepository postRepository;
     private final LikeOrDislikeRepository likeOrDislikeRepository;
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final UserNotificationsRepository userNotificationsRepository;
 
-    public PostService(PostRepository postRepository, LikeOrDislikeRepository likeOrDislikeRepository, CommentRepository commentRepository) {
+    public PostService(PostRepository postRepository, LikeOrDislikeRepository likeOrDislikeRepository, CommentRepository commentRepository, UserRepository userRepository, UserNotificationsRepository userNotificationsRepository) {
         this.postRepository = postRepository;
         this.likeOrDislikeRepository = likeOrDislikeRepository;
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
+        this.userNotificationsRepository = userNotificationsRepository;
     }
 
     public List<Post> allPosts() {
@@ -43,8 +47,10 @@ public class PostService {
     public Post deletePost(Long id) {
         Post post = postRepository.findById(id).orElseThrow();
         commentRepository.deleteAllByPost(post);
+        userNotificationsRepository.deleteAllByPost(post);
         postRepository.deleteLikes(post);
         postRepository.delete(post);
+
         return post;
     }
 
@@ -56,13 +62,13 @@ public class PostService {
     }
 
 
-    public boolean likeOrDislikePost(Long id, boolean like, User user) {
+    public boolean likeOrDislikePost(Long id, boolean like, UserDetails user) {
         boolean added;
         Post post = postRepository.findById(id).orElseThrow();
         if (like) {
-            added = handleLike(post, user);
+            added = handleLike(post, userRepository.findByUsername(user.getUsername()).orElseThrow());
         } else {
-            added = handleDislike(post, user);
+            added = handleDislike(post, userRepository.findByUsername(user.getUsername()).orElseThrow());
         }
         return added;
     }
@@ -70,9 +76,11 @@ public class PostService {
     private boolean handleLike(Post post, User user) {
         boolean added = false;
         if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user)) {
+            userNotificationsRepository.deleteAllByLikeOrDislike(likeOrDislikeRepository.getLikeOrDislikeByPostAndUser(post, user).orElseThrow());
             likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsTrue(post, user);
         } else {
-            likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
+            LikeOrDislike likeOrDislike = likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
+            userNotificationsRepository.save(new UserNotifications(user, post, null,likeOrDislike));
             added = true;
         }
         return added;
@@ -81,9 +89,11 @@ public class PostService {
     private boolean handleDislike(Post post, User user) {
         boolean added = false;
         if (likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)) {
+            userNotificationsRepository.deleteAllByLikeOrDislike(likeOrDislikeRepository.getLikeOrDislikeByPostAndUser(post, user).orElseThrow());
             likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
         } else {
-            likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
+            LikeOrDislike likeOrDislike = likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
+            userNotificationsRepository.save(new UserNotifications(user, post, null,likeOrDislike));
             added = true;
         }
         return added;

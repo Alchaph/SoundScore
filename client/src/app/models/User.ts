@@ -1,4 +1,5 @@
 import {Artist} from "./Artist";
+import {Notification} from "./Notification";
 
 
 export interface User {
@@ -6,6 +7,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  notifications: Notification[]
   artist?: Artist;
   created_at?: Date;
   updated_at?: Date;

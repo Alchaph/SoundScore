@@ -2,6 +2,9 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.repositories.ArtistRepository;
+import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
+import ch.sbb.soundscore.SoundScore.repositories.SongRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +23,10 @@ class ArtistServiceTest {
     @BeforeEach
     void setUp() {
         artistRepository = mock(ArtistRepository.class);
-        artistService = new ArtistService(artistRepository);
+        UserRepository userRepository = mock(UserRepository.class);
+        PostRepository postRepository = mock(PostRepository.class);
+        SongRepository songRepository = mock(SongRepository.class);
+        artistService = new ArtistService(artistRepository, userRepository, postRepository, songRepository);
     }
 
     @Test
@@ -69,6 +75,8 @@ class ArtistServiceTest {
     void getAllArtists() {
         Artist artist1 = new Artist();
         Artist artist2 = new Artist();
+        artist1.setId(1L);
+        artist2.setId(2L);
         when(artistRepository.findAll()).thenReturn(Arrays.asList(artist1, artist2));
 
         List<Artist> result = artistService.getAllArtists();

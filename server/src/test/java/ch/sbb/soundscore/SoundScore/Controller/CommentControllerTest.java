@@ -40,7 +40,7 @@ public class CommentControllerTest {
         Comment comment = new Comment();
         comment.setId(1L);
         when(commentService.createComment(any(Comment.class))).thenReturn(comment);
-        mockMvc.perform(post("/api/comments/create")
+        mockMvc.perform(post("/api/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(comment)))
                 .andExpect(status().isOk());
@@ -54,7 +54,7 @@ public class CommentControllerTest {
         Comment comment = new Comment();
         comment.setId(1L);
         when(commentService.editComment(any(Comment.class))).thenReturn(comment);
-        mockMvc.perform(put("/api/comments/edit")
+        mockMvc.perform(put("/api/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(comment)))
                 .andExpect(status().isOk());
@@ -68,7 +68,7 @@ public class CommentControllerTest {
         Comment comment = new Comment();
         comment.setId(1L);
         when(commentService.getCommentById(1L)).thenReturn(comment);
-        mockMvc.perform(delete("/api/comments/delete/1")
+        mockMvc.perform(delete("/api/comments/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -80,7 +80,7 @@ public class CommentControllerTest {
     void shouldGetCommentById() throws Exception {
         List<Comment> comments = new ArrayList<>();
         when(commentService.getCommentsByPostId(1L)).thenReturn(comments);
-        mockMvc.perform(get("/api/comments/get/1")
+        mockMvc.perform(get("/api/comments/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -90,7 +90,7 @@ public class CommentControllerTest {
     void shouldGetAllCommentsByPostId() throws Exception {
         List<Comment> comments = new ArrayList<>();
         when(commentService.getCommentsByPostId(1L)).thenReturn(comments);
-        mockMvc.perform(get("/api/comments/get/commentsByPostId/1")
+        mockMvc.perform(get("/api/comments/commentsByPostId/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -100,25 +100,25 @@ public class CommentControllerTest {
     void shouldNotPerformCommentOperations() throws Exception {
         Comment comment = new Comment();
         comment.setId(1L);
-        mockMvc.perform(post("/api/comments/create")
+        mockMvc.perform(post("/api/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(comment)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(put("/api/comments/edit")
+        mockMvc.perform(put("/api/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(comment)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(delete("/api/comments/delete/1")
+        mockMvc.perform(delete("/api/comments/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/api/comments/get/1")
+        mockMvc.perform(get("/api/comments/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/api/comments/get/all")
+        mockMvc.perform(get("/api/comments/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }

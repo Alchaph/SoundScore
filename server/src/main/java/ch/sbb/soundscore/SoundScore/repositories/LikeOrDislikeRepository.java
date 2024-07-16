@@ -10,12 +10,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LikeOrDislikeRepository extends JpaRepository<LikeOrDislike, Long> {
 
     @Query("select (count(l) > 0) from LikeOrDislike l where l.post = ?1 and l.user = ?2 and l.isLike = true")
     boolean existsLikeOrDislikeByPostAndUserAndLikeTrue(Post post, User user);
+
+    Optional<LikeOrDislike> getLikeOrDislikeByPostAndUser(Post post, User user);
 
     @Transactional
     @Modifying

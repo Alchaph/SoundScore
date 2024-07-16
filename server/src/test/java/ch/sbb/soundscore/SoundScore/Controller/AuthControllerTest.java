@@ -33,7 +33,7 @@ public class AuthControllerTest {
     String userAsJson;
 
     public AuthControllerTest() {
-        user = new User();
+        user = new User("test", "test", "test", null);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -44,11 +44,12 @@ public class AuthControllerTest {
         }
     }
 
+
     @DirtiesContext
     @Transactional
     @Test
     void register() throws Exception {
-        mockMvc.perform(post("/api/auth/register")
+        mockMvc.perform(post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userAsJson)
                 )
@@ -59,7 +60,7 @@ public class AuthControllerTest {
     @Transactional
     @Test
     void authenticate() throws Exception {
-        mockMvc.perform(post("/api/auth/register")
+        mockMvc.perform(post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userAsJson)
                 )

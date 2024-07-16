@@ -20,11 +20,27 @@
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
+      <button (click)="updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
+        <mat-icon [matBadge]="unreadNotifications.length" style="color: white">notifications_none</mat-icon>
+      </button>
       <button [routerLink]="['/home/search']" mat-icon-button>
         <mat-icon style="color: white">search</mat-icon>
       </button>
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
            class="catPic">
+      <mat-menu #inboxMenu="matMenu" xPosition="before">
+        @for (notification of user.notifications; track $index) {
+          <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
+                  [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
+            <div>
+              <img class="notification-image" [src]="notification.post?.image ?? notification.comment.post.image">
+              <p class="menu-text">
+                {{ createTextsToDisplay(notification) }}
+              </p>
+            </div>
+          </button>
+        }
+      </mat-menu>
       <mat-menu #userMenu="matMenu">
         <button (click)="gotoUserProfile()" mat-menu-item>{{ 'HEADER.PROFILE' | translate }}</button>
         <button mat-menu-item routerLink="/home/settings">{{ 'HEADER.SETTINGS' | translate }}</button>
