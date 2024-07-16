@@ -1,9 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { CommentService } from './comment.service';
+import {TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {CommentService} from './comment.service';
 import {environment} from "../../../environments/environments";
 import {Comment} from "../../models/Comment";
-import {Song} from "../../models/Song";
 
 describe('CommentService', () => {
   let service: CommentService;
@@ -42,6 +41,7 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
         },
         likes: [],
         dislikes: [],
@@ -58,6 +58,7 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
+        notifications: []
       },
     };
     service.createComment(mockComment).subscribe(comment => {
@@ -89,6 +90,7 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
         },
         likes: [],
         dislikes: [],
@@ -105,6 +107,7 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
+        notifications: []
       },
     };
     service.createComment(mockComment).subscribe({
@@ -114,7 +117,7 @@ describe('CommentService', () => {
 
     const req = httpMock.expectOne(`${environment.url}/comments`);
     expect(req.request.method).toBe('POST');
-    req.error(new ErrorEvent('Unauthorized'), { status: 401 });
+    req.error(new ErrorEvent('Unauthorized'), {status: 401});
   });
 
   it('updateComment should update and return the comment', () => {
@@ -137,6 +140,7 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
         },
         likes: [],
         dislikes: [],
@@ -153,6 +157,7 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
+        notifications: []
       },
     };
     service.updateComment(mockComment).subscribe(comment => {
@@ -184,6 +189,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
+
         },
         likes: [],
         dislikes: [],
@@ -200,6 +207,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
+        notifications: []
+
       },
     };
     service.updateComment(mockComment).subscribe({
@@ -209,7 +218,7 @@ describe('CommentService', () => {
 
     const req = httpMock.expectOne(`${environment.url}/comments`);
     expect(req.request.method).toBe('PUT');
-    req.error(new ErrorEvent('Unauthorized'), { status: 401 });
+    req.error(new ErrorEvent('Unauthorized'), {status: 401});
   });
 
   it('deleteComment should delete the comment', () => {
@@ -232,6 +241,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
+
         },
         likes: [],
         dislikes: [],
@@ -248,6 +259,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
+        notifications: []
+
       },
     };
     service.deleteComment(mockComment.id!).subscribe(response => {
@@ -283,6 +296,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
+
         },
         likes: [],
         dislikes: [],
@@ -299,6 +314,7 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
+        notifications: []
       },
     };
     service.deleteComment(mockComment.id!).subscribe({
@@ -308,7 +324,7 @@ describe('CommentService', () => {
 
     const req = httpMock.expectOne(`${environment.url}/comments/${mockComment.id}`);
     expect(req.request.method).toBe('DELETE');
-    req.error(new ErrorEvent('Unauthorized'), { status: 401 });
+    req.error(new ErrorEvent('Unauthorized'), {status: 401});
   });
 
   it('getCommentsOfPost should return the comment of the post', () => {
@@ -333,6 +349,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
+            notifications: []
+
           },
           likes: [],
           dislikes: [],
@@ -349,6 +367,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
+
         },
       },
       {
@@ -370,6 +390,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
+            notifications: []
+
           },
           likes: [],
           dislikes: [],
@@ -386,6 +408,8 @@ describe('CommentService', () => {
             description: 'This is a second test artist description.',
             image: 'second-test-artist.jpg'
           },
+          notifications: []
+
         },
       }
     ];
@@ -420,6 +444,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
+            notifications: []
+
           },
           likes: [],
           dislikes: [],
@@ -436,6 +462,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
+          notifications: []
+
         },
       },
       {
@@ -457,6 +485,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
+            notifications: []
+
           },
           likes: [],
           dislikes: [],
@@ -473,6 +503,8 @@ describe('CommentService', () => {
             description: 'This is a second test artist description.',
             image: 'second-test-artist.jpg'
           },
+          notifications: []
+
         },
       }
     ];
@@ -483,7 +515,7 @@ describe('CommentService', () => {
 
     const req = httpMock.expectOne(`${environment.url}/comments/commentsByPostId/${mockPostId}`);
     expect(req.request.method).toBe('GET');
-    req.error(new ErrorEvent('Unauthorized'), { status: 401 });
+    req.error(new ErrorEvent('Unauthorized'), {status: 401});
   });
 
   //TODO Nevios Comment Tree
