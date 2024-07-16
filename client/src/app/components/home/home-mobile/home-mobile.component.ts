@@ -16,6 +16,7 @@ import {User} from "../../../models/User";
 import {PostService} from "../../../services/PostService/post.service";
 import {JwtServiceService} from "../../../services/JwtService/jwt-service.service";
 import {LikeOrDislikeComponent} from "../../like-or-dislike/like-or-dislike.component";
+import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/common";
 
 @Component({
   selector: 'app-home-mobile',
@@ -105,11 +106,11 @@ export class HomeMobileComponent implements OnInit {
       likeOrDislike ? post.likes.push({
         post: post,
         user: this.activeUser,
-        isLike: true
+        like: true
       }) : post.dislikes.push({
         post: post,
         user: this.activeUser,
-        isLike: false
+        like: false
       });
     } else {
       likeOrDislike ? post.likes = post.likes.filter(data => data.user.id !== this.activeUser.id) : post.dislikes = post.dislikes.filter(data => data.user.id !== this.activeUser.id);
@@ -136,5 +137,9 @@ export class HomeMobileComponent implements OnInit {
   openLink(event: MouseEvent, link: string) {
     event.stopPropagation();
     window.open(link, '_blank');
+  }
+
+  gotoArtist(artistId: number | undefined) {
+    this.homeService.gotoArtist(artistId);
   }
 }

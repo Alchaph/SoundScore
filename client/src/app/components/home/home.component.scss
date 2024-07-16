@@ -103,11 +103,13 @@ mat-sidenav-content mat-chip-listbox {
   display: flex;
   justify-content: center;
   align-items: center;
+
   img {
-    min-width: auto;
+    max-width: 100%;
     height: 500px;
     width: auto;
   }
+
 }
 
 @media (max-width: 1024px) {
@@ -125,11 +127,13 @@ mat-sidenav-content mat-chip-listbox {
     display: flex;
     justify-content: center;
     align-items: center;
+
     img {
       max-width: 100%;
       height: 200px;
       width: auto;
     }
+
   }
 
 
@@ -162,12 +166,13 @@ p {
   max-height: 20px;
 }
 
-.post-meta{
+.post-meta {
   justify-content: space-between;
   display: flex;
   flex-direction: row;
   cursor: auto;
-  p{
+
+  p {
     cursor: pointer;
   }
 

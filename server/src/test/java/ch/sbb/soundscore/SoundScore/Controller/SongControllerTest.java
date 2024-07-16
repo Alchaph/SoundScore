@@ -43,7 +43,7 @@ public class SongControllerTest {
         Song song = new Song();
         song.setId(1L);
         when(songService.createEditSong(any(Song.class))).thenReturn(song);
-        mockMvc.perform(post("/api/songs/create")
+        mockMvc.perform(post("/api/songs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(song)))
                 .andExpect(status().isOk());
@@ -57,7 +57,7 @@ public class SongControllerTest {
         Song song = new Song();
         song.setId(1L);
         when(songService.editSong(any(Song.class))).thenReturn(song);
-        mockMvc.perform(put("/api/songs/edit")
+        mockMvc.perform(put("/api/songs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(song)))
                 .andExpect(status().isOk());
@@ -71,7 +71,7 @@ public class SongControllerTest {
         Song song = new Song();
         song.setId(1L);
         when(songService.getSongById(1L)).thenReturn(song);
-        mockMvc.perform(delete("/api/songs/delete/1")
+        mockMvc.perform(delete("/api/songs/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -84,7 +84,7 @@ public class SongControllerTest {
         Song song = new Song();
         song.setId(1L);
         when(songService.getSongById(1L)).thenReturn(song);
-        mockMvc.perform(get("/api/songs/get/1")
+        mockMvc.perform(get("/api/songs/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -100,7 +100,7 @@ public class SongControllerTest {
         song2.setId(2L);
         List<Song> songs = Arrays.asList(song1, song2);
         when(songService.getAllSongs()).thenReturn(songs);
-        mockMvc.perform(get("/api/songs/get/all")
+        mockMvc.perform(get("/api/songs/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))

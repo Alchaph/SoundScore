@@ -11,6 +11,7 @@ import {Song} from "../../models/Song";
 import {Artist} from "../../models/Artist";
 import {Genre} from "../../models/Genre";
 import {TranslateModule} from "@ngx-translate/core";
+import {HomeService} from "../../services/HomeService/home.service";
 
 @Component({
   selector: 'app-leader-board',
@@ -35,7 +36,7 @@ export class LeaderBoardComponent implements OnInit{
   protected songLeaderBoard: (Song | undefined)[] = [];
   protected genreLeaderBoard: (Genre | undefined)[] = [];
 
-  constructor(private leaderBoardService: LeaderBoardService) {
+  constructor(private leaderBoardService: LeaderBoardService, private homeService: HomeService) {
   }
 
   ngOnInit(): void {
@@ -55,5 +56,9 @@ export class LeaderBoardComponent implements OnInit{
 
   openLink(link: string | undefined) {
     window.open(link, '_blank');
+  }
+
+  gotoArtist(id: number | undefined) {
+    this.homeService.gotoArtist(id);
   }
 }

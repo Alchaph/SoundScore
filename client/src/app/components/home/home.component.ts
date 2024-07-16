@@ -50,6 +50,8 @@ import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
+import {ArtistService} from "../../services/ArtistService/artist.service";
+import {Artist} from "../../models/Artist";
 
 export interface TreeNode {
   name: string;
@@ -121,10 +123,11 @@ export class HomeComponent implements OnInit {
   protected isMobile: boolean = false;
   protected readonly window: Window = window;
   protected selectedFilters?: 'genre' | 'song' | 'artist';
+  protected likeProcessing: boolean = false;
   protected activeUser: User = {} as User
 
 
-  constructor(protected jwtService: JwtServiceService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver) {
+  constructor(protected jwtService: JwtServiceService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService) {
 
   }
   ngOnInit() {
@@ -141,5 +144,9 @@ export class HomeComponent implements OnInit {
       this.activeUser = data
       this.homeService.loadPosts();
     })
+  }
+
+  gotoArtist(id:number | undefined) {
+    this.homeService.gotoArtist(id);
   }
 }

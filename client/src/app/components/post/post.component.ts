@@ -15,12 +15,11 @@ import {TranslateModule} from "@ngx-translate/core";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 import {CommentComponent} from "../comment/comment.component";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
-import {LanguageService} from "../../services/languageService/language.service";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {Observable} from "rxjs";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
+import {LanguageService} from "../../services/languageService/language.service";
 
 @Component({
   selector: 'app-post',
@@ -69,43 +68,25 @@ export class PostComponent implements OnInit {
     this.post = {} as Post;
     this.commentService.newComment = {} as Comment;
     this.activeUser = {} as User;
-    this.postId = Number(this.route.snapshot.paramMap.get('postId'));
+    this.postId = Number(this.route.snapshot.paramMap.get('postId'))
   }
 
 
   goBack() {
     const previousPath: string | null = sessionStorage.getItem('previousPath')
-
     if (previousPath) {
       sessionStorage.clear();
       this.router.navigate([previousPath])
-
     } else {
       this.router.navigate(['/home'])
     }
   }
 
   ngOnInit(): void {
-    this.postService.getPost(this.postId).subscribe(post => {
-      this.post = post;
-      this.jwtService.getMe().subscribe(user => {
-        this.activeUser = user;
-        post.likes.forEach(data => {
-          if (data.user.id === this.activeUser.id) {
-            this.liked = true;
-          }
-        });
-        post.dislikes.forEach(data => {
-          if (data.user.id === this.activeUser.id) {
-            this.disliked = true;
-          }
-        });
-      })
+    this.route.params.subscribe(params => {
+      this.postId = params['postId'];
+      this.loadComponentData();
     });
-    this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
-      this.commentService.comments = this.commentService.buildCommentTree(comments);
-    });
-
   }
 
   handleAction(): void {
@@ -158,5 +139,28 @@ export class PostComponent implements OnInit {
 
   protected readonly window = window;
   protected readonly JSON = JSON;
-    protected readonly localStorage = localStorage;
+  protected readonly localStorage = localStorage;
+
+  private loadComponentData() {
+    this.postService.getPost(this.postId).subscribe(post => {
+      this.post = post;
+      this.jwtService.getMe().subscribe(user => {
+        this.activeUser = user;
+        post.likes.forEach(data => {
+          if (data.user.id === this.activeUser.id) {
+            this.liked = true;
+          }
+        });
+        post.dislikes.forEach(data => {
+          if (data.user.id === this.activeUser.id) {
+            this.disliked = true;
+          }
+        });
+      });
+    });
+
+    this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
+      this.commentService.comments = this.commentService.buildCommentTree(comments);
+    });
+  }
 }

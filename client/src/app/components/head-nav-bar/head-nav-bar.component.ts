@@ -10,12 +10,16 @@ import {MatIcon} from "@angular/material/icon";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {AsyncPipe, NgForOf, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgForOf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {Observable} from "rxjs";
 import {LoaderService} from "../../services/LoaderService/loader.service";
 import {Language} from "../../enums/language";
+import {User} from "../../models/User";
+import {Notification} from "../../models/Notification";
+import {MatBadge} from "@angular/material/badge";
+import {NotificationService} from "../../services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -39,7 +43,9 @@ import {Language} from "../../enums/language";
     NgForOf,
     NgOptimizedImage,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
+    NgStyle,
+    MatBadge
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
@@ -49,6 +55,8 @@ export class HeadNavBarComponent implements OnInit {
   protected readonly window: Window = window;
   protected langs: (keyof typeof Language)[] = this.service.getLanguages()
   protected userId: number = 0;
+  protected user: User = {} as User;
+  protected unreadNotifications: Notification[] = [];
   protected isLoading: Observable<boolean> = new Observable<boolean>();
   protected readonly Language = Language;
 
@@ -56,7 +64,8 @@ export class HeadNavBarComponent implements OnInit {
     protected service: LanguageService,
     private router: Router,
     private jwtService: JwtServiceService,
-    private loaderService: LoaderService) {
+    private loaderService: LoaderService,
+    protected notificationService: NotificationService) {
 
   }
 
@@ -75,19 +84,17 @@ export class HeadNavBarComponent implements OnInit {
           sessionStorage.setItem('profilPicture', data[0].url);
         });
     }
-    this.jwtService.getMe().subscribe((user) => {
-      this.userId = user.id!;
-    });
+    this.updateUser();
   }
 
-  refresh(){
-    if(window.location.href === 'http://localhost:4200/home') {
+  refresh() {
+    if (window.location.href === 'http://localhost:4200/home') {
       window.location.reload();
     }
   }
 
   gotoUserProfile() {
-    console.log(this.userId);
+    // console.log(this.userId);
     if (localStorage.getItem('selectedTabProfileTab') === null) {
       localStorage.setItem('selectedTabProfileTab', '0');
     }
@@ -100,5 +107,38 @@ export class HeadNavBarComponent implements OnInit {
         window.location.reload();
       }
     });
+  }
+
+  updateUser() {
+    this.jwtService.getMe().subscribe(data => {
+      this.userId = data.id!;
+      this.user = data;
+      this.unreadNotifications = data.notifications.filter(n => !n.read)
+    });
+  }
+
+  createTextsToDisplay(notification: Notification): string {
+    let text: string = "";
+    if (notification.likeOrDislike && notification.post) {
+      let likeOrDislike: string = notification.likeOrDislike.like ? " liked" : " disliked"
+      text = notification.likeOrDislike.user.username + likeOrDislike + " your post " + notification.post.title
+    }
+    if (notification.post && notification.comment) {
+      text = notification.comment.user.username + " commented on your post " + notification.post.title
+    }
+    if (notification.comment && !notification.post) {
+      text = notification.comment.user.username + " replied to your comment " + notification.comment.message
+    }
+    if (text.length > 35) {
+      return text.substring(0, 35) + "..."
+    } else {
+      return text
+    }
+  }
+
+  handleNotification(notification: Notification) {
+    this.notificationService.markAsRead(notification).subscribe()
+    let navigation: string = "/home/post/" + notification.post?.id ?? notification.comment.post.id
+    this.router.navigate([navigation])
   }
 }

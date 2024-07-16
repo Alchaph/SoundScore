@@ -33,7 +33,7 @@
                 </mat-card-content>
                 </mat-card>
               } @else if (this.isArtist(combinedItem)) {
-              <mat-card [routerLink]="'/home/artistProfile/'+combinedItem.id">
+              <mat-card (click)="gotoArtist(combinedItem.id)">
                 <mat-card-content>
                   <mat-card-header>
                     <mat-card-title>{{ combinedItem.name }}</mat-card-title>

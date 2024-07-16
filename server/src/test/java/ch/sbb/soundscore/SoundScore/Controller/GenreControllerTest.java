@@ -45,7 +45,7 @@ public class GenreControllerTest {
         Genre genre = new Genre();
         genre.setId(1L);
         when(genreService.createGenre(any(Genre.class))).thenReturn(genre);
-        mockMvc.perform(post("/api/genres/create")
+        mockMvc.perform(post("/api/genres")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(genre)))
                 .andExpect(status().isOk());
@@ -59,7 +59,7 @@ public class GenreControllerTest {
         Genre genre = new Genre();
         genre.setId(1L);
         when(genreService.editGenre(any(Genre.class))).thenReturn(genre);
-        mockMvc.perform(put("/api/genres/edit")
+        mockMvc.perform(put("/api/genres")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(genre)))
                 .andExpect(status().isOk());
@@ -73,7 +73,7 @@ public class GenreControllerTest {
         Genre genre = new Genre();
         genre.setId(1L);
         when(genreService.getGenreById(1L)).thenReturn(genre);
-        mockMvc.perform(delete("/api/genres/delete/1")
+        mockMvc.perform(delete("/api/genres/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -86,7 +86,7 @@ public class GenreControllerTest {
         Genre genre = new Genre();
         genre.setId(1L);
         when(genreService.getGenreById(1L)).thenReturn(genre);
-        mockMvc.perform(get("/api/genres/get/1")
+        mockMvc.perform(get("/api/genres/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -102,7 +102,7 @@ public class GenreControllerTest {
         genre2.setId(2L);
         List<Genre> genres = Arrays.asList(genre1, genre2);
         when(genreService.getAllGenres()).thenReturn(genres);
-        mockMvc.perform(get("/api/genres/get/all")
+        mockMvc.perform(get("/api/genres/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -114,25 +114,25 @@ public class GenreControllerTest {
     void shouldNotPerformGenreOperations() throws Exception {
         Genre genre = new Genre();
         genre.setId(1L);
-        mockMvc.perform(post("/api/genres/create")
+        mockMvc.perform(post("/api/genres")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(genre)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(put("/api/genres/edit")
+        mockMvc.perform(put("/api/genres")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(genre)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(delete("/api/genres/delete/1")
+        mockMvc.perform(delete("/api/genres/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/api/genres/get/1")
+        mockMvc.perform(get("/api/genres/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/api/genres/get/all")
+        mockMvc.perform(get("/api/genres/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }

@@ -2,6 +2,7 @@ package ch.sbb.soundscore.SoundScore.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -20,6 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,21 +44,31 @@ public class User implements UserDetails {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
-
     @ManyToOne
     @JoinColumn(name = "artist_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    @Transient
+    private List<UserNotifications> notifications;
+
+    public User(String username, String email, String password, Artist artist) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.artist = artist;
     }
 
     @Override
     public String getUsername() {
         return this.username;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {

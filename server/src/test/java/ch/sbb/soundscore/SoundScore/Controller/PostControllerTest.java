@@ -1,12 +1,12 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
+import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,9 +22,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -50,7 +52,7 @@ public class PostControllerTest {
     @Test
     @WithMockUser
     void shouldGetAllPosts() throws Exception {
-        mockMvc.perform(get("/api/posts/get/all")
+        mockMvc.perform(get("/api/posts/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -68,7 +70,7 @@ public class PostControllerTest {
         Post returnedPost = new Post();
         returnedPost.setId(1L);
         given(postService.newPost(ArgumentMatchers.any(Post.class))).willReturn(returnedPost);
-        mockMvc.perform(post("/api/posts/create")
+        mockMvc.perform(post("/api/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(post)))
                 .andExpect(status().isOk());
@@ -82,7 +84,7 @@ public class PostControllerTest {
         Post post = new Post();
         post.setId(1L);
 
-        mockMvc.perform(put("/api/posts/edit")
+        mockMvc.perform(put("/api/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(post)))
                 .andExpect(status().isOk());
@@ -93,7 +95,7 @@ public class PostControllerTest {
     @DirtiesContext
     @Transactional
     void shouldDeletePost() throws Exception {
-        mockMvc.perform(delete("/api/posts/delete/1")
+        mockMvc.perform(delete("/api/posts/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -101,11 +103,10 @@ public class PostControllerTest {
     @Test
     @WithMockUser(username = "testUser")
     void shouldLikePost() throws Exception {
-        given(postService.likeOrDislikePost(ArgumentMatchers.anyLong(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(User.class))).willReturn(true);
-
+        given(postService.likeOrDislikePost(ArgumentMatchers.anyLong(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(UserDetails.class))).willReturn(true);
         mockMvc.perform(post("/api/posts/like/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("true"))
+                        .content(new ObjectMapper().writeValueAsString(true)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
     }
@@ -113,9 +114,9 @@ public class PostControllerTest {
     @Test
     @WithMockUser(username = "testUser")
     void shouldDislikePost() throws Exception {
-        given(postService.likeOrDislikePost(ArgumentMatchers.anyLong(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(User.class))).willReturn(true);
+        given(postService.likeOrDislikePost(ArgumentMatchers.anyLong(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(UserDetails.class))).willReturn(true);
 
-        mockMvc.perform(post("api/posts/like/1")
+        mockMvc.perform(post("/api/posts/like/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("false"))
                 .andExpect(status().isOk())
@@ -127,20 +128,20 @@ public class PostControllerTest {
     void shouldNotPerformPostOperations() throws Exception {
         Post post = new Post();
         post.setId(1L);
-        mockMvc.perform(get("/api/posts/get/all")
+        mockMvc.perform(get("/api/posts/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
-        mockMvc.perform(post("/api/posts/create")
+        mockMvc.perform(post("/api/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(post)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(put("/api/posts/edit/1")
+        mockMvc.perform(put("/api/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(post)))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(delete("/api/posts/delete/1")
+        mockMvc.perform(delete("/api/posts/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
 

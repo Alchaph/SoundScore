@@ -53,7 +53,7 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
-        User user = new User();
+        User user = new User("test", "test", "test", null);
         user.setUsername(input.getUsername());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
@@ -107,5 +107,9 @@ public class AuthenticationService {
         User user = userRepository.findByUsername(username).orElseThrow();
         userRepository.deleteUser(user);
         return user;
+    }
+
+    public boolean usernameExists(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 }

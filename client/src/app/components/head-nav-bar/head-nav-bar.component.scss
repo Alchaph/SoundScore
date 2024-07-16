@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center
   }
+
   .toolbarMiddle :hover {
     cursor: pointer;
   }
@@ -24,16 +25,46 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    .catPic{
+
+    .catPic {
       width: 50px;
       height: 50px;
       border-radius: 50%;
     }
+
     .catPic:hover {
       cursor: pointer;
     }
   }
 }
+
+
+.menu-button {
+  display: flex !important;
+  flex-direction: row !important;
+  text-align: left;
+  div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    .notification-image {
+      width: 50px;
+      height: 45px;
+    }
+    .menu-text{
+      color: black !important;
+      margin-left: 10px;
+      text-overflow: clip;
+      width: calc(100% - 50px);
+      height: 50px;
+    }
+  }
+
+}
+
+
+
 #headBar {
   background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
 }

@@ -51,4 +51,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Override
     List<Post> findAll();
 
+
+    @Modifying
+    @Query("update Post p set p.artist.id = 0  where p.artist = :artist")
+    List<Post> updateArtistByArtist(Artist artist);
+
 }

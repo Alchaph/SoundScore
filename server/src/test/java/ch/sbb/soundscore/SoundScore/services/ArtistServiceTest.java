@@ -26,6 +26,12 @@ class ArtistServiceTest {
     @BeforeEach
     void setUp() {
         artistRepository = mock(ArtistRepository.class);
+<<<<<<< HEAD
+=======
+        UserRepository userRepository = mock(UserRepository.class);
+        PostRepository postRepository = mock(PostRepository.class);
+        SongRepository songRepository = mock(SongRepository.class);
+>>>>>>> 7d8b2bd11b3c4e6620ec0b7048ec802fa92d114f
         artistService = new ArtistService(artistRepository, userRepository, postRepository, songRepository);
     }
 
@@ -75,6 +81,8 @@ class ArtistServiceTest {
     void getAllArtists() {
         Artist artist1 = new Artist();
         Artist artist2 = new Artist();
+        artist1.setId(1L);
+        artist2.setId(2L);
         when(artistRepository.findAll()).thenReturn(Arrays.asList(artist1, artist2));
 
         List<Artist> result = artistService.getAllArtists();

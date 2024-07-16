@@ -49,6 +49,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.emailExists(email));
     }
 
+    @GetMapping("/username-exists/{username}")
+    public ResponseEntity<Boolean> usernameExists(@PathVariable String username) {
+        return ResponseEntity.ok(authenticationService.usernameExists(username));
+    }
+
     @PostMapping("/authenticate")
     public boolean authenticate(@RequestBody DataTransferDTO user) {
         return authenticationService.authenticateWithOTP(user.getData());

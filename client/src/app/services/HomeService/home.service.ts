@@ -5,6 +5,8 @@ import {Genre} from "../../models/Genre";
 import {Artist} from "../../models/Artist";
 import {PostService} from "../PostService/post.service";
 import {LeaderBoardService} from "../LeaderBoardService/leader-board.service";
+import {Router} from "@angular/router";
+import {JwtServiceService} from "../JwtService/jwt-service.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +16,8 @@ export class HomeService {
   topSongs: Song[] = [];
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
-  displayedPosts: number = JSON.parse(localStorage.getItem("displayedPosts") ?? "0")
 
-  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService) {
+  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService, private router: Router, private jwtService: JwtServiceService) {
   }
 
   getPosts() {
@@ -35,10 +36,9 @@ export class HomeService {
     return this.topArtists;
   }
 
-
   loadPosts() {
     this.postService.getPosts().subscribe((data: Post[]) => {
-      this.posts.push(...data.reverse());
+      this.posts = data.reverse();
     });
     this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
       this.topGenres = data.reverse().slice(0, 5);
@@ -49,5 +49,14 @@ export class HomeService {
     this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
       this.topSongs = data.reverse().slice(0, 5);
     });
+  }
+
+  gotoArtist(artistId: number | undefined) {
+    if (!artistId){
+      alert('Artist not found')
+    }
+    this.jwtService.getUserByArtistId(artistId).subscribe(user => {
+      this.router.navigate(['/home/userProfile/' + user?.id?.toString()+ '/'  + '1'])
+    })
   }
 }

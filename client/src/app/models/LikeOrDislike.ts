@@ -5,5 +5,5 @@ export interface LikeOrDislike {
   id?: number,
   post: Post,
   user: User,
-  isLike: boolean
+  like: boolean
 }

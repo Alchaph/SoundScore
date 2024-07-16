@@ -32,5 +32,12 @@ public class Comment {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Comment parent;
+
+    public Comment(String message, User user, Post post, Comment parent) {
+        this.message = message;
+        this.user = user;
+        this.post = post;
+        this.parent = parent;
+    }
 }
 

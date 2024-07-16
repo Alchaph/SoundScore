@@ -40,6 +40,15 @@ export class JwtServiceService {
     return this.http.get<User[]>(environment.url + '/users/all', this.httpService.getHttpOptions());
   }
 
+  public getUserById(id: number): Observable<User> {
+
+    return this.http.get<User>(environment.url + '/users/user/' + id, this.httpService.getHttpOptions());
+  }
+
+  public getUserByArtistId(id: number | undefined): Observable<User> {
+    return this.http.get<User>(environment.url + '/users/getByArtistId/' + id, this.httpService.getHttpOptions());
+  }
+
   public getMe(): Observable<User> {
     return this.http.get<User>(environment.url + '/users/me', this.httpService.getHttpOptions());
   }
@@ -66,6 +75,11 @@ export class JwtServiceService {
 
   public emailExists(email: string): Observable<boolean> {
     const url: string = environment.url + `/auth/email-exists/${email}`;
+    return this.http.get<boolean>(url);
+  }
+
+  public usernameExists(username: string): Observable<boolean> {
+    const url: string = environment.url + `/auth/username-exists/${username}`;
     return this.http.get<boolean>(url);
   }
 

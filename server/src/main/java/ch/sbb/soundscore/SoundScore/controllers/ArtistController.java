@@ -9,11 +9,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/artist")
 public class ArtistController {
+
     private final ArtistService artistService;
 
     public ArtistController(ArtistService artistService) {
         this.artistService = artistService;
     }
+
+
 
     @PostMapping("")
     public Artist createArtist(@RequestBody Artist artist) {
@@ -24,6 +27,7 @@ public class ArtistController {
     public Artist editArtist(@RequestBody Artist artist) {
         return artistService.editArtist(artist);
     }
+
     @DeleteMapping("/{id}")
     public Artist deleteArtist(@PathVariable Long id) {
         return artistService.deleteArtist(id);
@@ -38,4 +42,5 @@ public class ArtistController {
     public List<Artist> getAllArtists() {
         return artistService.getAllArtists();
     }
+
 }

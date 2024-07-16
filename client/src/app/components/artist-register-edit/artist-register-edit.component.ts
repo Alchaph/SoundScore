@@ -68,6 +68,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    if (this.route.snapshot.paramMap.get('artistId'))
     this.artistService.getArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).subscribe((a: Artist) => {
       this.artist = a;
       if (this.artist) {
@@ -100,8 +101,10 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
       this.artist ? artist.id = this.artist.id : null
       this.artist ?
         this.artistService.updateArtist(artist).subscribe(
-          () => this.updateUser(artist)
-        ) :
+          () => {this.updateUser(artist)
+        this.router.navigate(['home/userProfile/' + this.user?.id + '/1'])
+          }
+    ) :
         this.artistService.createArtist(artist).subscribe(
           (a) => {
             this.router.navigate(['home/userProfile/' + this.user?.id + '/1'])
