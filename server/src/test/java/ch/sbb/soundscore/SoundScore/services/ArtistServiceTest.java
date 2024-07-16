@@ -2,6 +2,9 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.repositories.ArtistRepository;
+import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
+import ch.sbb.soundscore.SoundScore.repositories.SongRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +18,15 @@ import static org.mockito.Mockito.*;
 
 class ArtistServiceTest {
     private ArtistRepository artistRepository;
+    private UserRepository userRepository;
+    private PostRepository postRepository;
+    private SongRepository songRepository;
     private ArtistService artistService;
 
     @BeforeEach
     void setUp() {
         artistRepository = mock(ArtistRepository.class);
-        artistService = new ArtistService(artistRepository);
+        artistService = new ArtistService(artistRepository, userRepository, postRepository, songRepository);
     }
 
     @Test

@@ -2,6 +2,7 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import ch.sbb.soundscore.SoundScore.repositories.LikeOrDislikeRepository;
 import ch.sbb.soundscore.SoundScore.repositories.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,13 +17,14 @@ import static org.mockito.Mockito.*;
 
 class PostServiceTest {
     private PostRepository postRepository;
+    private CommentRepository commentRepository;
     private PostService postService;
 
     @BeforeEach
     void setUp() {
         postRepository = mock(PostRepository.class);
         LikeOrDislikeRepository likeOrDislikeRepository = mock(LikeOrDislikeRepository.class);
-        postService = new PostService(postRepository, likeOrDislikeRepository);
+        postService = new PostService(postRepository, likeOrDislikeRepository, commentRepository);
     }
 
     @Test
