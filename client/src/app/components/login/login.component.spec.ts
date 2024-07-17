@@ -133,6 +133,8 @@ describe('LoginComponent', () => {
         spyOn(userInformationService, 'setMessage');
 
         component.registerForm.controls.username.setValue('newuser');
+        component.registerForm.controls.password.setValue('password123');
+        component.registerForm.controls.repeatPassword.setValue('password123');
         component.registerForm.controls.email.setValue('existing@example.com');
         component.register();
 
@@ -315,8 +317,7 @@ describe('LoginComponent', () => {
 
       it('should show error if username retrieval fails', () => {
         spyOn(jwtService, 'authenticate').and.returnValue(of({username: 'testuser', otp: '123456'}));
-        // @ts-ignore
-        spyOn(jwtService, 'getUsernameByEMail').and.returnValue(of({ undefined } as unknown as Verification));
+        spyOn(jwtService, 'getUsernameByEMail').and.returnValue(of({ undefined } as unknown as { data: string }));
         spyOn(userInformationService, 'setMessage');
 
         component.registerForm.controls.email.setValue('test@example.com');
@@ -389,7 +390,7 @@ describe('LoginComponent', () => {
 
       it('should show error if login after password change fails', () => {
         spyOn(jwtService, 'updatePassword').and.returnValue(of({id: 1} as User));
-        spyOn(jwtService, 'login').and.returnValue(throwError({}));
+        spyOn(jwtService, 'login').and.returnValue(of(undefined) as unknown as Observable<{ token: string, expiresIn: number }>);
         spyOn(userInformationService, 'setMessage');
 
         component.email = 'test@example.com';

@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 describe('CommentComponent', () => {
   let component: CommentComponent;
   let fixture: ComponentFixture<CommentComponent>;
-  let commentServiceMock: any;
+  let commentServiceMock: Partial<CommentService>;
 
   beforeEach(async () => {
     commentServiceMock = {
@@ -46,7 +46,7 @@ describe('CommentComponent', () => {
   it('should handle setEditComment with undefined comment', () => {
     component.setEditComment(undefined as unknown as Comment);
     expect(commentServiceMock.currentAction).toBe('Edit your');
-    expect(commentServiceMock.newComment).toEqual({});
+    expect(commentServiceMock.newComment).toEqual({} as Comment);
   });
 
   it('should set currentAction to "Reply to" and copy the comment', () => {

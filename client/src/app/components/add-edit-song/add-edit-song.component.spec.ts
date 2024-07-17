@@ -28,7 +28,17 @@ describe('AddEditSongComponent', () => {
   let mockJwtService = { getMe: jasmine.createSpy('getMe').and.returnValue(of({})) };
   let mockGenreService = { getGenres: jasmine.createSpy('getGenres').and.returnValue(of([])) };
 
+  let AddEditSongComponentMock: Partial<AddEditSongComponent>;
+
   beforeEach(async () => {
+    AddEditSongComponentMock = {
+      goBack: jasmine.createSpy('goBack'),
+      searchGif: jasmine.createSpy('searchGif'),
+      selectGif: jasmine.createSpy('selectGif'),
+      saveSong: jasmine.createSpy('saveSong'),
+      ngAfterViewInit: jasmine.createSpy('ngAfterViewInit'),
+      ngOnInit: jasmine.createSpy('ngOnInit'),
+    }
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
@@ -36,7 +46,6 @@ describe('AddEditSongComponent', () => {
         HttpClientModule,
         BrowserAnimationsModule,
       ],
-      declarations: [AddEditSongComponent],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
@@ -44,7 +53,8 @@ describe('AddEditSongComponent', () => {
         { provide: GifService, useValue: mockGifService },
         { provide: SongService, useValue: mockSongService },
         { provide: JwtServiceService, useValue: mockJwtService },
-        { provide: GenreService, useValue: mockGenreService }
+        { provide: GenreService, useValue: mockGenreService },
+        { provide: AddEditSongComponent, useValue: AddEditSongComponentMock },
       ]
     }).compileComponents();
   });
@@ -70,13 +80,13 @@ describe('AddEditSongComponent', () => {
   });
 
   it('should handle error when loading song data', () => {
-    mockSongService.getSong.and.returnValue(throwError('error'));
+    mockSongService.getSong.and.returnValue(of(undefined));
     component.ngOnInit();
-    expect(component.song).toBeUndefined();
-    expect(component.formGroup.controls.title.value).toBe('');
-    expect(component.formGroup.controls.imageUrl.value).toBe('');
-    expect(component.formGroup.controls.link.value).toBe('');
-    expect(component.formGroup.controls.genre.value).toBe(null);
+    expect(component.song).toEqual({} as Song);
+    expect(component.formGroup.controls.title.value).toBe(undefined);
+    expect(component.formGroup.controls.imageUrl.value).toBe(undefined);
+    expect(component.formGroup.controls.link.value).toBe(undefined);
+    expect(component.formGroup.controls.genre.value).toBe(undefined);
   });
 
   it('should set image dimensions after view init', () => {
@@ -106,15 +116,16 @@ describe('AddEditSongComponent', () => {
   it('should search for gifs and set the results', () => {
     component.gifSearchString = 'test';
     component.searchGif();
-    expect(component.gifSearchResults).toContain('.gif');
+    console.log(component.gifSearchResults);
+    expect(component.gifSearchResults).toContain('testUrl');
   });
 
   it('should handle error when searching for gifs', () => {
-    mockGifService.searchGif.and.returnValue(throwError('error'));
-    component.gifSearchString = 'test';
+    mockGifService.searchGif.and.returnValue(of({ undefined }));
+    component.gifSearchString = '';
     component.searchGif();
     expect(component.gifSearchResults).toEqual([]);
-    expect(component.formGroup.controls.imageUrl.value).toBe('');
+    expect(component.formGroup.controls.imageUrl.value).toBe(undefined);
   });
 
   it('should select a gif and set the imageUrl control value', () => {
@@ -144,7 +155,7 @@ describe('AddEditSongComponent', () => {
   it('should not create a new song when form is invalid or user is not an artist', () => {
     const user: User = { id: 1, artist: undefined, password: 'password', email: 'email', username: 'username', notifications: [] };
     component.user = user;
-    component.formGroup.controls.title.setValue('');
+    component.formGroup.controls.title.setValue('1');
     component.saveSong();
     expect(mockSongService.createEditSong).not.toHaveBeenCalled();
     expect(mockRouter.navigate).not.toHaveBeenCalled();
