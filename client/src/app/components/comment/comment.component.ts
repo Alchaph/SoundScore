@@ -46,21 +46,23 @@ export class CommentComponent {
   }
 
   deleteComment(comment: Comment): void {
-    if (comment.id) {
-      if (comment.children && comment.children.length > 0) {
-        comment.children.forEach(c => this.deleteComment(c))
-      } else {
-        this.commentService.deleteComment(comment.id).subscribe(c => {
-          if (comment.id !== this.baseId && comment.parent) {
-            this.deleteComment(comment.parent)
-          } else {
-            this.commentService.getCommentsOfPost(comment.post.id ?? 0).subscribe((comments) => {
-                this.commentService.comments = this.commentService.buildCommentTree(comments)
-              }
-            )
-          }
-        })
-      }
+    if (comment.id === undefined || comment.id === null) {
+      throw new Error('Comment has no id');
+    }
+
+    if (comment.children && comment.children.length > 0) {
+      comment.children.forEach(c => this.deleteComment(c))
+    } else {
+      this.commentService.deleteComment(comment.id).subscribe(c => {
+        if (comment.id !== this.baseId && comment.parent) {
+          this.deleteComment(comment.parent)
+        } else {
+          this.commentService.getCommentsOfPost(comment.post.id ?? 0).subscribe((comments) => {
+              this.commentService.comments = this.commentService.buildCommentTree(comments)
+            }
+          )
+        }
+      })
     }
   }
 

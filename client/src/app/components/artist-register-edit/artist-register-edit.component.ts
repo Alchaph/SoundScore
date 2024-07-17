@@ -44,12 +44,12 @@ import {UserInformationService} from "../../services/UserInformationService/user
 })
 export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadedImage')
-  protected uploadedImage: ElementRef | undefined;
-  protected imageHeight: number = 0
-  protected imageWidth: number = 0
-  protected artist: Artist | undefined;
-  protected user: User | undefined;
-  protected formGroup: FormGroup<{
+  uploadedImage: ElementRef | undefined;
+  imageHeight: number = 0
+  imageWidth: number = 0
+  artist: Artist | undefined;
+  user: User | undefined;
+  formGroup: FormGroup<{
     artistName: FormControl<string | null>,
     artistDescription: FormControl<string | null>,
     artistImage: FormControl<string | null>

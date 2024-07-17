@@ -34,7 +34,7 @@ describe('PostService', () => {
   });
 
   it('createPost should post and return the post', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.createPost(mockPost).subscribe(post => {
       expect(post).toEqual(mockPost);
     });
@@ -45,7 +45,7 @@ describe('PostService', () => {
   });
 
   it('createPost should throw an error with invalid http Options', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.createPost(mockPost).subscribe({
       next: () => fail('Expected to fail due to invalid HTTP options'),
       error: (error) => expect(error).toBeTruthy()
@@ -57,7 +57,7 @@ describe('PostService', () => {
   });
 
   it('updatePost should put and return the updated post', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.updatePost(mockPost).subscribe(post => {
       expect(post).toEqual(mockPost);
     });
@@ -68,7 +68,7 @@ describe('PostService', () => {
   });
 
   it('updatePost should throw an error with invalid http Options', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.updatePost(mockPost).subscribe({
       next: () => fail('Expected to fail due to invalid HTTP options'),
       error: (error) => expect(error).toBeTruthy()
@@ -80,7 +80,7 @@ describe('PostService', () => {
   });
 
   it('deletePost should delete and return the post', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.deletePost(mockPost.id!).subscribe(post => {
       expect(post).toEqual(mockPost);
     });
@@ -91,7 +91,7 @@ describe('PostService', () => {
   });
 
   it('deletePost should throw an error with invalid http Options', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.deletePost(mockPost.id!).subscribe({
       next: () => fail('Expected to fail due to invalid HTTP options'),
       error: (error) => expect(error).toBeTruthy()
@@ -104,8 +104,8 @@ describe('PostService', () => {
 
   it('getPosts should get and return all posts', () => {
     const mockPosts: Post[] = [
-      { id: 1, title: 'Test Post One', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] },
-      { id: 2, title: 'Test Post Two', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }
+      { id: 1, title: 'Test Post One', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] },
+      { id: 2, title: 'Test Post Two', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }
     ];
     service.getPosts().subscribe(posts => {
       expect(posts.length).toBe(2);
@@ -119,8 +119,8 @@ describe('PostService', () => {
 
   it('getPosts should throw an error with invalid http Options', () => {
     const mockPosts: Post[] = [
-      { id: 1, title: 'Test Post One', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] },
-      { id: 2, title: 'Test Post Two', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }
+      { id: 1, title: 'Test Post One', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] },
+      { id: 2, title: 'Test Post Two', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }
     ];
     service.getPosts().subscribe({
       next: () => fail('Expected to fail due to invalid HTTP options'),
@@ -133,7 +133,7 @@ describe('PostService', () => {
   });
 
   it('getPost should get and return a single post by ID', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.getPost(mockPost.id!).subscribe(post => {
       expect(post).toEqual(mockPost);
     });
@@ -144,7 +144,7 @@ describe('PostService', () => {
   });
 
   it('getPost should throw an error with invalid http Options', () => {
-    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password' }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
+    const mockPost: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     service.getPost(mockPost.id!).subscribe({
       next: () => fail('Expected to fail due to invalid HTTP options'),
       error: (error) => expect(error).toBeTruthy()

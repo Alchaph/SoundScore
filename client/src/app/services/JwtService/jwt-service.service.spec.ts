@@ -6,6 +6,7 @@ import {environment} from "../../../environments/environments";
 import {User} from "../../models/User";
 import {DataTranfer} from "../../models/DataTranfer";
 import {Verification} from "../../models/Verification";
+import {Artist} from "../../models/Artist";
 
 describe('JwtServiceService', () => {
   let service: JwtServiceService;
@@ -96,9 +97,9 @@ describe('JwtServiceService', () => {
   });
 
   it('getUsers should get and return data', () => {
-    const mockResponse = [
-      { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1' },
-      { id: 2, email: 'mail@2.com', password: 'test2', username: 'test2' }
+    const mockResponse: User[] = [
+      { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] },
+      { id: 2, email: 'mail@2.com', password: 'test2', username: 'test2', notifications: [] }
   ];
 
   service.getUsers().subscribe(response => {
@@ -122,7 +123,7 @@ describe('JwtServiceService', () => {
   });
 
   it('getUserById should get and return data', () => {
-    const mockResponse =       { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1' };
+    const mockResponse: User = { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] };
     service.getUserById(1).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -144,7 +145,7 @@ describe('JwtServiceService', () => {
   });
 
   it('getUserByArtistId should get and return data', () => {
-    const mockResponse =       { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1' };
+    const mockResponse: User =       { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] };
     service.getUserByArtistId(1).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -166,7 +167,7 @@ describe('JwtServiceService', () => {
   });
 
   it('getMe should get and return data', () => {
-    const mockResponse =       { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1' };
+    const mockResponse: User =       { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] };
     service.getMe().subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -215,8 +216,8 @@ describe('JwtServiceService', () => {
   });
 
   it('registerArtist should put and return the registered user', () => {
-    const mockArtist = { id: 1, name: 'New Artist', description: 'Description', image: 'Image' }
-    const mockResponse = { id: 1, email: 'test@test.com', password: 'testPass', username: 'testUser' };
+    const mockArtist: Artist = { id: 1, name: 'New Artist', description: 'Description', image: 'Image' }
+    const mockResponse: User = { id: 1, email: 'test@test.com', password: 'testPass', username: 'testUser', notifications: [] };
 
     service.registerArtist(mockArtist).subscribe(response => {
       expect(response).toEqual(mockResponse);
@@ -248,7 +249,7 @@ describe('JwtServiceService', () => {
   it('updateUser should put and return the updated user', () => {
     const mockUser: User = { id: 1, username: 'testUser', email: 'test@test.com', password: 'testPass',
       artist: { id: 1, name: 'New Artist', description: 'Description', image: 'Image' },
-      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true};
+      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [] };
     const mockResponse:User = { ...mockUser, username: 'updatedUser' };
 
     service.updateUser(mockUser).subscribe(response => {
@@ -264,7 +265,7 @@ describe('JwtServiceService', () => {
   it('updateUser should handle failure', () => {
     const mockUser: User = { id: 1, username: 'testUser', email: 'test@test.com', password: 'testPass',
       artist: { id: 1, name: 'New Artist', description: 'Description', image: 'Image' },
-      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true};
+      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [] };
     const errorResponse = { message: 'Error updating user' };
 
     service.updateUser(mockUser).subscribe({
@@ -282,7 +283,7 @@ describe('JwtServiceService', () => {
   it('deleteMe should send a DELETE request and return the deleted user', () => {
     const mockResponse: User = { id: 1, username: 'testUser', email: 'test@test.com', password: 'testPass',
       artist: { id: 1, name: 'New Artist', description: 'Description', image: 'Image' },
-      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true};
+      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [] };
 
     service.deleteMe().subscribe(response => {
       expect(response).toEqual(mockResponse);
@@ -506,7 +507,7 @@ describe('JwtServiceService', () => {
   it('updatePassword should send a PUT request and return updated user data', () => {
     const testEmail = 'test@test.com';
     const testPassword = 'newPassword';
-    const mockResponse: User = { id: 1, email: testEmail, password: testPassword, username: 'testUser', artist:undefined };
+    const mockResponse: User = { id: 1, email: testEmail, password: testPassword, username: 'testUser', artist:undefined, notifications: [] };
     service.updatePassword(testEmail, testPassword).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -538,7 +539,7 @@ describe('JwtServiceService', () => {
 
   it('deleteAccountByUsername should send a DELETE request and return deleted user data', () => {
     const testUsername = 'testUser';
-    const mockResponse: User = { id: 1, email: 'testEmail', password: 'testPassword', username: 'testUser', artist:undefined };
+    const mockResponse: User = { id: 1, email: 'testEmail', password: 'testPassword', username: 'testUser', artist:undefined, notifications: [] };
 
     service.deleteAccountByUsername(testUsername).subscribe(response => {
       expect(response).toEqual(mockResponse);
