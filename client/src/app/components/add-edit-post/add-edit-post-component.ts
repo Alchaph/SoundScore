@@ -50,19 +50,18 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
   protected allArtists: Artist[] = [];
   protected allSongs: Song[] = [];
 
-  protected showedType: 'Song' | 'Artist' | 'Genre' = 'Song';
-  @ViewChild('uploadedImage')
-  protected uploadedImage: ElementRef | undefined;
-  protected imageHeight: number = 0;
-  protected imageWidth: number = 0;
+  showedType: 'Song' | 'Artist' | 'Genre' = 'Song';
+  @ViewChild('uploadedImage') uploadedImage: ElementRef | undefined;
+  imageHeight: number = 0;
+  imageWidth: number = 0;
 
   protected imageType: string = "Image";
   protected postDefaultType: string = "";
-  protected gifSearchString: string = "";
-  protected gifSearchResults: string[] = [];
-  protected post: Post | undefined;
+  gifSearchString: string = "";
+  gifSearchResults: string[] = [];
+  post: Post | undefined;
 
-  protected formGroup: FormGroup<{
+  formGroup: FormGroup<{
     title: FormControl,
     content: FormControl,
     imageUrl: FormControl,
@@ -113,13 +112,23 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
     })
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.uploadedImage) {
-      const imgElement: HTMLImageElement = this.uploadedImage.nativeElement;
-      this.imageHeight = imgElement.height
-      this.imageWidth = imgElement.width
+      this.imageHeight = this.uploadedImage.nativeElement.height;
+      this.imageWidth = this.uploadedImage.nativeElement.width;
+    } else {
+      this.imageHeight = 0;
+      this.imageWidth = 0;
     }
   }
+
+  // ngAfterViewInit() {
+  //   if (this.uploadedImage) {
+  //     const imgElement: HTMLImageElement = this.uploadedImage.nativeElement;
+  //     this.imageHeight = imgElement.height
+  //     this.imageWidth = imgElement.width
+  //   }
+  // }
   goBack() {
     this.location.back();
   }

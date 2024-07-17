@@ -15,7 +15,7 @@ import {NeatConfig, NeatGradient} from "@firecms/neat";
 })
 export class LoaderComponent implements OnInit {
 
-  protected isLoading: Observable<boolean> = new Observable<boolean>();
+  isLoading: Observable<boolean> = new Observable<boolean>();
 
 
   constructor(private loaderService: LoaderService) {

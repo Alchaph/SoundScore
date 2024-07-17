@@ -16,6 +16,7 @@ import {GifService} from "../../services/GifService/gif.service";
 import {User} from "../../models/User";
 import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 
 @Component({
   selector: 'app-add-edit-song',
@@ -40,12 +41,12 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class AddEditSongComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadedImage')
-  protected uploadedImage: ElementRef | undefined;
-  protected imageHeight: number = 0
-  protected imageWidth: number = 0
-  protected user: User | undefined
-  protected gifSearchResults: string[] = []
-  protected formGroup: FormGroup<{
+  uploadedImage: ElementRef | undefined;
+  imageHeight: number = 0
+  imageWidth: number = 0
+  user: User | undefined
+  gifSearchResults: string[] = []
+  formGroup: FormGroup<{
     title: FormControl;
     imageUrl: FormControl;
     link: FormControl;
@@ -57,9 +58,9 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
     genre: new FormControl<Genre | null>(null, [Validators.required]),
   })
   protected allGenres: Genre[] = []
-  protected song: Song | undefined
+  song: Song | undefined
   protected imageType: string = "Image";
-  protected gifSearchString: string = ""
+  gifSearchString: string = ""
 
   constructor(private location: Location,
               private songService: SongService,
@@ -67,7 +68,8 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute,
               private gifService: GifService,
               private jwtService: JwtServiceService,
-              private router: Router
+              private router: Router,
+              private userInformationService: UserInformationService
   ) {
   }
 
@@ -119,7 +121,8 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
       this.songService.createEditSong(song).subscribe((data) => {
         this.router.navigate(['/home/userProfile/' + this.user?.id?.toString() + '/'  + '1'])
       });
+    } else {
+      this.userInformationService.setMessage('Please fill out all fields')
     }
-    this.router.navigate(['/home/userProfile/' + this.user?.id?.toString()+ '/'  + '1'])
   }
 }

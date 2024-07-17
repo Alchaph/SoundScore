@@ -49,13 +49,13 @@ import {UserInformationService} from "../../services/UserInformationService/user
 })
 export class LoginComponent implements AfterViewInit, OnInit {
   protected hide: boolean = true;
-  protected isRegister: boolean = false;
-  protected TwoFA: boolean = false;
-  protected Otp: boolean = false;
+  isRegister: boolean = false;
+  TwoFA: boolean = false;
+  Otp: boolean = false;
   protected forgotPasswordEmail: boolean = false;
   protected newPassword: boolean = false;
-  protected username: string = '';
-  protected email: string = '';
+  username: string = '';
+  email: string = '';
   private token: string = '';
   registerForm: FormGroup<{
     email: FormControl,
@@ -125,7 +125,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else  {
       this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
         const name = '2fa_verified' + this.registerForm.controls.username.value;
-        // console.log(data.token);
         if (this.cookieService.getCookie(name) === null) {
           this.username = this.registerForm.controls.username.value;
           this.token = data.token;
