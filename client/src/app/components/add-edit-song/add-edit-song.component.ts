@@ -80,11 +80,13 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.genreService.getGenres().subscribe(data => this.allGenres = data)
     this.songService.getSong(Number(this.route.snapshot.paramMap.get('songId'))).subscribe(data => {
-      this.song = data
-      this.formGroup.controls.imageUrl.setValue(data.image)
-      this.formGroup.controls.title.setValue(data.title)
-      this.formGroup.controls.link.setValue(data.link)
-      this.formGroup.controls.genre.setValue(data.genre)
+      if (data) {
+        this.song = data
+        this.formGroup.controls.imageUrl.setValue(data.image)
+        this.formGroup.controls.title.setValue(data.title)
+        this.formGroup.controls.link.setValue(data.link)
+        this.formGroup.controls.genre.setValue(data.genre)
+      }
     })
     this.jwtService.getMe().subscribe(data => this.user = data)
   }
@@ -98,11 +100,18 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
   }
 
   searchGif() {
-    this.gifService.searchGif(this.gifSearchString).subscribe(data => {
-      this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
-      this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
-
-    })
+    if (this.gifSearchString !== "") {
+      this.gifService.searchGif(this.gifSearchString).subscribe(data => {
+        if (data.results) {
+          if (data.results.map(result => result.media_formats.gif.url).length > 0) {
+            this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
+            this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
+          }
+        }
+      })
+    } else {
+      this.gifSearchResults = []
+    }
   }
 
   selectGif(gifString: string) {
