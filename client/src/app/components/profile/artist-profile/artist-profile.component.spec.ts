@@ -1,23 +1,151 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ArtistProfileComponent } from './artist-profile.component';
+import { JwtServiceService } from "../../../services/JwtService/jwt-service.service";
+import { SongService } from "../../../services/SongService/song.service";
+import { ArtistService } from "../../../services/ArtistService/artist.service";
+import { ActivatedRoute } from "@angular/router";
+import { of } from 'rxjs';
+import { User } from '../../../models/User';
+import { Artist } from '../../../models/Artist';
+import { Song } from '../../../models/Song';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
+import {TranslateModule} from "@ngx-translate/core";
+import {HttpClientModule} from "@angular/common/http";
 
-describe('AddArtistComponent', () => {
+describe('ArtistProfileComponent', () => {
   let component: ArtistProfileComponent;
   let fixture: ComponentFixture<ArtistProfileComponent>;
+  let jwtServiceMock: any;
+  let songServiceMock: any;
+  let artistServiceMock: any;
+  let routeMock: any;
+
+  let ArtistProfileComponentMock: Partial<ArtistProfileComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ArtistProfileComponent]
-    })
-    .compileComponents();
+    ArtistProfileComponentMock = {
+      openLink: jasmine.createSpy('openLink'),
+      deleteSong: jasmine.createSpy('deleteSong'),
+      init: jasmine.createSpy('init')
+    };
+    jwtServiceMock = jasmine.createSpyObj('JwtServiceService', ['getUserById', 'getMe']);
+    songServiceMock = jasmine.createSpyObj('SongService', ['getSongs', 'deleteSong']);
+    artistServiceMock = jasmine.createSpyObj('ArtistService', ['getArtist']);
+    routeMock = {
+      snapshot: {
+        paramMap: {
+          get: jasmine.createSpy('get').and.returnValue('1')
+        }
+      }
+    };
 
+    await TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+      HttpClientModule],
+      providers: [
+        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: SongService, useValue: songServiceMock },
+        { provide: ArtistService, useValue: artistServiceMock },
+        { provide: ActivatedRoute, useValue: routeMock },
+        { provide: ArtistProfileComponent, useValue: ArtistProfileComponentMock }
+      ]
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(ArtistProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should open a new tab with the given link', () => {
+    spyOn(window, 'open');
+    const link = 'http://example.com';
+    component.openLink(link);
+    expect(window.open).toHaveBeenCalledWith(link, '_blank');
+  });
+
+  it('should not open a new tab if link is undefined', () => {
+    spyOn(window, 'open');
+    component.openLink(undefined);
+    expect(window.open).not.toHaveBeenCalled();
+  });
+
+  it('should delete the song and call init', () => {
+    songServiceMock.deleteSong.and.returnValue(of({}));
+    spyOn(component, 'init');
+
+    component.deleteSong(1);
+
+    expect(songServiceMock.deleteSong).toHaveBeenCalledWith(1);
+    expect(component.artistSongs).toEqual([]);
+    expect(component.init).toHaveBeenCalled();
+  });
+
+  it('should handle error when deleting song', () => {
+    songServiceMock.deleteSong.and.returnValue(of(new Error('Error deleting song')));
+    spyOn(component, 'init');
+
+    component.deleteSong(1);
+
+    expect(songServiceMock.deleteSong).toHaveBeenCalledWith(1);
+    expect(component.artistSongs).toEqual([]);
+    expect(component.init).toHaveBeenCalled();
+  });
+
+  it('should initialize the component correctly', () => {
+    const user: User = { id: 1, artist: { id: 2 } } as User;
+    const artist: Artist = { id: 2, name: 'Artist' } as Artist;
+    const songs: Song[] = [{ id: 1, artist: artist } as Song];
+
+    jwtServiceMock.getUserById.and.returnValue(of(user));
+    jwtServiceMock.getMe.and.returnValue(of(user));
+    songServiceMock.getSongs.and.returnValue(of(songs));
+    artistServiceMock.getArtist.and.returnValue(of(artist));
+
+    component.init();
+
+    expect(jwtServiceMock.getUserById).toHaveBeenCalledWith(1);
+    expect(jwtServiceMock.getMe).toHaveBeenCalled();
+    expect(songServiceMock.getSongs).toHaveBeenCalled();
+    expect(artistServiceMock.getArtist).toHaveBeenCalledWith(2);
+    expect(component.artist).toEqual(artist);
+    expect(component.artistSongs).toEqual(songs);
+  });
+
+  it('should handle case when user has no artist', () => {
+    const user: User = { id: 1, artist: undefined, username: 'username', email: 'email', notifications: [], password: 'password' } as User;
+    const meUser: User = { id: 2, artist: { id: 2, name: 'Artist' } } as User;
+    const songs: Song[] = [{ id: 1, artist: { id: 2, name: 'Artist' } as Artist } as Song];
+
+    jwtServiceMock.getUserById.and.returnValue(of(user));
+    jwtServiceMock.getMe.and.returnValue(of(meUser));
+    songServiceMock.getSongs.and.returnValue(of(songs));
+
+    component.init();
+
+    expect(jwtServiceMock.getUserById).toHaveBeenCalledWith(1);
+    expect(jwtServiceMock.getMe).toHaveBeenCalled();
+    expect(songServiceMock.getSongs).toHaveBeenCalled();
+    expect(artistServiceMock.getArtist).not.toHaveBeenCalled();
+    expect(component.artist).toEqual(meUser.artist);
+    expect(component.artistSongs).toEqual(songs);
+  });
+
+  it('should handle case when getUserById returns an error', () => {
+    jwtServiceMock.getUserById.and.returnValue(of(new Error('Error getting user')));
+    spyOn(console, 'log');
+
+    component.init();
+
+    expect(jwtServiceMock.getUserById).toHaveBeenCalledWith(1);
+    expect(jwtServiceMock.getMe).not.toHaveBeenCalled();
+    expect(songServiceMock.getSongs).not.toHaveBeenCalled();
+    expect(artistServiceMock.getArtist).not.toHaveBeenCalled();
+    expect(console.log).toHaveBeenCalled();
   });
 });

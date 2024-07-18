@@ -54,10 +54,10 @@ export class HeadNavBarComponent implements OnInit {
   protected readonly sessionStorage: Storage = sessionStorage;
   protected readonly window: Window = window;
   protected langs: (keyof typeof Language)[] = this.service.getLanguages()
-  protected userId: number = 0;
-  protected user: User = {} as User;
-  protected unreadNotifications: Notification[] = [];
-  protected isLoading: Observable<boolean> = new Observable<boolean>();
+  userId: number = 0;
+  user: User = {} as User;
+  unreadNotifications: Notification[] = [];
+  isLoading: Observable<boolean> = new Observable<boolean>();
   protected readonly Language = Language;
 
   constructor(

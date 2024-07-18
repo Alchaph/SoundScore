@@ -316,14 +316,14 @@ describe('LoginComponent', () => {
       });
 
       it('should show error if username retrieval fails', () => {
-        spyOn(jwtService, 'authenticate').and.returnValue(of({username: 'testuser', otp: '123456'}));
+        spyOn(jwtService, 'authenticate').and.returnValue(of({ username: 'username', otp: '123456' } as Verification));
         spyOn(jwtService, 'getUsernameByEMail').and.returnValue(of({ undefined } as unknown as { data: string }));
         spyOn(userInformationService, 'setMessage');
 
         component.registerForm.controls.email.setValue('test@example.com');
         component.verifyEmail();
 
-        expect(userInformationService.setMessage).toHaveBeenCalledWith('Email is not valid');
+        expect(userInformationService.setMessage).toHaveBeenCalledWith('Could not find user');
       });
     });
 
@@ -380,9 +380,8 @@ describe('LoginComponent', () => {
         spyOn(jwtService, 'updatePassword').and.returnValue(of({ undefined } as unknown as User));
         spyOn(userInformationService, 'setMessage');
 
-        component.email = 'test@example.com';
-        component.registerForm.controls.password.setValue('newpassword');
-        component.registerForm.controls.repeatPassword.setValue('newpassword');
+        component.registerForm.controls.password.setValue('newPassword');
+        component.registerForm.controls.repeatPassword.setValue('newPassword');
         component.changePassword();
 
         expect(userInformationService.setMessage).toHaveBeenCalledWith('Could not update password');
