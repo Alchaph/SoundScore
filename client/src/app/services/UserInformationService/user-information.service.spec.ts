@@ -20,15 +20,14 @@ describe('UserInformationService', () => {
     });
   });
 
-  // TODO if not 80% coverage
+  //TODO if not 80% coverage
   it('getIsMessage() should return the current value of isMessage', fakeAsync(() => {
     service.hide();
+    tick();
     service.getIsMessage().subscribe(isMessage => {
-      console.log(isMessage);
       expect(isMessage).toBeFalse();
     });
-    tick();
-    console.log('tick');
+
     service.setMessage('Test Message');
     tick();
     service.getIsMessage().subscribe(isMessage => {

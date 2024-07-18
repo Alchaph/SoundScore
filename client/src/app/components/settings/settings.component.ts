@@ -41,7 +41,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
-  protected userForm: FormGroup<{
+  userForm: FormGroup<{
     oldPassword: FormControl;
     password: FormControl;
     confirmPassword: FormControl;
@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit {
   protected fly: boolean = false;
   protected fall: boolean = false;
   protected explode: boolean = false;
-  protected disabled: boolean = false;
+  disabled: boolean = false;
   protected email: string = '';
   protected username: string = '';
   protected notOnlyPassword: boolean = true;
@@ -70,13 +70,15 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.jwtService.getMe().subscribe((user: User) => {
-      this.userForm.patchValue({
-        email: user.email,
-        username: user.username,
-      });
-      this.artist.setValue(user.artist)
-      this.email = user.email;
-      this.username = user.username;
+      if (user) {
+        this.userForm.patchValue({
+          email: user.email,
+          username: user.username,
+        });
+        this.artist.setValue(user.artist)
+        this.email = user.email;
+        this.username = user.username;
+      }
     });
   }
 

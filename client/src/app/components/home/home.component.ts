@@ -120,11 +120,11 @@ export interface TreeNode {
 
 export class HomeComponent implements OnInit {
 
-  protected isMobile: boolean = false;
+  isMobile: boolean = false;
   protected readonly window: Window = window;
   protected selectedFilters?: 'genre' | 'song' | 'artist';
   protected likeProcessing: boolean = false;
-  protected activeUser: User = {} as User
+  activeUser: User = {} as User
 
 
   constructor(protected jwtService: JwtServiceService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService) {

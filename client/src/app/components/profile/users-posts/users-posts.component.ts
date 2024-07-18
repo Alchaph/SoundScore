@@ -25,19 +25,23 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './users-posts.component.scss'
 })
 export class UsersPostsComponent implements OnInit {
-  protected posts: Post[] = [];
+  posts: Post[] = [];
   protected userId: number = parseInt(this.route.snapshot.params['id']);
-  protected localUserId: number = 0;
+  localUserId: number = 0;
 
   constructor(protected postService: PostService, private jwtService: JwtServiceService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.postService.getPosts().subscribe((posts) => {
-      this.posts = posts.filter((post) => post.user.id === this.userId)
+      if (posts) {
+        this.posts = posts.filter((post) => post.user.id === this.userId)
+      }
     });
     this.jwtService.getMe().subscribe((user: User) => {
-      this.localUserId = user.id!;
+      if (user && user.id) {
+        this.localUserId = user.id;
+      }
     });
   }
 

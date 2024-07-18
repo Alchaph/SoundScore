@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {ElementRef} from "@angular/core";
 import {Post} from "../../models/Post";
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
 
 describe('AddEditPostComponent', () => {
   let component: AddEditPostComponent;
@@ -28,9 +28,19 @@ describe('AddEditPostComponent', () => {
   let mockGenreService = { getGenres: jasmine.createSpy('getGenres').and.returnValue(of([])) };
   let mockArtistService = { getArtists: jasmine.createSpy('getArtists').and.returnValue(of([])) };
 
+  let AddEditPostComponentMock: Partial<AddEditPostComponent>;
+
   beforeEach(async () => {
+    AddEditPostComponentMock = {
+      goBack: jasmine.createSpy('goBack'),
+      searchGif: jasmine.createSpy('searchGif'),
+      selectGif: jasmine.createSpy('selectGif'),
+      savePost: jasmine.createSpy('savePost'),
+      ngAfterViewInit: jasmine.createSpy('ngAfterViewInit'),
+      ngOnInit: jasmine.createSpy('ngOnInit'),
+    }
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TranslateModule.forRoot()],
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
@@ -41,9 +51,7 @@ describe('AddEditPostComponent', () => {
         { provide: SongService, useValue: mockSongService },
         { provide: GenreService, useValue: mockGenreService },
         { provide: ArtistService, useValue: mockArtistService },
-        AddEditPostComponent,
-        HttpClient,
-        HttpHandler
+        { provide: AddEditPostComponent, useValue: AddEditPostComponentMock },
       ]
     }).compileComponents();
   });

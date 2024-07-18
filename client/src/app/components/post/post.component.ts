@@ -54,13 +54,11 @@ export class PostComponent implements OnInit {
   protected post: Post;
   protected activeUser: User;
   protected postId: number = Number(this.route.snapshot.paramMap.get('postId'));
-  protected liked: boolean = false;
-  protected disliked: boolean = false;
   protected translate: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private postService: PostService,
-              protected commentService: CommentService,
+              public commentService: CommentService,
               private jwtService: JwtServiceService,
               private router: Router,
               protected languageService: LanguageService) {
@@ -140,21 +138,11 @@ export class PostComponent implements OnInit {
   protected readonly JSON = JSON;
   protected readonly localStorage = localStorage;
 
-  private loadComponentData() {
+  loadComponentData() {
     this.postService.getPost(this.postId).subscribe(post => {
       this.post = post;
       this.jwtService.getMe().subscribe(user => {
         this.activeUser = user;
-        post.likes.forEach(data => {
-          if (data.user.id === this.activeUser.id) {
-            this.liked = true;
-          }
-        });
-        post.dislikes.forEach(data => {
-          if (data.user.id === this.activeUser.id) {
-            this.disliked = true;
-          }
-        });
       });
     })
 

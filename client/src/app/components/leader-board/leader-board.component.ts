@@ -12,6 +12,7 @@ import {Artist} from "../../models/Artist";
 import {Genre} from "../../models/Genre";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeService} from "../../services/HomeService/home.service";
+import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 
 @Component({
   selector: 'app-leader-board',
@@ -31,12 +32,12 @@ import {HomeService} from "../../services/HomeService/home.service";
   styleUrl: './leader-board.component.scss'
 })
 export class LeaderBoardComponent implements OnInit{
-  protected overallLeaderBoard: (Post | undefined)[] = [];
-  protected artistLeaderBoard:(Artist | undefined)[] = [];
-  protected songLeaderBoard: (Song | undefined)[] = [];
-  protected genreLeaderBoard: (Genre | undefined)[] = [];
+  overallLeaderBoard: (Post | undefined)[] = [];
+  artistLeaderBoard:(Artist | undefined)[] = [];
+  songLeaderBoard: (Song | undefined)[] = [];
+  genreLeaderBoard: (Genre | undefined)[] = [];
 
-  constructor(private leaderBoardService: LeaderBoardService, private homeService: HomeService) {
+  constructor(private leaderBoardService: LeaderBoardService, private homeService: HomeService, private userInformationService: UserInformationService) {
   }
 
   ngOnInit(): void {
@@ -55,10 +56,18 @@ export class LeaderBoardComponent implements OnInit{
   }
 
   openLink(link: string | undefined) {
-    window.open(link, '_blank');
+    if (link) {
+      window.open(link, '_blank');
+    } else {
+      this.userInformationService.setMessage('Link not found');
+    }
   }
 
   gotoArtist(id: number | undefined) {
-    this.homeService.gotoArtist(id);
+    if (id) {
+      this.homeService.gotoArtist(id);
+    } else {
+      this.userInformationService.setMessage('Artist not found');
+    }
   }
 }
