@@ -7,6 +7,8 @@ import {PostService} from "../PostService/post.service";
 import {LeaderBoardService} from "../LeaderBoardService/leader-board.service";
 import {Router} from "@angular/router";
 import {JwtServiceService} from "../JwtService/jwt-service.service";
+import {User} from "../../models/User";
+import {UserInformationService} from "../UserInformationService/user-information.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class HomeService {
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
 
-  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService, private router: Router, private jwtService: JwtServiceService) {
+  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService, private router: Router, private jwtService: JwtServiceService, private userInformationService: UserInformationService) {
   }
 
   getPosts() {
@@ -53,10 +55,11 @@ export class HomeService {
 
   gotoArtist(artistId: number | undefined) {
     if (!artistId){
-      alert('Artist not found')
+      this.userInformationService.setMessage('Artist not found');
+    } else {
+      this.jwtService.getUserByArtistId(artistId).subscribe(user => {
+        this.router.navigate(['/home/userProfile/' + user?.id?.toString() + '/' + '1'])
+      })
     }
-    this.jwtService.getUserByArtistId(artistId).subscribe(user => {
-      this.router.navigate(['/home/userProfile/' + user?.id?.toString()+ '/'  + '1'])
-    })
   }
 }

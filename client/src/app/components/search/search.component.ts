@@ -62,13 +62,13 @@ type CombinedType = Artist | Song | User | Post;
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit{
-  protected posts: Post[] = [];
-  protected users: User[] = [];
-  protected songs: Song[] = [];
-  protected artists: Artist[] = [];
-  protected isMobile: boolean = false;
-  protected combinedList: CombinedType[] = [];
-  protected searchTerm: string = '';
+  posts: Post[] = [];
+  users: User[] = [];
+  songs: Song[] = [];
+  artists: Artist[] = [];
+  isMobile: boolean = false;
+  combinedList: CombinedType[] = [];
+  searchTerm: string = '';
   constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService : ArtistService, private breakpointObserver: BreakpointObserver, private postService: PostService, private homeService: HomeService) {
   }
 
@@ -146,6 +146,8 @@ export class SearchComponent implements OnInit{
     protected readonly localStorage = localStorage;
 
   gotoArtist(id: number | undefined) {
-    this.homeService.gotoArtist(id);
+    if (id) {
+      this.homeService.gotoArtist(id);
+    }
   }
 }
