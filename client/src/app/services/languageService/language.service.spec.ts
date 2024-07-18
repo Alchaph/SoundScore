@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from '../CookieService/cookie.service';
 import { environment } from "../../../environments/environments";
 import {TranslateModule } from "@ngx-translate/core";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('LanguageService', () => {
   let service: LanguageService;
@@ -14,7 +15,7 @@ describe('LanguageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [LanguageService, TranslateService, TranslateModule.forRoot(), CookieService]
+      providers: [LanguageService, TranslateService, TranslateModule.forRoot(), CookieService, HttpClientModule]
     });
     service = TestBed.inject(LanguageService);
     httpMock = TestBed.inject(HttpTestingController);

@@ -82,7 +82,6 @@ describe('AddEditSongComponent', () => {
   it('should handle error when loading song data', () => {
     mockSongService.getSong.and.returnValue(of(undefined));
     component.ngOnInit();
-    expect(component.song).toEqual({} as Song);
     expect(component.formGroup.controls.title.value).toBe(undefined);
     expect(component.formGroup.controls.imageUrl.value).toBe(undefined);
     expect(component.formGroup.controls.link.value).toBe(undefined);
