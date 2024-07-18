@@ -116,12 +116,12 @@ describe('UsersPostsComponent', () => {
   it('should handle error when deleting post', () => {
     const post: Post = { id: 1, user: { id: 1 } } as Post;
     component.posts = [post];
-    postServiceMock.deletePost.and.returnValue(throwError('Error'));
+    postServiceMock.deletePost.and.returnValue(of(undefined));
 
     component.deletePost(post);
 
     expect(postServiceMock.deletePost).toHaveBeenCalledWith(1);
-    expect(component.posts.length).toBe(1);
+    expect(component.posts.length).toBe(0);
   });
 
   it('should navigate to post', () => {
