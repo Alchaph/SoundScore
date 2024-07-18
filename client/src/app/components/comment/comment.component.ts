@@ -57,10 +57,12 @@ export class CommentComponent {
         if (comment.id !== this.baseId && comment.parent) {
           this.deleteComment(comment.parent)
         } else {
-          this.commentService.getCommentsOfPost(comment.post.id ?? 0).subscribe((comments) => {
-              this.commentService.comments = this.commentService.buildCommentTree(comments)
-            }
-          )
+          if (comment.post && comment.post.id) {
+            this.commentService.getCommentsOfPost(comment.post.id).subscribe((comments) => {
+                this.commentService.comments = this.commentService.buildCommentTree(comments)
+              }
+            )
+          }
         }
       })
     }
