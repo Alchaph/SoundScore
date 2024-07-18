@@ -64,7 +64,10 @@
     "PROFILE": "Perfil",
     "LOGOUT": "Cerrar sesión",
     "SETTINGS": "Configuración",
-    "ARTIST_PROFILE": "Perfil de Artista"
+    "ARTIST_PROFILE": "Perfil de Artista",
+    "SHOW_READ": "Mostrar leídos",
+    "SHOW_UNREAD": "Mostrar no leídos",
+    "ALL_READ": "Marcar todo como leído",
   },
   "LEADERBOARD": {
     "TITLE": "Tabla de posiciones",

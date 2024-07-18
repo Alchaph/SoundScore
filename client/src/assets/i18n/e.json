@@ -64,7 +64,10 @@
     "PROFILE": "👤",
     "LOGOUT": "🚪",
     "SETTINGS": "🛠️",
-    "ARTIST_PROFILE": "🎨"
+    "ARTIST_PROFILE": "🎨",
+    "SHOW_READ": "📖",
+    "SHOW_UNREAD": "🔖",
+    "ALL_READ": "📚"
   },
   "LEADERBOARD": {
     "TITLE": "🏆",

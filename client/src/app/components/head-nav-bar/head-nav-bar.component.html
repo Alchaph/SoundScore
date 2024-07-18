@@ -29,16 +29,29 @@
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
            class="catPic">
       <mat-menu #inboxMenu="matMenu" xPosition="before">
-        @for (notification of user.notifications; track $index) {
-          <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
-                  [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
-            <div>
-              <img class="notification-image" [src]="notification.post?.image ?? notification.comment.post.image">
-              <p class="menu-text">
-                {{ createTextsToDisplay(notification) }}
-              </p>
+        @if (user.notifications && user.notifications.length > 0) {
+          <div class="notification-header-container">
+            <div (click)="showReadNotifications = !showReadNotifications">
+              <p>{{ (showReadNotifications ? "HEADER.SHOW_UNREAD" : "HEADER.SHOW_READ")|translate }}</p>
+
             </div>
-          </button>
+            <div (click)="markAllAsRead()">
+              <p>{{ "HEADER.ALL_READ"|translate }}</p>
+            </div>
+          </div>
+          @for (notification of showReadNotifications ? user.notifications : unreadNotifications; track $index) {
+            <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
+                    [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
+              <div>
+                <img class="notification-image" [src]="notification.post?.image ?? notification.comment.post.image">
+                <p class="menu-text">
+                  {{ createTextsToDisplay(notification) }}
+                </p>
+              </div>
+            </button>
+          }
+        } @else {
+          <p>{{ "No notifications"|translate }}</p>
         }
       </mat-menu>
       <mat-menu #userMenu="matMenu">

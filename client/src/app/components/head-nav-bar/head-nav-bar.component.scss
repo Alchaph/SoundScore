@@ -43,16 +43,19 @@
   display: flex !important;
   flex-direction: row !important;
   text-align: left;
-  div{
+
+  div {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: row;
+
     .notification-image {
       width: 50px;
       height: 45px;
     }
-    .menu-text{
+
+    .menu-text {
       color: black !important;
       margin-left: 10px;
       text-overflow: clip;
@@ -63,6 +66,26 @@
 
 }
 
+.notification-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    height: 100%;
+    p {
+      color: #007BFF;
+    }
+  }
+
+  div:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+}
 
 
 #headBar {

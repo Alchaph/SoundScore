@@ -64,7 +64,10 @@
     "PROFILE": "Profil",
     "LOGOUT": "Abmelden",
     "SETTINGS": "Einstellungen",
-    "ARTIST_PROFILE": "Künstlerprofil"
+    "ARTIST_PROFILE": "Künstlerprofil",
+    "SHOW_READ": "Gelesene anzeigen",
+    "SHOW_UNREAD": "Gelesene ausblenden",
+    "ALL_READ": "Alle als gelesen markieren"
   },
   "LEADERBOARD": {
     "TITLE": "Bestenliste",

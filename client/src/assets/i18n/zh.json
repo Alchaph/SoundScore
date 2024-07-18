@@ -64,7 +64,10 @@
     "PROFILE": "个人资料",
     "LOGOUT": "登出",
     "SETTINGS": "设置",
-    "ARTIST_PROFILE": "艺术家资料"
+    "ARTIST_PROFILE": "艺术家资料",
+    "SHOW_READ": "显示已读",
+    "SHOW_UNREAD": "显示未读",
+    "ALL_READ": "全部已读"
   },
   "LEADERBOARD": {
     "TITLE": "排行榜",
@@ -153,5 +156,5 @@
   },
   "SEARCH": {
     "SEARCH_BAR": "搜索"
-}
+  }
 }

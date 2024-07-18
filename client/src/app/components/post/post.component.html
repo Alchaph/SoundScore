@@ -21,26 +21,26 @@
         [innerHTML]="this.languageService.translate ? (post.title | generictranslate | async) ?? post.title : post.title"></h1>
       <p
         [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
-      <div class="post-meta">123456789
+      <div class="post-meta">
         <span
           [routerLink]="['/home/userProfile', post.user.id, localStorage.getItem('selectedTabProfileTab')]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
         </span>
         <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
       </div>
+      @if (post.genre || post.artist || post.song) {
+        <div class="post-tags">
+          @if (post.genre) {
+            <span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>
+          }
+          @if (post.artist) {
+            <span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>
+          }
+          @if (post.song) {
+            <span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>
+          }
+        </div>
+      }
     </div>
-    @if (post.genre || post.artist || post.song) {
-      <div class="post-tags">
-        @if (post.genre) {
-          <span>{{ 'HOME.GENRE' | translate }}: {{ post.genre.name }}</span>
-        }
-        @if (post.artist) {
-          <span>{{ 'HOME.ARTIST' | translate }}: {{ post.artist.name }}</span>
-        }
-        @if (post.song) {
-          <span>{{ 'HOME.SONG' | translate }}: {{ post.song.title }}</span>
-        }
-      </div>
-    }
   </div>
   <div class="comments-section">
     <h2>{{ 'POST.COMMENTS' | translate }}</h2>

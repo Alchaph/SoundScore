@@ -12,8 +12,6 @@ import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
 import {NgClass} from "@angular/common";
-import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
-import * as module from "node:module";
 import {DataTranfer} from "../../models/DataTranfer";
 import {CookieService} from "../../services/CookieService/cookie.service";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";

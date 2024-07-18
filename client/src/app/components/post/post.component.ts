@@ -54,7 +54,6 @@ export class PostComponent implements OnInit {
   protected post: Post;
   protected activeUser: User;
   protected postId: number = Number(this.route.snapshot.paramMap.get('postId'));
-  protected likeProcessing: boolean = false;
   protected liked: boolean = false;
   protected disliked: boolean = false;
   protected translate: boolean = false;
@@ -157,7 +156,7 @@ export class PostComponent implements OnInit {
           }
         });
       });
-    });
+    })
 
     this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
       this.commentService.comments = this.commentService.buildCommentTree(comments);

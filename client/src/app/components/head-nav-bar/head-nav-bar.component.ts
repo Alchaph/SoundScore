@@ -57,6 +57,7 @@ export class HeadNavBarComponent implements OnInit {
   protected userId: number = 0;
   protected user: User = {} as User;
   protected unreadNotifications: Notification[] = [];
+  protected showReadNotifications: boolean = false;
   protected isLoading: Observable<boolean> = new Observable<boolean>();
   protected readonly Language = Language;
 
@@ -94,7 +95,6 @@ export class HeadNavBarComponent implements OnInit {
   }
 
   gotoUserProfile() {
-    // console.log(this.userId);
     if (localStorage.getItem('selectedTabProfileTab') === null) {
       localStorage.setItem('selectedTabProfileTab', '0');
     }
@@ -140,5 +140,14 @@ export class HeadNavBarComponent implements OnInit {
     this.notificationService.markAsRead(notification).subscribe()
     let navigation: string = "/home/post/" + (notification.post ?? notification.comment.post)["id"]
     this.router.navigate([navigation])
+  }
+
+  markAllAsRead() {
+    this.notificationService.markAllAsRead(this.user).subscribe(
+      () => {
+        this.unreadNotifications.forEach(n => n.read = true)
+        this.unreadNotifications = []
+      }
+    )
   }
 }
