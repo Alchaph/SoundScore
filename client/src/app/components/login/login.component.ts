@@ -165,12 +165,16 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   verifyEmail() {
     this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
-      if (data) {
+       if (data && data.username && data.otp) {
         this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data: DataTranfer) => {
-          this.email = this.registerForm.controls.email.value;
-          this.forgotPasswordEmail = false
-          this.Otp = true;
-          this.username = data.data;
+          if (data && data.data) {
+            this.email = this.registerForm.controls.email.value;
+            this.forgotPasswordEmail = false
+            this.Otp = true;
+            this.username = data.data;
+          } else {
+            this.userInformationService.setMessage('Could not find user');
+          }
         });
       } else {
         this.userInformationService.setMessage('Email is not valid');
@@ -191,7 +195,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   changePassword() {
     if (this.registerForm.controls.password.value === this.registerForm.controls.repeatPassword.value) {
       this.jwtService.updatePassword(this.email, this.registerForm.controls.password.value).subscribe((data) => {
-        if (data) {
+        if (data && data.id) {
           this.jwtService.login(this.username, this.registerForm.controls.password.value).subscribe((data) => {
             if (data) {
               localStorage.setItem('token', data.token);

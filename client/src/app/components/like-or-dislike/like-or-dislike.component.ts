@@ -18,7 +18,7 @@ import {Observable} from "rxjs";
   styleUrl: './like-or-dislike.component.scss'
 })
 export class LikeOrDislikeComponent {
-  protected likeProcessing: boolean = false;
+  likeProcessing: boolean = false;
   @Input("post")
   post: Post = {} as Post;
   @Input("user")

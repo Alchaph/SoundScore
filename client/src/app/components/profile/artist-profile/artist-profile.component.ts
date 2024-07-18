@@ -35,8 +35,8 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class ArtistProfileComponent {
   protected user: User | undefined;
-  protected artist: Artist | undefined;
-  protected artistSongs: Song[] = [];
+  artist: Artist | undefined;
+  artistSongs: Song[] = [];
   protected artistId: number | undefined;
 
   constructor(
