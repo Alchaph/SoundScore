@@ -1,9 +1,6 @@
 @if (!this.isMobile) {
   <app-head-nav-bar></app-head-nav-bar>
   <body>
-  <mat-form-field>
-    <input matInput placeholder="{{ 'SEARCH.SEARCH_BAR' | translate }}" [(ngModel)]="searchTerm" (ngModelChange)="search()">
-  </mat-form-field>
   <main>
     @if (combinedList && combinedList.length > 0) {
       <div>

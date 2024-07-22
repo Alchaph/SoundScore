@@ -1,6 +1,7 @@
 .toolbar {
   display: flex;
   justify-content: space-between;
+  width: 100vw;
 
   .toolbarLeftSide {
     width: 33vw;
@@ -10,7 +11,7 @@
   }
 
   .toolbarMiddle {
-    width: 33vw;
+    width: 20rvw;
     display: flex;
     justify-content: center;
     align-items: center
@@ -43,16 +44,19 @@
   display: flex !important;
   flex-direction: row !important;
   text-align: left;
-  div{
+
+  div {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: row;
+
     .notification-image {
       width: 50px;
       height: 45px;
     }
-    .menu-text{
+
+    .menu-text {
       color: black !important;
       margin-left: 10px;
       text-overflow: clip;
@@ -63,8 +67,91 @@
 
 }
 
+.notification-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    width: 100%;
+    margin: 5px 5px 5px 5px;
+    display: flex;
+    height: 100%;
+    text-align: left;
+
+    p {
+      color: #007BFF;
+      margin-bottom: 30px;
+    }
+  }
+
+  div:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+}
 
 
 #headBar {
   background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
+}
+
+mat-toolbar.toolbar {
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.search-icon {
+  cursor: pointer;
+  color: #000000;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-1.1em) scale(.75);
+  width: 133.33333%;
+}
+
+mat-form-field {
+  width: calc(100vw - 400px);
+  min-width: 100px;
+  font-size: 12px; // example
+  margin-top: 20px;
+  --mdc-outlined-text-field-outline-color: white;
+  --mdc-outlined-text-field-hover-outline-color: white;
+  --mdc-outlined-text-field-focus-hover-outline-color: white;
+  --mdc-outlined-text-field-focus-outline-color: white;
+  --mdc-outlined-text-field-error-outline-color: white;
+  --mdc-outlined-text-field-error-hover-outline-color: white;
+  --mdc-outlined-text-field-error-focus-outline-color: white;
+
+}
+
+mat-form-field.mat-form-field {
+  background: #ffffff;
+}
+
+input.mat-input-element {
+  color: #000000;
+}
+
+button.mat-icon-button {
+  color: #000000;
+}
+mat-form-field.small {
+  --mat-form-field-container-height: 40px;
+  --mat-form-field-container-vertical-padding: 8px;
 }

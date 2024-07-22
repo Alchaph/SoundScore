@@ -58,7 +58,7 @@ public class UserService {
         return userRepository.getUserByArtistId(id);
     }
 
-    //    public User deleteUser(User user) {
+//    public User deleteUser(User user) {
 //        String name = "An deleted User" + user.getId();
 //        userRepository.deletes(user, name);
 //        return user;

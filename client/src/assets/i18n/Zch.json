@@ -64,7 +64,10 @@
     "PROFILE": "Profil",
     "LOGOUT": "Usloggä",
     "SETTINGS": "Iistelligä",
-    "ARTIST_PROFILE": "Künschtlärprofil"
+    "ARTIST_PROFILE": "Künschtlärprofil",
+    "SHOW_READ": "Geleseni aazeigä",
+    "HIDE_READ": "Geleseni verbergä",
+    "ALL_READ": "Alli als gelesä markierä"
   },
   "LEADERBOARD": {
     "TITLE": "Leaderboard",

@@ -19,7 +19,7 @@ public class UserNotificationController {
     }
 
     @PutMapping("/markAsRead/{id}")
-    public UserNotifications markAsRead(@PathVariable Long id){
+    public UserNotifications markAsRead(@PathVariable Long id) {
         UserNotifications userNotifications = userNotificationsRepository.findById(id).orElseThrow();
         userNotifications.setRead(true);
         return userNotificationsRepository.save(userNotifications);
@@ -27,13 +27,12 @@ public class UserNotificationController {
 
 
     @PutMapping("/markAllAsRead")
-    public List<UserNotifications> markAllAsRead(@RequestBody User user){
-        userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals( userNotifications.getUser().getId())).forEach(
-                userNotifications -> {
-                    userNotifications.setRead(true);
-                    userNotificationsRepository.save(userNotifications);
-                }
-        );
-        return userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals( userNotifications.getUser().getId())).collect(Collectors.toList());
+    public List<UserNotifications> markAllAsRead(@RequestBody User user) {
+        userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals(userNotifications.getUser().getId())).forEach(userNotifications -> {
+            userNotifications.setRead(true);
+            userNotificationsRepository.save(userNotifications);
+        });
+        return userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals(userNotifications.getUser().getId())).collect(Collectors.toList());
     }
+
 }

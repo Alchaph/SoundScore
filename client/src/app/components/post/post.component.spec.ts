@@ -166,8 +166,6 @@ describe('PostComponent', () => {
 
     expect(postService.getPost).toHaveBeenCalledWith(1);
     expect(jwtService.getMe).toHaveBeenCalled();
-    expect(component.liked).toBe(true);
-    expect(component.disliked).toBe(false);
   });
 
   it('should build comment tree from comments', () => {

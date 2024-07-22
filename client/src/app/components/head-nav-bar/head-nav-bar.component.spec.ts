@@ -1,14 +1,14 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute, Router} from '@angular/router';
-import { of } from 'rxjs';
-import { HeadNavBarComponent } from './head-nav-bar.component';
-import { LanguageService } from '../../services/languageService/language.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
-import { LoaderService } from '../../services/LoaderService/loader.service';
-import { NotificationService } from '../../services/NotificationService/notification.service';
-import { Language } from '../../enums/language';
-import { User } from '../../models/User';
-import { Notification } from '../../models/Notification';
+import {of} from 'rxjs';
+import {HeadNavBarComponent} from './head-nav-bar.component';
+import {LanguageService} from '../../services/languageService/language.service';
+import {JwtServiceService} from '../../services/JwtService/jwt-service.service';
+import {LoaderService} from '../../services/LoaderService/loader.service';
+import {NotificationService} from '../../services/NotificationService/notification.service';
+import {Language} from '../../enums/language';
+import {User} from '../../models/User';
+import {Notification} from '../../models/Notification';
 import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -22,7 +22,7 @@ class MockLanguageService {
 }
 
 class MockJwtServiceService {
-  getMe = jasmine.createSpy('getMe').and.returnValue(of({ id: 1, notifications: [] }));
+  getMe = jasmine.createSpy('getMe').and.returnValue(of({id: 1, notifications: []}));
 }
 
 class MockLoaderService {
@@ -59,13 +59,13 @@ describe('HeadNavBarComponent', () => {
         HttpClientModule,
         TranslateModule.forRoot()],
       providers: [
-        { provide: Router, useClass: MockRouter },
-        { provide: LanguageService, useClass: MockLanguageService },
-        { provide: JwtServiceService, useClass: MockJwtServiceService },
-        { provide: LoaderService, useClass: MockLoaderService },
-        { provide: NotificationService, useClass: MockNotificationService },
-        { provide: HeadNavBarComponent, useValue: HeadNavBarComponentMock },
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } } }}
+        {provide: Router, useClass: MockRouter},
+        {provide: LanguageService, useClass: MockLanguageService},
+        {provide: JwtServiceService, useClass: MockJwtServiceService},
+        {provide: LoaderService, useClass: MockLoaderService},
+        {provide: NotificationService, useClass: MockNotificationService},
+        {provide: HeadNavBarComponent, useValue: HeadNavBarComponentMock},
+        {provide: ActivatedRoute, useValue: {snapshot: {paramMap: {get: () => '1'}}}}
       ]
     }).compileComponents();
 
@@ -138,7 +138,7 @@ describe('HeadNavBarComponent', () => {
   });
 
   it('should update user and unread notifications', () => {
-    const mockUser: User = { id: 1, notifications: [{ read: false }] } as User;
+    const mockUser: User = {id: 1, notifications: [{read: false}]} as User;
     jwtService.getMe.and.returnValue(of(mockUser));
 
     component.updateUser();
@@ -150,8 +150,8 @@ describe('HeadNavBarComponent', () => {
 
   it('should return correct text for like notification', () => {
     const notification: Notification = {
-      likeOrDislike: { like: true, user: { username: 'user1' } },
-      post: { title: 'postTitle' }
+      likeOrDislike: {like: true, user: {username: 'user1'}},
+      post: {title: 'postTitle'}
     } as Notification;
 
     const result = component.createTextsToDisplay(notification);
@@ -161,8 +161,8 @@ describe('HeadNavBarComponent', () => {
 
   it('should return correct text for comment on post notification', () => {
     const notification: Notification = {
-      comment: { user: { username: 'user2' }, message: 'commentMessage' },
-      post: { title: 'postTitle' }
+      comment: {user: {username: 'user2'}, message: 'commentMessage'},
+      post: {title: 'postTitle'}
     } as Notification;
 
     const result = component.createTextsToDisplay(notification);
@@ -172,7 +172,7 @@ describe('HeadNavBarComponent', () => {
 
   it('should return correct text for reply to comment notification', () => {
     const notification: Notification = {
-      comment: { user: { username: 'user3' }, message: 'commentMessage' }
+      comment: {user: {username: 'user3'}, message: 'commentMessage'}
     } as Notification;
 
     const result = component.createTextsToDisplay(notification);
@@ -182,7 +182,7 @@ describe('HeadNavBarComponent', () => {
 
   it('should truncate text if longer than 35 characters', () => {
     const notification: Notification = {
-      comment: { user: { username: 'user4' }, message: 'a'.repeat(40) }
+      comment: {user: {username: 'user4'}, message: 'a'.repeat(40)}
     } as Notification;
 
     const result = component.createTextsToDisplay(notification);
@@ -192,7 +192,7 @@ describe('HeadNavBarComponent', () => {
 
   it('should mark notification as read and navigate to post', () => {
     const notification: Notification = {
-      post: { id: 123 }
+      post: {id: 123}
     } as Notification;
 
     component.handleNotification(notification);
@@ -203,7 +203,7 @@ describe('HeadNavBarComponent', () => {
 
   it('should mark notification as read and navigate to comment post', () => {
     const notification: Notification = {
-      comment: { post: { id: 456 } }
+      comment: {post: {id: 456}}
     } as Notification;
 
     component.handleNotification(notification);

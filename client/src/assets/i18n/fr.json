@@ -64,7 +64,10 @@
     "PROFILE": "Profil",
     "LOGOUT": "Déconnexion",
     "SETTINGS": "Paramètres",
-    "ARTIST_PROFILE": "Profil de l'artiste"
+    "ARTIST_PROFILE": "Profil de l'artiste",
+    "SHOW_READ": "Afficher tout",
+    "HIDE_READ": "Masquer tout",
+    "ALL_READ": "Tout marquer comme lu"
   },
   "LEADERBOARD": {
     "TITLE": "Classement",
