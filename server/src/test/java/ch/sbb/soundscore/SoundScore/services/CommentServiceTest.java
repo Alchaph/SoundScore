@@ -29,7 +29,7 @@ class CommentServiceTest {
 
     @Test
     void createComment() {
-        Comment comment = new Comment("Test Comment", null, null, null);
+        Comment comment = new Comment("Test Comment", new User(), new Post(), null);
         when(commentRepository.save(comment)).thenReturn(comment);
         Comment result = commentService.createComment(comment);
         verify(commentRepository, times(1)).save(comment);

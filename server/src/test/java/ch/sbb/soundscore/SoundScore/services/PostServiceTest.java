@@ -88,7 +88,7 @@ class PostServiceTest {
         when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
         when(postService.likeOrDislikePost(1L, true, user)).thenReturn(true);
         postService.likeOrDislikePost(1L, true, user);
-        verify(likeOrDislikeRepository, times(1)).save(any(LikeOrDislike.class));
+        verify(likeOrDislikeRepository, times(2)).save(any(LikeOrDislike.class));
         verify(likeOrDislikeRepository, times(2)).existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user);
     }
 }

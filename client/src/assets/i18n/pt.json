@@ -63,7 +63,10 @@
     "PROFILE": "Perfil",
     "LOGOUT": "Sair",
     "SETTINGS": "Configurações",
-    "ARTIST_PROFILE": "Perfil do artista"
+    "ARTIST_PROFILE": "Perfil do artista",
+    "SHOW_READ": "Mostrar lidas",
+    "HIDE_READ": "Mostrar não lidas",
+    "ALL_READ": "Marcar todas como lidas"
   },
   "LEADERBOARD": {
     "TITLE": "Quadro de líderes",

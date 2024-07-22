@@ -54,9 +54,6 @@ export class PostComponent implements OnInit {
   protected post: Post;
   protected activeUser: User;
   protected postId: number = Number(this.route.snapshot.paramMap.get('postId'));
-  protected likeProcessing: boolean = false;
-  liked: boolean = false;
-  disliked: boolean = false;
   protected translate: boolean = false;
 
   constructor(private route: ActivatedRoute,
@@ -146,18 +143,8 @@ export class PostComponent implements OnInit {
       this.post = post;
       this.jwtService.getMe().subscribe(user => {
         this.activeUser = user;
-        post.likes.forEach(data => {
-          if (data.user.id === this.activeUser.id) {
-            this.liked = true;
-          }
-        });
-        post.dislikes.forEach(data => {
-          if (data.user.id === this.activeUser.id) {
-            this.disliked = true;
-          }
-        });
       });
-    });
+    })
 
     this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
       this.commentService.comments = this.commentService.buildCommentTree(comments);

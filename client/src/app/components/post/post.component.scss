@@ -9,6 +9,7 @@
   flex-direction: column;
 }
 
+
 .post-image {
   width: 50%;
   height: auto;
@@ -24,6 +25,7 @@
   background: white;
   align-items: center;
 }
+
 .input-group {
   position: relative;
 }
@@ -49,9 +51,10 @@
 }
 
 .post-meta {
-  span{
+  span {
     cursor: pointer;
   }
+
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -86,8 +89,6 @@
   padding-bottom: 10px;
   color: #333;
 }
-
-
 
 
 .comment-form h3 {
