@@ -29,7 +29,9 @@
 
     .catPic {
       width: 50px;
+      min-width: 50px;
       height: 50px;
+      min-height: 50px;
       border-radius: 50%;
     }
 
@@ -110,9 +112,23 @@ mat-toolbar.toolbar {
   flex: 1 1 auto;
 }
 
-.search-icon {
-  cursor: pointer;
-  color: #000000;
+.small.animated-open {
+  animation: coolAnimation 1s ease-in-out;
+
+}
+
+@keyframes coolAnimation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: calc(100vw - 400px);
+    min-width: 100px;
+  }
+}
+
+.small.animated-close {
+  animation: coolAnimation 1s reverse;
 }
 
 .search-container {
@@ -151,6 +167,7 @@ input.mat-input-element {
 button.mat-icon-button {
   color: #000000;
 }
+
 mat-form-field.small {
   --mat-form-field-container-height: 40px;
   --mat-form-field-container-vertical-padding: 8px;
