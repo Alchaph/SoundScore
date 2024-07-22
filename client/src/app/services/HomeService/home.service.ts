@@ -54,7 +54,7 @@ export class HomeService {
   }
 
   gotoArtist(artistId: number | undefined) {
-    if (!artistId){
+    if (artistId === undefined){
       this.userInformationService.setMessage('Artist not found');
     } else {
       this.jwtService.getUserByArtistId(artistId).subscribe(user => {

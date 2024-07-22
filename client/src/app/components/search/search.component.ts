@@ -103,8 +103,10 @@ export class SearchComponent implements OnInit{
   }
 
   openLink(event: MouseEvent, link: string) {
-    event.stopPropagation();
-    window.open(link, '_blank');
+    if (link !== '') {
+      event.stopPropagation();
+      window.open(link, '_blank');
+    }
   }
 
   isPost(item: CombinedType): item is Post {

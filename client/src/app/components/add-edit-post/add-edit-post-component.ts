@@ -135,25 +135,29 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
 
   searchGif(): void {
     this.gifService.searchGif(this.gifSearchString).subscribe(data => {
-      this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
-      this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
+      if (data && data.results && data.results.length > 0) {
+        this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
+        this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
+      }
     });
   }
 
 
   savePost(): void {
     this.jwtService.getMe().subscribe(data => {
-      let newPost: Post = {
-        id: this.post ? this.post.id : undefined,
-        title: this.formGroup.controls.title.value,
-        content: this.formGroup.controls.content.value,
-        image: this.formGroup.controls.imageUrl.value,
-        likes: this.post ? this.post.likes : [],
-        dislikes: this.post ? this.post.dislikes : [],
-        user: this.post ? this.post.user : data,
-        [this.showedType.toLowerCase()]: this.formGroup.controls.songOrGenreOrArtist.value
+      if (data) {
+        let newPost: Post = {
+          id: this.post ? this.post.id : undefined,
+          title: this.formGroup.controls.title.value,
+          content: this.formGroup.controls.content.value,
+          image: this.formGroup.controls.imageUrl.value,
+          likes: this.post ? this.post.likes : [],
+          dislikes: this.post ? this.post.dislikes : [],
+          user: this.post ? this.post.user : data,
+          [this.showedType.toLowerCase()]: this.formGroup.controls.songOrGenreOrArtist.value
+        }
+        this.post ? this.postService.updatePost(newPost).subscribe(() => this.router.navigate(['/home/post/' + newPost.id])) : this.postService.createPost(newPost).subscribe((data) => this.router.navigate(['/home/post/' + data.id]))
       }
-      this.post ? this.postService.updatePost(newPost).subscribe(() => this.router.navigate(['/home/post/' + newPost.id])) : this.postService.createPost(newPost).subscribe((data) => this.router.navigate(['/home/post/' + data.id]))
     })
   }
 

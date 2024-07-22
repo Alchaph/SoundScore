@@ -64,25 +64,26 @@ export class ArtistProfileComponent {
 
   init() {
     this.jwtService.getUserById(Number(this.route.snapshot.paramMap.get('id'))).subscribe((u: User) => {
-      this.artistId = u.artist?.id;
-      // console.log(this.artistId)
-      this.jwtService.getMe().subscribe((u: User) => {
-        this.user = u;
-        this.songService.getSongs().subscribe((songs: Song[]) => {
-          if (this.user) {
-            if (this.artistId && this.artistId !== 0) {
-              this.artistService.getArtist(this.artistId).subscribe((a: Artist) => {
-                this.artist = a;
-                this.artistSongs = songs.filter(song => song.artist.id === a.id);
-              });
-            } else if (this.user.artist) {
-              this.artist = this.user.artist;
-              this.artistId = this.user.artist.id;
-              this.artistSongs = songs.filter(song => song.artist.id === this.artistId);
+      if (u && u.id) {
+        this.artistId = u.artist?.id;
+        this.jwtService.getMe().subscribe((u: User) => {
+          this.user = u;
+          this.songService.getSongs().subscribe((songs: Song[]) => {
+            if (this.user) {
+              if (this.artistId && this.artistId !== 0) {
+                this.artistService.getArtist(this.artistId).subscribe((a: Artist) => {
+                  this.artist = a;
+                  this.artistSongs = songs.filter(song => song.artist.id === a.id);
+                });
+              } else if (this.user.artist) {
+                this.artist = this.user.artist;
+                this.artistId = this.user.artist.id;
+                this.artistSongs = songs.filter(song => song.artist.id === this.artistId);
+              }
             }
-          }
+          });
         });
-      });
+      }
     });
   }
 }

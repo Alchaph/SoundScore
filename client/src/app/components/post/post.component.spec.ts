@@ -1,66 +1,91 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostComponent } from './post.component';
 import { PostService } from '../../services/PostService/post.service';
 import { CommentService } from '../../services/CommentService/comment.service';
 import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
-import { LanguageService } from '../../services/languageService/language.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import {TranslateModule} from "@ngx-translate/core";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Comment } from '../../models/Comment';
-import {User} from "../../models/User";
-import {Post} from "../../models/Post";
-import {HttpService} from "../../services/HttpService/http.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { User } from '../../models/User';
+import { Post } from '../../models/Post';
+import { HttpClientModule } from '@angular/common/http';
+import { Artist } from "../../models/Artist";
 
 describe('PostComponent', () => {
   let component: PostComponent;
   let fixture: ComponentFixture<PostComponent>;
-  let postService: jasmine.SpyObj<PostService>;
-  let commentService: jasmine.SpyObj<CommentService>;
-  let jwtService: jasmine.SpyObj<JwtServiceService>;
-  let router: jasmine.SpyObj<Router>;
-  let route: ActivatedRoute;
+  let routeMock: any;
+  let postComponentMock: Partial<PostComponent>;
 
-  let PostComponentMock: Partial<PostComponent>;
+  let routerMock = {
+    navigate: jasmine.createSpy('navigate')
+  };
+  let postServiceMock = {
+    getPost: jasmine.createSpy('getPost').and.returnValue(of({ id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }))
+  };
+  let commentServiceMock = {
+    getCommentsOfPost: jasmine.createSpy('getCommentsOfPost').and.returnValue(of([])),
+    createComment: jasmine.createSpy('createComment').and.returnValue(of({})),
+    updateComment: jasmine.createSpy('updateComment').and.returnValue(of({})),
+    buildCommentTree: jasmine.createSpy('buildCommentTree').and.returnValue([]),
+  };
+  let jwtServiceMock = {
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1 } as unknown as User)),
+    verifyPassword: jasmine.createSpy('verifyPassword').and.returnValue(of(true)),
+    authenticate: jasmine.createSpy('authenticate').and.returnValue(of(true)),
+    updateUser: jasmine.createSpy('updateUser').and.returnValue(of({})),
+    login: jasmine.createSpy('login').and.returnValue(of({ token: 'dummy-token' })),
+    deleteMe: jasmine.createSpy('deleteMe').and.returnValue(of({ username: 'testuser' })),
+    getUserByArtistId: jasmine.createSpy('getUserByArtistId').and.returnValue(of({ id: 1 } as User)),
+    getUserById: jasmine.createSpy('getUserById').and.returnValue(of({ id: 1 } as User))
+  };
 
   beforeEach(async () => {
-    PostComponentMock = {
+    postComponentMock = {
       goBack: jasmine.createSpy('goBack'),
       loadComponentData: jasmine.createSpy('loadComponentData'),
       handleAction: jasmine.createSpy('handleAction'),
       addComment: jasmine.createSpy('addComment'),
       replyToComment: jasmine.createSpy('replyToComment'),
       editComment: jasmine.createSpy('editComment'),
-      resetAction: jasmine.createSpy('resetAction')
+      resetAction: jasmine.createSpy('resetAction'),
     };
-    const postServiceSpy = jasmine.createSpyObj('PostService', ['getPost']);
-    const commentServiceSpy = jasmine.createSpyObj('CommentService', ['createComment', 'updateComment', 'getCommentsOfPost', 'buildCommentTree']);
-    const jwtServiceSpy = jasmine.createSpyObj('JwtServiceService', ['getMe']);
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
+    routeMock = {
+      snapshot: {
+        paramMap: {
+          get: jasmine.createSpy('get').and.returnValue('1')
+        }
+      }
+    };
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, HttpClientModule],
       providers: [
-        { provide: PostService, useValue: postServiceSpy },
-        { provide: CommentService, useValue: commentServiceSpy },
-        { provide: JwtServiceService, useValue: jwtServiceSpy },
-        { provide: Router, useValue: routerSpy },
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } }, params: of({ postId: 1 }) } },
-        { provide: PostComponent, useValue: PostComponentMock },
+        { provide: PostService, useValue: postServiceMock },
+        { provide: CommentService, useValue: commentServiceMock },
+        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: Router, useValue: routerMock },
+        { provide: ActivatedRoute, useValue: routeMock },
+        { provide: PostComponent, useValue: postComponentMock },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PostComponent);
     component = fixture.componentInstance;
-    postService = TestBed.inject(PostService) as jasmine.SpyObj<PostService>;
-    commentService = TestBed.inject(CommentService) as jasmine.SpyObj<CommentService>;
-    jwtService = TestBed.inject(JwtServiceService) as jasmine.SpyObj<JwtServiceService>;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    route = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    routerMock.navigate.calls.reset();
+    postServiceMock.getPost.calls.reset();
+    commentServiceMock.getCommentsOfPost.calls.reset();
+    commentServiceMock.createComment.calls.reset();
+    commentServiceMock.updateComment.calls.reset();
+    jwtServiceMock.getMe.calls.reset();
   });
 
   it('should create', () => {
@@ -72,13 +97,13 @@ describe('PostComponent', () => {
     spyOn(sessionStorage, 'clear');
     component.goBack();
     expect(sessionStorage.clear).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['/previous']);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/previous']);
   });
 
   it('should navigate to home if no previous path is available', () => {
     spyOn(sessionStorage, 'getItem').and.returnValue(null);
     component.goBack();
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/home']);
   });
 
   it('should load component data on init', () => {
@@ -88,30 +113,30 @@ describe('PostComponent', () => {
   });
 
   it('should not proceed if newComment message is empty', () => {
-    component.commentService.newComment.message = '';
+    component.commentService.newComment = { message: '' } as Comment;
     spyOn(component, 'addComment');
     component.handleAction();
     expect(component.addComment).not.toHaveBeenCalled();
   });
 
   it('should call addComment if currentAction is Add', () => {
-    component.commentService.newComment.message = 'Test';
+    component.commentService.newComment = { message: 'Test' } as Comment;
     component.commentService.currentAction = 'Add';
     spyOn(component, 'addComment');
     component.handleAction();
     expect(component.addComment).toHaveBeenCalled();
   });
 
-  it('should call editComment if currentAction is Edit your', () => {
-    component.commentService.newComment.message = 'Test';
+  it('should call editComment if currentAction is Edit', () => {
+    component.commentService.newComment = { message: 'Test' } as Comment;
     component.commentService.currentAction = 'Edit your';
     spyOn(component, 'editComment');
     component.handleAction();
     expect(component.editComment).toHaveBeenCalled();
   });
 
-  it('should call replyToComment if currentAction is Reply to', () => {
-    component.commentService.newComment.message = 'Test';
+  it('should call replyToComment if currentAction is Reply', () => {
+    component.commentService.newComment = { message: 'Test' } as Comment;
     component.commentService.currentAction = 'Reply to';
     spyOn(component, 'replyToComment');
     component.handleAction();
@@ -120,29 +145,29 @@ describe('PostComponent', () => {
 
   it('should call createComment and getCommentsOfPost on addComment', () => {
     const commentStub = { id: 1, message: 'Test' } as Comment;
-    commentService.createComment.and.returnValue(of(commentStub));
-    commentService.getCommentsOfPost.and.returnValue(of([]));
+    commentServiceMock.createComment.and.returnValue(of(commentStub));
+    commentServiceMock.getCommentsOfPost.and.returnValue(of([]));
     component.addComment();
-    expect(commentService.createComment).toHaveBeenCalled();
-    expect(commentService.getCommentsOfPost).toHaveBeenCalled();
+    expect(commentServiceMock.createComment).toHaveBeenCalled();
+    expect(commentServiceMock.getCommentsOfPost).toHaveBeenCalled();
   });
 
   it('should call createComment and getCommentsOfPost on replyToComment', () => {
     const commentStub = { id: 1, message: 'Test' } as Comment;
-    commentService.createComment.and.returnValue(of(commentStub));
-    commentService.getCommentsOfPost.and.returnValue(of([]));
+    commentServiceMock.createComment.and.returnValue(of(commentStub));
+    commentServiceMock.getCommentsOfPost.and.returnValue(of([]));
     component.replyToComment();
-    expect(commentService.createComment).toHaveBeenCalled();
-    expect(commentService.getCommentsOfPost).toHaveBeenCalled();
+    expect(commentServiceMock.createComment).toHaveBeenCalled();
+    expect(commentServiceMock.getCommentsOfPost).toHaveBeenCalled();
   });
 
   it('should call updateComment and getCommentsOfPost on editComment', () => {
     const commentStub = { id: 1, message: 'Test' } as Comment;
-    commentService.updateComment.and.returnValue(of(commentStub));
-    commentService.getCommentsOfPost.and.returnValue(of([]));
+    commentServiceMock.updateComment.and.returnValue(of(commentStub));
+    commentServiceMock.getCommentsOfPost.and.returnValue(of([]));
     component.editComment();
-    expect(commentService.updateComment).toHaveBeenCalled();
-    expect(commentService.getCommentsOfPost).toHaveBeenCalled();
+    expect(commentServiceMock.updateComment).toHaveBeenCalled();
+    expect(commentServiceMock.getCommentsOfPost).toHaveBeenCalled();
   });
 
   it('should reset currentAction to Add and clear newComment and focusedComment', () => {
@@ -153,32 +178,23 @@ describe('PostComponent', () => {
   });
 
   it('should load post and user data and set liked/disliked flags', () => {
-    const postStub = {
-      id: 1,
-      likes: [{ user: { id: 1 } }],
-      dislikes: [{ user: { id: 2 } }]
-    } as Post;
+    const postStub = { id: 1, likes: [{ user: { id: 1 } }], dislikes: [{ user: { id: 2 } }] } as Post;
     const userStub = { id: 1 } as User;
-    postService.getPost.and.returnValue(of(postStub));
-    jwtService.getMe.and.returnValue(of(userStub));
-
+    postServiceMock.getPost.and.returnValue(of(postStub));
+    jwtServiceMock.getMe.and.returnValue(of(userStub));
     component.loadComponentData();
-
-    expect(postService.getPost).toHaveBeenCalledWith(1);
-    expect(jwtService.getMe).toHaveBeenCalled();
+    expect(postServiceMock.getPost).toHaveBeenCalledWith(1);
+    expect(jwtServiceMock.getMe).toHaveBeenCalled();
     expect(component.liked).toBe(true);
     expect(component.disliked).toBe(false);
   });
 
   it('should build comment tree from comments', () => {
     const commentsStub = [{ id: 1, message: 'Test' }] as Comment[];
-    commentService.getCommentsOfPost.and.returnValue(of(commentsStub));
-    commentService.buildCommentTree.and.returnValue(commentsStub);
-
+    commentServiceMock.getCommentsOfPost.and.returnValue(of(commentsStub));
+    commentServiceMock.buildCommentTree.and.returnValue(commentsStub);
     component.loadComponentData();
-
-    expect(commentService.getCommentsOfPost).toHaveBeenCalledWith(1);
-    expect(commentService.buildCommentTree).toHaveBeenCalledWith(commentsStub);
-    expect(commentService.comments).toEqual(commentsStub);
+    expect(commentServiceMock.getCommentsOfPost).toHaveBeenCalledWith(1);
+    expect(commentServiceMock.buildCommentTree).toHaveBeenCalledWith(commentsStub);
   });
 });

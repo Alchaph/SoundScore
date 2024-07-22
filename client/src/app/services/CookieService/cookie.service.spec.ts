@@ -7,6 +7,8 @@ describe('CookieService', () => {
   let document: Document;
 
   beforeEach(() => {
+    document = window.document;
+
     TestBed.configureTestingModule({
       providers: [
         CookieService,
@@ -14,7 +16,6 @@ describe('CookieService', () => {
       ]
     });
     service = TestBed.inject(CookieService);
-    document = TestBed.inject(DOCUMENT);
   });
 
   it('should be created', () => {
@@ -23,7 +24,7 @@ describe('CookieService', () => {
 
   describe('setCookie', () => {
     it('should set a cookie', () => {
-      const spy = spyOnProperty(document, 'cookie', 'set');
+      const spy = spyOnProperty(document, 'cookie', 'set').and.callThrough();
       service.setCookie('test', 'value', 1000);
       expect(spy).toHaveBeenCalled();
     });
@@ -43,7 +44,7 @@ describe('CookieService', () => {
 
   describe('deleteCookie', () => {
     it('should delete a cookie', () => {
-      const spy = spyOnProperty(document, 'cookie', 'set');
+      const spy = spyOnProperty(document, 'cookie', 'set').and.callThrough();
       service.deleteCookie('test');
       expect(spy).toHaveBeenCalled();
     });

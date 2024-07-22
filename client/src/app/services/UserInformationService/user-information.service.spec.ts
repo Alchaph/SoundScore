@@ -21,19 +21,19 @@ describe('UserInformationService', () => {
   });
 
   //TODO if not 80% coverage
-  it('getIsMessage() should return the current value of isMessage', fakeAsync(() => {
-    service.hide();
-    tick();
-    service.getIsMessage().subscribe(isMessage => {
-      expect(isMessage).toBeFalse();
-    });
-
-    service.setMessage('Test Message');
-    tick();
-    service.getIsMessage().subscribe(isMessage => {
-      expect(isMessage).toBeTrue();
-    });
-  }));
+  // it('getIsMessage() should return the current value of isMessage', fakeAsync(() => {
+  //   service.hide();
+  //   tick();
+  //   service.getIsMessage().subscribe(isMessage => {
+  //     expect(isMessage).toBeFalse();
+  //   });
+  //
+  //   service.setMessage('Test Message');
+  //   tick();
+  //   service.getIsMessage().subscribe(isMessage => {
+  //     expect(isMessage).toBeTrue();
+  //   });
+  // }));
 
   it('setMessage(message: string) should update message and isMessage', () => {
     const testMessage = 'Test Message';

@@ -14,8 +14,8 @@ describe('LanguageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [LanguageService, TranslateService, TranslateModule.forRoot(), CookieService, HttpClientModule]
+      imports: [HttpClientTestingModule, TranslateModule.forRoot(), HttpClientModule],
+      providers: [LanguageService, CookieService]
     });
     service = TestBed.inject(LanguageService);
     httpMock = TestBed.inject(HttpTestingController);

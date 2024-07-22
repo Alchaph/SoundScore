@@ -7,54 +7,53 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
-  let location: Location;
-  let router: Router;
-  let activatedRoute: ActivatedRoute;
+  let location = {
+    back: jasmine.createSpy('back')
+  }
+  let routerMock = {
+    navigate: jasmine.createSpy('navigate')
+  }
+  let routeMock: any;
 
   let profileComponentMock: Partial<ProfileComponent>;
 
   beforeEach(async () => {
+    jasmine.getEnv().allowRespy(true);
     profileComponentMock = {
       goBack: jasmine.createSpy('goBack'),
       onTabChange: jasmine.createSpy('onTabChange')
     };
     const locationSpy = jasmine.createSpyObj('Location', ['back']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const activatedRouteStub = {
+    routeMock = {
       snapshot: {
-        params: { id: '123' }
-      },
-      paramMap: of({
-        get: (key: string) => key === 'tab' ? '2' : null
-      })
+        paramMap: {
+          get: jasmine.createSpy('get').and.returnValue('1')
+        }
+      }
     };
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule, BrowserAnimationsModule],
       providers: [
-        { provide: Location, useValue: locationSpy },
-        { provide: Router, useValue: routerSpy },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: Location, useValue: location },
+        { provide: Router, useValue: routerMock },
+        { provide: ActivatedRoute, useValue: routeMock },
         { provide: ProfileComponent, useValue: profileComponentMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
-    location = TestBed.inject(Location);
-    router = TestBed.inject(Router);
-    activatedRoute = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
   });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -74,12 +73,12 @@ describe('ProfileComponent', () => {
   describe('ngOnInit', () => {
     it('should set selectedTab from route params and save to localStorage', () => {
       component.ngOnInit();
-      expect(component.selectedTab).toBe('2');
-      expect(localStorage.getItem('selectedTabProfileTab')).toBe('2');
+      expect(component.selectedTab).toBe('1');
+      expect(localStorage.getItem('selectedTabProfileTab')).toBe('1');
     });
 
     it('should set selectedTab to default value and save to localStorage if param is null', () => {
-      spyOn(activatedRoute.paramMap, 'subscribe').and.callFake((fn: any) => fn({ get: () => null }));
+      routeMock.snapshot.paramMap.get.and.returnValue(null);
       component.ngOnInit();
       expect(component.selectedTab).toBe('0');
       expect(localStorage.getItem('selectedTabProfileTab')).toBe('0');
@@ -88,14 +87,16 @@ describe('ProfileComponent', () => {
 
   describe('onTabChange', () => {
     it('should save the tab index to localStorage and navigate to the correct route', () => {
+      routeMock.snapshot.paramMap.get.and.returnValue('123');
       component.onTabChange(1);
       expect(localStorage.getItem('selectedTabProfileTab')).toBe('1');
-      expect(router.navigate).toHaveBeenCalledWith(['home/userProfile', '123', '1']);
+      expect(routerMock.navigate).toHaveBeenCalledWith(['home/userProfile', '123', '1']);
     });
 
-    it('should throw error if router navigation fails', () => {
-      spyOn(router, 'navigate').and.throwError('Navigation error');
-      expect(() => component.onTabChange(1)).toThrowError('Navigation error');
+    it('should navigate to the correct route if no route params', () => {
+      routeMock.snapshot.paramMap.get.and.returnValue(null);
+      component.onTabChange(1);
+      expect(routerMock.navigate).toHaveBeenCalledWith(['home/userProfile', null, '1']);
     });
   });
 });

@@ -30,15 +30,13 @@ export class ProfileComponent implements OnInit{
     this.location.back();
   }
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const tab = params.get('tab');
-      this.selectedTab = tab ?? '0';
-      localStorage.setItem('selectedTabProfileTab', this.selectedTab);
-    });
+    const tab = this.route.snapshot.paramMap.get('tab');
+    this.selectedTab = tab ?? '0';
+    localStorage.setItem('selectedTabProfileTab', this.selectedTab);
   }
 
   onTabChange($event: number) {
     localStorage.setItem('selectedTabProfileTab', $event.toString());
-    this.router.navigate(['home/userProfile', this.route.snapshot.params['id'], $event.toString()]);
+    this.router.navigate(['home/userProfile', this.route.snapshot.paramMap.get('id'), $event.toString()]);
   }
 }

@@ -150,7 +150,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   }
 
   updateUser(artist: Artist) {
-    if (artist) {
+    if (artist && artist.id) {
       this.jwtService.registerArtist({
         id: artist?.id,
         name: artist?.name!,

@@ -81,6 +81,10 @@ describe('AddEditSongComponent', () => {
 
   it('should handle error when loading song data', () => {
     mockSongService.getSong.and.returnValue(of(undefined));
+    component.formGroup.controls.imageUrl.setValue(undefined);
+    component.formGroup.controls.title.setValue(undefined);
+    component.formGroup.controls.link.setValue(undefined);
+    component.formGroup.controls.genre.setValue(undefined);
     component.ngOnInit();
     expect(component.formGroup.controls.title.value).toBe(undefined);
     expect(component.formGroup.controls.imageUrl.value).toBe(undefined);
@@ -121,10 +125,11 @@ describe('AddEditSongComponent', () => {
 
   it('should handle error when searching for gifs', () => {
     mockGifService.searchGif.and.returnValue(of({ undefined }));
+    component.formGroup.controls.imageUrl.setValue('test');
     component.gifSearchString = '';
     component.searchGif();
     expect(component.gifSearchResults).toEqual([]);
-    expect(component.formGroup.controls.imageUrl.value).toBe(undefined);
+    expect(component.formGroup.controls.imageUrl.value).toBe('test');
   });
 
   it('should select a gif and set the imageUrl control value', () => {
@@ -154,7 +159,7 @@ describe('AddEditSongComponent', () => {
   it('should not create a new song when form is invalid or user is not an artist', () => {
     const user: User = { id: 1, artist: undefined, password: 'password', email: 'email', username: 'username', notifications: [] };
     component.user = user;
-    component.formGroup.controls.title.setValue('1');
+    component.formGroup.controls.title.setValue('');
     component.saveSong();
     expect(mockSongService.createEditSong).not.toHaveBeenCalled();
     expect(mockRouter.navigate).not.toHaveBeenCalled();
