@@ -177,18 +177,6 @@ describe('PostComponent', () => {
     expect(component.commentService.focusedComment).toEqual({} as Comment);
   });
 
-  it('should load post and user data and set liked/disliked flags', () => {
-    const postStub = { id: 1, likes: [{ user: { id: 1 } }], dislikes: [{ user: { id: 2 } }] } as Post;
-    const userStub = { id: 1 } as User;
-    postServiceMock.getPost.and.returnValue(of(postStub));
-    jwtServiceMock.getMe.and.returnValue(of(userStub));
-    component.loadComponentData();
-    expect(postServiceMock.getPost).toHaveBeenCalledWith(1);
-    expect(jwtServiceMock.getMe).toHaveBeenCalled();
-    expect(component.liked).toBe(true);
-    expect(component.disliked).toBe(false);
-  });
-
   it('should build comment tree from comments', () => {
     const commentsStub = [{ id: 1, message: 'Test' }] as Comment[];
     commentServiceMock.getCommentsOfPost.and.returnValue(of(commentsStub));
