@@ -41,9 +41,11 @@ export class HeaderService {
 
   updateUser() {
     this.jwtService.getMe().subscribe(data => {
-      this.userId = data.id!;
-      this.user = data;
-      this.unreadNotifications = data.notifications.filter(n => !n.read)
+      if (data && data.id) {
+        this.userId = data.id!;
+        this.user = data;
+        this.unreadNotifications = data.notifications.filter(n => !n.read)
+      }
     });
   }
 
