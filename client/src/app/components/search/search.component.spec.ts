@@ -14,6 +14,7 @@ import {Post} from "../../models/Post";
 import {User} from "../../models/User";
 import {Artist} from "../../models/Artist";
 import {Song} from "../../models/Song";
+import {ActivatedRoute} from "@angular/router";
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -24,6 +25,14 @@ describe('SearchComponent', () => {
   let artistService: jasmine.SpyObj<ArtistService>;
   let homeService: jasmine.SpyObj<HomeService>;
   let breakpointObserver: jasmine.SpyObj<BreakpointObserver>;
+
+  let routeMock = {
+    snapshot: {
+      paramMap: {
+        get: jasmine.createSpy('get').and.returnValue('1')
+      }
+    }
+  }
 
   let searchComponentMock: Partial<SearchComponent>;
 
@@ -49,7 +58,8 @@ describe('SearchComponent', () => {
         {provide: ArtistService, useValue: artistServiceSpy},
         {provide: HomeService, useValue: homeServiceSpy},
         {provide: BreakpointObserver, useValue: breakpointObserverSpy},
-        {provide: SearchComponent, useValue: searchComponentMock }
+        {provide: SearchComponent, useValue: searchComponentMock },
+        {provide: ActivatedRoute, useValue: routeMock}
       ]
     }).compileComponents();
 

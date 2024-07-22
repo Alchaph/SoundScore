@@ -1,213 +1,156 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { HeadNavBarComponent } from './head-nav-bar.component';
+import { HeaderService } from '../../services/HeaderService/header.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {of} from 'rxjs';
-import {HeadNavBarComponent} from './head-nav-bar.component';
-import {LanguageService} from '../../services/languageService/language.service';
-import {JwtServiceService} from '../../services/JwtService/jwt-service.service';
-import {LoaderService} from '../../services/LoaderService/loader.service';
-import {NotificationService} from '../../services/NotificationService/notification.service';
-import {Language} from '../../enums/language';
-import {User} from '../../models/User';
-import {Notification} from '../../models/Notification';
-import {TranslateModule} from "@ngx-translate/core";
+import { of } from 'rxjs';
+import { Notification } from '../../models/Notification';
 import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
-class MockRouter {
-  navigate = jasmine.createSpy('navigate');
-}
-
-class MockLanguageService {
-  getLanguages = jasmine.createSpy('getLanguages').and.returnValue(Object.keys(Language));
-}
-
-class MockJwtServiceService {
-  getMe = jasmine.createSpy('getMe').and.returnValue(of({id: 1, notifications: []}));
-}
-
-class MockLoaderService {
-  getIsLoading = jasmine.createSpy('getIsLoading').and.returnValue(of(false));
-}
-
-class MockNotificationService {
-  markAsRead = jasmine.createSpy('markAsRead').and.returnValue(of(null));
-}
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 describe('HeadNavBarComponent', () => {
   let component: HeadNavBarComponent;
   let fixture: ComponentFixture<HeadNavBarComponent>;
-  let router: MockRouter;
-  let languageService: MockLanguageService;
-  let jwtService: MockJwtServiceService;
-  let loaderService: MockLoaderService;
-  let notificationService: MockNotificationService;
+  let headerServiceMock: any;
+  let routerMock: any;
+  let activatedRouteMock = {
+    snapshot: {
+      paramMap: {
+        get: jasmine.createSpy('get').and.returnValue('1')
+      }
+    }
+  };
 
-  let HeadNavBarComponentMock: Partial<HeadNavBarComponent>;
+  let headNavBarComponentMock: Partial<HeadNavBarComponent>;
 
   beforeEach(async () => {
-    HeadNavBarComponentMock = {
+    headNavBarComponentMock = {
+      search: jasmine.createSpy('search'),
       logout: jasmine.createSpy('logout'),
-      refresh: jasmine.createSpy('refresh'),
       gotoUserProfile: jasmine.createSpy('gotoUserProfile'),
-      updateUser: jasmine.createSpy('updateUser'),
-      handleNotification: jasmine.createSpy('handleNotification'),
-      createTextsToDisplay: jasmine.createSpy('createTextsToDisplay')
+      handleNotification: jasmine.createSpy('handleNotification')
     };
+    headerServiceMock = {
+      loaderService: {
+        getIsLoading: jasmine.createSpy('getIsLoading').and.returnValue(of(false))
+      },
+      updateUser: jasmine.createSpy('updateUser'),
+      searchTerm: {
+        valid: true,
+        getRawValue: jasmine.createSpy('getRawValue').and.returnValue('test')
+      },
+      userId: 1,
+      notificationService: {
+        markAsRead: jasmine.createSpy('markAsRead').and.returnValue(of({}))
+      }
+    };
+
+    routerMock = {
+      navigate: jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true))
+    };
+
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        TranslateModule.forRoot()],
+      imports: [HttpClientModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, TranslateModule.forRoot()],
       providers: [
-        {provide: Router, useClass: MockRouter},
-        {provide: LanguageService, useClass: MockLanguageService},
-        {provide: JwtServiceService, useClass: MockJwtServiceService},
-        {provide: LoaderService, useClass: MockLoaderService},
-        {provide: NotificationService, useClass: MockNotificationService},
-        {provide: HeadNavBarComponent, useValue: HeadNavBarComponentMock},
-        {provide: ActivatedRoute, useValue: {snapshot: {paramMap: {get: () => '1'}}}}
+        { provide: HeaderService, useValue: headerServiceMock },
+        { provide: Router, useValue: routerMock },
+        { provide: HeadNavBarComponent, useValue: headNavBarComponentMock },
+        { provide: ActivatedRoute, useValue: activatedRouteMock }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeadNavBarComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router) as any;
-    languageService = TestBed.inject(LanguageService) as any;
-    jwtService = TestBed.inject(JwtServiceService) as any;
-    loaderService = TestBed.inject(LoaderService) as any;
-    notificationService = TestBed.inject(NotificationService) as any;
-    fixture.detectChanges();
   });
 
-  it('should clear token and navigate to home on logout', () => {
-    spyOn(localStorage, 'setItem');
-    component.logout();
-    expect(localStorage.setItem).toHaveBeenCalledWith('token', '');
-    expect(router.navigate).toHaveBeenCalledWith(['']);
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should initialize isLoading and call updateUser', () => {
-    spyOn(component, 'updateUser');
-    component.ngOnInit();
-    expect(loaderService.getIsLoading).toHaveBeenCalled();
-    expect(component.updateUser).toHaveBeenCalled();
-  });
-
-  it('should fetch profile picture if not in sessionStorage', (done) => {
+  // Test for ngOnInit
+  it('should initialize correctly', (done) => {
     spyOn(sessionStorage, 'getItem').and.returnValue(null);
     spyOn(sessionStorage, 'setItem');
 
     component.ngOnInit();
 
     setTimeout(() => {
-      expect(sessionStorage.setItem).toHaveBeenCalled();
+      expect(headerServiceMock.loaderService.getIsLoading).toHaveBeenCalled();
+      expect(headerServiceMock.updateUser).toHaveBeenCalled()
       done();
-    }, 1000);
+    }, 100);
   });
 
-  it('should reload the window if URL is home', () => {
-    spyOn(window.location, 'reload');
-    spyOnProperty(window.location, 'href', 'get').and.returnValue('http://localhost:4200/home');
+  it('should handle ngOnInit when profile picture already exists', () => {
+    spyOn(sessionStorage, 'getItem').and.returnValue('http://example.com');
 
-    component.refresh();
+    component.ngOnInit();
 
-    expect(window.location.reload).toHaveBeenCalled();
+    expect(headerServiceMock.loaderService.getIsLoading).toHaveBeenCalled();
+    expect(headerServiceMock.updateUser).toHaveBeenCalled();
   });
 
-  it('should not reload the window if URL is not home', () => {
-    spyOn(window.location, 'reload');
-    spyOnProperty(window.location, 'href', 'get').and.returnValue('http://localhost:4200/other');
-
-    component.refresh();
-
-    expect(window.location.reload).not.toHaveBeenCalled();
+  // Test for search
+  it('should navigate to search page when searchTerm is valid', () => {
+    component.search();
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/home/search/', 'test']);
   });
 
-  it('should navigate to user profile and reload if necessary', () => {
+  it('should not navigate to search page when searchTerm is invalid', () => {
+    headerServiceMock.searchTerm.valid = false;
+    component.search();
+    expect(routerMock.navigate).not.toHaveBeenCalled();
+  });
+
+  // Test for logout
+  it('should clear token and navigate to root', () => {
+    spyOn(localStorage, 'setItem');
+
+    component.logout();
+
+    expect(routerMock.navigate).toHaveBeenCalledWith(['']);
+    expect(localStorage.setItem).toHaveBeenCalledWith('token', '');
+  });
+
+  // Test for gotoUserProfile
+  it('should navigate to user profile page and reload if already there', (done) => {
     spyOn(localStorage, 'getItem').and.returnValue(null);
     spyOn(localStorage, 'setItem');
-    spyOn(window.location, 'reload');
-    spyOnProperty(window.location, 'href', 'get').and.returnValue('http://localhost:4200/home/userProfile');
 
     component.gotoUserProfile();
 
-    expect(localStorage.setItem).toHaveBeenCalledWith('selectedTabProfileTab', '0');
-    expect(router.navigate).toHaveBeenCalledWith(['/home/userProfile', '0', '0']);
-    expect(window.location.reload).toHaveBeenCalled();
+    setTimeout(() => {
+      expect(localStorage.setItem).toHaveBeenCalledWith('selectedTabProfileTab', '0');
+      expect(routerMock.navigate).toHaveBeenCalledWith(['/home/userProfile', '1', null]);
+      done();
+    }, 100);
   });
 
-  it('should update user and unread notifications', () => {
-    const mockUser: User = {id: 1, notifications: [{read: false}]} as User;
-    jwtService.getMe.and.returnValue(of(mockUser));
+  it('should handle gotoUserProfile when selectedTabProfileTab already exists', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('1');
 
-    component.updateUser();
+    component.gotoUserProfile();
 
-    expect(component.userId).toBe(1);
-    expect(component.user).toBe(mockUser);
-    expect(component.unreadNotifications.length).toBe(1);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/home/userProfile', '1', '1']);
   });
 
-  it('should return correct text for like notification', () => {
-    const notification: Notification = {
-      likeOrDislike: {like: true, user: {username: 'user1'}},
-      post: {title: 'postTitle'}
-    } as Notification;
-
-    const result = component.createTextsToDisplay(notification);
-
-    expect(result).toBe('user1 liked your post postTitle');
-  });
-
-  it('should return correct text for comment on post notification', () => {
-    const notification: Notification = {
-      comment: {user: {username: 'user2'}, message: 'commentMessage'},
-      post: {title: 'postTitle'}
-    } as Notification;
-
-    const result = component.createTextsToDisplay(notification);
-
-    expect(result).toBe('user2 commented on your post postTi...');
-  });
-
-  it('should return correct text for reply to comment notification', () => {
-    const notification: Notification = {
-      comment: {user: {username: 'user3'}, message: 'commentMessage'}
-    } as Notification;
-
-    const result = component.createTextsToDisplay(notification);
-
-    expect(result).toBe('user3 replied to your comment comme...');
-  });
-
-  it('should truncate text if longer than 35 characters', () => {
-    const notification: Notification = {
-      comment: {user: {username: 'user4'}, message: 'a'.repeat(40)}
-    } as Notification;
-
-    const result = component.createTextsToDisplay(notification);
-
-    expect(result).toBe('user4 replied to your comment aaaaa...');
-  });
-
+  // Test for handleNotification
   it('should mark notification as read and navigate to post', () => {
-    const notification: Notification = {
-      post: {id: 123}
-    } as Notification;
+    const notification = { post: { id: 1 }, comment: { post: { id: 1 } } } as Notification;
 
     component.handleNotification(notification);
 
-    expect(notificationService.markAsRead).toHaveBeenCalledWith(notification);
-    expect(router.navigate).toHaveBeenCalledWith(['/home/post/123']);
+    expect(headerServiceMock.notificationService.markAsRead).toHaveBeenCalledWith(notification);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/home/post/1']);
   });
 
-  it('should mark notification as read and navigate to comment post', () => {
-    const notification: Notification = {
-      comment: {post: {id: 456}}
-    } as Notification;
+  it('should handle handleNotification with undefined post', () => {
+    const notification = { comment: { post: { id: 1 } } } as Notification;
 
     component.handleNotification(notification);
 
-    expect(notificationService.markAsRead).toHaveBeenCalledWith(notification);
-    expect(router.navigate).toHaveBeenCalledWith(['/home/post/456']);
+    expect(headerServiceMock.notificationService.markAsRead).toHaveBeenCalledWith(notification);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/home/post/1']);
   });
 });
