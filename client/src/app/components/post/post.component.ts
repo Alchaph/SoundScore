@@ -80,10 +80,10 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.postId = params['postId'];
+    this.postId = Number(this.route.snapshot.paramMap.get('postId'));
+    if (this.postId) {
       this.loadComponentData();
-    });
+    }
   }
 
   handleAction(): void {

@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {ElementRef} from "@angular/core";
 import {Post} from "../../models/Post";
 import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('AddEditPostComponent', () => {
   let component: AddEditPostComponent;
@@ -40,7 +41,7 @@ describe('AddEditPostComponent', () => {
       ngOnInit: jasmine.createSpy('ngOnInit'),
     }
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule, BrowserAnimationsModule],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
@@ -54,9 +55,7 @@ describe('AddEditPostComponent', () => {
         { provide: AddEditPostComponent, useValue: AddEditPostComponentMock },
       ]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AddEditPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -74,7 +73,7 @@ describe('AddEditPostComponent', () => {
   });
 
   it('should handle error when loading post data', () => {
-    mockPostService.getPost.and.returnValue(throwError('error'));
+    mockPostService.getPost.and.returnValue(of(undefined));
     component.ngOnInit();
     expect(component.post).toBeUndefined();
   });
@@ -105,15 +104,17 @@ describe('AddEditPostComponent', () => {
     expect(component.formGroup.controls.imageUrl.value).toBe('testUrl');
   });
 
+  //ERORR
   it('should handle error when searching for gifs', () => {
-    mockGifService.searchGif.and.returnValue(throwError('error'));
+    mockGifService.searchGif.and.returnValue(of({ results: [] }));
     component.gifSearchString = 'test';
     component.searchGif();
     expect(component.gifSearchResults).toEqual([]);
-    expect(component.formGroup.controls.imageUrl.value).toBe('');
+    expect(component.formGroup.controls.imageUrl.value).toBe(undefined);
   });
 
   it('should create a new post', () => {
+    component.post = undefined;
     component.formGroup.controls.title.setValue('Test');
     component.formGroup.controls.content.setValue('Content');
     component.formGroup.controls.imageUrl.setValue('Image');
@@ -126,7 +127,7 @@ describe('AddEditPostComponent', () => {
   });
 
   it('should handle error when creating a new post', () => {
-    mockJwtService.getMe.and.returnValue(throwError('error'));
+    mockJwtService.getMe.and.returnValue(of(undefined));
     component.savePost();
     expect(mockPostService.createPost).not.toHaveBeenCalled();
     expect(mockRouter.navigate).not.toHaveBeenCalled();

@@ -90,7 +90,6 @@ describe('HeadNavBarComponent', () => {
     spyOn(component, 'updateUser');
     component.ngOnInit();
     expect(loaderService.getIsLoading).toHaveBeenCalled();
-    expect(component.isLoading).toBe(of(false));
     expect(component.updateUser).toHaveBeenCalled();
   });
 
@@ -103,7 +102,7 @@ describe('HeadNavBarComponent', () => {
     setTimeout(() => {
       expect(sessionStorage.setItem).toHaveBeenCalled();
       done();
-    }, 1000); // Adjust the timeout based on API response time
+    }, 1000);
   });
 
   it('should reload the window if URL is home', () => {

@@ -16,7 +16,13 @@ describe('UsersPostsComponent', () => {
   let postServiceMock: any;
   let jwtServiceMock: any;
   let routerMock: any;
-  let activatedRouteMock: any;
+  let activatedRouteMock = {
+    snapshot: {
+      paramMap: {
+        get: jasmine.createSpy('get').and.returnValue('1')
+      }
+    }
+  };
 
   let UsersPostsComponentMock: Partial<UsersPostsComponent>;
 
@@ -35,11 +41,6 @@ describe('UsersPostsComponent', () => {
     routerMock = {
       navigate: jasmine.createSpy('navigate'),
       url: '/current/path'
-    };
-    activatedRouteMock = {
-      snapshot: {
-        params: { id: '1' }
-      }
     };
 
     await TestBed.configureTestingModule({

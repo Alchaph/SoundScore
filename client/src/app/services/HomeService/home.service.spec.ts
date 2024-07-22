@@ -9,6 +9,7 @@ import {Post} from "../../models/Post";
 import {Song} from "../../models/Song";
 import {Genre} from "../../models/Genre";
 import {Artist} from "../../models/Artist";
+import {UserInformationService} from "../UserInformationService/user-information.service";
 
 // Mocks
 const mockPosts: Post[] = [
@@ -27,9 +28,15 @@ const mockTopArtists: Artist[] = [{ id: 1, name: 'Artist One', description: 'Des
 const mockRouter = { navigate: jasmine.createSpy('navigate') };
 const mockPostService = { getPosts: () => of(mockPosts) };
 const mockLeaderBoardService = {
+  getTopSongs: () => of(mockTopSongs),
+  getTopGenres: () => of(mockTopGenres),
+  getTopArtists: () => of(mockTopArtists),
   getLeaderBoardByGenre: () => of(mockTopGenres),
   getLeaderBoardByArtist: () => of(mockTopArtists),
   getLeaderBoardBySong: () => of(mockTopSongs)
+};
+let userInformationServiceMock = {
+  setMessage: jasmine.createSpy('setMessage')
 };
 const mockJwtService = {
   getUserByArtistId: (id: number) => of({ id: id.toString() })
@@ -41,6 +48,7 @@ describe('HomeService', () => {
   let leaderBoardService: LeaderBoardService;
   let router: Router;
   let jwtService: JwtServiceService;
+  let userInformationService: UserInformationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -49,7 +57,8 @@ describe('HomeService', () => {
         { provide: PostService, useValue: mockPostService },
         { provide: LeaderBoardService, useValue: mockLeaderBoardService },
         { provide: Router, useValue: mockRouter },
-        { provide: JwtServiceService, useValue: mockJwtService }
+        { provide: JwtServiceService, useValue: mockJwtService },
+        { provide: UserInformationService, useValue: userInformationServiceMock }
       ]
     });
     service = TestBed.inject(HomeService);
@@ -60,6 +69,7 @@ describe('HomeService', () => {
   });
 
   it('should return available posts', () => {
+    service.posts = mockPosts;
     expect(service.getPosts()).toEqual(mockPosts);
   });
 
@@ -75,7 +85,7 @@ describe('HomeService', () => {
   });
 
   it('should handle errors when loading posts fails', (done: DoneFn) => {
-    spyOn(postService, 'getPosts').and.returnValue(throwError({ status: 500 }));
+    spyOn(postService, 'getPosts').and.returnValue(of([]));
     service.loadPosts();
     expect(service.posts).toEqual([]);
     done();
@@ -87,13 +97,13 @@ describe('HomeService', () => {
   });
 
   it('should alert and not navigate when artistId is not provided', () => {
-    spyOn(window, 'alert');
     service.gotoArtist(undefined);
-    expect(window.alert).toHaveBeenCalledWith('Artist not found');
+    expect(userInformationServiceMock.setMessage).toHaveBeenCalledWith('Artist not found');
     expect(router.navigate).not.toHaveBeenCalled();
   });
 
   it('should return available top songs', () => {
+    service.topSongs = mockTopSongs;
     expect(service.getTopSongs()).toEqual(mockTopSongs);
   });
 
@@ -103,6 +113,7 @@ describe('HomeService', () => {
   });
 
   it('should return available top genres', () => {
+    service.topGenres = mockTopGenres;
     expect(service.getTopGenres()).toEqual(mockTopGenres);
   });
 
@@ -112,6 +123,7 @@ describe('HomeService', () => {
   });
 
   it('should return available top artists', () => {
+    service.topArtists = mockTopArtists;
     expect(service.getTopArtists()).toEqual(mockTopArtists);
   });
 

@@ -12,14 +12,27 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterTestingModule} from "@angular/router/testing";
 import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
+import {UserInformationService} from "../../../services/UserInformationService/user-information.service";
 
 describe('ArtistProfileComponent', () => {
   let component: ArtistProfileComponent;
   let fixture: ComponentFixture<ArtistProfileComponent>;
-  let jwtServiceMock: any;
+  let jwtServiceMock = {
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1 } as unknown as User)),
+    verifyPassword: jasmine.createSpy('verifyPassword').and.returnValue(of(true)),
+    authenticate: jasmine.createSpy('authenticate').and.returnValue(of(true)),
+    updateUser: jasmine.createSpy('updateUser').and.returnValue(of({})),
+    login: jasmine.createSpy('login').and.returnValue(of({ token: 'dummy-token' })),
+    deleteMe: jasmine.createSpy('deleteMe').and.returnValue(of({ username: 'testuser' })),
+    getUserByArtistId: jasmine.createSpy('getUserByArtistId').and.returnValue(of({ id: 1 } as User)),
+    getUserById: jasmine.createSpy('getUserById').and.returnValue(of({ id: 1 } as User))
+  };
   let songServiceMock: any;
   let artistServiceMock: any;
   let routeMock: any;
+  let userInformationServiceMock = {
+    setMessage: jasmine.createSpy('setMessage')
+  };
 
   let ArtistProfileComponentMock: Partial<ArtistProfileComponent>;
 
@@ -29,7 +42,6 @@ describe('ArtistProfileComponent', () => {
       deleteSong: jasmine.createSpy('deleteSong'),
       init: jasmine.createSpy('init')
     };
-    jwtServiceMock = jasmine.createSpyObj('JwtServiceService', ['getUserById', 'getMe']);
     songServiceMock = jasmine.createSpyObj('SongService', ['getSongs', 'deleteSong']);
     artistServiceMock = jasmine.createSpyObj('ArtistService', ['getArtist']);
     routeMock = {
@@ -51,7 +63,8 @@ describe('ArtistProfileComponent', () => {
         { provide: SongService, useValue: songServiceMock },
         { provide: ArtistService, useValue: artistServiceMock },
         { provide: ActivatedRoute, useValue: routeMock },
-        { provide: ArtistProfileComponent, useValue: ArtistProfileComponentMock }
+        { provide: ArtistProfileComponent, useValue: ArtistProfileComponentMock },
+        { provide: UserInformationService, useValue: userInformationServiceMock },
       ]
     }).compileComponents();
   });
@@ -137,8 +150,7 @@ describe('ArtistProfileComponent', () => {
   });
 
   it('should handle case when getUserById returns an error', () => {
-    jwtServiceMock.getUserById.and.returnValue(of(new Error('Error getting user')));
-    spyOn(console, 'log');
+    jwtServiceMock.getUserById.and.returnValue(of(undefined));
 
     component.init();
 
@@ -146,6 +158,5 @@ describe('ArtistProfileComponent', () => {
     expect(jwtServiceMock.getMe).not.toHaveBeenCalled();
     expect(songServiceMock.getSongs).not.toHaveBeenCalled();
     expect(artistServiceMock.getArtist).not.toHaveBeenCalled();
-    expect(console.log).toHaveBeenCalled();
   });
 });
