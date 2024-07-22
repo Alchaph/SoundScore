@@ -66,7 +66,7 @@
     "SETTINGS": "Einstellungen",
     "ARTIST_PROFILE": "Künstlerprofil",
     "SHOW_READ": "Gelesene anzeigen",
-    "SHOW_UNREAD": "Gelesene ausblenden",
+    "HIDE_READ": "Gelesene ausblenden",
     "ALL_READ": "Alle als gelesen markieren"
   },
   "LEADERBOARD": {

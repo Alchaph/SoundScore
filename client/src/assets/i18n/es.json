@@ -66,8 +66,8 @@
     "SETTINGS": "Configuración",
     "ARTIST_PROFILE": "Perfil de Artista",
     "SHOW_READ": "Mostrar leídos",
-    "SHOW_UNREAD": "Mostrar no leídos",
-    "ALL_READ": "Marcar todo como leído",
+    "HIDE_READ": "Ocultar le",
+    "ALL_READ": "Marcar todo como leído"
   },
   "LEADERBOARD": {
     "TITLE": "Tabla de posiciones",

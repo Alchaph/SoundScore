@@ -66,7 +66,7 @@
     "SETTINGS": "Iistelligä",
     "ARTIST_PROFILE": "Künschtlärprofil",
     "SHOW_READ": "Geleseni aazeigä",
-    "SHOW_UNREAD": "Geleseni verbergä",
+    "HIDE_READ": "Geleseni verbergä",
     "ALL_READ": "Alli als gelesä markierä"
   },
   "LEADERBOARD": {

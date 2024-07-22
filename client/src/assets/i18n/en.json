@@ -65,17 +65,16 @@
     "LOGOUT": "Logout",
     "SETTINGS": "Settings",
     "ARTIST_PROFILE": "Artist Profile",
-
+    "SHOW_READ": "Show Read",
+    "HIDE_READ": "Hide Read",
+    "ALL_READ": "Mark all as read"
   },
   "LEADERBOARD": {
     "TITLE": "Leaderboard",
     "TOP_POSTS": "Top Post",
     "TOP_ARTISTS": "Top Artists",
     "TOP_GENRE": "Top Genre",
-    "TOP_SONGS": "Top Songs",
-    "SHOW_READ": "Show Read",
-    "SHOW_UNREAD": "Show Unread",
-    "ALL_READ": "Mark all as Read"
+    "TOP_SONGS": "Top Songs"
   },
   "POST_FORM": {
     "GO_BACK_BUTTON": "Go Back",

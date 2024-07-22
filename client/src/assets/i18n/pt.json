@@ -65,7 +65,7 @@
     "SETTINGS": "Configurações",
     "ARTIST_PROFILE": "Perfil do artista",
     "SHOW_READ": "Mostrar lidas",
-    "SHOW_UNREAD": "Mostrar não lidas",
+    "HIDE_READ": "Mostrar não lidas",
     "ALL_READ": "Marcar todas como lidas"
   },
   "LEADERBOARD": {

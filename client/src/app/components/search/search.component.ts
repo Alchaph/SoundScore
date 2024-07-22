@@ -14,7 +14,7 @@ import {Song} from "../../models/Song";
 import {Artist} from "../../models/Artist";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {PostService} from "../../services/PostService/post.service";
-import {RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -61,15 +61,23 @@ type CombinedType = Artist | Song | User | Post;
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
-export class SearchComponent implements OnInit{
+export class SearchComponent implements OnInit {
   posts: Post[] = [];
   users: User[] = [];
   songs: Song[] = [];
   artists: Artist[] = [];
   isMobile: boolean = false;
   combinedList: CombinedType[] = [];
-  searchTerm: string = '';
-  constructor(private jwtService: JwtServiceService, private songService: SongService, private artistService : ArtistService, private breakpointObserver: BreakpointObserver, private postService: PostService, private homeService: HomeService) {
+  searchTerm: string = "";
+
+  constructor(private jwtService: JwtServiceService,
+              private songService: SongService,
+              private artistService: ArtistService,
+              private breakpointObserver: BreakpointObserver,
+              private postService: PostService,
+              private homeService: HomeService,
+              private route: ActivatedRoute,) {
+
   }
 
   ngOnInit() {
@@ -85,13 +93,17 @@ export class SearchComponent implements OnInit{
       songs: this.songService.getSongs(),
       artists: this.artistService.getArtists()
     }).subscribe({
-      next: ({ posts, users, songs, artists }) => {
+      next: ({posts, users, songs, artists}) => {
         this.posts = posts.reverse();
         this.users = users;
         this.songs = songs;
         this.artists = artists;
 
         this.combinedList = [...new Set([...this.users, ...this.songs, ...this.artists])];
+        this.route.params.subscribe(params => {
+          this.searchTerm = params['searchTerm'];
+          this.search();
+        })
       },
       error: error => {
         console.error('Error occurred:', error);
@@ -143,7 +155,7 @@ export class SearchComponent implements OnInit{
     });
   }
 
-    protected readonly localStorage = localStorage;
+  protected readonly localStorage = localStorage;
 
   gotoArtist(id: number | undefined) {
     if (id) {

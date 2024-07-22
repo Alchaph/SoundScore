@@ -1,51 +1,67 @@
 <mat-toolbar id="headBar">
   <mat-toolbar-row class="toolbar">
-    <div class="toolbarLeftSide">
-      <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
-        <mat-icon style="color: white">g_translate</mat-icon>
-      </button>
-      <button mat-icon-button routerLink="/home/leaderBoard">
-        <mat-icon style="color: white">leaderboard</mat-icon>
-      </button>
-      <mat-menu #languageMenu="matMenu" xPosition="before">
-        @for (lang of langs; track $index) {
-          <p mat-menu-item (click)="service.setLanguage(lang); window.location.reload();">
-            {{ Language[lang] }}
-          </p>
-        }
-      </mat-menu>
+    @if (!(headerService.searching)) {
+
+      <div class="toolbarLeftSide">
+        <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
+          <mat-icon style="color: white">g_translate</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/home/leaderBoard">
+          <mat-icon style="color: white">leaderboard</mat-icon>
+        </button>
+        <mat-menu #languageMenu="matMenu" xPosition="before">
+          @for (lang of headerService.langs; track $index) {
+            <p mat-menu-item (click)="headerService.service.setLanguage(lang); headerService.window.location.reload();">
+              {{ headerService.Language[lang] }}
+            </p>
+          }
+        </mat-menu>
     </div>
+    }
     <div class="toolbarMiddle">
-      <span (click)="refresh()" routerLink="/home" style="color: white">Sound Score</span>
+      <span (click)="headerService.refresh()" routerLink="/home" style="color: white">Sound Score</span>
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
-      <button (click)="updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
-        <mat-icon [matBadge]="unreadNotifications.length" style="color: white">notifications_none</mat-icon>
-      </button>
-      <button [routerLink]="['/home/search']" mat-icon-button>
+      @if (!(headerService.searching)) {
+        <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
+          <mat-icon [matBadge]="headerService.unreadNotifications.length" style="color: white">notifications_none
+          </mat-icon>
+        </button>
+      }
+
+      @if (headerService.searching) {
+        <form (ngSubmit)="search()" class="search-container">
+          <mat-form-field class="small" appearance="outline">
+            <mat-label style="color: white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
+            <input style="color: white" [formControl]="headerService.searchTerm" matInput>
+          </mat-form-field>
+        </form>
+      }
+
+      <button (click)="headerService.searching = !(headerService.searching)" mat-icon-button>
         <mat-icon style="color: white">search</mat-icon>
       </button>
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
            class="catPic">
       <mat-menu #inboxMenu="matMenu" xPosition="before">
-        @if (user.notifications && user.notifications.length > 0) {
+        @if (headerService.user.notifications && headerService.user.notifications.length > 0) {
           <div class="notification-header-container">
-            <div (click)="showReadNotifications = !showReadNotifications">
-              <p>{{ (showReadNotifications ? "HEADER.SHOW_UNREAD" : "HEADER.SHOW_READ")|translate }}</p>
-
+            <div
+              (click)="headerService.showReadNotifications = !(headerService.showReadNotifications); $event.stopPropagation()">
+              <p>{{ (headerService.showReadNotifications ? "HEADER.HIDE_READ" : "HEADER.SHOW_READ")|translate }}</p>
             </div>
-            <div (click)="markAllAsRead()">
+            <div (click)="headerService.markAllAsRead(); $event.stopPropagation()">
               <p>{{ "HEADER.ALL_READ"|translate }}</p>
             </div>
           </div>
-          @for (notification of showReadNotifications ? user.notifications : unreadNotifications; track $index) {
+          @for (notification of headerService.showReadNotifications ? headerService.user.notifications : headerService.unreadNotifications; track $index) {
             <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
                     [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
               <div>
                 <img class="notification-image" [src]="notification.post?.image ?? notification.comment.post.image">
                 <p class="menu-text">
-                  {{ createTextsToDisplay(notification) }}
+                  {{ headerService.createTextsToDisplay(notification) }}
                 </p>
               </div>
             </button>
