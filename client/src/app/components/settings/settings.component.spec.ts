@@ -69,7 +69,7 @@ describe('SettingsComponent', () => {
     it('should initialize user form with user data (positive test)', () => {
       component.ngOnInit();
       expect(jwtServiceMock.getMe).toHaveBeenCalled();
-      expect(component.userForm.value.email).toBe('test@example.com');
+      expect(component.userForm.controls.email.value).toBe('test@example.com');
       expect(component.userForm.value.username).toBe('testuser');
     });
 
