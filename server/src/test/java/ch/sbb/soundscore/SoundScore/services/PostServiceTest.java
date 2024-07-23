@@ -3,92 +3,213 @@ package ch.sbb.soundscore.SoundScore.services;
 import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
 import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.entities.UserNotifications;
 import ch.sbb.soundscore.SoundScore.repositories.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class PostServiceTest {
+public class PostServiceTest {
+
+    @Mock
     private PostRepository postRepository;
-    private CommentRepository commentRepository;
-    private PostService postService;
+
+    @Mock
     private LikeOrDislikeRepository likeOrDislikeRepository;
+
+    @Mock
+    private CommentRepository commentRepository;
+
+    @Mock
     private UserRepository userRepository;
+
+    @Mock
     private UserNotificationsRepository userNotificationsRepository;
+
+    @InjectMocks
+    private PostService postService;
 
     @BeforeEach
     void setUp() {
-        postRepository = mock(PostRepository.class);
-        likeOrDislikeRepository = mock(LikeOrDislikeRepository.class);
-        CommentRepository commentRepository = mock(CommentRepository.class);
-        userRepository = mock(UserRepository.class);
-        userNotificationsRepository = mock(UserNotificationsRepository.class);
-        postService = new PostService(postRepository, likeOrDislikeRepository, commentRepository, userRepository, userNotificationsRepository);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void allPosts() {
+    void testAllPostsPositive() {
         Post post1 = new Post();
+        post1.setId(1L);
         Post post2 = new Post();
+        post2.setId(2L);
+
         when(postRepository.findAll()).thenReturn(Arrays.asList(post1, post2));
+        when(likeOrDislikeRepository.likesByPostId(any(Long.class))).thenReturn(generateLikeOrDislikeList(5));
+        when(likeOrDislikeRepository.dislikesByPostId(any(Long.class))).thenReturn(generateLikeOrDislikeList(2));
 
-        List<Post> result = postService.allPosts();
+        List<Post> posts = postService.allPosts();
 
-        assertEquals(2, result.size());
-        assertTrue(result.containsAll(Arrays.asList(post1, post2)));
+        assertEquals(2, posts.size());
+        verify(postRepository, times(1)).findAll();
     }
 
     @Test
-    void newPost() {
+    void testAllPostsNegative() {
+        when(postRepository.findAll()).thenReturn(Arrays.asList());
+
+        List<Post> posts = postService.allPosts();
+
+        assertEquals(0, posts.size());
+        verify(postRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testNewPostPositive() {
         Post post = new Post();
-        post.setId(1L); // Assuming the ID is set to 1
-        when(postRepository.save(post)).thenReturn(post);
+        when(postRepository.save(any(Post.class))).thenReturn(post);
 
-        Post result = postService.newPost(post);
+        Post savedPost = postService.newPost(post);
 
+        assertEquals(post, savedPost);
         verify(postRepository, times(1)).save(post);
-        assertEquals(post.getId(), result.getId()); // Compare the IDs
     }
 
     @Test
-    void editPost() {
+    void testNewPostNegative() {
         Post post = new Post();
-        when(postRepository.save(post)).thenReturn(post);
+        when(postRepository.save(any(Post.class))).thenReturn(null);
 
-        Post result = postService.editPost(post);
+        Post savedPost = postService.newPost(post);
 
+        assertNull(savedPost);
         verify(postRepository, times(1)).save(post);
-        assertEquals(post, result);
     }
 
     @Test
-    void deletePost() {
+    void testEditPostPositive() {
         Post post = new Post();
-        when(postRepository.findById(1L)).thenReturn(Optional.of(post));
-        doNothing().when(postRepository).delete(post);
+        when(postRepository.save(any(Post.class))).thenReturn(post);
 
-        Post result = postService.deletePost(1L);
+        Post editedPost = postService.editPost(post);
 
+        assertEquals(post, editedPost);
+        verify(postRepository, times(1)).save(post);
+    }
+
+    @Test
+    void testEditPostNegative() {
+        Post post = new Post();
+        when(postRepository.save(any(Post.class))).thenReturn(null);
+
+        Post editedPost = postService.editPost(post);
+
+        assertNull(editedPost);
+        verify(postRepository, times(1)).save(post);
+    }
+
+    @Test
+    void testDeletePostPositive() {
+        Post post = new Post();
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.of(post));
+
+        Post deletedPost = postService.deletePost(1L);
+
+        assertEquals(post, deletedPost);
+        verify(commentRepository, times(1)).deleteAllByPost(post);
+        verify(userNotificationsRepository, times(1)).deleteAllByPost(post);
+        verify(postRepository, times(1)).deleteLikes(post);
         verify(postRepository, times(1)).delete(post);
-        assertEquals(post, result);
     }
 
     @Test
-    void likeOrDislikePost() {
-        Post post = new Post(null, null, null, null);
-        User user = new User("test", "test", "test", null);
-        when(postRepository.findById(1L)).thenReturn(Optional.of(post));
-        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
-        when(postService.likeOrDislikePost(1L, true, user)).thenReturn(true);
-        postService.likeOrDislikePost(1L, true, user);
-        verify(likeOrDislikeRepository, times(2)).save(any(LikeOrDislike.class));
-        verify(likeOrDislikeRepository, times(2)).existsLikeOrDislikeByPostAndUserAndLikeTrue(post, user);
+    void testDeletePostNegative() {
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> postService.deletePost(1L));
+    }
+
+    @Test
+    void testGetPostPositive() {
+        Post post = new Post();
+        post.setId(1L);
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.of(post));
+        when(likeOrDislikeRepository.likesByPostId(any(Long.class))).thenReturn(generateLikeOrDislikeList(5));
+        when(likeOrDislikeRepository.dislikesByPostId(any(Long.class))).thenReturn(generateLikeOrDislikeList(2));
+
+        Post foundPost = postService.getPost(1L);
+
+        assertEquals(post, foundPost);
+        verify(postRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testGetPostNegative() {
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> postService.getPost(1L));
+    }
+
+    @Test
+    void testLikeOrDislikePostPositive() {
+        Post post = new Post();
+        User user = new User();
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn("testuser");
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.of(post));
+        when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.of(user));
+        when(likeOrDislikeRepository.save(any(LikeOrDislike.class))).thenReturn(new LikeOrDislike());
+
+        boolean result = postService.likeOrDislikePost(1L, true, userDetails);
+
+        assertTrue(result);
+        verify(postRepository, times(1)).findById(1L);
+        verify(userRepository, times(1)).findByUsername("testuser");
+    }
+
+    @Test
+    void testLikeOrDislikePostNegative() {
+        UserDetails userDetails = mock(UserDetails.class);
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> postService.likeOrDislikePost(1L, true, userDetails));
+    }
+
+    @Test
+    void testHasLikedOrDislikedPositive() {
+        Post post = new Post();
+        User user = new User();
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.of(post));
+        when(likeOrDislikeRepository.existsLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user)).thenReturn(true);
+
+        String result = postService.hasLikedOrDisliked(1L, user);
+
+        assertEquals("{\"alreadyLikedOrDisliked\":true,\"liked\":false}", result);
+        verify(postRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testHasLikedOrDislikedNegative() {
+        User user = new User();
+        when(postRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> postService.hasLikedOrDisliked(1L, user));
+    }
+
+    private List<LikeOrDislike> generateLikeOrDislikeList(int count) {
+        List<LikeOrDislike> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            list.add(new LikeOrDislike());
+        }
+        return list;
     }
 }
