@@ -9,7 +9,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {AsyncPipe, NgForOf, NgOptimizedImage, NgStyle} from "@angular/common";
+import {AsyncPipe, NgClass, NgForOf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatBadge} from "@angular/material/badge";
 import {HeaderService} from "../../services/HeaderService/header.service";
@@ -41,7 +41,8 @@ import {Notification} from "../../models/Notification";
     NgStyle,
     MatBadge,
     FormsModule,
-    MatMenuContent
+    MatMenuContent,
+    NgClass
   ],
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'

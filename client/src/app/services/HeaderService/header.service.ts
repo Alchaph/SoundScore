@@ -54,6 +54,7 @@ export class HeaderService {
 
 
   refresh() {
+    this.searching = false;
     if (window.location.href === 'http://localhost:4200/home') {
       window.location.reload();
     }
