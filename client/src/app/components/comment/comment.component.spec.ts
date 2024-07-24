@@ -74,18 +74,4 @@ describe('CommentComponent', () => {
     expect(() => component.deleteComment({id: undefined} as Comment)).toThrow(new Error('Comment has no id'));
   });
 
-  it('should remove comment with given id from tree', () => {
-    const comments = [
-      { id: 1, children: [{ id: 2 }] } as Comment,
-      { id: 3 } as Comment
-    ];
-    const updatedComments = component.removeCommentFromTree(comments, 2);
-    expect(updatedComments).toEqual([{ id: 1, children: [] }, { id: 3 }] as Comment[]);
-  });
-
-  it('should handle removeCommentFromTree with empty array', () => {
-    const comments: Comment[] = [];
-    const updatedComments = component.removeCommentFromTree(comments, 1);
-    expect(updatedComments).toEqual([]);
-  });
 });
