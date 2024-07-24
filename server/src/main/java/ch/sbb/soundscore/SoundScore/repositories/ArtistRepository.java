@@ -15,4 +15,12 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
     @Query("UPDATE Artist a SET a.description = 'An deleted Artist' , a.name = 'Deleted Artist' , a.image = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' WHERE a = :a")
     @Override
     void delete(Artist a);
+
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO artists (id, description, image, name) " +
+            "SELECT 0, 'Deleted Artist', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'Deleted Artist' " +
+            "WHERE NOT EXISTS (" +
+            "SELECT * FROM artists WHERE id = 0)", nativeQuery = true)
+    void createArtist0IfNotExists();
 }

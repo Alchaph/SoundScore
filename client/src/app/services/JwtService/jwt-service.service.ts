@@ -93,8 +93,8 @@ export class JwtServiceService {
     return this.http.get<DataTranfer>(url);
   }
 
-  public authenticate(email: string): Observable<Verification> {
-    return this.http.post<Verification>(environment.url + '/auth/authenticate', {
+  public authenticate(email: string): Observable<boolean> {
+    return this.http.post<boolean>(environment.url + '/auth/authenticate', {
       data: email
     });
   }

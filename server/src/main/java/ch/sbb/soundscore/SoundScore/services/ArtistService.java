@@ -34,6 +34,7 @@ public class ArtistService {
 
     public Artist deleteArtist(Long id) {
         Artist artist = artistRepository.findById(id).orElseThrow();
+        artistRepository.createArtist0IfNotExists();
         userRepository.updateArtistByArtist(artist);
         postRepository.updateArtistByArtist(artist);
         songRepository.updateArtistByArtist(artist);

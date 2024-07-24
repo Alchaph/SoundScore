@@ -52,5 +52,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where u.artist.id = ?1")
     User getUserByArtistId(int id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO users (id, created_at, email, password, updated_at, username, artist_id) " +
+            "SELECT 0, '2024-07-24 12:38:49.086000', 'Deleted', 'Deleted', '2024-08-24 12:38:49.086000', 'Deleted User', NULL " +
+            "WHERE NOT EXISTS (" +
+            "    SELECT 1 FROM users WHERE id = 0" +
+            ");", nativeQuery = true)
+    void createUser0IfNotExists();
 }
 
