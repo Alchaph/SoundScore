@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {Component, HostListener, OnInit} from '@angular/core';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
@@ -14,6 +14,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MatBadge} from "@angular/material/badge";
 import {HeaderService} from "../../services/HeaderService/header.service";
 import {Notification} from "../../models/Notification";
+import {CookieService} from "../../services/CookieService/cookie.service";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -49,9 +50,30 @@ import {Notification} from "../../models/Notification";
 })
 export class HeadNavBarComponent implements OnInit {
 
-  constructor(protected headerService: HeaderService, protected router: Router) {
-
+  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService) {
   }
+
+  counter = 0;
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent): void {
+    const colorBox = document.getElementById('box');
+    console.log(this.colors);
+    console.log(!colorBox!.contains(event.target as Node));
+    console.log(this.counter);
+    if (this.colors && colorBox && !colorBox.contains(event.target as Node) && this.counter === 1) {
+      this.colors = false;
+      this.counter = 0;
+    } else if (this.colors && colorBox && !colorBox.contains(event.target as Node)) {
+      console.log('increment');
+      this.counter++;
+    }
+  }
+
+  colors = false
+  color1: FormControl = new FormControl(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim() || '', Validators.required);
+  color2: FormControl = new FormControl(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim() || '', Validators.required);
+
 
   ngOnInit(): void {
     this.headerService.isLoading = this.headerService.loaderService.getIsLoading();
@@ -95,6 +117,15 @@ export class HeadNavBarComponent implements OnInit {
     let navigation: string = "/home/post/" + (notification.post ?? notification.comment.post)["id"]
     this.router.navigate([navigation])
   }
+
+  updateColors(): void {
+    document.documentElement.style.setProperty('--first-color', this.color1.value);
+    document.documentElement.style.setProperty('--second-color', this.color2.value);
+    this.cookieService.setCookie('color1', this.color1.value, 51 * 7 * 24 * 60 * 60 * 1000);
+    this.cookieService.setCookie('color2', this.color2.value, 51 * 7 * 24 * 60 * 60 * 1000);
+    this.colors = false;
+  }
+
 
 
   protected readonly sessionStorage = sessionStorage;

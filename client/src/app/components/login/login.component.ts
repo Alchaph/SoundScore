@@ -55,6 +55,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   username: string = '';
   email: string = '';
   private token: string = '';
+
   registerForm: FormGroup<{
     email: FormControl,
     otp: FormControl,
@@ -239,10 +240,6 @@ export const config: NeatConfig = {
     {
       "color": "#C500FF",
       "enabled": true
-    },
-    {
-      "color": "#0484F7",
-      "enabled": false
     }
   ],
   "speed": 3,

@@ -1,3 +1,5 @@
+@import "../../_variables";
+
 button {
   --color: #ffffff;
   font-family: inherit;
@@ -14,13 +16,13 @@ button {
   border: 2px solid var(--color);
   border-radius: 6px;
   position: relative;
-  background-image: linear-gradient(190deg, #6627b4 0, #c23fe3 99%);
+  background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
 }
 
 button::before {
   position: absolute;
   content: "";
-  background: #6627b4;
+  background: $second-color;
   width: 150px;
   height: 200px;
   z-index: -1;
@@ -43,7 +45,7 @@ button:hover::before {
 }
 
 .alert-box {
-  background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
+  background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
   min-width: 300px;
   min-height: 100px;
   z-index: 10000;
