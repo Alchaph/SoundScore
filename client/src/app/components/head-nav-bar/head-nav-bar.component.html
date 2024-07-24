@@ -12,7 +12,7 @@
         </div>
       </div>
       <div id="buttons">
-        <button class="button2" (click)="colors = false">Cancel</button>
+        <button class="button2" (click)="colors = false; counter = 0">Cancel</button>
         <button class="button2" [disabled]="color1.invalid || color2.invalid" (click)="updateColors()">Ok</button>
       </div>
     </div>
@@ -89,7 +89,7 @@
             </button>
           }
         } @else {
-          <p>{{ "No notifications"|translate }}</p>
+          <p style="padding-left: 10px; padding-right: 10px">{{ "No notifications"|translate }}</p>
         }
       </mat-menu>
       <mat-menu #userMenu="matMenu">

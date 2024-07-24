@@ -124,6 +124,7 @@ export class HeadNavBarComponent implements OnInit {
     this.cookieService.setCookie('color1', this.color1.value, 51 * 7 * 24 * 60 * 60 * 1000);
     this.cookieService.setCookie('color2', this.color2.value, 51 * 7 * 24 * 60 * 60 * 1000);
     this.colors = false;
+    this.counter = 0;
   }
 
 
