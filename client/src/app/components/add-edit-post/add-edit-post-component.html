@@ -1,5 +1,5 @@
 <app-head-nav-bar></app-head-nav-bar>
-<button mat-button color="primary" (click)="goBack()">❮ {{'POST_FORM.GO_BACK_BUTTON' | translate}}</button>
+<button (click)="goBack()" color="primary" mat-button>❮ {{ 'POST_FORM.GO_BACK_BUTTON' | translate }}</button>
 <div class="settings-container">
   <mat-card-header>
     {{
@@ -17,8 +17,9 @@
         <input formControlName="content" matInput>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>{{'POST_FORM.IMAGE_TYPE_LABEL' | translate}}</mat-label>
-        <mat-select [(ngModel)]="imageType" [ngModelOptions]="{standalone: true}" name="imageType" value="Image">
+        <mat-label>{{ 'POST_FORM.IMAGE_TYPE_LABEL' | translate }}</mat-label>
+        <mat-select [(ngModel)]="imageType" [innerHTML]="'POST_FORM.'+imageType.toUpperCase()+'_OPTION' | translate"
+                    [ngModelOptions]="{standalone: true}" name="imageType" value="Image">
           <mat-option [value]="'Image'">{{ 'POST_FORM.IMAGE_OPTION' | translate }}</mat-option>
           <mat-option [value]="'Gif'">{{ 'POST_FORM.GIF_OPTION' | translate }}</mat-option>
         </mat-select>
@@ -33,21 +34,22 @@
           <div class="gif-container">
             @for (gifString of gifSearchResults; track $index) {
               <div id="gif-frame">
-              <img (click)="selectGif(gifString)" [src]="gifString" class="gif">
+                <img (click)="selectGif(gifString)" [src]="gifString" class="gif">
               </div>
             }
           </div>
         }
       } @else {
         <mat-form-field>
-          <mat-label>{{'POST_FORM.IMAGE_URL_LABEL' | translate}}</mat-label>
+          <mat-label>{{ 'POST_FORM.IMAGE_URL_LABEL' | translate }}</mat-label>
           <input formControlName="imageUrl" matInput>
         </mat-form-field>
       }
       <img #uploadedImage [src]="formGroup.controls.imageUrl.value" mat-card-image>
       <mat-form-field>
-        <mat-label>{{'POST_FORM.POST_TYPE_LABEL' | translate}}</mat-label>
-        <mat-select [(ngModel)]="showedType" [ngModelOptions]="{standalone: true}" name="showedType">
+        <mat-label>{{ 'POST_FORM.POST_TYPE_LABEL' | translate }}</mat-label>
+        <mat-select [(ngModel)]="showedType" [innerHTML]="'HOME.' + showedType.toUpperCase() | translate"
+                    [ngModelOptions]="{standalone: true}" name="showedType">
           <mat-option [value]="'Song'">{{ 'HOME.SONG' | translate }}</mat-option>
           <mat-option [value]="'Genre'">{{ 'HOME.GENRE' | translate }}</mat-option>
           <mat-option [value]="'Artist'">{{ 'HOME.ARTIST' | translate }}</mat-option>
@@ -63,7 +65,7 @@
           }
           @switch (showedType) {
             @case ('Song') {
-              @for (song of allSongs ; track $index) {
+              @for (song of allSongs; track $index) {
                 <mat-option [value]="song">{{ song.title }}</mat-option>
               }
             }
@@ -81,7 +83,10 @@
           }
         </mat-select>
       </mat-form-field>
-      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ post ? ('POST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('POST_FORM.SUBMIT_BUTTON_CREATE' | translate)  }} </button>
+      <button [disabled]="formGroup.invalid" color="primary"
+              mat-raised-button>{{ post ? ('POST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('POST_FORM.SUBMIT_BUTTON_CREATE' | translate) }}
+      </button>
     </form>
   </mat-card-content>
 </div>
+

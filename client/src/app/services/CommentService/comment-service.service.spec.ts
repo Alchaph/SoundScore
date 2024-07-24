@@ -517,125 +517,139 @@ describe('CommentService', () => {
     expect(req.request.method).toBe('GET');
     req.error(new ErrorEvent('Unauthorized'), {status: 401});
   });
+  it('getCommentTree should return the comment tree', () => {
+    const mockComment1: Comment = {
+      id: 1,
+      title: 'Test Title',
+      message: 'This is a test comment message.',
+      post: {
+        id: 1,
+        title: 'Test Post',
+        content: 'This is a test post content',
+        user: {
+          id: 1,
+          username: 'Test User',
+          email: '',
+          password: '',
+          artist: {
+            id: 1,
+            name: 'Test Artist',
+            description: 'This is a test artist description.',
+            image: 'test-artist.jpg'
+          },
+          notifications: []
+        },
+        likes: [],
+        dislikes: [],
+        image: ''
+      },
+      user: {
+        id: 1,
+        username: 'Test User',
+        email: '',
+        password: '',
+        artist: {
+          id: 1,
+          name: 'Test Artist',
+          description: 'This is a test artist description.',
+          image: 'test-artist.jpg'
+        },
+        notifications: []
 
-  //TODO Nevios Comment Tree
-  // it('getCommentTree should return the comment tree', () => {
-  //   const mockPostId = 1;
-  //   const mockComments: Comment[] = [
-  //     {
-  //       id: 2,
-  //       title: 'Test Title',
-  //       message: 'This is a test comment message.',
-  //       post: {
-  //         id: 1,
-  //         title: 'Test Post',
-  //         content: 'This is a test post content',
-  //         user: {
-  //           id: 1,
-  //           username: 'Test User',
-  //           email: 'test@example.com',
-  //           password: 'password',
-  //           artist: {
-  //             id: 1,
-  //             name: 'Test Artist',
-  //             description: 'This is a test artist description.',
-  //             image: 'test-artist.jpg'
-  //           },
-  //         },
-  //         likes: [],
-  //         dislikes: [],
-  //         image: ''
-  //       },
-  //       parent: {
-  //         id: 1,
-  //         title: 'Test Title',
-  //         message: 'This is a test comment message.',
-  //         post: {
-  //           id: 1,
-  //           title: 'Test Post',
-  //           content: 'This is a test post content',
-  //           user: {
-  //             id: 1,
-  //             username: 'Test User',
-  //             email: '',
-  //             password: '',
-  //             artist: {
-  //               id: 1,
-  //               name: 'Test Artist',
-  //               description: 'This is a test artist description.',
-  //               image: 'test-artist.jpg'
-  //             },
-  //           },
-  //           likes: [],
-  //           dislikes: [],
-  //           image: ''
-  //         },
-  //         user: {
-  //           id: 1,
-  //           username: 'Test User',
-  //           email: '',
-  //           password: '',
-  //           artist: {
-  //             id: 1,
-  //             name: 'Test Artist',
-  //             description: 'This is a test artist description.',
-  //             image: 'test-artist.jpg'
-  //           },
-  //         },
-  //       },
-  //       user: {
-  //         id: 1,
-  //         username: 'Test User',
-  //         email: 'test@example.com',
-  //         password: 'password',
-  //         artist: {
-  //           id: 1,
-  //           name: 'Test Artist',
-  //           description: 'This is a test artist description.',
-  //           image: 'test-artist.jpg'
-  //         },
-  //       },
-  //     },
-  //     {
-  //       id: 3,
-  //       title: 'Second Test Title',
-  //       message: 'This is a second test comment message.',
-  //       post: {
-  //         id: 1,
-  //         title: 'Test Post',
-  //         content: 'This is a test post content',
-  //         user: {
-  //           id: 1,
-  //           username: 'Test User',
-  //           email: 'test@example.com',
-  //           password: 'password',
-  //           artist: {
-  //             id: 1,
-  //             name: 'Test Artist',
-  //             description: 'This is a test artist description.',
-  //             image: 'test-artist.jpg'
-  //           },
-  //         },
-  //         likes: [],
-  //         dislikes: [],
-  //         image: ''
-  //       },
-  //       user: {
-  //         id: 2,
-  //         username: 'Second Test User',
-  //         email: 'secondtest@example.com',
-  //         password: 'password2',
-  //         artist: {
-  //           id: 2,
-  //           name: 'Second Test Artist',
-  //           description: 'This is a second test artist description.',
-  //           image: 'second-test-artist.jpg'
-  //         },
-  //       },
-  //     }
-  //   ];
-  //   const rootComments: Comment[] = service.buildCommentTree(mockComments);
-  //   // @ts-ignore
-  //   expect(rootComments)[1].children[0].id.toEqual(1);
-  // });
+      },
+    }
+    const mockComment2: Comment = {
+      id: 2,
+      title: 'Test Title',
+      message: 'This is a test comment message.',
+      post: {
+        id: 1,
+        title: 'Test Post',
+        content: 'This is a test post content',
+        user: {
+          id: 1,
+          username: 'Test User',
+          email: 'test@example.com',
+          password: 'password',
+          artist: {
+            id: 1,
+            name: 'Test Artist',
+            description: 'This is a test artist description.',
+            image: 'test-artist.jpg'
+          },
+          notifications: []
+        },
+        likes: [],
+        dislikes: [],
+        image: ''
+      },
+      parent: mockComment1,
+      user: {
+        id: 1,
+        username: 'Test User',
+        email: 'test@example.com',
+        password: 'password',
+        artist: {
+          id: 1,
+          name: 'Test Artist',
+          description: 'This is a test artist description.',
+          image: 'test-artist.jpg'
+        },
+        notifications: []
+
+      },
+    }
+    const mockComments3: Comment = {
+      id: 3,
+      title: 'Second Test Title',
+      message: 'This is a second test comment message.',
+      post: {
+        id: 1,
+        title: 'Test Post',
+        content: 'This is a test post content',
+        user: {
+          id: 1,
+          username: 'Test User',
+          email: 'test@example.com',
+          password: 'password',
+          artist: {
+            id: 1,
+            name: 'Test Artist',
+            description: 'This is a test artist description.',
+            image: 'test-artist.jpg'
+          },
+          notifications: []
+        },
+        likes: [],
+        dislikes: [],
+        image: ''
+      },
+      user: {
+        id: 2,
+        username: 'Second Test User',
+        email: 'secondtest@example.com',
+        password: 'password2',
+        artist: {
+          id: 2,
+          name: 'Second Test Artist',
+          description: 'This is a second test artist description.',
+          image: 'second-test-artist.jpg'
+        },
+        notifications: []
+      },
+    }
+    const mockComments: Comment[] = [
+      mockComment1,
+      mockComment2,
+      mockComments3
+    ];
+    mockComment1.children?.push(mockComment2);
+    const expectedComments: Comment[] = [
+      mockComment1,
+      mockComments3
+    ]
+    const rootComments: Comment[] = service.buildCommentTree(mockComments);
+    expect(rootComments).toEqual(
+      expectedComments);
+  });
 });

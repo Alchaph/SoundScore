@@ -92,24 +92,26 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit(): void {
-    this.postService.getPost(Number(this.route.snapshot.paramMap.get('postId'))).subscribe(params => {
-      this.post = params;
-      if (this.post) {
-        this.formGroup.controls.title.setValue(this.post.title)
-        this.formGroup.controls.content.setValue(this.post.content)
-        this.formGroup.controls.imageUrl.setValue(this.post.image)
-        if (this.post.song) {
-          this.formGroup.controls.songOrGenreOrArtist.setValue(this.post.song as Song)
-          this.showedType = 'Song'
-        } else if (this.post.artist) {
-          this.formGroup.controls.songOrGenreOrArtist.setValue(this.post.artist as Artist)
-          this.showedType = 'Artist'
-        } else if (this.post.genre) {
-          this.formGroup.controls.songOrGenreOrArtist.setValue(this.post.genre as Genre)
-          this.showedType = 'Genre'
+    if (this.route.snapshot.paramMap.get('postId')) {
+      this.postService.getPost(Number(this.route.snapshot.paramMap.get('postId'))).subscribe(params => {
+        this.post = params;
+        if (this.post) {
+          this.formGroup.controls.title.setValue(this.post.title)
+          this.formGroup.controls.content.setValue(this.post.content)
+          this.formGroup.controls.imageUrl.setValue(this.post.image)
+          if (this.post.song) {
+            this.formGroup.controls.songOrGenreOrArtist.setValue(this.post.song as Song)
+            this.showedType = 'Song'
+          } else if (this.post.artist) {
+            this.formGroup.controls.songOrGenreOrArtist.setValue(this.post.artist as Artist)
+            this.showedType = 'Artist'
+          } else if (this.post.genre) {
+            this.formGroup.controls.songOrGenreOrArtist.setValue(this.post.genre as Genre)
+            this.showedType = 'Genre'
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   ngAfterViewInit(): void {
