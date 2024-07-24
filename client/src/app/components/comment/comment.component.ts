@@ -68,13 +68,4 @@ export class CommentComponent {
     }
   }
 
-
-  removeCommentFromTree(comments: Comment[], commentId: number): Comment[] {
-    return comments.filter(c => c.id !== commentId).map(c => {
-      if (c.children) {
-        c.children = this.removeCommentFromTree(c.children, commentId);
-      }
-      return c;
-    });
-  }
 }
