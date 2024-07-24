@@ -1,3 +1,5 @@
+@import "../../_variables";
+
 /* Base styles */
 app-head-nav-bar {
   position: relative;
@@ -73,7 +75,7 @@ mat-sidenav-content mat-chip-listbox {
 }
 
 .top-list mat-list-item:hover {
-  background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%) !important;
+  background-image: linear-gradient(190deg, $second-color 0, $first-color 99%) !important;
   cursor: pointer !important;
 }
 #right-nav mat-list mat-list-item:hover{
@@ -85,7 +87,7 @@ mat-sidenav-content mat-chip-listbox {
   color: white !important;
 }
 #create-post-expansion-panel {
-  background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
+  background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
   color: white !important;
 }
 
@@ -190,7 +192,7 @@ p {
     display: flex;
     width: 100vw;
     height: 5rem;
-    background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
+    background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -214,12 +216,12 @@ p {
 
     .matTree {
       width: 300px !important;
-      max-height: 500px !important; /* Beispielhöhe anpassen */
+      max-height: 500px !important;
       overflow: auto !important;
     }
 
     mat-icon {
-      color: #C500FF;
+      color: $first-color;
     }
   }
 

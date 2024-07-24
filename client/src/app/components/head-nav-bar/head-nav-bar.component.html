@@ -1,3 +1,23 @@
+@if (colors) {
+  <div id="background">
+    <div id="box">
+      <div id="box2">
+        <div class="Pick" style="padding-right: 15px">
+          <label for="color1" style="padding-right: 10px">Color 1:</label>
+          <input type="color" id="color1" [formControl]="color1">
+        </div>
+        <div class="Pick">
+          <label for="color2" style="padding-right: 10px">Color 2:</label>
+          <input type="color" id="color2" [formControl]="color2">
+        </div>
+      </div>
+      <div id="buttons">
+        <button class="button2" (click)="colors = false">Cancel</button>
+        <button class="button2" [disabled]="color1.invalid || color2.invalid" (click)="updateColors()">Ok</button>
+      </div>
+    </div>
+  </div>
+}
 <mat-toolbar id="headBar">
   <mat-toolbar-row class="toolbar">
     @if (!(headerService.searching)) {
@@ -27,6 +47,9 @@
         <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
           <mat-icon [matBadge]="headerService.unreadNotifications.length" style="color: white">notifications_none
           </mat-icon>
+        </button>
+        <button (click)="colors = true" mat-icon-button>
+          <mat-icon style="color: white">palette</mat-icon>
         </button>
       }
 

@@ -1,3 +1,4 @@
+@import "../../_variables";
 /* Base styles */
 app-head-nav-bar {
   position: relative;
@@ -27,7 +28,7 @@ main {
   }
 
   #create-post-expansion-panel {
-    background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%);
+    background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
     color: white !important;
   }
 }
@@ -88,7 +89,7 @@ mat-sidenav-content mat-chip-listbox {
 }
 
 .top-list mat-list-item:hover {
-  background-image: linear-gradient(190deg, #4e00ad 0, #c23fe3 99%) !important;
+  background-image: linear-gradient(190deg, $second-color 0, $first-color 99%) !important;
   cursor: pointer !important;
 }
 
