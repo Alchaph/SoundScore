@@ -146,6 +146,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   verifyOtp() {
     this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).subscribe((data) => {
+      console.log(data);
+      console.log(this.Otp);
+      console.log(this.TwoFA);
       if (data && this.TwoFA) {
         localStorage.setItem('token', this.token);
         this.router.navigate(['/home']);
@@ -164,12 +167,13 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   verifyEmail() {
     this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
-       if (data && data.username && data.otp) {
+      console.log(this.registerForm.controls.email.value);
+       if (data) {
         this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data: DataTranfer) => {
           if (data && data.data) {
             this.email = this.registerForm.controls.email.value;
             this.forgotPasswordEmail = false
-            this.Otp = true;
+            this.TwoFA = true;
             this.username = data.data;
           } else {
             this.userInformationService.setMessage('Could not find user');
