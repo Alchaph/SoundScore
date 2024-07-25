@@ -5,17 +5,21 @@ import {inject} from '@angular/core';
 import {LoaderService} from '../services/LoaderService/loader.service';
 
 export const LoadingInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
-  const loaderService: LoaderService = inject(LoaderService);
-  timer(1000).subscribe(() => {
-  if (!req.url.includes('https://tenor.googleapis.com/v2/search')) {
-    loaderService.show();
-  }
-  });
-  return next(req).pipe(
-    finalize(() => {
+  if (req.method !== 'DELETE') {
+    const loaderService: LoaderService = inject(LoaderService);
+    timer(1000).subscribe(() => {
       if (!req.url.includes('https://tenor.googleapis.com/v2/search')) {
-        loaderService.hide();
+        loaderService.show();
       }
-    })
-  );
+    });
+    return next(req).pipe(
+      finalize(() => {
+        if (!req.url.includes('https://tenor.googleapis.com/v2/search')) {
+          loaderService.hide();
+        }
+      })
+    );
+  } else {
+    return next(req);
+  }
 };

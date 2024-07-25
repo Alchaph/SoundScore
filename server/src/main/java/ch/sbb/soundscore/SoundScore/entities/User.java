@@ -15,9 +15,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"artist_id"})
-})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"artist_id"})})
 @Entity
 @Getter
 @Setter

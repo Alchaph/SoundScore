@@ -31,6 +31,10 @@ main {
     background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
     color: white !important;
   }
+  #create-post-expansion-panel.mat-expanded {
+    background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
+    color: white !important;
+  }
 }
 
 main::-webkit-scrollbar {

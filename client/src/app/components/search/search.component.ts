@@ -77,6 +77,7 @@ export class SearchComponent implements OnInit {
               private postService: PostService,
               private homeService: HomeService,
               private route: ActivatedRoute,) {
+    this.search();
 
   }
 
@@ -121,7 +122,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  isPost(item: CombinedType): item is Post {
+   isPost(item: CombinedType): item is Post {
     return (item as Post).content !== undefined;
   }
 
