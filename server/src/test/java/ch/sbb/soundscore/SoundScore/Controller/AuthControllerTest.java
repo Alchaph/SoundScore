@@ -1,94 +1,167 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
-import ch.sbb.soundscore.SoundScore.dtos.LoginUserDto;
-import ch.sbb.soundscore.SoundScore.dtos.RegisterUserDto;
+import ch.sbb.soundscore.SoundScore.controllers.AuthenticationController;
+import ch.sbb.soundscore.SoundScore.dtos.*;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.AuthenticationService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import jakarta.transaction.Transactional;
+import ch.sbb.soundscore.SoundScore.services.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@ExtendWith(SpringExtension.class)
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class AuthControllerTest {
-    @Autowired
-    MockMvc mockMvc;
-    RegisterUserDto registerUserDto;
-    LoginUserDto loginUserDto;
-    String registerUserDtoAsJson;
-    String loginUserDtoAsJson;
+class AuthControllerTest {
+
+    @InjectMocks
+    private AuthenticationController authenticationController;
+
     @Mock
-    AuthenticationService authenticationService;
+    private JwtService jwtService;
+
+    @Mock
+    private AuthenticationService authenticationService;
+
+    private MockMvc mockMvc;
 
     @BeforeEach
     public void setUp() {
-        registerUserDto = new RegisterUserDto("test", "test", "test");
-        loginUserDto = new LoginUserDto("test", "test");
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        try {
-            registerUserDtoAsJson = ow.writeValueAsString(registerUserDto);
-            loginUserDtoAsJson = ow.writeValueAsString(loginUserDto);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(authenticationController).build();
     }
 
-
-    @DirtiesContext
-    @Transactional
     @Test
-    void register() throws Exception {
-        doReturn(new User("test","test","test", null)).when(authenticationService).signup(registerUserDto);
+    public void testRegister() throws Exception {
+        RegisterUserDto registerUserDto = new RegisterUserDto("email", "password", "username");
+        User user = new User();
+
+        when(authenticationService.signup(any(RegisterUserDto.class))).thenReturn(user);
+
         mockMvc.perform(post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(registerUserDtoAsJson)
-                )
+                        .content("{\"username\":\"testuser\",\"password\":\"password\"}"))
                 .andExpect(status().isOk());
     }
 
-    @DirtiesContext
-    @Transactional
     @Test
-    void authenticate() throws Exception {
-        mockMvc.perform(post("/api/auth/signup")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginUserDtoAsJson)
-                )
-                .andExpect(status().isOk());
+    public void testAuthenticate() throws Exception {
+        LoginUserDto loginUserDto = new LoginUserDto("testuser", "password");
+        User user = new User();
+        String token = "jwtToken";
+
+        when(authenticationService.authenticate(any(LoginUserDto.class))).thenReturn(user);
+        when(jwtService.generateToken(any(User.class))).thenReturn(token);
+        when(jwtService.getExpirationTime()).thenReturn(3600L);
+
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(registerUserDtoAsJson)
-                )
+                        .content("{\"username\":\"testuser\",\"password\":\"password\"}"))
                 .andExpect(status().isOk())
-                .andExpect(result ->
-                        result.getResponse()
-                                .getContentAsString()
-                                .contains("token"));
+                .andExpect(jsonPath("$.token").value(token))
+                .andExpect(jsonPath("$.expiresIn").value(3600));
     }
 
+    @Test
+    public void testVerifyPassword() throws Exception {
+        when(authenticationService.verifyPassword("testuser", "password")).thenReturn(true);
+
+        mockMvc.perform(post("/api/auth/verify-password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"username\":\"testuser\",\"password\":\"password\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
+    public void testEmailExists() throws Exception {
+        when(authenticationService.emailExists("test@example.com")).thenReturn(true);
+
+        mockMvc.perform(get("/api/auth/email-exists/test@example.com"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
+    public void testUsernameExists() throws Exception {
+        when(authenticationService.usernameExists("testuser")).thenReturn(true);
+
+        mockMvc.perform(get("/api/auth/username-exists/testuser"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
+    public void testAuthenticateWithOTP() throws Exception {
+        when(authenticationService.authenticateWithOTP(any(String.class))).thenReturn(true);
+
+        mockMvc.perform(post("/api/auth/authenticate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"data\":\"otpData\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
+    public void testVerifyOTP() throws Exception {
+        when(authenticationService.verifyOTP("testuser", "123456")).thenReturn(true);
+
+        mockMvc.perform(post("/api/auth/verify-Otp")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"username\":\"testuser\",\"otp\":\"123456\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
+    public void testGetUsernameByEmail() throws Exception {
+        DataTransferDTO dto = new DataTransferDTO();
+        dto.setData("testuser");
+        when(authenticationService.getUsernameByEmail("test@example.com")).thenReturn(dto);
+
+        mockMvc.perform(get("/api/auth/username-by-email/test@example.com"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").value("testuser"));
+    }
+
+    @Test
+    public void testGetEmailByUsername() throws Exception {
+        DataTransferDTO dto = new DataTransferDTO();
+        dto.setData("test@example.com");
+        when(authenticationService.getEmailByUsername("testuser")).thenReturn(dto);
+
+        mockMvc.perform(get("/api/auth/email-by-username/testuser"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").value("test@example.com"));
+    }
+
+    @Test
+    public void testUpdatePassword() throws Exception {
+        User user = new User();
+        UpdatePasswordDto updatePasswordDto = new UpdatePasswordDto("testuser", "password");
+
+        when(authenticationService.updatePassword(any(UpdatePasswordDto.class))).thenReturn(user);
+
+        mockMvc.perform(put("/api/auth/update-password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"username\":\"testuser\",\"oldPassword\":\"oldpassword\",\"newPassword\":\"newpassword\"}"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteAccount() throws Exception {
+        User user = new User();
+
+        when(authenticationService.deleteAccount("testuser")).thenReturn(user);
+
+        mockMvc.perform(delete("/api/auth/delete-account/testuser"))
+                .andExpect(status().isOk());
+    }
 }

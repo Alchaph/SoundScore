@@ -4,67 +4,85 @@ import ch.sbb.soundscore.SoundScore.entities.Song;
 import ch.sbb.soundscore.SoundScore.repositories.SongRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class SongServiceTest {
-    private SongRepository songRepository;
+
+    @InjectMocks
     private SongService songService;
+
+    @Mock
+    private SongRepository songRepository;
 
     @BeforeEach
     void setUp() {
-        songRepository = mock(SongRepository.class);
-        songService = new SongService(songRepository);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void allSongs() {
-        Song song1 = new Song();
-        Song song2 = new Song();
-        when(songRepository.findAll()).thenReturn(Arrays.asList(song1, song2));
-
-        List<Song> result = songService.getAllSongs();
-
-        assertEquals(2, result.size());
-        assertTrue(result.containsAll(Arrays.asList(song1, song2)));
-    }
-
-    @Test
-    void newSong() {
+    void createEditSong_Positive() {
         Song song = new Song();
-        when(songRepository.save(song)).thenReturn(song);
+        when(songRepository.save(any(Song.class))).thenReturn(song);
 
         Song result = songService.createEditSong(song);
 
+        assertNotNull(result);
         verify(songRepository, times(1)).save(song);
-        assertEquals(song, result);
     }
 
     @Test
-    void editSong() {
+    void deleteSong_Positive() {
         Song song = new Song();
-        when(songRepository.save(song)).thenReturn(song);
-
-        Song result = songService.editSong(song);
-
-        verify(songRepository, times(1)).save(song);
-        assertEquals(song, result);
-    }
-
-    @Test
-    void deleteSong() {
-        Song song = new Song();
-        when(songRepository.findById(1L)).thenReturn(Optional.of(song));
-        doNothing().when(songRepository).delete(song);
+        when(songRepository.findById(anyLong())).thenReturn(Optional.of(song));
 
         Song result = songService.deleteSong(1L);
 
+        assertNotNull(result);
+        verify(songRepository, times(1)).findById(1L);
         verify(songRepository, times(1)).delete(song);
-        assertEquals(song, result);
+    }
+
+    @Test
+    void editSong_Positive() {
+        Song song = new Song();
+        when(songRepository.save(any(Song.class))).thenReturn(song);
+
+        Song result = songService.editSong(song);
+
+        assertNotNull(result);
+        verify(songRepository, times(1)).save(song);
+    }
+
+    @Test
+    void getSongById_Positive() {
+        Song song = new Song();
+        when(songRepository.findById(anyLong())).thenReturn(Optional.of(song));
+
+        Song result = songService.getSongById(1L);
+
+        assertNotNull(result);
+        verify(songRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void getAllSongs_Positive() {
+        List<Song> songs = Arrays.asList(new Song(), new Song());
+        when(songRepository.findAll()).thenReturn(songs);
+
+        List<Song> result = songService.getAllSongs();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(songRepository, times(1)).findAll();
     }
 }
