@@ -44,10 +44,10 @@ import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annota
   styleUrl: './home-mobile.component.scss'
 })
 export class HomeMobileComponent implements OnInit {
-  protected isMobile: boolean = false;
-  protected selectedFilters?: 'genre' | 'song' | 'artist';
+  isMobile: boolean = false;
+  selectedFilters?: 'genre' | 'song' | 'artist';
   protected likeProcessing: boolean = false;
-  protected activeUser: User = {} as User
+  activeUser: User = {} as User
 
   constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService, protected jwtService: JwtServiceService) {
   }
@@ -65,69 +65,10 @@ export class HomeMobileComponent implements OnInit {
     })
   }
 
-  postLiked(post: Post): boolean {
-    return post.likes.some(dislike => dislike.user.id === this.activeUser.id)
-  }
-
-  postDisliked(post: Post): boolean {
-    return post.dislikes.some(dislike => dislike.user.id === this.activeUser.id)
-  }
-
-  likePost(post: Post): void {
-    this.likeProcessing = true;
-    this.postDisliked(post) ? this.dislike(post).subscribe((data) => {
-      this.handleLikeDislikeResponse(data, false, post)
-      this.like(post).subscribe(data => {
-        this.handleLikeDislikeResponse(data, true, post)
-        this.likeProcessing = false;
-      })
-    }) : this.like(post).subscribe(data => {
-      this.handleLikeDislikeResponse(data, true, post)
-      this.likeProcessing = false;
-    })
-  }
-
-  dislikePost(post: Post): void {
-    this.likeProcessing = true;
-    this.postLiked(post) ? this.like(post).subscribe((data) => {
-      this.handleLikeDislikeResponse(data, true, post)
-      this.dislike(post).subscribe(data => {
-        this.handleLikeDislikeResponse(data, false, post)
-        this.likeProcessing = false;
-      })
-    }) : this.dislike(post).subscribe(data => {
-      this.handleLikeDislikeResponse(data, false, post)
-      this.likeProcessing = false;
-    })
-  }
-
-  handleLikeDislikeResponse(data: boolean, likeOrDislike: boolean, post: Post): void {
-    if (data) {
-      likeOrDislike ? post.likes.push({
-        post: post,
-        user: this.activeUser,
-        like: true
-      }) : post.dislikes.push({
-        post: post,
-        user: this.activeUser,
-        like: false
-      });
-    } else {
-      likeOrDislike ? post.likes = post.likes.filter(data => data.user.id !== this.activeUser.id) : post.dislikes = post.dislikes.filter(data => data.user.id !== this.activeUser.id);
-    }
-  }
-
-  like(post: Post): Observable<boolean> {
-    return this.postService.likeOrDislikePost(post, true);
-  }
-
-
-  dislike(post: Post): Observable<boolean> {
-    return this.postService.likeOrDislikePost(post, false);
-  }
-
   selected(selected: string) {
-    this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
+    if (selected) {
+      this.selectedFilters = selected.toLowerCase() as 'genre' | 'song' | 'artist';
+    }
   }
 
   handlePanelClick(event: MouseEvent) {
@@ -135,8 +76,10 @@ export class HomeMobileComponent implements OnInit {
   }
 
   openLink(event: MouseEvent, link: string) {
-    event.stopPropagation();
-    window.open(link, '_blank');
+    if (link) {
+      event.stopPropagation();
+      window.open(link, '_blank');
+    }
   }
 
   gotoArtist(artistId: number | undefined) {

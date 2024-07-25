@@ -425,7 +425,7 @@ describe('JwtServiceService', () => {
 
   it('authenticate should send a POST request and return verification data', () => {
     const testEmail = 'test@test.com';
-    const mockResponse: Verification = { username: 'test', otp: '1234'};
+    const mockResponse: boolean = true
     service.authenticate(testEmail).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });

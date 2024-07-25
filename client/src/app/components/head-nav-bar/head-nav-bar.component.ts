@@ -62,6 +62,8 @@ export class HeadNavBarComponent implements OnInit {
     console.log(!colorBox!.contains(event.target as Node));
     console.log(this.counter);
     if (this.colors && colorBox && !colorBox.contains(event.target as Node) && this.counter === 1) {
+      this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
+      this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
       this.colors = false;
       this.counter = 0;
     } else if (this.colors && colorBox && !colorBox.contains(event.target as Node)) {
@@ -127,7 +129,14 @@ export class HeadNavBarComponent implements OnInit {
     this.counter = 0;
   }
 
-
-
   protected readonly sessionStorage = sessionStorage;
+  protected readonly document = document;
+  protected readonly getComputedStyle = getComputedStyle;
+
+  cancel() {
+    this.colors = false;
+    this.counter = 0;
+    this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
+    this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
+  }
 }
