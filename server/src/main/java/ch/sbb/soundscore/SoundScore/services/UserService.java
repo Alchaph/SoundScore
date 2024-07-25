@@ -58,14 +58,10 @@ public class UserService {
         return userRepository.getUserByArtistId(id);
     }
 
-//    public User deleteUser(User user) {
-//        String name = "An deleted User" + user.getId();
-//        userRepository.deletes(user, name);
-//        return user;
-//    }
-
     public User deleteUser(UserDetails userDetails) {
+        System.out.println("UserDetails: " + userDetails.getUsername());
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+        userRepository.createUser0IfNotExists();
         User user0 = userRepository.findById(0).orElseThrow();
         userRepository.UpdateUsersPosts(user, user0);
         userRepository.UpdateUsersLikes(user, user0);

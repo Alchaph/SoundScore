@@ -38,7 +38,7 @@ describe('LoginComponent', () => {
             verify: jasmine.createSpy('verify').and.returnValue(of(true)),
             deleteAccountByUsername: jasmine.createSpy('deleteAccountByUsername').and.returnValue(of({})),
             getEMailByUsername: jasmine.createSpy('getEMailByUsername').and.returnValue(of({ data: 'mockEmail' })),
-            authenticate: jasmine.createSpy('authenticate').and.returnValue(of({ username: 'mockUsername', otp: '123456' })),
+            authenticate: jasmine.createSpy('authenticate').and.returnValue(of({ success: true })),
             updatePassword: jasmine.createSpy('updatePassword').and.returnValue(of({})),
             getMe: jasmine.createSpy('getMe').and.returnValue(of({})),
             getUsernameByEMail: jasmine.createSpy('getUsernameByEMail').and.returnValue(of({ data: 'mockUsername' })),
@@ -189,7 +189,7 @@ describe('LoginComponent', () => {
         spyOn(jwtService, 'login').and.returnValue(of({token: 'dummyToken', expiresIn: 1000}));
         spyOn(cookieService, 'getCookie').and.returnValue(null);
         spyOn(jwtService, 'getEMailByUsername').and.returnValue(of({data: 'test@example.com'}));
-        spyOn(jwtService, 'authenticate').and.returnValue(of({username: 'testuser', otp: '123456'}));
+        spyOn(jwtService, 'authenticate').and.returnValue(of(true));
         spyOn(userInformationService, 'setMessage');
 
         component.registerForm.setValue({
@@ -295,7 +295,7 @@ describe('LoginComponent', () => {
 
     describe('verifyEmail', () => {
       it('should verify email successfully', () => {
-        spyOn(jwtService, 'authenticate').and.returnValue(of({username: 'testuser', otp: '123456'}));
+        spyOn(jwtService, 'authenticate').and.returnValue(of(true));
         spyOn(jwtService, 'getUsernameByEMail').and.returnValue(of({data: 'testuser'}));
         spyOn(userInformationService, 'setMessage');
 
@@ -306,7 +306,7 @@ describe('LoginComponent', () => {
       });
 
       it('should show error if email verification fails', () => {
-        spyOn(jwtService, 'authenticate').and.returnValue(of({ undefined } as unknown as Verification));
+        spyOn(jwtService, 'authenticate').and.returnValue(of(false));
         spyOn(userInformationService, 'setMessage');
 
         component.registerForm.controls.email.setValue('invalid@example.com');
@@ -316,7 +316,7 @@ describe('LoginComponent', () => {
       });
 
       it('should show error if username retrieval fails', () => {
-        spyOn(jwtService, 'authenticate').and.returnValue(of({ username: 'username', otp: '123456' } as Verification));
+        spyOn(jwtService, 'authenticate').and.returnValue(of(true));
         spyOn(jwtService, 'getUsernameByEMail').and.returnValue(of({ undefined } as unknown as { data: string }));
         spyOn(userInformationService, 'setMessage');
 
@@ -329,7 +329,7 @@ describe('LoginComponent', () => {
 
     describe('resendOtp', () => {
       it('should resend OTP successfully', () => {
-        spyOn(jwtService, 'authenticate').and.returnValue(of({username: 'testuser', otp: '123456'}));
+        spyOn(jwtService, 'authenticate').and.returnValue(of(true));
         spyOn(userInformationService, 'setMessage');
 
         component.email = 'test@example.com';
@@ -339,7 +339,7 @@ describe('LoginComponent', () => {
       });
 
       it('should show error if OTP resend fails', () => {
-        spyOn(jwtService, 'authenticate').and.returnValue(of(undefined) as unknown as Observable<Verification>);
+        spyOn(jwtService, 'authenticate').and.returnValue(of(false));
         spyOn(userInformationService, 'setMessage');
 
         component.email = 'test@example.com';

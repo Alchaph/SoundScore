@@ -35,7 +35,7 @@
           <mat-icon (click)="hide = !hide" matSuffix>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           <mat-hint>{{'USER_SETTINGS.RETYPE_PASSWORD_HINT' | translate}}</mat-hint>
         </mat-form-field>
-        <div class="button-container">
+        <div class="button-container" style="padding-bottom: 10px">
           <button color="primary" mat-raised-button type="submit">{{'USER_SETTINGS.SAVE_BUTTON' | translate}}</button>
         </div>
         @if (artist.value) {
