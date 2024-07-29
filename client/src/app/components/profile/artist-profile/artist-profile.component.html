@@ -7,7 +7,7 @@
   }
   @if (artist && artistSongs.length > 0) {
     @if (user && user.artist && user.artist.id === artistId) {
-      <button mat-raised-button color="primary"
+      <button mat-raised-button color="$first-color"
               routerLink="/home/addSong">{{ 'ARTIST_SONGS.UPLOAD_SONG_BUTTON' | translate }}
       </button>
     }

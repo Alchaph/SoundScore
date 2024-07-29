@@ -14,17 +14,30 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$client-primary: mat.define-palette(mat.$purple-palette, 700);
+$client-primary: mat.define-palette(mat.$purple-palette, 900);
 $client-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $client-warn: mat.define-palette(mat.$red-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
 $client-theme: mat.define-light-theme((
   color: (
-    primary: $client-primary,
+    primary: mat.define-palette((
+      100: var(--button-color),
+      200: var(--button-color),
+      300: var(--button-color),
+      400: var(--button-color),
+      500: var(--button-color),
+      600: var(--button-color),
+      700: var(--button-color),
+      800: var(--button-color),
+      900: var(--button-color),
+      A100: var(--button-color),
+      A200: var(--button-color),
+      A400: var(--button-color),
+      A700: var(--button-color),
+      contrast: (
+        500: var(--text-color),
+      )
+    )),
     accent: $client-accent,
     warn: $client-warn,
   ),
@@ -32,11 +45,6 @@ $client-theme: mat.define-light-theme((
   density: 0
 ));
 
-
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes($client-theme);
 
 /* You can add global styles to this file, and also import other style files */
@@ -168,5 +176,7 @@ body {
 :root {
   --first-color: #c23fe3;
   --second-color: #4e00ad;
+  --text-color: #ffffff;
+  --button-color: #4e00ad;
 }
 

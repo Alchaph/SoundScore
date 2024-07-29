@@ -1,7 +1,6 @@
 
 @if (!this.isMobile) {
   <app-head-nav-bar></app-head-nav-bar>
-
   <body>
   <mat-sidenav-container>
     <mat-sidenav>{{ 'HOME.START' | translate }}</mat-sidenav>
@@ -19,7 +18,7 @@
         <mat-expansion-panel-header>
           {{ 'HOME.CREATE_POST' | translate }}
         </mat-expansion-panel-header>
-        <mat-list class="top-list" style="color: white">
+        <mat-list class="top-list" class="color-white">
           <mat-list-item [routerLink]="'/home/addPost/Artist'">
             <p>{{ 'HOME.ARTIST' | translate }}</p>
           </mat-list-item>

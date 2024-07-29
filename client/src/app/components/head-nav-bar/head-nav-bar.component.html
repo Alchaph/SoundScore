@@ -37,18 +37,18 @@
     <div class="toolbarRightSide">
       <div class="icon-container">
         <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
-          <mat-icon style="color: white">g_translate</mat-icon>
+          <mat-icon class="color-white">g_translate</mat-icon>
         </button>
         <button mat-icon-button routerLink="/home/leaderBoard">
-          <mat-icon style="color: white">leaderboard</mat-icon>
+          <mat-icon class="color-white">leaderboard</mat-icon>
         </button>
 
         <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
-          <mat-icon [matBadge]="headerService.unreadNotifications.length" style="color: white">notifications_none
+          <mat-icon [matBadge]="headerService.unreadNotifications.length" class="color-white">notifications_none
           </mat-icon>
         </button>
         <button (click)="colors = true" mat-icon-button>
-          <mat-icon style="color: white">palette</mat-icon>
+          <mat-icon class="color-white">palette</mat-icon>
         </button>
       </div>
       <div class="secondary-icon-container">

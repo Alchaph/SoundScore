@@ -20,16 +20,16 @@ main {
   overflow-y: auto;
 
   mat-list mat-list-item p {
-    color: white !important;
+    color: $text-color !important;
   }
 
   .mat-expansion-indicator::after, .mat-expansion-panel-header-description {
-    color: white !important;
+    color: $text-color !important;
   }
 
   #create-post-expansion-panel {
     background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
-    color: white !important;
+    color: $text-color !important;
   }
   #create-post-expansion-panel.mat-expanded {
     background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
@@ -45,6 +45,10 @@ main {
   scrollbar-width: none;
   -ms-overflow-style: none;
   margin-top: 1%;
+}
+
+.color-white {
+  color: $text-color;
 }
 
 mat-card:hover {

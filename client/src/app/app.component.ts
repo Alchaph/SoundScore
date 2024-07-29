@@ -20,9 +20,11 @@ export class AppComponent implements OnInit{
 
   constructor(private languageService: LanguageService, private TranslateService: TranslateService, private cookieService: CookieService) {
     console.log('AppComponent');
-    if (this.cookieService.getCookie('color1') && this.cookieService.getCookie('color2')) {
+    if (this.cookieService.getCookie('color1') && this.cookieService.getCookie('color2') && this.cookieService.getCookie('textColor') && this.cookieService.getCookie('buttonColor')) {
       document.documentElement.style.setProperty('--first-color', this.cookieService.getCookie('color1'));
       document.documentElement.style.setProperty('--second-color', this.cookieService.getCookie('color2'));
+      document.documentElement.style.setProperty('--text-color', this.cookieService.getCookie('textColor'));
+      document.documentElement.style.setProperty('--button-color', this.cookieService.getCookie('buttonColor'));
     }
   }
 
