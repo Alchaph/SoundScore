@@ -11,5 +11,5 @@ export enum Language {
   b = 'Binary',
   ha = 'Hacker',
   d = 'Miguelo',
-  default = 'Deutsch'
+  default = 'English'
 }

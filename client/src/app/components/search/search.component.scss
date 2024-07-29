@@ -12,10 +12,12 @@ body {
   flex-direction: column;
   align-items: center;
   position: fixed;
-  mat-form-field{
+
+  mat-form-field {
     width: 100%;
   }
-  #checkboxes{
+
+  #checkboxes {
     width: 100%;
   }
 }
@@ -78,7 +80,8 @@ mat-sidenav-content mat-chip-listbox {
   background-image: linear-gradient(190deg, $second-color 0, $first-color 99%) !important;
   cursor: pointer !important;
 }
-#right-nav mat-list mat-list-item:hover{
+
+#right-nav mat-list mat-list-item:hover {
   background: whitesmoke;
   cursor: pointer;
 }
@@ -86,6 +89,7 @@ mat-sidenav-content mat-chip-listbox {
 #right-nav mat-list mat-list-item p{
   color: $text-color !important;
 }
+
 #create-post-expansion-panel {
   background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
   color: $text-color !important;

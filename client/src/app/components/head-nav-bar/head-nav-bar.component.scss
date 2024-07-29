@@ -1,6 +1,7 @@
 @import "../../_variables";
 
 .button2 {
+  --color: #ffffff;
   font-family: inherit;
   display: inline-block;
   width: 6em;
@@ -46,16 +47,6 @@
   top: -30px;
   left: -30px;
 }
-
-.mat-badge-content mat-badge-active {
-  background-color: $button-color;
-  color: $text-color;
-}
-
-#mat-badge-content-0 mat-badge-active {
-  background-color: $button-color;
-  color: $text-color;
-}
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -69,7 +60,7 @@
   }
 
   .toolbarMiddle {
-    width: 20rvw;
+    width: 33vw;
     display: flex;
     justify-content: center;
     align-items: center
@@ -170,28 +161,11 @@ mat-toolbar.toolbar {
   flex: 1 1 auto;
 }
 
-.small.animated-open {
-  animation: coolAnimation 1s ease-in-out;
-
-}
-
-@keyframes coolAnimation {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: calc(100vw - 400px);
-    min-width: 100px;
-  }
-}
-
-.small.animated-close {
-  animation: coolAnimation 1s reverse;
-}
 
 .search-container {
   display: flex;
   align-items: center;
+  width: 33vw;
 }
 
 .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
@@ -231,6 +205,10 @@ mat-form-field.small {
   --mat-form-field-container-vertical-padding: 8px;
 }
 
+.small {
+  width: 100%;
+}
+
 #background {
   width: 100%;
   height: 100vh;
@@ -262,9 +240,26 @@ mat-form-field.small {
   flex-direction: column;
 }
 
+.secondary-icon-container {
+  display: none;
+}
+
 #box2 {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+@media (max-width: 800px) {
+  .icon-container {
+    visibility: hidden;
+  }
+  .small {
+    margin-left: 30%;
+    width: 60%;
+  }
+  .secondary-icon-container {
+    display: flex;
+  }
 }

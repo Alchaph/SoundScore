@@ -20,30 +20,29 @@
 }
 <mat-toolbar id="headBar">
   <mat-toolbar-row class="toolbar">
-    @if (!(headerService.searching)) {
+    <div class="toolbarLeftSide">
+      <span (click)="headerService.refresh()" routerLink="/home" style="color: white">Sound Score</span>
+      <span class="fill-remaining-space"></span>
+    </div>
+    <div class="toolbarMiddle">
+      <form (ngSubmit)="search()" class="search-container">
+        <mat-form-field [ngClass]="headerService.searching ? 'animated-open' : 'animated-close' " appearance="outline"
+                        class="small">
+          <mat-label style="color: white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
+          <input [formControl]="headerService.searchTerm" matInput style="color: white">
+        </mat-form-field>
+      </form>
 
-      <div class="toolbarLeftSide">
+    </div>
+    <div class="toolbarRightSide">
+      <div class="icon-container">
         <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
           <mat-icon class="color-white">g_translate</mat-icon>
         </button>
         <button mat-icon-button routerLink="/home/leaderBoard">
           <mat-icon class="color-white">leaderboard</mat-icon>
         </button>
-        <mat-menu #languageMenu="matMenu" xPosition="before">
-          @for (lang of headerService.langs; track $index) {
-            <p mat-menu-item (click)="headerService.service.setLanguage(lang); headerService.window.location.reload();">
-              {{ headerService.Language[lang] }}
-            </p>
-          }
-        </mat-menu>
-      </div>
-    }
-    <div class="toolbarMiddle">
-      <span (click)="headerService.refresh()" routerLink="/home" class="color-white">Sound Score</span>
-      <span class="fill-remaining-space"></span>
-    </div>
-    <div class="toolbarRightSide">
-      @if (!(headerService.searching)) {
+
         <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
           <mat-icon [matBadge]="headerService.unreadNotifications.length" class="color-white">notifications_none
           </mat-icon>
@@ -51,21 +50,36 @@
         <button (click)="colors = true" mat-icon-button>
           <mat-icon class="color-white">palette</mat-icon>
         </button>
-      }
-
-      @if (headerService.searching) {
-        <form (ngSubmit)="search()" class="search-container">
-          <mat-form-field [ngClass]="headerService.searching ? 'animated-open' : 'animated-close' " class="small" appearance="outline">
-            <mat-label class="color-white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
-            <input class="color-white" [formControl]="headerService.searchTerm" matInput>
-          </mat-form-field>
-        </form>
-      }
-      <button (click)="headerService.searching = !(headerService.searching)" class="search-icon" mat-icon-button>
-        <mat-icon class="color-white">search</mat-icon>
-      </button>
+      </div>
+      <div class="secondary-icon-container">
+        <button [matMenuTriggerFor]="actionsMenu" mat-icon-button>
+          <mat-icon style="color: white">menu</mat-icon>
+        </button>
+      </div>
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
            class="catPic">
+      <mat-menu #actionsMenu="matMenu">
+        <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
+          <mat-icon>g_translate</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/home/leaderBoard">
+          <mat-icon>leaderboard</mat-icon>
+        </button>
+        <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
+          <mat-icon [matBadge]="headerService.unreadNotifications.length">notifications_none
+          </mat-icon>
+        </button>
+        <button (click)="colors = true" mat-icon-button>
+          <mat-icon>palette</mat-icon>
+        </button>
+      </mat-menu>
+      <mat-menu #languageMenu="matMenu" xPosition="before">
+        @for (lang of headerService.langs; track $index) {
+          <p mat-menu-item (click)="headerService.service.setLanguage(lang); headerService.window.location.reload();">
+            {{ headerService.Language[lang] }}
+          </p>
+        }
+      </mat-menu>
       <mat-menu #inboxMenu="matMenu" xPosition="before">
         @if (headerService.user.notifications && headerService.user.notifications.length > 0) {
           <div class="notification-header-container">
