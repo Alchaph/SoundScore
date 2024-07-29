@@ -55,22 +55,18 @@ export class HeadNavBarComponent implements OnInit {
 
   counter = 0;
 
-  @HostListener('document:click', ['$event'])
-  handleClickOutside(event: MouseEvent): void {
-    const colorBox = document.getElementById('box');
-    console.log(this.colors);
-    console.log(!colorBox!.contains(event.target as Node));
-    console.log(this.counter);
-    if (this.colors && colorBox && !colorBox.contains(event.target as Node) && this.counter === 1) {
-      this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
-      this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
-      this.colors = false;
-      this.counter = 0;
-    } else if (this.colors && colorBox && !colorBox.contains(event.target as Node)) {
-      console.log('increment');
-      this.counter++;
-    }
-  }
+  // @HostListener('document:click', ['$event'])
+  // handleClickOutside(event: MouseEvent): void {
+  //   const colorBox = document.getElementById('box');
+  //   if (this.colors && colorBox && !colorBox.contains(event.target as Node) && this.counter === 1) {
+  //     this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
+  //     this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
+  //     this.colors = false;
+  //     this.counter = 0;
+  //   } else if (this.colors && colorBox && !colorBox.contains(event.target as Node)) {
+  //     this.counter++;
+  //   }
+  // }
 
   colors = false
   color1: FormControl = new FormControl(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim() || '', Validators.required);
@@ -121,10 +117,22 @@ export class HeadNavBarComponent implements OnInit {
   }
 
   updateColors(): void {
+    if (this.getLuminance(this.color1.value) > 0.5 && this.getLuminance(this.color2.value) > 0.5) {
+      document.documentElement.style.setProperty('--text-color', '#000000');
+    } else {
+      document.documentElement.style.setProperty('--text-color', '#ffffff');
+    }
+    if (this.getLuminance(this.color1.value) > this.getLuminance(this.color2.value)) {
+      document.documentElement.style.setProperty('--button-color', this.color2.value);
+    } else {
+      document.documentElement.style.setProperty('--button-color', this.color1.value);
+    }
     document.documentElement.style.setProperty('--first-color', this.color1.value);
     document.documentElement.style.setProperty('--second-color', this.color2.value);
     this.cookieService.setCookie('color1', this.color1.value, 51 * 7 * 24 * 60 * 60 * 1000);
     this.cookieService.setCookie('color2', this.color2.value, 51 * 7 * 24 * 60 * 60 * 1000);
+    this.cookieService.setCookie('textColor', getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim(), 51 * 7 * 24 * 60 * 60 * 1000);
+    this.cookieService.setCookie('buttonColor', getComputedStyle(document.documentElement).getPropertyValue('--button-color').trim(), 51 * 7 * 24 * 60 * 60 * 1000);
     this.colors = false;
     this.counter = 0;
   }
@@ -138,5 +146,15 @@ export class HeadNavBarComponent implements OnInit {
     this.counter = 0;
     this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
     this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
+  }
+
+  getLuminance(hex: string): number {
+    hex = hex.replace(/^#/, '');
+
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
   }
 }

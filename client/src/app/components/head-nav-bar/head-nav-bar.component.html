@@ -24,10 +24,10 @@
 
       <div class="toolbarLeftSide">
         <button [matMenuTriggerFor]="languageMenu" mat-icon-button>
-          <mat-icon style="color: white">g_translate</mat-icon>
+          <mat-icon class="color-white">g_translate</mat-icon>
         </button>
         <button mat-icon-button routerLink="/home/leaderBoard">
-          <mat-icon style="color: white">leaderboard</mat-icon>
+          <mat-icon class="color-white">leaderboard</mat-icon>
         </button>
         <mat-menu #languageMenu="matMenu" xPosition="before">
           @for (lang of headerService.langs; track $index) {
@@ -39,30 +39,30 @@
       </div>
     }
     <div class="toolbarMiddle">
-      <span (click)="headerService.refresh()" routerLink="/home" style="color: white">Sound Score</span>
+      <span (click)="headerService.refresh()" routerLink="/home" class="color-white">Sound Score</span>
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarRightSide">
       @if (!(headerService.searching)) {
         <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
-          <mat-icon [matBadge]="headerService.unreadNotifications.length" style="color: white">notifications_none
+          <mat-icon [matBadge]="headerService.unreadNotifications.length" class="color-white">notifications_none
           </mat-icon>
         </button>
         <button (click)="colors = true" mat-icon-button>
-          <mat-icon style="color: white">palette</mat-icon>
+          <mat-icon class="color-white">palette</mat-icon>
         </button>
       }
 
       @if (headerService.searching) {
         <form (ngSubmit)="search()" class="search-container">
           <mat-form-field [ngClass]="headerService.searching ? 'animated-open' : 'animated-close' " class="small" appearance="outline">
-            <mat-label style="color: white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
-            <input style="color: white" [formControl]="headerService.searchTerm" matInput>
+            <mat-label class="color-white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
+            <input class="color-white" [formControl]="headerService.searchTerm" matInput>
           </mat-form-field>
         </form>
       }
       <button (click)="headerService.searching = !(headerService.searching)" class="search-icon" mat-icon-button>
-        <mat-icon style="color: white">search</mat-icon>
+        <mat-icon class="color-white">search</mat-icon>
       </button>
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("
            class="catPic">

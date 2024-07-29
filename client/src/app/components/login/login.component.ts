@@ -49,6 +49,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   protected hide: boolean = true;
   isRegister: boolean = false;
   TwoFA: boolean = false;
+  TwoFA2: boolean = false;
   Otp: boolean = false;
   protected forgotPasswordEmail: boolean = false;
   protected newPassword: boolean = false;
@@ -97,6 +98,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
             } else if (!data) {
               this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
                 (data) => {
+                  this.TwoFA2 = true;
                   this.login();
                 });
             } else {
@@ -149,16 +151,16 @@ export class LoginComponent implements AfterViewInit, OnInit {
       console.log(data);
       console.log(this.Otp);
       console.log(this.TwoFA);
-      if (data && this.TwoFA) {
+      if (data && this.TwoFA2 && this.TwoFA) {
         localStorage.setItem('token', this.token);
         this.router.navigate(['/home']);
+      } else if (data && this.TwoFA) {
+        this.TwoFA = false;
+        this.newPassword = true;
       } else if (this.Otp && data){
         this.jwtService.deleteAccountByUsername(this.username).subscribe((data) => {
           this.userInformationService.setMessage('Account could not be created');
         });
-      } else if (data) {
-        this.Otp = false;
-        this.newPassword = true;
       } else {
         this.userInformationService.setMessage('OTP is not valid');
       }

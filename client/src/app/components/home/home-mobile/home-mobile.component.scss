@@ -23,16 +23,16 @@ main {
   overflow-y: auto;
 
   mat-list mat-list-item p {
-    color: white !important;
+    color: $text-color !important;
   }
 
   .mat-expansion-indicator::after, .mat-expansion-panel-header-description {
-    color: white !important;
+    color: $text-color !important;
   }
 
   #create-post-expansion-panel {
     background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
-    color: white !important;
+    color: $text-color !important;
   }
 }
 
@@ -204,7 +204,7 @@ mat-card-content img {
   button {
     width: 4rem;
     height: 4rem;
-    background-color: white;
+    background-color: $text-color;
     border-radius: 100%;
 
 
@@ -239,4 +239,3 @@ p {
   }
 
 }
-

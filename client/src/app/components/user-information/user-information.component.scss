@@ -30,7 +30,7 @@ button::before {
 }
 
 button:hover {
-  color: white;
+  color: $text-color;
 }
 
 button:before {

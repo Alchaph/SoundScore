@@ -84,11 +84,11 @@ mat-sidenav-content mat-chip-listbox {
 }
 
 #right-nav mat-list mat-list-item p{
-  color: white !important;
+  color: $text-color !important;
 }
 #create-post-expansion-panel {
   background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
-  color: white !important;
+  color: $text-color !important;
 }
 
 p {
