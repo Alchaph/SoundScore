@@ -21,15 +21,15 @@
 <mat-toolbar id="headBar">
   <mat-toolbar-row class="toolbar">
     <div class="toolbarLeftSide">
-      <span (click)="headerService.refresh()" routerLink="/home" style="color: white">Sound Score</span>
+      <span (click)="headerService.refresh()" routerLink="/home" class="color-white">Sound Score</span>
       <span class="fill-remaining-space"></span>
     </div>
     <div class="toolbarMiddle">
       <form (ngSubmit)="search()" class="search-container">
-        <mat-form-field [ngClass]="headerService.searching ? 'animated-open' : 'animated-close' " appearance="outline"
-                        class="small">
-          <mat-label style="color: white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
-          <input [formControl]="headerService.searchTerm" matInput style="color: white">
+        <mat-form-field appearance="outline"
+                        class="small outline-style">
+          <mat-label class="color-white">{{ "SEARCH.SEARCH_BAR" | translate }}</mat-label>
+          <input [formControl]="headerService.searchTerm" matInput class="color-white">
         </mat-form-field>
       </form>
 
@@ -53,7 +53,7 @@
       </div>
       <div class="secondary-icon-container">
         <button [matMenuTriggerFor]="actionsMenu" mat-icon-button>
-          <mat-icon style="color: white">menu</mat-icon>
+          <mat-icon class="color-white">menu</mat-icon>
         </button>
       </div>
       <img [matMenuTriggerFor]="userMenu" [src]="sessionStorage.getItem('profilPicture')" alt="No cats :("

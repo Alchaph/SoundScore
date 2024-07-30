@@ -55,18 +55,18 @@ export class HeadNavBarComponent implements OnInit {
 
   counter = 0;
 
-  // @HostListener('document:click', ['$event'])
-  // handleClickOutside(event: MouseEvent): void {
-  //   const colorBox = document.getElementById('box');
-  //   if (this.colors && colorBox && !colorBox.contains(event.target as Node) && this.counter === 1) {
-  //     this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
-  //     this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
-  //     this.colors = false;
-  //     this.counter = 0;
-  //   } else if (this.colors && colorBox && !colorBox.contains(event.target as Node)) {
-  //     this.counter++;
-  //   }
-  // }
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent): void {
+    const colorBox = document.getElementById('box');
+    if (this.colors && colorBox && !colorBox.contains(event.target as Node) && this.counter === 1) {
+      this.color1.setValue(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim());
+      this.color2.setValue(getComputedStyle(document.documentElement).getPropertyValue('--second-color').trim());
+      this.colors = false;
+      this.counter = 0;
+    } else if (this.colors && colorBox && !colorBox.contains(event.target as Node)) {
+      this.counter++;
+    }
+  }
 
   colors = false
   color1: FormControl = new FormControl(getComputedStyle(document.documentElement).getPropertyValue('--first-color').trim() || '', Validators.required);
