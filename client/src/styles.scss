@@ -75,6 +75,14 @@ body {
   }
 }
 
+::ng-deep .mat-form-field.appearance-outline .mat-form-field-outline {
+  border-color: var(--text-color);
+}
+
+::ng-deep .mat-input-element {
+  color: var(--text-color);
+}
+
 .mat-form-field {
   width: 100%;
   margin-bottom: 16px;
@@ -167,10 +175,6 @@ body {
 
 .mat-dialog-actions {
   justify-content: flex-end;
-}
-
-.color-primary {
-  color: #c23fe3;
 }
 
 :root {
