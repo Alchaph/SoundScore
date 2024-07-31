@@ -4,6 +4,7 @@ import {Comment} from '../../models/Comment';
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environments";
 import {HttpService} from "../HttpService/http.service";
+import {HeaderService} from "../HeaderService/header.service";
 
 @Injectable({
   providedIn: 'root'

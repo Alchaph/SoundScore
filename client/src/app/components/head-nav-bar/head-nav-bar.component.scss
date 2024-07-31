@@ -20,7 +20,7 @@
 }
 
 .color-white {
-  color: $text-color;
+  color: $text-color !important;
 }
 
 .button2::before {
@@ -92,6 +92,10 @@
 
 .outline-style {
   outline-color: white;
+}
+
+::ng-deep .mdc-text-field--outlined {
+  color: $text-color !important;
 }
 
 
@@ -226,6 +230,9 @@ mat-form-field.small {
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 2;
+}
+::ng-deep .input {
+  color: $text-color;
 }
 
 #box {
