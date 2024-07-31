@@ -3,8 +3,10 @@ import {Observable, timer} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {inject} from '@angular/core';
 import {LoaderService} from '../services/LoaderService/loader.service';
+import {HeaderService} from "../services/HeaderService/header.service";
 
 export const LoadingInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+
   if (req.method !== 'DELETE') {
     const loaderService: LoaderService = inject(LoaderService);
     timer(1000).subscribe(() => {

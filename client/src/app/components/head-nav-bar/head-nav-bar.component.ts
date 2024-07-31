@@ -15,6 +15,7 @@ import {MatBadge} from "@angular/material/badge";
 import {HeaderService} from "../../services/HeaderService/header.service";
 import {Notification} from "../../models/Notification";
 import {CookieService} from "../../services/CookieService/cookie.service";
+import {LoaderService} from "../../services/LoaderService/loader.service";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -50,7 +51,7 @@ import {CookieService} from "../../services/CookieService/cookie.service";
 })
 export class HeadNavBarComponent implements OnInit {
 
-  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService) {
+  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService) {
   }
 
   counter = 0;
@@ -74,7 +75,7 @@ export class HeadNavBarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.headerService.isLoading = this.headerService.loaderService.getIsLoading();
+    this.headerService.isLoading = this.loaderService.getIsLoading();
     if (sessionStorage.getItem('profilPicture') === null) {
       fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')
         .then(response => response.json())

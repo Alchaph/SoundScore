@@ -27,6 +27,7 @@ main {
     color: $text-color !important;
   }
 
+
   #create-post-expansion-panel {
     background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
     color: $text-color !important;
@@ -35,6 +36,16 @@ main {
     background-image: linear-gradient(190deg, $second-color 0, $first-color 99%);
     color: white !important;
   }
+}
+::ng-deep .mat-form-field.appearance-outline .mat-form-field-outline {
+  --mdc-outlined-text-field-outline-color: var(--text-color);
+  --mdc-outlined-text-field-hover-outline-color: var(--text-color);
+  --mdc-outlined-text-field-focus-hover-outline-color: var(--text-color);
+  --mdc-outlined-text-field-focus-outline-color: var(--text-color);
+  --mdc-outlined-text-field-error-outline-color: var(--text-color);
+  --mdc-outlined-text-field-error-hover-outline-color: var(--text-color);
+  --mdc-outlined-text-field-error-focus-outline-color: var(--text-color);
+  outline-color: var(--text-color);
 }
 
 main::-webkit-scrollbar {
