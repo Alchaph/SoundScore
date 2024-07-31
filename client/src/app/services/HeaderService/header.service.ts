@@ -20,7 +20,7 @@ export class HeaderService {
   public userId: number = 0;
   public user: User = {} as User;
   public searching: boolean;
-  public unreadNotifications: Notification[];
+  public unreadNotifications:  Notification[];
   public showReadNotifications: boolean;
   public isLoading: Observable<boolean>;
   public readonly Language = Language;
@@ -44,7 +44,7 @@ export class HeaderService {
       if (data && data.id) {
         this.userId = data.id!;
         this.user = data;
-        this.unreadNotifications = data.notifications.filter(n => !n.read)
+        this.unreadNotifications = data.notifications.filter(n => !n.read);
       }
     });
   }

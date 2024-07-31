@@ -32,6 +32,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Transactional
     @Modifying
+    @Query("Update UserNotifications n set n.user = :deletedUser where n.user = :user")
+    void updateUsersNotifications(@Param("user") User user, @Param("deletedUser") User deletedUser);
+
+    @Transactional
+    @Modifying
     @Query("Update LikeOrDislike l set l.user = :deletedUser where l.user = :user")
     void UpdateUsersLikes(@Param("user") User user, @Param("deletedUser") User deletedUser);
 

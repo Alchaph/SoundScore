@@ -122,6 +122,7 @@ public class UserServiceTest {
         verify(userRepository).UpdateUsersPosts(user, user0);
         verify(userRepository).UpdateUsersLikes(user, user0);
         verify(userRepository).UpdateUsersComments(user, user0);
+        verify(userRepository).updateUsersNotifications(user, user0);
         verify(userRepository).deleteUser(user);
     }
 }

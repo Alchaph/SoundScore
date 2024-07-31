@@ -84,6 +84,9 @@ export class HeadNavBarComponent implements OnInit {
         });
     }
     this.headerService.updateUser();
+    setInterval(() => {
+      this.headerService.updateUser();
+    }, 10000);
   }
 
   search() {
