@@ -23,7 +23,7 @@
             </h3>
             <div class="post-meta">
             </div>
-            <p>{{ song.genre.name }}
+            <p>Genre: {{ song.genre.name }} <br> Genre Beschreibung:
               {{ song.genre.description }}
             </p>
             @if (user && user.artist && user.artist.id === artistId && song.id) {
