@@ -134,6 +134,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
             this.jwtService.authenticate(this.email).subscribe((data) => {
               this.isRegister = false;
               this.TwoFA = true;
+              this.TwoFA2 = true;
             });
           });
         } else {
