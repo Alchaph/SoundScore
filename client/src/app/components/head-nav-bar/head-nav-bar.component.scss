@@ -56,7 +56,11 @@
     width: 33vw;
     display: flex;
     justify-content: start;
-    align-items: center
+    align-items: center;
+
+    .logo:hover {
+      cursor: pointer;
+    }
   }
 
   .toolbarMiddle {
