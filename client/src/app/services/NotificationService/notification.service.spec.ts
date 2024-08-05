@@ -6,6 +6,7 @@ import { Notification } from '../../models/Notification';
 import { User } from '../../models/User';
 import {Comment} from "../../models/Comment";
 import {LikeOrDislike} from "../../models/LikeOrDislike";
+import {environment} from "../../../environments/environments";
 
 describe('NotificationService', () => {
   let service: NotificationService;
@@ -34,7 +35,7 @@ describe('NotificationService', () => {
       expect(notification).toEqual(responseNotification);
     });
 
-    const req = httpMock.expectOne(`http://localhost:8080/api/notifications/markAsRead/1`);
+    const req = httpMock.expectOne(environment.url + `/notifications/markAsRead/1`);
     expect(req.request.method).toBe('PUT');
     req.flush(responseNotification);
   });
@@ -47,7 +48,7 @@ describe('NotificationService', () => {
       error => expect(error.status).toBe(500)
     );
 
-    const req = httpMock.expectOne(`http://localhost:8080/api/notifications/markAsRead/1`);
+    const req = httpMock.expectOne(environment.url + `/notifications/markAsRead/1`);
     expect(req.request.method).toBe('PUT');
     req.flush('Something went wrong', { status: 500, statusText: 'Server Error' });
   });
@@ -63,20 +64,19 @@ describe('NotificationService', () => {
       expect(notifications).toEqual(responseNotifications);
     });
 
-    const req = httpMock.expectOne(`http://localhost:8080/api/notifications/markAllAsRead.id`);
+    const req = httpMock.expectOne(environment.url + `/notifications/markAllAsRead.id`);
     expect(req.request.method).toBe('PUT');
     req.flush(responseNotifications);
   });
 
   it('should handle error when marking all notifications as read', () => {
     const dummyUser: User = { id: 1, username: 'Test User', password: 'password', email: 'email', notifications: [] };
-
     service.markAllAsRead(dummyUser).subscribe(
       () => fail('expected an error, not notifications'),
       error => expect(error.status).toBe(500)
     );
 
-    const req = httpMock.expectOne(`http://localhost:8080/api/notifications/markAllAsRead.id`);
+    const req = httpMock.expectOne(environment.url + `/notifications/markAllAsRead.id`);
     expect(req.request.method).toBe('PUT');
     req.flush('Something went wrong', { status: 500, statusText: 'Server Error' });
   });
