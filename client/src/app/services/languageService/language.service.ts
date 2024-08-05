@@ -12,7 +12,7 @@ import {Language} from "../../enums/language";
 export class LanguageService {
   translate: boolean = JSON.parse(localStorage.getItem('translate') || 'false');
   private detectApiUrl: string = 'https://ws.detectlanguage.com/0.2/detect';
-  private translateApiUrl: string = 'http://172.20.10.5:5000/translate';
+  private translateApiUrl: string = 'http://localhost:5000/translate';
   private detectHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': 'Bearer 6eaddab8e75f4cba4d49499427ebce8e'
   });
