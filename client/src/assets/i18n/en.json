@@ -156,5 +156,11 @@
   },
   "SEARCH": {
     "SEARCH_BAR": "Search"
+  },
+
+  "PREMIUM": {
+    "HEADER": "Buy Premium for only 5$/Month",
+    "SUBHEADER": "Get access to exclusive features",
+    "NAME": "Get Premium"
   }
 }

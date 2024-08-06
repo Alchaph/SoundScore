@@ -156,5 +156,11 @@
   },
   "SEARCH": {
     "SEARCH_BAR": "Suechä"
+  },
+
+  "PREMIUM": {
+    "HEADER": "Chouf Premium für nume €5/Monat",
+    "SUBHEADER": "Bekomme Zuegriff uf exklusivi Funktionä",
+    "NAME": "Hole Premium"
   }
 }

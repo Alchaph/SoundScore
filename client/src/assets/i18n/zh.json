@@ -156,5 +156,11 @@
   },
   "SEARCH": {
     "SEARCH_BAR": "搜索"
+  },
+
+  "PREMIUM": {
+    "HEADER": "购买高级版，每月仅需 5 欧元",
+    "SUBHEADER": "获取独家功能",
+    "NAME": "名称"
   }
 }
