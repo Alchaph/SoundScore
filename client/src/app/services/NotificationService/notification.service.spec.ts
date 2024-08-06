@@ -28,7 +28,7 @@ describe('NotificationService', () => {
   });
 
   it('should mark a notification as read', () => {
-    const dummyNotification: Notification =  { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, user: {} as User };
+    const dummyNotification: Notification =  { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, receiver: {} as User, sender: {} as User };
     const responseNotification: Notification = { ...dummyNotification, read: true };
 
     service.markAsRead(dummyNotification).subscribe(notification => {
@@ -41,7 +41,7 @@ describe('NotificationService', () => {
   });
 
   it('should handle error when marking a notification as read', () => {
-    const dummyNotification: Notification =  { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, user: {} as User };
+    const dummyNotification: Notification =  { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, receiver: {} as User, sender: {} as User };
 
     service.markAsRead(dummyNotification).subscribe(
       () => fail('expected an error, not notifications'),
@@ -56,8 +56,8 @@ describe('NotificationService', () => {
   it('should mark all notifications as read for a user', () => {
     const dummyUser: User = { id: 1, username: 'Test User', password: 'password', email: 'email', notifications: [] };
     const responseNotifications: Notification[] = [
-      { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, user: {} as User },
-      { id: 2, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, user: {} as User }
+    { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, receiver: {} as User, sender: {} as User },
+    { id: 2, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, receiver: {} as User, sender: {} as User }
     ];
 
     service.markAllAsRead(dummyUser).subscribe(notifications => {
