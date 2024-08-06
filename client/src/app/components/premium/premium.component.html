@@ -7,7 +7,7 @@
   </div>
   <div id="load">
     <div class="modal">
-      <form class="form" (ngSubmit)="payGroup.valid ? pay(): this.userInformationService.setMessage('Please fill out all Fields and make sure they are correct')" [formGroup]="payGroup">
+      <form class="form" (ngSubmit)="payGroup.valid ? pay() : userInformationService.setMessage('Please Fill out all Fields and make sure they are correct')" [formGroup]="payGroup">
         <div class="payment--options">
           <button name="twint" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="100%" viewBox="0 0 500 316" enable-background="new 0 0 500 316" xml:space="preserve">
@@ -106,20 +106,20 @@
         <div class="credit-card-info--form">
           <div class="input_container">
             <label for="password_field1" class="input_label">Card holder full name</label>
-            <input id="password_field1" class="input_field" type="text" name="input-name" title="Inpit title"
+            <input id="password_field1" formControlName="fullName" class="input_field" type="text" name="input-name" title="Inpit title"
                    placeholder="Enter your full name">
           </div>
           <div class="input_container">
             <label for="password_field2" class="input_label">Card Number</label>
-            <input id="password_field2" class="input_field" type="number" name="input-name" title="Inpit title"
+            <input id="password_field2" formControlName="cardNumber" class="input_field" type="number" name="input-name" title="Inpit title"
                    placeholder="0000 0000 0000 0000">
           </div>
           <div class="input_container">
             <label for="password_field" class="input_label">Expiry Date / CVV</label>
             <div class="split">
-              <input id="password_field" class="input_field" type="text" name="input-name" title="Expiry Date"
+              <input id="password_field" formControlName="expiryDate" class="input_field" type="text" name="input-name" title="Expiry Date"
                      placeholder="01/23">
-              <input id="password_field3" style="margin-left: -5px;" class="input_field" type="number" name="cvv"
+              <input id="password_field3" formControlName="cvv" style="margin-left: -5px;" class="input_field" type="number" name="cvv"
                      title="CVV" placeholder="CVV">
             </div>
           </div>
