@@ -61,7 +61,7 @@ public class UserNotificationControllerTest {
         UserNotifications notification = new UserNotifications();
         notification.setId(1L);
         notification.setRead(false);
-        notification.setUser(user);
+        notification.setReceiver(user);
 
         when(userNotificationsRepository.findAll()).thenReturn(Collections.singletonList(notification));
         when(userNotificationsRepository.save(any(UserNotifications.class))).thenReturn(notification);

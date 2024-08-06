@@ -7,7 +7,7 @@
   </div>
   <div id="load">
     <div class="modal">
-      <form class="form">
+      <form class="form" (ngSubmit)="payGroup.valid ? pay(): this.userInformationService.setMessage('Please fill out all Fields and make sure they are correct')" [formGroup]="payGroup">
         <div class="payment--options">
           <button name="twint" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="100%" viewBox="0 0 500 316" enable-background="new 0 0 500 316" xml:space="preserve">

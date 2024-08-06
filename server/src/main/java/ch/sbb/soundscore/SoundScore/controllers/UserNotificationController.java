@@ -28,11 +28,11 @@ public class UserNotificationController {
 
     @PutMapping("/markAllAsRead")
     public List<UserNotifications> markAllAsRead(@RequestBody User user) {
-        userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals(userNotifications.getUser().getId())).forEach(userNotifications -> {
+        userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals(userNotifications.getReceiver().getId())).forEach(userNotifications -> {
             userNotifications.setRead(true);
             userNotificationsRepository.save(userNotifications);
         });
-        return userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals(userNotifications.getUser().getId())).collect(Collectors.toList());
+        return userNotificationsRepository.findAll().stream().filter(userNotifications -> user.getId().equals(userNotifications.getReceiver().getId())).collect(Collectors.toList());
     }
 
 }

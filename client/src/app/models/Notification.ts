@@ -5,7 +5,8 @@ import {LikeOrDislike} from "./LikeOrDislike";
 
 export interface Notification {
   id?: number,
-  user: User,
+  receiver: User,
+  sender: User,
   post?: Post,
   comment: Comment,
   likeOrDislike: LikeOrDislike,

@@ -1,6 +1,7 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
 import ch.sbb.soundscore.SoundScore.entities.Comment;
+import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
@@ -39,7 +40,7 @@ public class CommentControllerTest {
     void shouldCreateNewComment() throws Exception {
         Comment comment = new Comment();
         comment.setId(1L);
-        when(commentService.createComment(any(Comment.class))).thenReturn(comment);
+        when(commentService.createComment(any(Comment.class), any(User.class))).thenReturn(comment);
         mockMvc.perform(post("/api/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(comment)))

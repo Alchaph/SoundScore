@@ -1,6 +1,7 @@
 package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Comment;
+import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.entities.UserNotifications;
 import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
@@ -20,12 +21,12 @@ public class CommentService {
         this.userNotificationsRepository = userNotificationsRepository;
     }
 
-    public Comment createComment(Comment comment) {
+    public Comment createComment(Comment comment, User currentUser) {
         Comment newComment = commentRepository.save(comment);
         if (comment.getParent() != null) {
-            userNotificationsRepository.save(new UserNotifications(comment.getParent().getUser(), null, newComment, null));
+            userNotificationsRepository.save(new UserNotifications(comment.getParent().getUser(), currentUser, null, newComment, null));
         } else {
-            userNotificationsRepository.save(new UserNotifications(comment.getPost().getUser(), comment.getPost(), newComment, null));
+            userNotificationsRepository.save(new UserNotifications(comment.getPost().getUser(), currentUser, comment.getPost(), newComment, null));
         }
         return newComment;
     }

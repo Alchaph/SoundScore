@@ -31,7 +31,7 @@ class CommentServiceTest {
     void createComment() {
         Comment comment = new Comment("Test Comment", new User(), new Post(), null);
         when(commentRepository.save(comment)).thenReturn(comment);
-        Comment result = commentService.createComment(comment);
+        Comment result = commentService.createComment(comment, new User());
         verify(commentRepository, times(1)).save(comment);
         assertEquals("Test Comment", result.getMessage());
     }

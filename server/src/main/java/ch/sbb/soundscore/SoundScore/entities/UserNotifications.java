@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity
 @Getter
@@ -17,7 +16,10 @@ public class UserNotifications {
     Long id;
 
     @ManyToOne
-    User user;
+    User receiver;
+
+    @ManyToOne
+    User sender;
 
     @Nullable
     @ManyToOne
@@ -34,8 +36,8 @@ public class UserNotifications {
     @Column(name = "`read`")
     boolean read;
 
-    public UserNotifications(User user, @Nullable Post post, @Nullable Comment comment, @Nullable LikeOrDislike likeOrDislike) {
-        this.user = user;
+    public UserNotifications(User receiver, User sender, @Nullable Post post, @Nullable Comment comment, @Nullable LikeOrDislike likeOrDislike) {
+        this.receiver = receiver;
         this.post = post;
         this.comment = comment;
         this.likeOrDislike = likeOrDislike;
