@@ -156,5 +156,11 @@
   },
   "SEARCH": {
     "SEARCH_BAR": "Barra de pesquisa"
+  },
+
+  "PREMIUM": {
+    "HEADER": "Compre o Premium por apenas €5/mês",
+    "SUBHEADER": "Obtenha acesso a recursos exclusivos",
+    "NAME": "Obtenha premium"
   }
 }
