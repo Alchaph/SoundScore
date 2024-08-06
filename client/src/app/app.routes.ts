@@ -10,6 +10,7 @@ import {AddEditSongComponent} from "./components/add-edit-song/add-edit-song.com
 import {loginGuard} from "./guards/login.guard";
 import {SearchComponent} from "./components/search/search.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {PremiumComponent} from "./components/premium/premium.component";
 
 export const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -19,8 +20,8 @@ export const routes: Routes = [
   {path: 'home/editPost/:postId', canActivate: [loginGuard], component: AddEditPostComponent},
   {path: 'home/leaderBoard', canActivate: [loginGuard], component: LeaderBoardComponent},
   {path: 'home/settings', canActivate: [loginGuard], component: SettingsComponent},
+  {path: 'home/premium', canActivate: [loginGuard], component: PremiumComponent},
   {path: 'home/userProfile/:id/:tab', canActivate: [loginGuard], component: ProfileComponent},
-  // {path: 'home/artistProfile',canActivate: [loginGuard], component: ArtistProfileComponent},
   {path: 'home/addArtist', canActivate: [loginGuard], component: ArtistRegisterEditComponent},
   {path: 'home/editArtist/:artistId', canActivate: [loginGuard], component: ArtistRegisterEditComponent},
   {path: 'home/addSong', canActivate: [loginGuard], component: AddEditSongComponent},

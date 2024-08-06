@@ -156,6 +156,11 @@
     }
   },
   "SEARCH": {
-    "SEARCH_BAR": "Suche"  }
+    "SEARCH_BAR": "Suche"  },
+
+  "PREMIUM": {
+    "HEADER": "Kaufe Premium für nur 5€/Monat",
+    "SUBHEADER": "Erhalte Zugriff auf exklusive Funktionen"
+  }
 
 }
