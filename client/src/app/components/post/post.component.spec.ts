@@ -13,6 +13,7 @@ import { User } from '../../models/User';
 import { Post } from '../../models/Post';
 import { HttpClientModule } from '@angular/common/http';
 import { Artist } from "../../models/Artist";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -63,7 +64,7 @@ describe('PostComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, HttpClientModule],
+      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, HttpClientModule, BrowserAnimationsModule],
       providers: [
         { provide: PostService, useValue: postServiceMock },
         { provide: CommentService, useValue: commentServiceMock },

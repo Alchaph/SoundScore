@@ -5,6 +5,7 @@
     @if (combinedList && combinedList.length > 0) {
       <div>
         @for (combinedItem of combinedList; track combinedItem) {
+          @if (combinedList.length !== 0) {
             @if (this.isPost(combinedItem)) {
               <mat-card [routerLink]="'/home/post/'+combinedItem.id">
               <mat-card-content>
@@ -60,6 +61,9 @@
                 </mat-card-content>
                 </mat-card>
                 }
+          } @else {
+            <p>{{ 'HOME.NO_POSTS' | translate }}</p>
+          }
           }
       </div>
     } @else {

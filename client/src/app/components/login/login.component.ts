@@ -189,11 +189,15 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   resendOtp() {
-    this.jwtService.authenticate(this.email).subscribe((data) => {
-      if (data) {
-        this.userInformationService.setMessage('OTP was resent');
-      } else {
-        this.userInformationService.setMessage('Could not resend OTP');
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') {
+        this.jwtService.authenticate(this.email).subscribe((data) => {
+          if (data) {
+            this.userInformationService.setMessage('OTP was resent');
+          } else {
+            this.userInformationService.setMessage('Could not resend OTP');
+          }
+        });
       }
     });
   }

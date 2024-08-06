@@ -30,9 +30,13 @@
         @if (gifSearchString) {
           <div class="gif-container">
             @for (gifString of gifSearchResults; track $index) {
+              @if (gifSearchResults.length !== 0) {
               <div id="gif-frame">
                 <img (click)="selectGif(gifString)" [src]="gifString" class="gif">
               </div>
+              } @else {
+              <p>{{ 'SONG_FORM.NO_GIFS_FOUND' | translate }}</p>
+              }
             }
           </div>
         }
@@ -50,7 +54,11 @@
             <mat-option [value]="song.genre">{{ song.genre.name }}</mat-option>
           }
           @for (genre of allGenres; track $index){
+            @if (allGenres.length !== 0) {
             <mat-option [value]="genre">{{ genre.name }}</mat-option>
+            } @else {
+            <p>{{ 'SONG_FORM.NO_GENRES_FOUND' | translate }}</p>
+            }
           }
         </mat-select>
       </mat-form-field>

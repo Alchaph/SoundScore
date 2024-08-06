@@ -33,6 +33,7 @@
     </div>
     <div style="overflow-y: auto; scrollbar-width: none;" id="posts" #scrollContainer>
       @for (post of this.homeService.getPosts(); track post) {
+        @if (this.homeService.getPosts().length !== 0) {
         @if (!selectedFilters || post[selectedFilters]) {
           <mat-card>
             <mat-card-header>
@@ -65,6 +66,9 @@
             </mat-card-content>
           </mat-card>
         }
+        } @else {
+          <p>{{ 'HOME.NO_POSTS' | translate }}</p>
+        }
       }
     </div>
   </main>
@@ -78,25 +82,37 @@
           @if (str === ('LEADERBOARD.TOP_ARTISTS' | translate)) {
             <mat-list>
               @for (item of this.homeService.getTopArtists(); track item) {
+                @if (this.homeService.getTopArtists().length !== 0) {
                 <mat-list-item (click)="gotoArtist(item.id)">
                   {{ item.name }}
                 </mat-list-item>
+                } @else {
+                <p>{{ 'HOME.NO_ARTISTS' | translate }}</p>
+                }
               }
             </mat-list>
           } @else if (str === ('LEADERBOARD.TOP_SONGS' | translate)) {
             <mat-list>
               @for (item of this.homeService.getTopSongs(); track item) {
+                @if (this.homeService.getTopSongs().length !== 0) {
                 <mat-list-item (click)="window.open(item.link)">
                   {{ item.title }}
                 </mat-list-item>
+                } @else {
+                <p>{{ 'HOME.NO_SONGS' | translate }}</p>
+                }
               }
             </mat-list>
           } @else if (str === ('LEADERBOARD.TOP_GENRE' | translate)) {
             <mat-list>
               @for (item of this.homeService.getTopGenres(); track item) {
+                @if (this.homeService.getTopGenres().length !== 0) {
                 <mat-list-item>
                   {{ item.name }}
                 </mat-list-item>
+                } @else {
+                <p>{{ 'HOME.NO_GENRES' | translate }}</p>
+                }
               }
             </mat-list>
           }

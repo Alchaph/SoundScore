@@ -72,25 +72,37 @@
               @if (str === 'Top Artists') {
                 <mat-list>
                   @for (artist of this.homeService.getTopArtists(); track artist) {
+                    @if (this.homeService.getTopArtists().length !== 0) {
                     <mat-list-item (click)="gotoArtist(artist.id)">
                       {{ artist.name }}
                     </mat-list-item>
+                    } @else {
+                    <p>{{ 'HOME.NO_ARTISTS' | translate }}</p>
+                    }
                   }
                 </mat-list>
               } @else if (str === 'Top Songs') {
                 <mat-list>
                   @for (song of this.homeService.getTopSongs(); track song) {
+                    @if (this.homeService.getTopSongs().length !== 0) {
                     <mat-list-item (click)="openLink($event, song.link)">
                       {{ song.title }}
                     </mat-list-item>
+                    } @else {
+                    <p>{{ 'HOME.NO_SONGS' | translate }}</p>
+                    }
                   }
                 </mat-list>
               } @else if (str === 'Top Genres') {
                 <mat-list>
                   @for (genre of this.homeService.getTopGenres(); track genre) {
+                    @if (this.homeService.getTopGenres().length !== 0) {
                     <mat-list-item>
                       {{ genre.name }}
                     </mat-list-item>
+                    } @else {
+                    <p>{{ 'HOME.NO_GENRES' | translate }}</p>
+                    }
                   }
                 </mat-list>
               }

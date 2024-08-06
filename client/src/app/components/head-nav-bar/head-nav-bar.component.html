@@ -75,9 +75,15 @@
       </mat-menu>
       <mat-menu #languageMenu="matMenu" xPosition="before">
         @for (lang of headerService.langs; track $index) {
+          @if (headerService.langs.length !== 0) {
           <p mat-menu-item (click)="headerService.service.setLanguage(lang); headerService.window.location.reload();">
             {{ headerService.Language[lang] }}
           </p>
+          } @else {
+          <p mat-menu-item (click)="headerService.service.setLanguage('en'); headerService.window.location.reload();">
+            English
+          </p>
+          }
         }
       </mat-menu>
       <mat-menu #inboxMenu="matMenu" xPosition="before">

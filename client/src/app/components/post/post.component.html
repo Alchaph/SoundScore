@@ -45,7 +45,11 @@
   <div class="comments-section">
     <h2>{{ 'POST.COMMENTS' | translate }}</h2>
     @for (comment of commentService.comments; track comment) {
+      @if (commentService.comments.length !== 0) {
       <app-comment [comment]="comment" [activeUser]="activeUser"></app-comment>
+      } @else {
+      <p>{{ 'POST.NO_COMMENTS' | translate }}</p>
+      }
     }
     <div class="comment-form">
       <h3>{{ 'POST_FORM.' + commentService.currentAction | translate }} {{ 'POST_FORM.COMMENT' | translate }}</h3>

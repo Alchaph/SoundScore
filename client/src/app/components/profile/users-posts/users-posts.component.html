@@ -10,6 +10,7 @@
     </div>
   }
   @for (post of posts; track $index) {
+    @if (posts.length !== 0) {
     <div class="post-card">
       @if (post.image) {
         <img (click)="navigateToPost(post.id)" [src]="post.image" alt="{{post.title}}" class="post-image">
@@ -46,5 +47,8 @@
         }
       </div>
     </div>
+    } @else {
+      <p>{{ 'POSTS_CONTAINER.NO_POSTS' | translate }}</p>
+    }
   }
 </div>

@@ -33,9 +33,13 @@
         @if (gifSearchString) {
           <div class="gif-container">
             @for (gifString of gifSearchResults; track $index) {
+              @if (gifSearchResults.length !== 0) {
               <div id="gif-frame">
                 <img (click)="selectGif(gifString)" [src]="gifString" class="gif">
               </div>
+              } @else {
+              <p>{{ 'POST_FORM.NO_GIFS_FOUND' | translate }}</p>
+              }
             }
           </div>
         }
@@ -66,18 +70,29 @@
           @switch (showedType) {
             @case ('Song') {
               @for (song of allSongs; track $index) {
+                @if (allSongs.length !== 0) {
                 <mat-option [value]="song">{{ song.title }}</mat-option>
+                } @else {
+                <p>{{ 'POST_FORM.NO_SONGS_FOUND' | translate }}</p>
+                }
               }
             }
             @case ('Genre') {
               @for (genre of allGenres; track $index) {
-
+                @if (allGenres.length !== 0) {
                 <mat-option [value]="genre">{{ genre.name }}</mat-option>
+                } @else {
+                <p>{{ 'POST_FORM.NO_GENRES_FOUND' | translate }}</p>
+                }
               }
             }
             @case ('Artist') {
               @for (artist of allArtists; track $index) {
+                @if (allArtists.length !== 0) {
                 <mat-option [value]="artist">{{ artist.name }}</mat-option>
+                } @else {
+                <p>{{ 'POST_FORM.NO_ARTISTS_FOUND' | translate }}</p>
+                }
               }
             }
           }

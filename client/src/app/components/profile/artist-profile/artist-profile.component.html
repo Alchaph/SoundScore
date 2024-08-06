@@ -13,6 +13,7 @@
     }
     <div class="posts-container">
       @for (song of artistSongs; track $index) {
+        @if (artistSongs.length !== 0) {
         <div class="post-card" mat-line>
           @if (song.image) {
             <img (click)="openLink(song?.link)" [src]="song.image" alt="{{song.title}}" class="post-image">
@@ -38,6 +39,9 @@
             }
           </div>
         </div>
+      } @else {
+        <p>{{ 'ARTIST_SONGS.NO_SONGS' | translate }}</p>
+        }
       }
     </div>
   } @else if (user && (!user.artist || user.artist.id !== artistId) && artist) {
