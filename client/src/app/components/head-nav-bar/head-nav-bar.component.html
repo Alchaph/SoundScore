@@ -66,7 +66,7 @@
           <mat-icon>leaderboard</mat-icon>
         </button>
         <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
-          <mat-icon [matBadge]="headerService.unreadNotifications.length">notifications_none
+          <mat-icon [matBadge]="headerService.unreadNotifications.length > 99 ? '99+' : headerService.unreadNotifications.length">notifications_none
           </mat-icon>
         </button>
         <button (click)="colors = true" mat-icon-button>
@@ -115,6 +115,7 @@
       <mat-menu #userMenu="matMenu">
         <button (click)="gotoUserProfile()" mat-menu-item>{{ 'HEADER.PROFILE' | translate }}</button>
         <button mat-menu-item routerLink="/home/settings">{{ 'HEADER.SETTINGS' | translate }}</button>
+        <button mat-menu-item routerLink="/home/premium">{{ 'HEADER.PREMIUM' | translate }}</button>
         <button (click)="logout()" mat-menu-item>{{ 'HEADER.LOGOUT' | translate }}</button>
       </mat-menu>
     </div>
