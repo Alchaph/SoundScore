@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserNotificationsRepository extends JpaRepository<UserNotifications, Long> {
-    @Query("select u from UserNotifications u where u.user.id = ?1")
+    @Query("select u from UserNotifications u where u.receiver.id = ?1")
     List<UserNotifications> getUserNotificationsByUserId(Long user_id);
 
     @Transactional

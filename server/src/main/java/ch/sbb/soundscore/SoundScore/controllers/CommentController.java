@@ -1,7 +1,10 @@
 package ch.sbb.soundscore.SoundScore.controllers;
 
 import ch.sbb.soundscore.SoundScore.entities.Comment;
+import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.CommentService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +20,9 @@ public class    CommentController {
 
     @PostMapping("")
     public Comment createComment(@RequestBody Comment comment) {
-        return commentService.createComment(comment);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return commentService.createComment(comment, currentUser);
     }
 
     @DeleteMapping("/{id}")
