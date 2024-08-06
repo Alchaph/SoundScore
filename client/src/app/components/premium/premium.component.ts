@@ -31,7 +31,7 @@ export class PremiumComponent {
   }> = new FormGroup({
     fullName: new FormControl('', Validators.required),
     cardNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{16}$')]),
-    expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$')]),
+    expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\\/\\d{2}$')]),
     cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')])
   });
 
