@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit{
   selectedTab: string | undefined;
   constructor(private location: Location,private route: ActivatedRoute, private router: Router) {}
   goBack() {
-    this.location.back();
+    this.router.navigate(['home']);
   }
   ngOnInit() {
     const tab = this.route.snapshot.paramMap.get('tab');
