@@ -1,8 +1,6 @@
 package ch.sbb.soundscore.SoundScore.dtos;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 
