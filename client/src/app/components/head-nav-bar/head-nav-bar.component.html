@@ -44,11 +44,11 @@
         </button>
 
         <button (click)="headerService.updateUser()" [matMenuTriggerFor]="inboxMenu" mat-icon-button>
-          <mat-icon [matBadge]="headerService.unreadNotifications.length" class="color-white">notifications_none
+          <mat-icon [matBadge]="headerService.unreadNotifications.length > 99 ? '99+' : headerService.unreadNotifications.length" class="color-white">notifications_none
           </mat-icon>
         </button>
-        <button (click)="colors = true" mat-icon-button>
-          <mat-icon class="color-white">palette</mat-icon>
+        <button (click)="user.premium ? colors = true : router.navigate(['/home/premium'])" mat-icon-button>
+          <mat-icon [matBadge]="user.premium ? '' : '👑'" class="color-white">palette</mat-icon>
         </button>
       </div>
       <div class="secondary-icon-container">

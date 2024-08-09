@@ -8,7 +8,7 @@ import { CookieService } from '../../services/CookieService/cookie.service';
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 import { User } from "../../models/User";
 import { Verification } from "../../models/Verification";
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; // Import TranslateModule and TranslateService
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
