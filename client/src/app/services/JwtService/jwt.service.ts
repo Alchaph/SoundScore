@@ -16,7 +16,7 @@ import {HttpService} from "../HttpService/http.service";
 @Injectable({
   providedIn: 'root'
 })
-export class JwtServiceService {
+export class JwtService {
 
   constructor(private http: HttpClient, private cookieService: CookieService, private httpService: HttpService) {
   }

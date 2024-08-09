@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GifService } from '../../services/GifService/gif.service';
 import { SongService } from '../../services/SongService/song.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import { GenreService } from '../../services/GenreService/genre.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -52,7 +52,7 @@ describe('AddEditSongComponent', () => {
         { provide: Location, useValue: mockLocation },
         { provide: GifService, useValue: mockGifService },
         { provide: SongService, useValue: mockSongService },
-        { provide: JwtServiceService, useValue: mockJwtService },
+        { provide: JwtService, useValue: mockJwtService },
         { provide: GenreService, useValue: mockGenreService },
         { provide: AddEditSongComponent, useValue: AddEditSongComponentMock },
       ]

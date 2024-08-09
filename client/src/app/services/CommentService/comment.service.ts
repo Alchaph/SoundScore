@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Comment} from '../../models/Comment';
-import {Observable} from "rxjs";
+import {from, map, Observable} from "rxjs";
 import {environment} from "../../../environments/environments";
 import {HttpService} from "../HttpService/http.service";
 import {HeaderService} from "../HeaderService/header.service";
+import {User} from "../../models/User";
+import {JwtService} from "../JwtService/jwt.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,24 @@ export class CommentService {
   comments: Comment[] = [];
   newComment: Comment = {} as Comment;
 
-  constructor(private http: HttpClient, private httpService: HttpService) {
+  constructor(private http: HttpClient, private httpService: HttpService, private jwtService: JwtService) {
+  }
+  processCommentContent(content: string): Observable<string> {
+    const usernameRegex = /@(\w+)/g;
+
+    return this.jwtService.getUsers().pipe(
+      map(users => {
+        return content.replace(usernameRegex, (match, username) => {
+          const user = users.find(user => user.username === username);
+          if (user) {
+
+            return `<a href="/home/userProfile/${user.id}/0" class="username-link">${match}</a>`;
+          } else {
+            return match;
+          }
+        });
+      })
+    );
   }
 
   createComment(comment: Comment): Observable<Comment> {

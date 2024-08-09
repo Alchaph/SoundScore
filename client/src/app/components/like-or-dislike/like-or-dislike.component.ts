@@ -3,7 +3,7 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {User} from "../../models/User";
 import {PostService} from "../../services/PostService/post.service";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {Post} from "../../models/Post";
 import {Observable} from "rxjs";
 

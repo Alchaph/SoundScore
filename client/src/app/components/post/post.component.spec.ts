@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostComponent } from './post.component';
 import { PostService } from '../../services/PostService/post.service';
 import { CommentService } from '../../services/CommentService/comment.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -68,7 +68,7 @@ describe('PostComponent', () => {
       providers: [
         { provide: PostService, useValue: postServiceMock },
         { provide: CommentService, useValue: commentServiceMock },
-        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
         { provide: Router, useValue: routerMock },
         { provide: ActivatedRoute, useValue: routeMock },
         { provide: PostComponent, useValue: postComponentMock },

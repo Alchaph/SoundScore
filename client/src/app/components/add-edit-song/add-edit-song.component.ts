@@ -14,7 +14,7 @@ import {GenreService} from "../../services/GenreService/genre.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GifService} from "../../services/GifService/gif.service";
 import {User} from "../../models/User";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 
@@ -67,7 +67,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
               private genreService: GenreService,
               private route: ActivatedRoute,
               private gifService: GifService,
-              private jwtService: JwtServiceService,
+              private jwtService: JwtService,
               private router: Router,
               private userInformationService: UserInformationService
   ) {

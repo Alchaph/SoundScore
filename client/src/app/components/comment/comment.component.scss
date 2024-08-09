@@ -36,4 +36,11 @@
     }
   }
 }
+.username-link{
+  color: #ff0000;
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+}
 

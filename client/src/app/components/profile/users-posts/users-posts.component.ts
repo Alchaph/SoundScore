@@ -3,7 +3,7 @@ import {PostService} from "../../../services/PostService/post.service";
 import {Post} from '../../../models/Post';
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {JwtServiceService} from "../../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../../services/JwtService/jwt.service";
 import {User} from "../../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
@@ -29,7 +29,7 @@ export class UsersPostsComponent implements OnInit {
   protected userId: number = Number(this.route.snapshot.paramMap.get('id'));
   localUserId: number = 0;
 
-  constructor(protected postService: PostService, private jwtService: JwtServiceService, private router: Router, private route: ActivatedRoute) {
+  constructor(protected postService: PostService, private jwtService: JwtService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {

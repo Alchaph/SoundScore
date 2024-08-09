@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HeaderService } from './header.service';
 import { LanguageService } from '../languageService/language.service';
-import { JwtServiceService } from '../JwtService/jwt-service.service';
+import { JwtService } from '../JwtService/jwt.service';
 import { LoaderService } from '../LoaderService/loader.service';
 import { NotificationService } from '../NotificationService/notification.service';
 import { of } from 'rxjs';
@@ -35,7 +35,7 @@ describe('HeaderService', () => {
     TestBed.configureTestingModule({
       providers: [
         HeaderService,
-        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
         { provide: NotificationService, useValue: notificationServiceMock },
         { provide: LoaderService, useValue: loaderServiceMock },
         { provide: LanguageService, useValue: languageServiceMock }

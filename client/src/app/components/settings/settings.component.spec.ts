@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsComponent } from './settings.component';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -45,7 +45,7 @@ describe('SettingsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule, BrowserAnimationsModule],
       providers: [
-        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
         { provide: Router, useValue: routerMock },
         { provide: UserInformationService, useValue: userInformationServiceMock },
         { provide: CookieService, useValue: cookieServiceMock },

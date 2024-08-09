@@ -6,7 +6,9 @@
     <div [ngStyle]="{'width': 'calc(100% - ' + (level * 20) + 'px)'}" class="comment mat-elevation-z8">
       <div class="comment-content">
         <h2>{{ comment.user.username }}</h2>
-        <p [innerHTML]="this.languageService.translate ? (comment.message | generictranslate | async) ?? comment.message : comment.message"></p>
+        <p [innerHTML]="comment.message"></p>
+<!--        <p>{{comment.message}}</p>-->
+<!--        <p>{{comment.message}} <a href="" [routerLink]="['/home/userProfile', comment.user.id, '0']" class="username-link">Go to User Profile</a></p>-->
       </div>
       <div class="comment-actions">
         <div class="comment-owner-actions">

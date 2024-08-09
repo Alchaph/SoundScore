@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { SearchComponent } from './search.component';
 import { PostService } from '../../services/PostService/post.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import { SongService } from '../../services/SongService/song.service';
 import { ArtistService } from '../../services/ArtistService/artist.service';
 import { HomeService } from '../../services/HomeService/home.service';
@@ -20,7 +20,7 @@ describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   let postService: jasmine.SpyObj<PostService>;
-  let jwtService: jasmine.SpyObj<JwtServiceService>;
+  let jwtService: jasmine.SpyObj<JwtService>;
   let songService: jasmine.SpyObj<SongService>;
   let artistService: jasmine.SpyObj<ArtistService>;
   let homeService: jasmine.SpyObj<HomeService>;
@@ -53,7 +53,7 @@ describe('SearchComponent', () => {
       imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
       providers: [
         {provide: PostService, useValue: postServiceSpy},
-        {provide: JwtServiceService, useValue: jwtServiceSpy},
+        {provide: JwtService, useValue: jwtServiceSpy},
         {provide: SongService, useValue: songServiceSpy},
         {provide: ArtistService, useValue: artistServiceSpy},
         {provide: HomeService, useValue: homeServiceSpy},
@@ -66,7 +66,7 @@ describe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     postService = TestBed.inject(PostService) as jasmine.SpyObj<PostService>;
-    jwtService = TestBed.inject(JwtServiceService) as jasmine.SpyObj<JwtServiceService>;
+    jwtService = TestBed.inject(JwtService) as jasmine.SpyObj<JwtService>;
     songService = TestBed.inject(SongService) as jasmine.SpyObj<SongService>;
     artistService = TestBed.inject(ArtistService) as jasmine.SpyObj<ArtistService>;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;

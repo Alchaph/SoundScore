@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {User} from "../../models/User";
-import {JwtServiceService} from '../../services/JwtService/jwt-service.service';
+import {JwtService} from '../../services/JwtService/jwt.service';
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit {
   protected username: string = '';
   protected notOnlyPassword: boolean = true;
 
-  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
+  constructor(private jwtService: JwtService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
     this.userForm = new FormGroup({
       oldPassword: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),

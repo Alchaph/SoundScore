@@ -5,26 +5,45 @@ import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.entities.UserNotifications;
 import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
     private final UserNotificationsRepository userNotificationsRepository;
+    private final UserRepository userRepository;
     public Long baseId;
 
 
-    public CommentService(CommentRepository commentRepository, UserNotificationsRepository userNotificationsRepository) {
+    public CommentService(CommentRepository commentRepository, UserNotificationsRepository userNotificationsRepository, UserRepository userRepository) {
         this.commentRepository = commentRepository;
         this.userNotificationsRepository = userNotificationsRepository;
+        this.userRepository = userRepository;
     }
 
     public Comment createComment(Comment comment, User currentUser) {
+        System.out.println("can print");
         Comment newComment = commentRepository.save(comment);
         if (comment.getParent() != null) {
             userNotificationsRepository.save(new UserNotifications(comment.getParent().getUser(), currentUser, null, newComment, null));
+
+            Set<String> matchUser = Arrays.stream(comment.getMessage().split(" "))
+                    .filter(word -> word.startsWith("@"))
+                    .collect(Collectors.toSet());
+
+            System.out.println(matchUser);
+
+            for (String username : matchUser) {
+                userRepository.findByUsername(username).ifPresent(user -> {
+                    userNotificationsRepository.save(new UserNotifications(user, comment.getUser(), null, newComment, null));
+                });
+            }
         } else {
             userNotificationsRepository.save(new UserNotifications(comment.getPost().getUser(), currentUser, comment.getPost(), newComment, null));
         }

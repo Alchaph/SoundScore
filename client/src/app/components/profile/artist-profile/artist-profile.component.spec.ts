@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ArtistProfileComponent } from './artist-profile.component';
-import { JwtServiceService } from "../../../services/JwtService/jwt-service.service";
+import { JwtService } from "../../../services/JwtService/jwt.service";
 import { SongService } from "../../../services/SongService/song.service";
 import { ArtistService } from "../../../services/ArtistService/artist.service";
 import { ActivatedRoute } from "@angular/router";
@@ -59,7 +59,7 @@ describe('ArtistProfileComponent', () => {
         TranslateModule.forRoot(),
       HttpClientModule],
       providers: [
-        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
         { provide: SongService, useValue: songServiceMock },
         { provide: ArtistService, useValue: artistServiceMock },
         { provide: ActivatedRoute, useValue: routeMock },

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {JwtServiceService} from "../../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../../services/JwtService/jwt.service";
 import {User} from "../../../models/User";
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
@@ -40,7 +40,7 @@ export class ArtistProfileComponent {
   protected artistId: number | undefined;
 
   constructor(
-    private jwtService: JwtServiceService,
+    private jwtService: JwtService,
     private songService: SongService,
     private artistService: ArtistService,
     private route: ActivatedRoute,

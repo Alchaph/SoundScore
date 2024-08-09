@@ -6,7 +6,7 @@ import {Artist} from "../../models/Artist";
 import {PostService} from "../PostService/post.service";
 import {LeaderBoardService} from "../LeaderBoardService/leader-board.service";
 import {Router} from "@angular/router";
-import {JwtServiceService} from "../JwtService/jwt-service.service";
+import {JwtService} from "../JwtService/jwt.service";
 import {User} from "../../models/User";
 import {UserInformationService} from "../UserInformationService/user-information.service";
 
@@ -19,7 +19,7 @@ export class HomeService {
   topGenres: Genre[] = [];
   topArtists: Artist[] = [];
 
-  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService, private router: Router, private jwtService: JwtServiceService, private userInformationService: UserInformationService) {
+  constructor(private postService: PostService, private leaderBoardService: LeaderBoardService, private router: Router, private jwtService: JwtService, private userInformationService: UserInformationService) {
   }
 
   getPosts() {

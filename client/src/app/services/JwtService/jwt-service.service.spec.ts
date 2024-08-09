@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { JwtServiceService } from './jwt-service.service';
+import { JwtService } from './jwt.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {environment} from "../../../environments/environments";
 import {User} from "../../models/User";
@@ -9,15 +9,15 @@ import {Verification} from "../../models/Verification";
 import {Artist} from "../../models/Artist";
 
 describe('JwtServiceService', () => {
-  let service: JwtServiceService;
+  let service: JwtService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [JwtServiceService]
+      providers: [JwtService]
     });
-    service = TestBed.inject(JwtServiceService);
+    service = TestBed.inject(JwtService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
