@@ -5,7 +5,7 @@ import {Router, RouterLink} from "@angular/router";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Form, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {PayPalAccessToken} from "../../models/PayPalAccessToken";
 import {TransactionDetails} from "../../models/TransactionDetails";
@@ -42,7 +42,7 @@ export class PremiumComponent implements OnInit {
 
   creditCard: boolean = false;
 
-  constructor(protected userInformationService: UserInformationService, private jwtService: JwtServiceService, private router: Router) {
+  constructor(protected userInformationService: UserInformationService, private jwtService: JwtService, private router: Router) {
   }
 
   ngOnInit() {
