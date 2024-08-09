@@ -86,4 +86,11 @@ public class UserController {
         }
     }
 
+    @PutMapping("/premium")
+    public ResponseEntity<User> updatePremium() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(userService.updatePremium(currentUser));
+    }
+
 }

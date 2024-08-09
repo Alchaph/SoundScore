@@ -25,7 +25,7 @@ describe('PostComponent', () => {
     navigate: jasmine.createSpy('navigate')
   };
   let postServiceMock = {
-    getPost: jasmine.createSpy('getPost').and.returnValue(of({ id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }))
+    getPost: jasmine.createSpy('getPost').and.returnValue(of({ id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: { id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [], premium: false, followers: [] }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }))
   };
   let commentServiceMock = {
     getCommentsOfPost: jasmine.createSpy('getCommentsOfPost').and.returnValue(of([])),
@@ -34,7 +34,7 @@ describe('PostComponent', () => {
     buildCommentTree: jasmine.createSpy('buildCommentTree').and.returnValue([]),
   };
   let jwtServiceMock = {
-    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1 } as unknown as User)),
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1, premium: false, followers: [] } as unknown as User)),
     verifyPassword: jasmine.createSpy('verifyPassword').and.returnValue(of(true)),
     authenticate: jasmine.createSpy('authenticate').and.returnValue(of(true)),
     updateUser: jasmine.createSpy('updateUser').and.returnValue(of({})),

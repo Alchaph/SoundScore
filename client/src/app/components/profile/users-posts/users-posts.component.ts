@@ -28,6 +28,7 @@ export class UsersPostsComponent implements OnInit {
   posts: Post[] = [];
   protected userId: number = Number(this.route.snapshot.paramMap.get('id'));
   localUserId: number = 0;
+  user: User = {} as User;
 
   constructor(protected postService: PostService, private jwtService: JwtService, private router: Router, private route: ActivatedRoute) {
   }
@@ -41,6 +42,7 @@ export class UsersPostsComponent implements OnInit {
     this.jwtService.getMe().subscribe((user: User) => {
       if (user && user.id) {
         this.localUserId = user.id;
+        this.user = user;
       }
     });
   }
@@ -58,5 +60,9 @@ export class UsersPostsComponent implements OnInit {
 
     sessionStorage.setItem('previousPath', currentPath)
     this.router.navigate(['/home/post/', postId])
+  }
+
+  follow(id: number | undefined) {
+
   }
 }

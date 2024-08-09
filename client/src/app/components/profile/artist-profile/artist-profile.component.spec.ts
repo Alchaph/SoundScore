@@ -18,7 +18,7 @@ describe('ArtistProfileComponent', () => {
   let component: ArtistProfileComponent;
   let fixture: ComponentFixture<ArtistProfileComponent>;
   let jwtServiceMock = {
-    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1 } as unknown as User)),
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1, premium: false } as unknown as User)),
     verifyPassword: jasmine.createSpy('verifyPassword').and.returnValue(of(true)),
     authenticate: jasmine.createSpy('authenticate').and.returnValue(of(true)),
     updateUser: jasmine.createSpy('updateUser').and.returnValue(of({})),
@@ -131,7 +131,7 @@ describe('ArtistProfileComponent', () => {
   });
 
   it('should handle case when user has no artist', () => {
-    const user: User = { id: 1, artist: undefined, username: 'username', email: 'email', notifications: [], password: 'password' } as User;
+    const user: User = { id: 1, artist: undefined, username: 'username', email: 'email', notifications: [], password: 'password', premium: false, followers: [] } as User;
     const meUser: User = { id: 2, artist: { id: 2, name: 'Artist' } } as User;
     const songs: Song[] = [{ id: 1, artist: { id: 2, name: 'Artist' } as Artist } as Song];
 

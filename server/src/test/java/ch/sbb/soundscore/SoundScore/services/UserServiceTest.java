@@ -6,7 +6,6 @@ import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -122,7 +121,9 @@ public class UserServiceTest {
         verify(userRepository).UpdateUsersPosts(user, user0);
         verify(userRepository).UpdateUsersLikes(user, user0);
         verify(userRepository).UpdateUsersComments(user, user0);
-        verify(userRepository).updateUsersNotifications(user, user0);
+        verify(userRepository).UpdateUsersFollowersFollower(user, user0);
+        verify(userRepository).UpdateUsersFollowersUser(user, user0);
+        verify(userRepository).updateUsersNotificationsSender(user, user0);
         verify(userRepository).deleteUser(user);
     }
 }

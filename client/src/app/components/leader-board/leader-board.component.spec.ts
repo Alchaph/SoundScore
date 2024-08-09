@@ -47,7 +47,11 @@ describe('LeaderBoardComponent', () => {
   });
 
   it('should fetch and populate leaderboards on init (positive test)', () => {
-    const posts: Post[] = [{ id: 1, title: 'Post 1', content: 'Content 1', image: 'Image 1', user: { id: 1, username: 'User 1', email: 'Email 1', password: 'Password 1', notifications: [] }, artist: { id: 1, name: 'Artist 1', description: 'Description 1', image: 'Image 1' }, genre: { id: 1, name: 'Genre 1', description: 'Description 1' }, song: { id: 1, title: 'Song 1', image: 'Image 1', artist: { id: 1, name: 'Artist 1', description: 'Description 1', image: 'Image 1' }, genre: { id: 1, name: 'Genre 1', description: 'Description 1' }, link: 'Link 1' }, likes: [], dislikes: [] }];
+    const posts: Post[] = [{ id: 1, title: 'Post 1', content: 'Content 1', image: 'Image 1', user: {
+        id: 1, username: 'User 1', email: 'Email 1', password: 'Password 1', notifications: [],
+        premium: false,
+        followers: []
+      }, artist: { id: 1, name: 'Artist 1', description: 'Description 1', image: 'Image 1' }, genre: { id: 1, name: 'Genre 1', description: 'Description 1' }, song: { id: 1, title: 'Song 1', image: 'Image 1', artist: { id: 1, name: 'Artist 1', description: 'Description 1', image: 'Image 1' }, genre: { id: 1, name: 'Genre 1', description: 'Description 1' }, link: 'Link 1' }, likes: [], dislikes: [] }];
     const artists: Artist[] = [{ id: 1, name: 'Artist 1', description: 'Description 1', image: 'Image 1' }, { id: 2, name: 'Artist 2', description: 'Description 2', image: 'Image 2' }];
     const songs: Song[] = [{ id: 1, title: 'Song 1', image: 'Image 1', artist: { id: 1, name: 'Artist 1', description: 'Description 1', image: 'Image 1' }, genre: { id: 1, name: 'Genre 1', description: 'Description 1' }, link: 'Link 1' }];
     const genres: Genre[] = [{ id: 1, name: 'Genre 1', description: 'Description 1' }, { id: 2, name: 'Genre 2', description: 'Description 2' }];

@@ -50,11 +50,18 @@ public class User implements UserDetails {
     @Transient
     private List<UserNotifications> notifications;
 
-    public User(String username, String email, String password, Artist artist) {
+    @Column(name = "premium", nullable = false)
+    private Boolean premium;
+
+    @Transient
+    private List<Integer> follower;
+
+    public User(String username, String email, String password, Artist artist, Boolean premium) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.artist = artist;
+        this.premium = premium;
     }
 
     @Override

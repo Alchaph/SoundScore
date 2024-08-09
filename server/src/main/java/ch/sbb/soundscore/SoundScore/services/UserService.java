@@ -65,8 +65,16 @@ public class UserService {
         userRepository.UpdateUsersPosts(user, user0);
         userRepository.UpdateUsersLikes(user, user0);
         userRepository.UpdateUsersComments(user, user0);
-        userRepository.updateUsersNotifications(user, user0);
+        userRepository.UpdateUsersFollowersFollower(user, user0);
+        userRepository.UpdateUsersFollowersUser(user, user0);
+        userRepository.updateUsersNotificationsSender(user, user0);
+        userRepository.updateUsersNotificationsReceiver(user, user0);
         userRepository.deleteUser(user);
         return user;
+    }
+
+    public User updatePremium(User user) {
+        user.setPremium(true);
+        return userRepository.save(user);
     }
 }

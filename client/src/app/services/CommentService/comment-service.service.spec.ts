@@ -41,7 +41,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -58,7 +59,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
+        notifications: [],
+        premium: false
       },
     };
     service.createComment(mockComment).subscribe(comment => {
@@ -90,7 +92,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -107,7 +110,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
+        notifications: [],
+        premium: false
       },
     };
     service.createComment(mockComment).subscribe({
@@ -140,7 +144,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -157,7 +162,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
+        notifications: [],
+        premium: false
       },
     };
     service.updateComment(mockComment).subscribe(comment => {
@@ -189,8 +195,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -207,8 +213,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
-
+        notifications: [],
+        premium: false
       },
     };
     service.updateComment(mockComment).subscribe({
@@ -241,8 +247,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -259,8 +265,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
-
+        notifications: [],
+        premium: false
       },
     };
     service.deleteComment(mockComment.id!).subscribe(response => {
@@ -296,8 +302,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -314,7 +320,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
+        notifications: [],
+        premium: false
       },
     };
     service.deleteComment(mockComment.id!).subscribe({
@@ -349,8 +356,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
-            notifications: []
-
+            notifications: [],
+            premium: false
           },
           likes: [],
           dislikes: [],
@@ -367,8 +374,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
       },
       {
@@ -390,8 +397,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
-            notifications: []
-
+            notifications: [],
+            premium: false
           },
           likes: [],
           dislikes: [],
@@ -408,8 +415,8 @@ describe('CommentService', () => {
             description: 'This is a second test artist description.',
             image: 'second-test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
       }
     ];
@@ -444,8 +451,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
-            notifications: []
-
+            notifications: [],
+            premium: false
           },
           likes: [],
           dislikes: [],
@@ -462,8 +469,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
       },
       {
@@ -485,8 +492,8 @@ describe('CommentService', () => {
               description: 'This is a test artist description.',
               image: 'test-artist.jpg'
             },
-            notifications: []
-
+            notifications: [],
+            premium: false
           },
           likes: [],
           dislikes: [],
@@ -503,8 +510,8 @@ describe('CommentService', () => {
             description: 'This is a second test artist description.',
             image: 'second-test-artist.jpg'
           },
-          notifications: []
-
+          notifications: [],
+          premium: false
         },
       }
     ];
@@ -537,7 +544,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -554,8 +562,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
-
+        notifications: [],
+        premium: false
       },
     }
     const mockComment2: Comment = {
@@ -577,7 +585,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -595,8 +604,8 @@ describe('CommentService', () => {
           description: 'This is a test artist description.',
           image: 'test-artist.jpg'
         },
-        notifications: []
-
+        notifications: [],
+        premium: false
       },
     }
     const mockComments3: Comment = {
@@ -618,7 +627,8 @@ describe('CommentService', () => {
             description: 'This is a test artist description.',
             image: 'test-artist.jpg'
           },
-          notifications: []
+          notifications: [],
+          premium: false
         },
         likes: [],
         dislikes: [],
@@ -635,7 +645,8 @@ describe('CommentService', () => {
           description: 'This is a second test artist description.',
           image: 'second-test-artist.jpg'
         },
-        notifications: []
+        notifications: [],
+        premium: false
       },
     }
     const mockComments: Comment[] = [

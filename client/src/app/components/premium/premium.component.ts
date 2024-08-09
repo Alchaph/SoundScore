@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {MatButton} from "@angular/material/button";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Form, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
+import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {User} from "../../models/User";
+import {PayPalAccessToken} from "../../models/PayPalAccessToken";
+import {TransactionDetails} from "../../models/TransactionDetails";
+import {takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-premium',
@@ -20,7 +25,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
   templateUrl: './premium.component.html',
   styleUrl: './premium.component.scss'
 })
-export class PremiumComponent {
+export class PremiumComponent implements OnInit {
 
   protected readonly TranslateModule = TranslateModule;
   payGroup: FormGroup<{
@@ -35,10 +40,34 @@ export class PremiumComponent {
     cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')])
   });
 
-  constructor(protected userInformationService: UserInformationService) {
+  creditCard: boolean = false;
+
+  constructor(protected userInformationService: UserInformationService, private jwtService: JwtServiceService, private router: Router) {
+  }
+
+  ngOnInit() {
+    this.jwtService.getPayPalAccessToken().subscribe((data: PayPalAccessToken) => {
+      console.log(data);
+      localStorage.setItem('paypal_access_token', data.access_token);
+    });
   }
 
   pay() {
+    this.jwtService.updateToPremium().subscribe((data: User) => {
+      if (data && data.id) {
+        this.userInformationService.setMessage('Payment successful');
+        this.router.navigate(['/home']);
+      } else {
+        this.userInformationService.setMessage('Something went wrong');
+      }
+    }, error => {
+      this.userInformationService.setMessage('Something went wrong');
+    });
+  }
 
+  protected readonly window = window;
+
+  suck() {
+    console.log("suiii")
   }
 }

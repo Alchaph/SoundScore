@@ -17,7 +17,7 @@ describe('ArtistRegisterEditComponent', () => {
   let fixture: ComponentFixture<ArtistRegisterEditComponent>;
   let mockArtistService = jasmine.createSpyObj('ArtistService', ['getArtist', 'updateArtist', 'createArtist', 'deleteArtist']);
   let mockJwtService = {
-    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1 } as unknown as User)),
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1, premium: false } as unknown as User)),
     verifyPassword: jasmine.createSpy('verifyPassword').and.returnValue(of(true)),
     authenticate: jasmine.createSpy('authenticate').and.returnValue(of(true)),
     updateUser: jasmine.createSpy('updateUser').and.returnValue(of({})),
@@ -75,7 +75,9 @@ describe('ArtistRegisterEditComponent', () => {
 
   it('should call getArtist and getMe on ngOnInit', () => {
     const artist: Artist = { id: 1, name: 'Artist', description: 'Description', image: 'Image' };
-    const user: User = { id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist };
+    const user: User = {
+      followers: [],
+      id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist, premium: false };
     mockArtistService.getArtist.and.returnValue(of(artist));
     mockJwtService.getMe.and.returnValue(of(user));
     mockActivatedRoute.snapshot.paramMap.get.and.returnValue('1');
@@ -91,7 +93,10 @@ describe('ArtistRegisterEditComponent', () => {
 
   it('should handle null artistId gracefully', () => {
     mockActivatedRoute.snapshot.paramMap.get.and.returnValue(null);
-    const user: User = { id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: undefined };
+    const user: User = {
+      followers: [],
+      premium: false,
+      id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: undefined };
     const userObservable: Observable<User> = of(user);
     mockJwtService.getMe.and.returnValue(userObservable);
 
@@ -175,7 +180,10 @@ describe('ArtistRegisterEditComponent', () => {
 
   it('should call registerArtist on updateUser', () => {
     const artist:Artist = { id: 1, name: 'Artist', description: 'Description', image: 'Image' };
-    const user: User = { id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist };
+    const user: User = {
+      followers: [],
+      premium: false,
+      id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist };
     const userObservable: Observable<User> = of(user);
     mockJwtService.registerArtist.and.returnValue(userObservable);
 
