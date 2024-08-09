@@ -16,7 +16,7 @@ import {HeaderService} from "../../services/HeaderService/header.service";
 import {Notification} from "../../models/Notification";
 import {CookieService} from "../../services/CookieService/cookie.service";
 import {LoaderService} from "../../services/LoaderService/loader.service";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 
@@ -54,7 +54,7 @@ import { UserInformationService } from '../../services/UserInformationService/us
 })
 export class HeadNavBarComponent implements OnInit {
 
-  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtServiceService) {
+  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtService) {
   }
 
   counter = 0;

@@ -3,7 +3,7 @@ import { HomeMobileComponent } from './home-mobile.component';
 import { HomeService } from '../../../services/HomeService/home.service';
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 import { PostService } from '../../../services/PostService/post.service';
-import { JwtServiceService } from '../../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../../services/JwtService/jwt.service';
 import { of, throwError } from 'rxjs';
 import { User } from '../../../models/User';
 import {HttpClientModule} from "@angular/common/http";
@@ -52,7 +52,7 @@ describe('HomeMobileComponent', () => {
         { provide: HomeService, useValue: mockHomeService },
         { provide: BreakpointObserver, useValue: mockBreakpointObserver },
         { provide: PostService, useValue: mockPostService },
-        { provide: JwtServiceService, useValue: mockJwtService },
+        { provide: JwtService, useValue: mockJwtService },
         { provide: HomeMobileComponent, useValue: HomeMobileComponentMock },
         { provide: ActivatedRoute, useValue: routeMock }
       ]

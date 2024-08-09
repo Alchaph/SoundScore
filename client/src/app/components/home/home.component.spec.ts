@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { HomeService } from '../../services/HomeService/home.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import { of } from 'rxjs';
 import {User} from "../../models/User";
@@ -13,7 +13,7 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let homeService: jasmine.SpyObj<HomeService>;
-  let jwtService: jasmine.SpyObj<JwtServiceService>;
+  let jwtService: jasmine.SpyObj<JwtService>;
   let breakpointObserver: jasmine.SpyObj<BreakpointObserver>;
 
   let HomeComponentMock: Partial<HomeComponent>;
@@ -31,7 +31,7 @@ describe('HomeComponent', () => {
       imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
       providers: [
         { provide: HomeService, useValue: homeServiceSpy },
-        { provide: JwtServiceService, useValue: jwtServiceSpy },
+        { provide: JwtService, useValue: jwtServiceSpy },
         { provide: BreakpointObserver, useValue: breakpointObserverSpy },
         { provide: HomeComponent, useValue: HomeComponentMock }
       ]
@@ -41,7 +41,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
-    jwtService = TestBed.inject(JwtServiceService) as jasmine.SpyObj<JwtServiceService>;
+    jwtService = TestBed.inject(JwtService) as jasmine.SpyObj<JwtService>;
     breakpointObserver = TestBed.inject(BreakpointObserver) as jasmine.SpyObj<BreakpointObserver>;
 
     jwtService.getMe.and.returnValue(of({ id: 1, name: 'Test User', password: 'password', notifications: [], premium: false }as unknown as User));

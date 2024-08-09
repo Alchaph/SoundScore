@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { UsersPostsComponent } from './users-posts.component';
 import { PostService } from '../../../services/PostService/post.service';
-import { JwtServiceService } from '../../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../../services/JwtService/jwt.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../../../models/Post';
 import { User } from '../../../models/User';
@@ -47,7 +47,7 @@ describe('UsersPostsComponent', () => {
       imports: [ReactiveFormsModule, TranslateModule.forRoot(), HttpClientModule],
       providers: [
         { provide: PostService, useValue: postServiceMock },
-        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
         { provide: Router, useValue: routerMock },
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: UsersPostsComponent, useValue: UsersPostsComponentMock }

@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import { CookieService } from '../../services/CookieService/cookie.service';
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 import { User } from "../../models/User";
@@ -13,7 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let jwtService: JwtServiceService;
+  let jwtService: JwtService;
   let userInformationService: UserInformationService;
   let cookieService: CookieService;
   let translateService: TranslateService;
@@ -29,7 +29,7 @@ describe('LoginComponent', () => {
       ],
       providers: [
         {
-          provide: JwtServiceService,
+          provide: JwtService,
           useValue: {
             login: jasmine.createSpy('login').and.returnValue(of({ token: 'mockToken' })),
             register: jasmine.createSpy('register').and.returnValue(of({ success: true })),
@@ -69,7 +69,7 @@ describe('LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    jwtService = TestBed.inject(JwtServiceService);
+    jwtService = TestBed.inject(JwtService);
     userInformationService = TestBed.inject(UserInformationService);
     cookieService = TestBed.inject(CookieService);
     translateService = TestBed.inject(TranslateService);

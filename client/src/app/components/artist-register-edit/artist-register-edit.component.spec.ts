@@ -3,7 +3,7 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { ArtistRegisterEditComponent } from './artist-register-edit.component';
 import { ArtistService } from '../../services/ArtistService/artist.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 import { Artist } from "../../models/Artist";
@@ -56,7 +56,7 @@ describe('ArtistRegisterEditComponent', () => {
       ],
       providers: [
         { provide: ArtistService, useValue: mockArtistService },
-        { provide: JwtServiceService, useValue: mockJwtService },
+        { provide: JwtService, useValue: mockJwtService },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: Router, useValue: mockRouter },
         { provide: UserInformationService, useValue: mockUserInformationService },

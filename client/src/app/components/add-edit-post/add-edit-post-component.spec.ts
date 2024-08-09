@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GifService } from '../../services/GifService/gif.service';
 import { PostService } from '../../services/PostService/post.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import { SongService } from '../../services/SongService/song.service';
 import { GenreService } from '../../services/GenreService/genre.service';
 import { ArtistService } from '../../services/ArtistService/artist.service';
@@ -48,7 +48,7 @@ describe('AddEditPostComponent', () => {
         { provide: Location, useValue: mockLocation },
         { provide: GifService, useValue: mockGifService },
         { provide: PostService, useValue: mockPostService },
-        { provide: JwtServiceService, useValue: mockJwtService },
+        { provide: JwtService, useValue: mockJwtService },
         { provide: SongService, useValue: mockSongService },
         { provide: GenreService, useValue: mockGenreService },
         { provide: ArtistService, useValue: mockArtistService },

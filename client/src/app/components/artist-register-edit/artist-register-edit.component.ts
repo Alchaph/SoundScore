@@ -11,7 +11,7 @@ import {Artist} from "../../models/Artist";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../models/User";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {NgClass, NgIf} from "@angular/common";
@@ -64,7 +64,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   protected explode: boolean = false;
   protected disabled: boolean = false;
 
-  constructor(protected artistService: ArtistService, private jwtService: JwtServiceService, protected route: ActivatedRoute, private router: Router, private userInformationService: UserInformationService) {
+  constructor(protected artistService: ArtistService, private jwtService: JwtService, protected route: ActivatedRoute, private router: Router, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {

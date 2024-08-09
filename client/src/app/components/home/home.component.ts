@@ -48,7 +48,7 @@ import {Observable} from "rxjs";
 import {Post} from "../../models/Post";
 import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import {Artist} from "../../models/Artist";
@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
   activeUser: User = {} as User
 
 
-  constructor(protected jwtService: JwtServiceService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService) {
+  constructor(protected jwtService: JwtService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService) {
 
   }
   ngOnInit() {
