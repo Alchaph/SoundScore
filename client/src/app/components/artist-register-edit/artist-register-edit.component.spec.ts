@@ -75,7 +75,9 @@ describe('ArtistRegisterEditComponent', () => {
 
   it('should call getArtist and getMe on ngOnInit', () => {
     const artist: Artist = { id: 1, name: 'Artist', description: 'Description', image: 'Image' };
-    const user: User = { id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist, premium: false };
+    const user: User = {
+      followers: [],
+      id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist, premium: false };
     mockArtistService.getArtist.and.returnValue(of(artist));
     mockJwtService.getMe.and.returnValue(of(user));
     mockActivatedRoute.snapshot.paramMap.get.and.returnValue('1');
@@ -92,6 +94,7 @@ describe('ArtistRegisterEditComponent', () => {
   it('should handle null artistId gracefully', () => {
     mockActivatedRoute.snapshot.paramMap.get.and.returnValue(null);
     const user: User = {
+      followers: [],
       premium: false,
       id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: undefined };
     const userObservable: Observable<User> = of(user);
@@ -178,6 +181,7 @@ describe('ArtistRegisterEditComponent', () => {
   it('should call registerArtist on updateUser', () => {
     const artist:Artist = { id: 1, name: 'Artist', description: 'Description', image: 'Image' };
     const user: User = {
+      followers: [],
       premium: false,
       id: 1, username: 'User', password: 'Password', email: 'Email', notifications: [], artist: artist };
     const userObservable: Observable<User> = of(user);

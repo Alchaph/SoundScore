@@ -40,6 +40,8 @@ export class PremiumComponent implements OnInit {
     cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')])
   });
 
+  creditCard: boolean = false;
+
   constructor(protected userInformationService: UserInformationService, private jwtService: JwtServiceService, private router: Router) {
   }
 

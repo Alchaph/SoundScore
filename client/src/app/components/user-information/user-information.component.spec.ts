@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserInformationComponent } from './user-information.component';
 import { UserInformationService } from "../../services/UserInformationService/user-information.service";
-import { of } from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('UserInformationComponent', () => {
@@ -29,14 +29,14 @@ describe('UserInformationComponent', () => {
   });
 
   it('isMessage should return true (positive)', fakeAsync(() => {
-    userInformationServiceSpy.getIsMessage.and.returnValue(of(true));
+    userInformationServiceSpy.getIsMessage.and.returnValue(of(true) as unknown as BehaviorSubject<boolean>);
     fixture.detectChanges();
     tick();
     expect(component.isMessage).toBeTruthy();
   }));
 
   it('isMessage should return false (negative)', () => {
-    userInformationServiceSpy.getIsMessage.and.returnValue(of(false));
+    userInformationServiceSpy.getIsMessage.and.returnValue(of(false) as unknown as BehaviorSubject<boolean>);
     fixture.detectChanges();
     expect(component.isMessage).toBeFalsy();
   });

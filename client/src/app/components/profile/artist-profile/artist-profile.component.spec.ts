@@ -131,7 +131,7 @@ describe('ArtistProfileComponent', () => {
   });
 
   it('should handle case when user has no artist', () => {
-    const user: User = { id: 1, artist: undefined, username: 'username', email: 'email', notifications: [], password: 'password', premium: false } as User;
+    const user: User = { id: 1, artist: undefined, username: 'username', email: 'email', notifications: [], password: 'password', premium: false, followers: [] } as User;
     const meUser: User = { id: 2, artist: { id: 2, name: 'Artist' } } as User;
     const songs: Song[] = [{ id: 1, artist: { id: 2, name: 'Artist' } as Artist } as Song];
 

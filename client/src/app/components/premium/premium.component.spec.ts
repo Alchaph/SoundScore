@@ -35,7 +35,7 @@ describe('PremiumComponent', () => {
     userInformationServiceMock = jasmine.createSpyObj('UserInformationService', ['setMessage']);
     jwtServiceMock = {
       updateToPremium: jasmine.createSpy('updateToPremium'),
-      getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'email', username: 'test', password: 'password', artist: null, notifications: [], id: 1, premium: false } as unknown as User))
+      getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'email', username: 'test', password: 'password', artist: null, notifications: [], id: 1, premium: false, followers: [] } as unknown as User))
     }
     routerMock = jasmine.createSpyObj('Router', ['navigate']);
 
@@ -77,7 +77,7 @@ describe('PremiumComponent', () => {
   });
 
   it('should successfully update to premium on pay()', () => {
-    const mockUser: User = {password: "", id: 1, username: 'test', email: 'email', premium: false, notifications: [] };
+    const mockUser: User = {password: "", id: 1, username: 'test', email: 'email', premium: false, notifications: [], followers: [] };
     jwtServiceMock.updateToPremium.and.returnValue(of(mockUser));
 
     component.pay();

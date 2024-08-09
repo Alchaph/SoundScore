@@ -15,7 +15,7 @@ describe('SettingsComponent', () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
   let jwtServiceMock = {
-    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1, premium: false } as unknown as User)),
+    getMe: jasmine.createSpy('getMe').and.returnValue(of({ email: 'test@example.com', username: 'testuser', password: 'password', artist: null, notifications: [], id: 1, premium: false, followers: [] } as unknown as User)),
     verifyPassword: jasmine.createSpy('verifyPassword').and.returnValue(of(true)),
     authenticate: jasmine.createSpy('authenticate').and.returnValue(of(true)),
     updateUser: jasmine.createSpy('updateUser').and.returnValue(of({})),
