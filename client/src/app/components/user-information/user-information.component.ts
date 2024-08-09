@@ -17,8 +17,7 @@ export class UserInformationComponent implements OnInit, OnDestroy {
 
   message = this.userInformationService.getMessage();
 
-  constructor(private userInformationService: UserInformationService) {
-
+  constructor(protected userInformationService: UserInformationService) {
   }
 
   ngOnInit(): void {

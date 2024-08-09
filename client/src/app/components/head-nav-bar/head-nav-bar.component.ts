@@ -16,6 +16,9 @@ import {HeaderService} from "../../services/HeaderService/header.service";
 import {Notification} from "../../models/Notification";
 import {CookieService} from "../../services/CookieService/cookie.service";
 import {LoaderService} from "../../services/LoaderService/loader.service";
+import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {User} from "../../models/User";
+import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -51,10 +54,12 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 })
 export class HeadNavBarComponent implements OnInit {
 
-  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService) {
+  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtServiceService) {
   }
 
   counter = 0;
+
+  user: User = {email: "", notifications: [], password: "", premium: false, username: ""}
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent): void {
@@ -75,6 +80,9 @@ export class HeadNavBarComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.jwtService.getMe().subscribe(user => {
+      this.user = user;
+    });
     this.headerService.isLoading = this.loaderService.getIsLoading();
     if (sessionStorage.getItem('profilPicture') === null) {
       fetch('https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Hh5C9ThNRWf8wp5Ppqb5qCAtlG48YvNlRRmig4JWPB2gwGiJOCEH63wZ1tu2SaPt')

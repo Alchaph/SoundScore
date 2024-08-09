@@ -67,7 +67,9 @@ describe('AddEditSongComponent', () => {
 
   it('should initialize the component and load song data', () => {
     const song: Song = { title: 'Test', image: 'Image', link: 'Link', genre: {id: 1} as Genre, artist: {id: 1} as Artist };
-    const user: User = { id: 1, artist: { id: 1 } as Artist, password: 'password', email: 'email', username: 'username', notifications: [] };
+    const user: User = {
+      premium: false,
+      id: 1, artist: { id: 1 } as Artist, password: 'password', email: 'email', username: 'username', notifications: [] };
     mockSongService.getSong.and.returnValue(of(song));
     mockJwtService.getMe.and.returnValue(of(user));
     component.ngOnInit();
@@ -145,7 +147,7 @@ describe('AddEditSongComponent', () => {
   });
 
   it('should create a new song when form is valid and user is an artist', () => {
-    const user: User = { id: 1, artist: { id: 1 } as Artist, password: 'password', email: 'email', username: 'username', notifications: [] };
+    const user: User = { id: 1, artist: { id: 1 } as Artist, password: 'password', email: 'email', username: 'username', notifications: [], premium: false };
     component.user = user;
     component.formGroup.controls.title.setValue('Test');
     component.formGroup.controls.imageUrl.setValue('Image');
@@ -157,7 +159,7 @@ describe('AddEditSongComponent', () => {
   });
 
   it('should not create a new song when form is invalid or user is not an artist', () => {
-    const user: User = { id: 1, artist: undefined, password: 'password', email: 'email', username: 'username', notifications: [] };
+    const user: User = { id: 1, artist: undefined, password: 'password', email: 'email', username: 'username', notifications: [], premium: false };
     component.user = user;
     component.formGroup.controls.title.setValue('');
     component.saveSong();

@@ -1,17 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../../models/User";
-import { Artist } from '../../models/Artist';
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {catchError, tap, throwError} from "rxjs";
-import {Verification} from "../../models/Verification";
+import {Artist} from '../../models/Artist';
+import {Observable, tap} from "rxjs";
 import {environment} from "../../../environments/environments";
-import {Observable} from "rxjs";
 import {DataTranfer} from "../../models/DataTranfer";
-import {Language} from "../../models/Language";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {CookieService} from "../CookieService/cookie.service";
 import {HttpService} from "../HttpService/http.service";
+import {PayPalAccessToken} from "../../models/PayPalAccessToken";
+import {TransactionDetails} from "../../models/TransactionDetails";
 
 @Injectable({
   providedIn: 'root'
@@ -122,4 +119,43 @@ export class JwtServiceService {
   public deleteAccountByUsername(username: string): Observable<User> {
     return this.http.delete<User>(environment.url + `/auth/delete-account/${username}`);
   }
+
+  public updateToPremium(): Observable<User> {
+    return this.http.put<User>(environment.url + '/users/premium', {},  this.httpService.getHttpOptions());
+  }
+
+  public getPayPalAccessToken(): Observable<PayPalAccessToken> {
+    const url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token';
+    const body = new HttpParams().set('grant_type', 'client_credentials');
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('AYZh61ZXTEo55aS0p_jcX1H6oVG1uR9lDLyqp5wvvYKd0lxG7Nq2yN5mK9EX7jQCz9rvPEdm9Bqk65qu' + ':' + 'EAH17QjPw4ng2vDyvkTy-HF8SPGTiqURCHsdPZpnMlZ40R4wxT2MWCPBx6B5Dz0nwyA8JElew0TZDQWV'),
+      // 'Authorization': 'Basic ' + btoa('AeY04KPRZiPpl85SoZOCvEHhuHXbfp9xchCYLZHhPU0Pq6MhOtFJdYeZ-H7Uy4n-0BQlUXImIKXWMvlj' + ':' + 'EMRImocW-d3ZGo19ZLDiiTitfnVlqb3hITOMgipD1udChsjPutNYxPjwRUH3bDsQXLFKI0fVz2TWAu8k'),
+      // 'Authorization': 'Basic ' + btoa('AZt02-DNSZg1AerK0qbLwXxu3ZOWsJTVn6MCNxZ-wYAtqjtj6Nnhk5ukeLlodgHqtq41CEFWbHuFOVIr' + ':' + 'EBRUMI-cLDcBm8EXo1v3rIhxjIlmFQ-Fef-ecExNX1ah5Cp1wObEO-RxXfIGZfuaDkyp2DXd91IVs7qe'),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    })
+    return this.http.post<PayPalAccessToken>(url, body.toString(), { headers });
+  }
+
+  public getTransactions(): TransactionDetails[] {
+    fetch('https://api-m.paypal.com/v1/reporting/transactions/?start_date=2021-01-01T00:00:00-0700&end_date=2024-01-31T23:59:59-0700&fields=all&page_size=100&page=1', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('paypal_access_token'),
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data);
+        return data;
+      });
+    return [];
+
+    // const url = 'https://api-m.paypal.com/v1/reporting/transactions/?start_date=2021-01-01T00:00:00-0700&end_date=2024-01-31T23:59:59-0700&fields=all&page_size=100&page=1';
+    // const headers = new HttpHeaders({
+    //   'Authorization': 'Bearer ' + localStorage.getItem('paypal_access_token'),
+    //   'Content-Type': 'application/json'
+    // });
+    // return this.http.get<TransactionDetails[]>(url, {headers});
+  }
+
 }

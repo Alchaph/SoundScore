@@ -44,7 +44,7 @@ describe('HomeComponent', () => {
     jwtService = TestBed.inject(JwtServiceService) as jasmine.SpyObj<JwtServiceService>;
     breakpointObserver = TestBed.inject(BreakpointObserver) as jasmine.SpyObj<BreakpointObserver>;
 
-    jwtService.getMe.and.returnValue(of({ id: 1, name: 'Test User', password: 'password', notifications: [] }as unknown as User));
+    jwtService.getMe.and.returnValue(of({ id: 1, name: 'Test User', password: 'password', notifications: [], premium: false }as unknown as User));
     breakpointObserver.observe.and.returnValue(of({ matches: true } as BreakpointState));
   });
 

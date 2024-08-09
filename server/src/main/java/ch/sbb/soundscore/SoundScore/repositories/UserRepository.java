@@ -7,7 +7,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +32,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("Update UserNotifications n set n.sender = :deletedUser where n.sender = :user")
-    void updateUsersNotifications(@Param("user") User user, @Param("deletedUser") User deletedUser);
+    void updateUsersNotificationsSender(@Param("user") User user, @Param("deletedUser") User deletedUser);
+
+    @Transactional
+    @Modifying
+    @Query("Update UserNotifications n set n.receiver = :deletedUser where n.receiver = :user")
+    void updateUsersNotificationsReceiver(@Param("user") User user, @Param("deletedUser") User deletedUser);
 
     @Transactional
     @Modifying

@@ -4,7 +4,7 @@ import {User} from "../../../models/User";
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Song} from '../../../models/Song';
 import {SongService} from "../../../services/SongService/song.service";
 import {MatIcon} from "@angular/material/icon";
@@ -13,6 +13,7 @@ import {ArtistService} from "../../../services/ArtistService/artist.service";
 import {Artist} from "../../../models/Artist";
 import {Location} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
+import {MatBadge} from "@angular/material/badge";
 
 
 @Component({
@@ -29,6 +30,7 @@ import {TranslateModule} from "@ngx-translate/core";
     MatIconButton,
     HeadNavBarComponent,
     TranslateModule,
+    MatBadge,
   ],
   templateUrl: './artist-profile.component.html',
   styleUrl: './artist-profile.component.scss'
@@ -44,6 +46,7 @@ export class ArtistProfileComponent {
     private songService: SongService,
     private artistService: ArtistService,
     private route: ActivatedRoute,
+    protected router: Router,
   ) {
     this.init()
   }
