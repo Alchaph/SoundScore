@@ -14,7 +14,7 @@ import {Genre} from "../../models/Genre";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AsyncPipe, Location, NgStyle} from "@angular/common";
 import {Post} from "../../models/Post";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {PostService} from "../../services/PostService/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatOption} from "@angular/material/autocomplete";
@@ -77,7 +77,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
   constructor(private songService: SongService,
               private genreService: GenreService,
               private artistService: ArtistService,
-              private jwtService: JwtServiceService,
+              private jwtService: JwtService,
               private postService: PostService,
               private router: Router,
               private route: ActivatedRoute,

@@ -14,7 +14,7 @@ import {Post} from "../../../models/Post";
 import {Observable} from "rxjs";
 import {User} from "../../../models/User";
 import {PostService} from "../../../services/PostService/post.service";
-import {JwtServiceService} from "../../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../../services/JwtService/jwt.service";
 import {LikeOrDislikeComponent} from "../../like-or-dislike/like-or-dislike.component";
 import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/common";
 
@@ -49,7 +49,7 @@ export class HomeMobileComponent implements OnInit {
   protected likeProcessing: boolean = false;
   activeUser: User = {} as User
 
-  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService, protected jwtService: JwtServiceService) {
+  constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService, protected jwtService: JwtService) {
   }
 
   ngOnInit() {

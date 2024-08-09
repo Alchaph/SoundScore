@@ -19,7 +19,7 @@ import {FormsModule} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {SongService} from "../../services/SongService/song.service";
 import {ArtistService} from "../../services/ArtistService/artist.service";
@@ -70,7 +70,7 @@ export class SearchComponent implements OnInit {
   combinedList: CombinedType[] = [];
   searchTerm: string = "";
 
-  constructor(private jwtService: JwtServiceService,
+  constructor(private jwtService: JwtService,
               private songService: SongService,
               private artistService: ArtistService,
               private breakpointObserver: BreakpointObserver,

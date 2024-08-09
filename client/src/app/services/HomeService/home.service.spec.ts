@@ -3,7 +3,7 @@ import { HomeService } from './home.service';
 import { PostService } from '../PostService/post.service';
 import { LeaderBoardService } from '../LeaderBoardService/leader-board.service';
 import { Router } from '@angular/router';
-import { JwtServiceService } from '../JwtService/jwt-service.service';
+import { JwtService } from '../JwtService/jwt.service';
 import { of, throwError } from 'rxjs';
 import {Post} from "../../models/Post";
 import {Song} from "../../models/Song";
@@ -53,7 +53,7 @@ describe('HomeService', () => {
   let postService: PostService;
   let leaderBoardService: LeaderBoardService;
   let router: Router;
-  let jwtService: JwtServiceService;
+  let jwtService: JwtService;
   let userInformationService: UserInformationService;
 
   beforeEach(() => {
@@ -63,7 +63,7 @@ describe('HomeService', () => {
         { provide: PostService, useValue: mockPostService },
         { provide: LeaderBoardService, useValue: mockLeaderBoardService },
         { provide: Router, useValue: mockRouter },
-        { provide: JwtServiceService, useValue: mockJwtService },
+        { provide: JwtService, useValue: mockJwtService },
         { provide: UserInformationService, useValue: userInformationServiceMock }
       ]
     });
@@ -71,7 +71,7 @@ describe('HomeService', () => {
     postService = TestBed.inject(PostService);
     leaderBoardService = TestBed.inject(LeaderBoardService);
     router = TestBed.inject(Router);
-    jwtService = TestBed.inject(JwtServiceService);
+    jwtService = TestBed.inject(JwtService);
   });
 
   it('should return available posts', () => {

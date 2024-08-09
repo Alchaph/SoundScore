@@ -6,7 +6,7 @@ import {PostService} from "../../services/PostService/post.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommentService} from "../../services/CommentService/comment.service";
 import {Comment} from '../../models/Comment';
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
@@ -59,7 +59,7 @@ export class PostComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private postService: PostService,
               public commentService: CommentService,
-              private jwtService: JwtServiceService,
+              private jwtService: JwtService,
               private router: Router,
               protected languageService: LanguageService) {
     this.post = {} as Post;

@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { PremiumComponent } from './premium.component';
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
+import { JwtService } from '../../services/JwtService/jwt.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -50,7 +50,7 @@ describe('PremiumComponent', () => {
       ],
       providers: [
         { provide: UserInformationService, useValue: userInformationServiceMock },
-        { provide: JwtServiceService, useValue: jwtServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
         { provide: Router, useValue: routerMock },
         { provide: PremiumComponent, useValue: premiumComponentMock },
         { provide: ActivatedRoute, useValue: activatedTestMock }

@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {LanguageService} from "../languageService/language.service";
 import {Router} from "@angular/router";
-import {JwtServiceService} from "../JwtService/jwt-service.service";
+import {JwtService} from "../JwtService/jwt.service";
 import {LoaderService} from "../LoaderService/loader.service";
 import {NotificationService} from "../NotificationService/notification.service";
 import {User} from "../../models/User";
@@ -29,7 +29,7 @@ export class HeaderService {
 
   constructor(
     public service: LanguageService,
-    private jwtService: JwtServiceService,
+    private jwtService: JwtService,
     public loaderService: LoaderService,
     public notificationService: NotificationService) {
     this.searching = false;

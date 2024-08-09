@@ -7,7 +7,7 @@ import {NgxMatIntlTelInputComponent} from "ngx-mat-intl-tel-input";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {NgxMatInputTelComponent} from "ngx-mat-input-tel";
-import {JwtServiceService} from "../../services/JwtService/jwt-service.service";
+import {JwtService} from "../../services/JwtService/jwt.service";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {NeatConfig, NeatGradient} from "@firecms/neat";
@@ -71,7 +71,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
   });
 
-  constructor(private jwtService: JwtServiceService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
+  constructor(private jwtService: JwtService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {
