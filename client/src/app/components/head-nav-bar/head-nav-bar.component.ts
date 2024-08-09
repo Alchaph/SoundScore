@@ -59,7 +59,7 @@ export class HeadNavBarComponent implements OnInit {
 
   counter = 0;
 
-  user: User = {email: "", notifications: [], password: "", premium: false, username: ""}
+  user: User = {email: "", notifications: [], password: "", premium: false, username: "", followers: []};
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent): void {

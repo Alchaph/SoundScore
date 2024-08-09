@@ -53,6 +53,9 @@ public class User implements UserDetails {
     @Column(name = "premium", nullable = false)
     private Boolean premium;
 
+    @Transient
+    private List<Integer> follower;
+
     public User(String username, String email, String password, Artist artist, Boolean premium) {
         this.username = username;
         this.email = email;

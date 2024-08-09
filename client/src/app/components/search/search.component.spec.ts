@@ -155,7 +155,8 @@ describe('SearchComponent', () => {
     it('should identify Post type', () => {
       const post: Post = {dislikes: [], image: "", likes: [], user: {
           id: 1, username: 'username', password: 'password', notifications: [], email: 'email',
-          premium: false
+          premium: false,
+          followers: []
         }, id: 1, content: 'Post content', title: 'Post title' };
       expect(component.isPost(post)).toBeTrue();
     });
@@ -166,7 +167,9 @@ describe('SearchComponent', () => {
     });
 
     it('should identify User type', () => {
-      const user: User = {premium: false, id: 1, username: 'username', password: 'password', notifications: [], email: 'email'};
+      const user: User = {
+        followers: [],
+        premium: false, id: 1, username: 'username', password: 'password', notifications: [], email: 'email'};
       expect(component.isUser(user)).toBeTrue();
     });
 
@@ -200,9 +203,10 @@ describe('SearchComponent', () => {
     beforeEach(() => {
       component.posts = [{dislikes: [], image: "", likes: [], user: {
           id: 1, username: 'username', password: 'password', notifications: [], email: 'email',
-          premium: false
+          premium: false,
+          followers: []
         }, id: 1, content: 'Post content', title: 'Post title' }];
-      component.users = [{id: 1, username: 'username', password: 'password', notifications: [], email: 'email', premium: false }];
+      component.users = [{id: 1, username: 'username', password: 'password', notifications: [], email: 'email', premium: false, followers: [] }];
       component.songs = [{artist: {id: 1, description: 'description', name: 'name', image: 'image'}, genre: {id: 1, description: 'description', name: 'name'}, image: "", id: 1, title: 'Song title', link: 'Song link' }];
       component.artists = [{image: "image", id: 1, description: 'Artist description', name: 'Artist name' }];
       component.combinedList = [...component.posts, ...component.users, ...component.songs, ...component.artists];

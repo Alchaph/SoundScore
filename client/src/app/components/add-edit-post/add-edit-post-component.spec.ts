@@ -64,7 +64,8 @@ describe('AddEditPostComponent', () => {
   it('should initialize the component and load post data', () => {
     const post: Post = { id: 1, title: 'Test Post', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: {
         id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] };
     mockPostService.getPost.and.returnValue(of(post));
     component.ngOnInit();

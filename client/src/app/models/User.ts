@@ -7,7 +7,8 @@ export interface User {
   username: string;
   email: string;
   password: string;
-  notifications: Notification[]
+  notifications: Notification[];
+  followers: User[];
   premium: boolean;
   artist?: Artist;
   created_at?: Date;

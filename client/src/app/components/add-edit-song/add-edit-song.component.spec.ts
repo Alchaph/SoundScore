@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddEditSongComponent } from './add-edit-song.component';
-import { of, throwError } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { GifService } from '../../services/GifService/gif.service';
-import { SongService } from '../../services/SongService/song.service';
-import { JwtServiceService } from '../../services/JwtService/jwt-service.service';
-import { GenreService } from '../../services/GenreService/genre.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { Artist } from '../../models/Artist';
-import { User } from '../../models/User';
-import { Song } from '../../models/Song';
-import { Genre } from '../../models/Genre';
-import { ElementRef } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {AddEditSongComponent} from './add-edit-song.component';
+import {of} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {GifService} from '../../services/GifService/gif.service';
+import {SongService} from '../../services/SongService/song.service';
+import {JwtServiceService} from '../../services/JwtService/jwt-service.service';
+import {GenreService} from '../../services/GenreService/genre.service';
+import {ReactiveFormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
+import {Artist} from '../../models/Artist';
+import {User} from '../../models/User';
+import {Song} from '../../models/Song';
+import {Genre} from '../../models/Genre';
+import {ElementRef} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('AddEditSongComponent', () => {
   let component: AddEditSongComponent;
@@ -68,6 +68,7 @@ describe('AddEditSongComponent', () => {
   it('should initialize the component and load song data', () => {
     const song: Song = { title: 'Test', image: 'Image', link: 'Link', genre: {id: 1} as Genre, artist: {id: 1} as Artist };
     const user: User = {
+      followers: [],
       premium: false,
       id: 1, artist: { id: 1 } as Artist, password: 'password', email: 'email', username: 'username', notifications: [] };
     mockSongService.getSong.and.returnValue(of(song));
@@ -147,8 +148,16 @@ describe('AddEditSongComponent', () => {
   });
 
   it('should create a new song when form is valid and user is an artist', () => {
-    const user: User = { id: 1, artist: { id: 1 } as Artist, password: 'password', email: 'email', username: 'username', notifications: [], premium: false };
-    component.user = user;
+    const user: User = {
+      id: 1,
+      artist: {id: 1} as Artist,
+      password: 'password',
+      email: 'email',
+      username: 'username',
+      notifications: [],
+      premium: false,
+      followers: []
+    };
     component.formGroup.controls.title.setValue('Test');
     component.formGroup.controls.imageUrl.setValue('Image');
     component.formGroup.controls.link.setValue('Link');
@@ -159,7 +168,7 @@ describe('AddEditSongComponent', () => {
   });
 
   it('should not create a new song when form is invalid or user is not an artist', () => {
-    const user: User = { id: 1, artist: undefined, password: 'password', email: 'email', username: 'username', notifications: [], premium: false };
+    const user: User = { id: 1, artist: undefined, password: 'password', email: 'email', username: 'username', notifications: [], premium: false, followers: [] };
     component.user = user;
     component.formGroup.controls.title.setValue('');
     component.saveSong();
