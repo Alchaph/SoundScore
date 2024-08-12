@@ -1,6 +1,7 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
 import ch.sbb.soundscore.SoundScore.entities.Comment;
+import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,11 +35,11 @@ public class CommentControllerTest {
 
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = "user1", password = "test")
     @Transactional
     @DirtiesContext
     void shouldCreateNewComment() throws Exception {
-        Comment comment = new Comment();
+        Comment comment = new Comment("message", new User("user1", "test", "test", null, false), null, null);
         comment.setId(1L);
         when(commentService.createComment(any(Comment.class), any(User.class))).thenReturn(comment);
         mockMvc.perform(post("/api/comments")

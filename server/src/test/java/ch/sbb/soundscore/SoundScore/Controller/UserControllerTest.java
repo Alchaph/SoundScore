@@ -38,9 +38,9 @@ public class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        User user1 = new User("test", "test", "test", null);
+        User user1 = new User("test", "test", "test", null, false);
         user1.setUsername("user1");
-        User user2 = new User("test", "test", "test", null);
+        User user2 = new User("test", "test", "test", null, false);
         user2.setUsername("user2");
         List<User> users = Arrays.asList(user1, user2);
         given(userService.allUsers()).willReturn(users);
@@ -69,7 +69,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "user1")
     void shouldGetUserById() throws Exception {
-        given(userService.getUserById(1)).willReturn(new User("user1", "test", "test", null));
+        given(userService.getUserById(1)).willReturn(new User("user1", "test", "test", null, false));
         mockMvc.perform(get("/api/users/user/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -87,7 +87,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "user1")
     void shouldGetUserByArtistId() throws Exception {
-        given(userService.getUserByArtistId(1)).willReturn(new User("user1", " test", "test", null));
+        given(userService.getUserByArtistId(1)).willReturn(new User("user1", " test", "test", null, false));
         mockMvc.perform(get("/api/users/getByArtistId/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -99,7 +99,7 @@ public class UserControllerTest {
     @Transactional
     @DirtiesContext
     void shouldUpdateUser() throws Exception {
-        User user = new User("user2", "test", "test", null);
+        User user = new User("user2", "test", "test", null, false);
         given(userService.updateUsers(user)).willReturn(user);
         mockMvc.perform(put("/api/users")
                         .contentType(MediaType.APPLICATION_JSON).content(
@@ -124,8 +124,8 @@ public class UserControllerTest {
     @Transactional
     @DirtiesContext
     void shouldRegisterArtist() throws Exception {
-        User user = new User("user1", "test", "test", null);
-        given(userService.updateUser(new Artist("", "", "sus"), user)).willReturn(new User("user1", "test", "test", new Artist("", "", "sus")));
+        User user = new User("user1", "test", "test", null, false);
+        given(userService.updateUser(new Artist("", "", "sus"), user)).willReturn(new User("user1", "test", "test", new Artist("", "", "sus"), false));
         mockMvc.perform(put("/api/users/register-artist")
                         .contentType(MediaType.APPLICATION_JSON).content(
                                 new ObjectMapper().writeValueAsString(new Artist("123123", "123123", "Travis"))
