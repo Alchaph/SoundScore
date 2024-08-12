@@ -19,14 +19,15 @@
     <div class="post-content">
       <h1
         [innerHTML]="this.languageService.translate ? (post.title | generictranslate | async) ?? post.title : post.title"></h1>
-      <p
-        [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
       <div class="post-meta">
         <span
           [routerLink]="['/home/userProfile', post.user.id, localStorage.getItem('selectedTabProfileTab')]">{{ 'HOME.POSTED_BY' | translate }} {{ post.user.username }}
         </span>
         <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
       </div>
+      <p>{{ post.user.followers ? post.user.followers.length : 0 }} {{ 'HOME.FOLLOWERS' | translate }}  </p>
+      <p
+        [innerHTML]="this.languageService.translate ? (post.content | generictranslate | async ) ?? post.content : post.content"></p>
       @if (post.genre || post.artist || post.song) {
         <div class="post-tags">
           @if (post.genre) {

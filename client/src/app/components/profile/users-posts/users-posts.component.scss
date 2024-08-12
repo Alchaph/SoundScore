@@ -97,6 +97,20 @@ mat-icon {
   font-weight: 600;
   color: rgb(0, 0, 0);
 }
+
+#box4 {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+#text {
+  padding-top: 10px;
+  font-size: 2em;
+}
 .svgIcon {
   width: 16px;
   height: auto;
@@ -131,4 +145,9 @@ mat-icon {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+#pbContainer {
+  width: 100%;
+  padding-top: 15px;
 }

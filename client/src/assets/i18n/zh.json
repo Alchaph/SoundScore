@@ -24,7 +24,8 @@
     "ARTIST": "艺术家",
     "SONG": "歌曲",
     "POSTED_BY": "发布者",
-    "CREATE_POST": "创建发布"
+    "CREATE_POST": "创建发布",
+    "FOLLOWERS": "粉丝"
   },
   "POST": {
     "TRANSLATE": "翻译",

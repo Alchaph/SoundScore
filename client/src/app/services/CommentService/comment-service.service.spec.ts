@@ -42,7 +42,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -60,7 +61,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     };
     service.createComment(mockComment).subscribe(comment => {
@@ -93,7 +95,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -111,7 +114,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     };
     service.createComment(mockComment).subscribe({
@@ -145,7 +149,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -163,7 +168,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     };
     service.updateComment(mockComment).subscribe(comment => {
@@ -196,7 +202,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -214,7 +221,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     };
     service.updateComment(mockComment).subscribe({
@@ -248,7 +256,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -266,7 +275,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     };
     service.deleteComment(mockComment.id!).subscribe(response => {
@@ -303,7 +313,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -321,7 +332,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     };
     service.deleteComment(mockComment.id!).subscribe({
@@ -357,7 +369,8 @@ describe('CommentService', () => {
               image: 'test-artist.jpg'
             },
             notifications: [],
-            premium: false
+            premium: false,
+            followers: []
           },
           likes: [],
           dislikes: [],
@@ -375,7 +388,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
       },
       {
@@ -398,7 +412,8 @@ describe('CommentService', () => {
               image: 'test-artist.jpg'
             },
             notifications: [],
-            premium: false
+            premium: false,
+            followers: []
           },
           likes: [],
           dislikes: [],
@@ -416,7 +431,8 @@ describe('CommentService', () => {
             image: 'second-test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
       }
     ];
@@ -452,7 +468,8 @@ describe('CommentService', () => {
               image: 'test-artist.jpg'
             },
             notifications: [],
-            premium: false
+            premium: false,
+            followers: []
           },
           likes: [],
           dislikes: [],
@@ -470,7 +487,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
       },
       {
@@ -493,7 +511,8 @@ describe('CommentService', () => {
               image: 'test-artist.jpg'
             },
             notifications: [],
-            premium: false
+            premium: false,
+            followers: []
           },
           likes: [],
           dislikes: [],
@@ -511,7 +530,8 @@ describe('CommentService', () => {
             image: 'second-test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
       }
     ];
@@ -545,7 +565,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -563,7 +584,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     }
     const mockComment2: Comment = {
@@ -586,7 +608,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -605,7 +628,8 @@ describe('CommentService', () => {
           image: 'test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     }
     const mockComments3: Comment = {
@@ -628,7 +652,8 @@ describe('CommentService', () => {
             image: 'test-artist.jpg'
           },
           notifications: [],
-          premium: false
+          premium: false,
+          followers: []
         },
         likes: [],
         dislikes: [],
@@ -646,7 +671,8 @@ describe('CommentService', () => {
           image: 'second-test-artist.jpg'
         },
         notifications: [],
-        premium: false
+        premium: false,
+        followers: []
       },
     }
     const mockComments: Comment[] = [

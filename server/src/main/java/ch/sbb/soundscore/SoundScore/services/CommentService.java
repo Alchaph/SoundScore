@@ -50,9 +50,9 @@ public class CommentService {
         }
 
         if (comment.getParent() != null) {
-            userNotificationsRepository.save(new UserNotifications(comment.getParent().getUser(), currentUser, null, newComment, null));
+            userNotificationsRepository.save(new UserNotifications(comment.getParent().getUser(), currentUser, null, newComment, null, null, null));
         } else {
-            userNotificationsRepository.save(new UserNotifications(comment.getPost().getUser(), currentUser, comment.getPost(), newComment, null));
+            userNotificationsRepository.save(new UserNotifications(comment.getPost().getUser(), currentUser, comment.getPost(), newComment, null, null, null));
         }
         return newComment;
     }

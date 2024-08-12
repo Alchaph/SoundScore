@@ -3,6 +3,7 @@ package ch.sbb.soundscore.SoundScore.repositories;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.entities.UserFollower;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -80,5 +82,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "    SELECT 1 FROM users WHERE id = 0" +
             ");", nativeQuery = true)
     void createUser0IfNotExists();
+
+    @Query("select uf.follower from UserFollower uf where uf.user.id = ?1")
+    List<User> getFollowers(Long id);
 }
 

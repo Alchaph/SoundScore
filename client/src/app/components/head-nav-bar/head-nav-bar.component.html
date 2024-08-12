@@ -101,7 +101,7 @@
             <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
                     [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
               <div>
-                <img class="notification-image" [src]="notification.post?.image ?? notification.comment.post.image">
+                <img class="notification-image" [src]="this.headerService.createPicToDisplay(notification)">
                 <p class="menu-text">
                   {{ headerService.createTextsToDisplay(notification) }}
                 </p>

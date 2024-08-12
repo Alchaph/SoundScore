@@ -48,6 +48,7 @@
                 <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
               </div>
               <div [routerLink]="'/home/post/'+post.id">
+                <p>{{ post.user.followers ? post.user.followers.length : 0 }} {{ 'HOME.FOLLOWERS' | translate }}  </p>
                 <p>{{ post.content }}</p>
                 @if (post.genre || post.artist || post.song) {
                   <div class="post-tags">

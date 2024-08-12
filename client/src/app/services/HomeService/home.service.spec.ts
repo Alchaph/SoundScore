@@ -15,11 +15,13 @@ import {UserInformationService} from "../UserInformationService/user-information
 const mockPosts: Post[] = [
   { id: 1, title: 'Test Post One', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: {
       id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [],
-      premium: false
+      premium: false,
+      followers: []
     }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] },
   { id: 2, title: 'Test Post Two', content: 'This is a test', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, image: 'Image', user: {
       id: 1, username: 'User', email: 'Email', password: 'Password', notifications: [],
-      premium: false
+      premium: false,
+      followers: []
     }, song: { id: 1, image: 'Image', title: 'Title', artist: { id: 1, name: 'Artist', description: 'Description', image: 'Image' }, genre: { id: 1, name: 'Genre', description: 'Description' }, link: 'Link' }, dislikes: [], likes: [] }
 ];
 const mockTopSongs: Song[] = [

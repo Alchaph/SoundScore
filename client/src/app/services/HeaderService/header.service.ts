@@ -49,10 +49,6 @@ export class HeaderService {
     });
   }
 
-
-
-
-
   refresh() {
     this.searching = false;
     if (window.location.href === 'http://localhost:4200/home') {
@@ -60,10 +56,8 @@ export class HeaderService {
     }
   }
 
-
-
-
   createTextsToDisplay(notification: Notification): string {
+    console.log(notification)
     let text: string = "";
     if (notification.likeOrDislike && notification.post) {
       let likeOrDislike: string = notification.likeOrDislike.like ? " liked" : " disliked"
@@ -73,7 +67,13 @@ export class HeaderService {
       text = notification.comment.user.username + " commented on your post " + notification.post.title
     }
     if (notification.comment && !notification.post) {
-      text = notification.comment.user.username + " replied to your comment " + notification.comment.message
+      text = notification.comment.user.username + " replied to your comment with " + notification.comment.message
+    }
+    if (notification.userFollower && notification.userFollower.user) {
+      text = notification.userFollower.user.username + " followed you"
+    }
+    if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
+      text = notification.tag.taggedUser.username + " tagged you in post " + notification.tag.post.title
     }
     if (text.length > 35) {
       return text.substring(0, 35) + "..."
@@ -81,6 +81,28 @@ export class HeaderService {
       return text
     }
   }
+
+  createPicToDisplay(notification: Notification): string {
+    let pic: string = "";
+    if (notification.likeOrDislike && notification.post) {
+      pic = notification.post.image;
+    }
+    if (notification.post && notification.comment) {
+      pic = notification.post.image;
+    }
+    if (notification.comment && !notification.post) {
+      pic = notification.comment.post.image;
+    }
+    if (notification.userFollower && notification.userFollower.user) {
+      pic = 'https://imgs.search.brave.com/Abe_xPL2DUo6HGGWygjUD0PwXWeFg7kQJHFKpcbkEOo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzcxLzQ3Lzc4/LzM2MF9GXzc3MTQ3/NzgyM19NRnFmTXpt/TjlseEdZWHdoeXJJ/Y2x3RXAzZlk0VFpi/dS5qcGc'
+    }
+    if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
+      pic = notification.tag.post.image;
+    }
+    return pic;
+  }
+
+
 
   markAllAsRead() {
     this.notificationService.markAllAsRead(this.user).subscribe(

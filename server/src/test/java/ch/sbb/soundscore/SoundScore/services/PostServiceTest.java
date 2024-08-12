@@ -48,9 +48,9 @@ public class PostServiceTest {
 
     @Test
     void testAllPostsPositive() {
-        Post post1 = new Post();
+        Post post1 = new Post(new User("user1", "test", "test", null, false), null, null, null);
         post1.setId(1L);
-        Post post2 = new Post();
+        Post post2 = new Post(new User("user1", "test", "test", null, false), null, null, null);
         post2.setId(2L);
 
         when(postRepository.findAll()).thenReturn(Arrays.asList(post1, post2));
@@ -140,7 +140,7 @@ public class PostServiceTest {
 
     @Test
     void testGetPostPositive() {
-        Post post = new Post();
+        Post post = new Post(new User("user1", "test", "test", null, false), null, null, null);
         post.setId(1L);
         when(postRepository.findById(any(Long.class))).thenReturn(Optional.of(post));
         when(likeOrDislikeRepository.likesByPostId(any(Long.class))).thenReturn(generateLikeOrDislikeList(5));
