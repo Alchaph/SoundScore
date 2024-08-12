@@ -33,13 +33,25 @@ public class UserNotifications {
     @ManyToOne
     LikeOrDislike likeOrDislike;
 
+    @Nullable
+    @ManyToOne
+    UserFollower userFollower;
+
+    @Nullable
+    @ManyToOne
+    UserTag userTag;
+
     @Column(name = "`read`")
     boolean read;
 
-    public UserNotifications(User receiver, User sender, @Nullable Post post, @Nullable Comment comment, @Nullable LikeOrDislike likeOrDislike) {
+    public UserNotifications(User receiver, User sender, Post post, Comment comment, LikeOrDislike likeOrDislike, UserFollower userFollower, UserTag userTag) {
         this.receiver = receiver;
+        this.sender = sender;
         this.post = post;
         this.comment = comment;
         this.likeOrDislike = likeOrDislike;
+        this.userFollower = userFollower;
+        this.userTag = userTag;
+        this.read = false;
     }
 }

@@ -16,6 +16,7 @@ export class UserFollowerService {
   }
 
   unfollowUser(user: User) {
-    return this.http.post(environment.url + '/followers/unfollow', user, this.httpService.getHttpOptions());
+    const url = environment.url + '/followers/unfollow/' + user.id;
+    return this.http.delete(url , this.httpService.getHttpOptions());
   }
 }

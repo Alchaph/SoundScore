@@ -9,13 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserFollowerRepository extends JpaRepository<UserFollower, Long> {
 
-    @Modifying
     @Transactional
-    @Query(value = "INSERT INTO UserFollower (user, follower) VALUES (?1, ?2) RETURNING *", nativeQuery = true)
-    UserFollower follow(Long userId, Long followerId);
+    @Query(value = "DELETE FROM user_follower WHERE user_id = ?1 AND follower_id = ?2 RETURNING *", nativeQuery = true)
+    UserFollower deFollow(int userId, Long followerId);
 
-    @Modifying
     @Transactional
-    @Query(value = "DELETE FROM UserFollower WHERE user = ?1 AND follower = ?2 RETURNING *", nativeQuery = true)
-    UserFollower deFollow(Long userId, Long followerId);
+    UserFollower getUserFollowerByFollower(User follower);
 }

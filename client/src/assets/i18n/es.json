@@ -24,7 +24,8 @@
     "ARTIST": "Artista",
     "SONG": "Canción",
     "POSTED_BY": "Publicado por",
-    "CREATE_POST": "Crear publicación sobre"
+    "CREATE_POST": "Crear publicación sobre",
+    "FOLLOWERS": "Seguidores"
   },
   "POST": {
     "TRANSLATE": "Traducir",

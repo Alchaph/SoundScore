@@ -17,7 +17,7 @@ describe('HeaderService', () => {
 
   beforeEach(() => {
     jwtServiceMock = {
-      getMe: jasmine.createSpy('getMe').and.returnValue(of({ id: 1, notifications: [], email: 'email', password: 'password', username: 'username', premium: false } as User))
+      getMe: jasmine.createSpy('getMe').and.returnValue(of({ id: 1, notifications: [], email: 'email', password: 'password', username: 'username', premium: false, followers: [] } as User))
     };
 
     notificationServiceMock = {

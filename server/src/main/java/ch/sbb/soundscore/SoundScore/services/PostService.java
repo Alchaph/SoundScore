@@ -32,6 +32,8 @@ public class PostService {
         return postRepository.findAll().stream().map(post -> {
             post.setDislikes(this.likeOrDislikeRepository.dislikesByPostId(post.getId()));
             post.setLikes(this.likeOrDislikeRepository.likesByPostId(post.getId()));
+            post.getUser().setNotifications(userNotificationsRepository.getUserNotificationsByUserId(post.getUser().getId()));
+            post.getUser().setFollowers(userRepository.getFollowers(post.getUser().getId()));
             return post;
         }).collect(Collectors.toList());
     }
@@ -58,6 +60,8 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow();
         post.setDislikes(this.likeOrDislikeRepository.dislikesByPostId(post.getId()));
         post.setLikes(this.likeOrDislikeRepository.likesByPostId(post.getId()));
+        post.getUser().setNotifications(userNotificationsRepository.getUserNotificationsByUserId(post.getUser().getId()));
+        post.getUser().setFollowers(userRepository.getFollowers(post.getUser().getId()));
         return post;
     }
 
@@ -80,7 +84,7 @@ public class PostService {
             likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsTrue(post, user);
         } else {
             LikeOrDislike likeOrDislike = likeOrDislikeRepository.save(new LikeOrDislike(post, user, true));
-            userNotificationsRepository.save(new UserNotifications(post.getUser(), user, post, null,likeOrDislike));
+            userNotificationsRepository.save(new UserNotifications(post.getUser(), user, post, null,likeOrDislike, null, null));
             added = true;
         }
         return added;
@@ -93,7 +97,7 @@ public class PostService {
             likeOrDislikeRepository.deleteLikeOrDislikeByPostAndUserAndLikeIsFalse(post, user);
         } else {
             LikeOrDislike likeOrDislike = likeOrDislikeRepository.save(new LikeOrDislike(post, user, false));
-            userNotificationsRepository.save(new UserNotifications(post.getUser(), user, post, null,likeOrDislike));
+            userNotificationsRepository.save(new UserNotifications(post.getUser(), user, post, null,likeOrDislike, null, null));
             added = true;
         }
         return added;

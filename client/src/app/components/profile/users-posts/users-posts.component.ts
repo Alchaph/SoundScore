@@ -8,6 +8,10 @@ import {User} from "../../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {TranslateModule} from "@ngx-translate/core";
+import {BehaviorSubject} from "rxjs";
+import {UserInformationService} from "../../../services/UserInformationService/user-information.service";
+import {UserFollowerService} from "../../../services/UserFollowerService/user-follower.service";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'app-users-posts',
@@ -19,7 +23,8 @@ import {TranslateModule} from "@ngx-translate/core";
     MatCard,
     MatCardContent,
     MatCardTitle,
-    TranslateModule
+    TranslateModule,
+    AsyncPipe
   ],
   templateUrl: './users-posts.component.html',
   styleUrl: './users-posts.component.scss'
@@ -29,8 +34,11 @@ export class UsersPostsComponent implements OnInit {
   protected userId: number = Number(this.route.snapshot.paramMap.get('id'));
   localUserId: number = 0;
   user: User = {} as User;
+  postUser: User = {} as User;
 
-  constructor(protected postService: PostService, private jwtService: JwtService, private router: Router, private route: ActivatedRoute) {
+  followed = false
+
+  constructor(protected postService: PostService, private jwtService: JwtService, private router: Router, private route: ActivatedRoute, private userInformationService: UserInformationService, private userFollowService: UserFollowerService) {
   }
 
   ngOnInit() {
@@ -43,6 +51,16 @@ export class UsersPostsComponent implements OnInit {
       if (user && user.id) {
         this.localUserId = user.id;
         this.user = user;
+        this.jwtService.getUserById(this.userId).subscribe((user: User) => {
+          if (user.followers !== null) {
+            for (let i = 0; i < user.followers.length; i++) {
+              if (user.followers[i].id === this.user.id) {
+                this.followed = true;
+              }
+            }
+          }
+          this.postUser = user
+        })
       }
     });
   }
@@ -62,7 +80,24 @@ export class UsersPostsComponent implements OnInit {
     this.router.navigate(['/home/post/', postId])
   }
 
-  follow(id: number | undefined) {
+  follow(user: User) {
+    this.userFollowService.followUser(user).subscribe(() => {
+      this.updateFollowers()
+      this.followed = true;
+    });
+  }
 
+  deFollow(user: User) {
+    this.userFollowService.unfollowUser(user).subscribe(() => {
+      this.updateFollowers()
+      this.followed = false;
+    });
+  }
+
+  updateFollowers() {
+    this.jwtService.getUserById(this.userId).subscribe((user: User) => {
+      this.postUser = user
+      console.log(user)
+    });
   }
 }

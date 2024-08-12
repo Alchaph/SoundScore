@@ -38,7 +38,6 @@ export class JwtService {
   }
 
   public getUserById(id: number): Observable<User> {
-
     return this.http.get<User>(environment.url + '/users/user/' + id, this.httpService.getHttpOptions());
   }
 

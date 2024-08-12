@@ -24,7 +24,8 @@
     "ARTIST": "Künschtlär",
     "SONG": "Song",
     "POSTED_BY": "Gschriibä vo",
-    "CREATE_POST": "Post erstellä über"
+    "CREATE_POST": "Post erstellä über",
+    "FOLLOWERS": "Follouwer"
   },
   "POST": {
     "TRANSLATE": "Übersetze",

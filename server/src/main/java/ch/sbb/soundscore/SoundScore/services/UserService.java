@@ -3,6 +3,8 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.entities.UserFollower;
+import ch.sbb.soundscore.SoundScore.repositories.UserFollowerRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,17 +13,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserNotificationsRepository userNotificationsRepository;
+    private final UserFollowerRepository userFollowerRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserNotificationsRepository userNotificationsRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserNotificationsRepository userNotificationsRepository,
+                       UserFollowerRepository userFollowerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userNotificationsRepository = userNotificationsRepository;
+        this.userFollowerRepository = userFollowerRepository;
     }
 
     public List<User> allUsers() {
@@ -46,11 +52,9 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        if (id == 0) {
-            throw new IllegalArgumentException("Id must not be 0");
-        }
         User user = userRepository.findById(id).orElseThrow();
         user.setNotifications(userNotificationsRepository.getUserNotificationsByUserId(user.getId()));
+        user.setFollowers(userRepository.getFollowers(user.getId()));
         return user;
     }
 
@@ -77,5 +81,9 @@ public class UserService {
     public User updatePremium(User user) {
         user.setPremium(true);
         return userRepository.save(user);
+    }
+
+    public List<User> getFollowers(Long id) {
+        return userRepository.getFollowers(id);
     }
 }

@@ -54,7 +54,7 @@ public class User implements UserDetails {
     private Boolean premium;
 
     @Transient
-    private List<Integer> follower;
+    private List<User> followers;
 
     public User(String username, String email, String password, Artist artist, Boolean premium) {
         this.username = username;
