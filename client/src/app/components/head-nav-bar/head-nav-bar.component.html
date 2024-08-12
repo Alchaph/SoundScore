@@ -115,7 +115,9 @@
       <mat-menu #userMenu="matMenu">
         <button (click)="gotoUserProfile()" mat-menu-item>{{ 'HEADER.PROFILE' | translate }}</button>
         <button mat-menu-item routerLink="/home/settings">{{ 'HEADER.SETTINGS' | translate }}</button>
+        @if (!user.premium) {
         <button mat-menu-item routerLink="/home/premium">{{ 'PREMIUM.NAME' | translate }}</button>
+        }
         <button (click)="logout()" mat-menu-item>{{ 'HEADER.LOGOUT' | translate }}</button>
       </mat-menu>
     </div>
