@@ -1,9 +1,6 @@
 package ch.sbb.soundscore.SoundScore.repositories;
 
-import ch.sbb.soundscore.SoundScore.entities.Comment;
-import ch.sbb.soundscore.SoundScore.entities.LikeOrDislike;
-import ch.sbb.soundscore.SoundScore.entities.Post;
-import ch.sbb.soundscore.SoundScore.entities.UserNotifications;
+import ch.sbb.soundscore.SoundScore.entities.*;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,6 +19,15 @@ public interface UserNotificationsRepository extends JpaRepository<UserNotificat
     @Transactional
     @Modifying
     void deleteAllByPost(Post post);
+
+    @Transactional
+    @Modifying
+    void deleteAllByUserFollower(UserFollower userFollower);
+
+    @Transactional
+    @Modifying
+    @Query("delete UserNotifications u where u.userTag.id = :id")
+    void deleteAllUserTagNotifications(Integer id);
 
     @Transactional
     @Modifying

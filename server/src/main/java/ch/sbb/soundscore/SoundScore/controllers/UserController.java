@@ -33,6 +33,7 @@ public class UserController {
         try {
             User currentUser = (User) authentication.getPrincipal();
             currentUser.setNotifications(userNotificationsRepository.getUserNotificationsByUserId(currentUser.getId()));
+            currentUser.setFollowers(userService.getFollowers(currentUser.getId()));
             return ResponseEntity.ok(currentUser);
         } catch (ClassCastException e) {
             UserDetails currentUser = (UserDetails) authentication.getPrincipal();

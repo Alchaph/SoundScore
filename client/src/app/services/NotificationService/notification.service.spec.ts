@@ -54,7 +54,7 @@ describe('NotificationService', () => {
   });
 
   it('should mark all notifications as read for a user', () => {
-    const dummyUser: User = { id: 1, username: 'Test User', password: 'password', email: 'email', notifications: [], premium: false };
+    const dummyUser: User = { id: 1, username: 'Test User', password: 'password', email: 'email', notifications: [], premium: false, followers: [] };
     const responseNotifications: Notification[] = [
     { id: 1, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, receiver: {} as User, sender: {} as User },
     { id: 2, comment: {} as Comment, read: true, likeOrDislike: {} as LikeOrDislike, receiver: {} as User, sender: {} as User }
@@ -70,7 +70,7 @@ describe('NotificationService', () => {
   });
 
   it('should handle error when marking all notifications as read', () => {
-    const dummyUser: User = { id: 1, username: 'Test User', password: 'password', email: 'email', notifications: [], premium: false };
+    const dummyUser: User = { id: 1, username: 'Test User', password: 'password', email: 'email', notifications: [], premium: false, followers: [] };
     service.markAllAsRead(dummyUser).subscribe(
       () => fail('expected an error, not notifications'),
       error => expect(error.status).toBe(500)

@@ -1,6 +1,7 @@
+@if (postUser.id !== user.id) {
 <div id="pbContainer">
-  <div class="tooltip-container" (click)="follow(user.id)">
-    <span class="tooltip">45k</span>
+  <div class="tooltip-container" (click)="followed ? deFollow(postUser) : follow(postUser)">
+    <span class="tooltip">{{ postUser.followers ? postUser.followers.length + ' Follower' : 0 + ' Follower' }}</span>
     <span class="text">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +14,15 @@
         fill="black"
         d="M0 109.5C0 83.2665 21.2665 62 47.5 62V62C73.7335 62 95 83.2665 95 109.5V114H0V109.5Z"
       ></path>
-    </svg>
-    Follow</span
+    </svg>{{ followed ? 'Unfollow ' + postUser.username : 'Follow ' + postUser.username }}</span
     >
   </div>
-
-</div>
+ </div>
+} @else {
+  <div id="box4">
+    <p id="text">{{ user.followers ? user.followers.length : 0 }} {{ 'HOME.FOLLOWERS' | translate }}  </p>
+  </div>
+}
 <div class="posts-container">
   @if (posts.length === 0) {
     <div class="card-container">
@@ -41,6 +45,7 @@
       }
       <div class="post-content">
         <h2>{{ post.title }}</h2>
+        <p>{{ post.user.followers ? post.user.followers.length : 0 }} {{ 'HOME.FOLLOWERS' | translate }}  </p>
         <p>{{ post.content }}</p>
         <div class="post-meta">
           <span>{{ 'POSTS_CONTAINER.POST_CARD.META.BY_USER' | translate }} {{ post.user.username }}</span>

@@ -24,7 +24,8 @@
     "ARTIST": "🎨",
     "SONG": "🎵",
     "POSTED_BY": "📝",
-    "CREATE_POST": "🖋️"
+    "CREATE_POST": "🖋️",
+    "FOLLOWERS": "👥"
   },
   "POST": {
     "TRANSLATE": "🔤",

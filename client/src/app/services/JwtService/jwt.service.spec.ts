@@ -98,8 +98,8 @@ describe('JwtServiceService', () => {
 
   it('getUsers should get and return data', () => {
     const mockResponse: User[] = [
-      { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [], premium: false },
-      { id: 2, email: 'mail@2.com', password: 'test2', username: 'test2', notifications: [], premium: false },
+      { id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [], premium: false, followers: [] },
+      { id: 2, email: 'mail@2.com', password: 'test2', username: 'test2', notifications: [], premium: false, followers: [] },
   ];
 
   service.getUsers().subscribe(response => {
@@ -125,7 +125,7 @@ describe('JwtServiceService', () => {
   it('getUserById should get and return data', () => {
     const mockResponse: User = {
       premium: false,
-      id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] };
+      id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [], followers: [] };
     service.getUserById(1).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -149,7 +149,7 @@ describe('JwtServiceService', () => {
   it('getUserByArtistId should get and return data', () => {
     const mockResponse: User =       {
       premium: false,
-      id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] };
+      id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [], followers: [] };
     service.getUserByArtistId(1).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -173,7 +173,7 @@ describe('JwtServiceService', () => {
   it('getMe should get and return data', () => {
     const mockResponse: User =       {
       premium: false,
-      id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [] };
+      id: 1, email: 'mail@1.com', password: 'test1', username: 'test1', notifications: [], followers: [] };
     service.getMe().subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -225,7 +225,7 @@ describe('JwtServiceService', () => {
     const mockArtist: Artist = { id: 1, name: 'New Artist', description: 'Description', image: 'Image' }
     const mockResponse: User = {
       premium: false,
-      id: 1, email: 'test@test.com', password: 'testPass', username: 'testUser', notifications: [] };
+      id: 1, email: 'test@test.com', password: 'testPass', username: 'testUser', notifications: [], followers: [] };
 
     service.registerArtist(mockArtist).subscribe(response => {
       expect(response).toEqual(mockResponse);
@@ -259,7 +259,7 @@ describe('JwtServiceService', () => {
       premium: false,
       id: 1, username: 'testUser', email: 'test@test.com', password: 'testPass',
       artist: { id: 1, name: 'New Artist', description: 'Description', image: 'Image' },
-      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [] };
+      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [], followers: [] };
     const mockResponse:User = { ...mockUser, username: 'updatedUser' };
 
     service.updateUser(mockUser).subscribe(response => {
@@ -277,7 +277,7 @@ describe('JwtServiceService', () => {
       premium: false,
       id: 1, username: 'testUser', email: 'test@test.com', password: 'testPass',
       artist: { id: 1, name: 'New Artist', description: 'Description', image: 'Image' },
-      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [] };
+      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [], followers: [] };
     const errorResponse = { message: 'Error updating user' };
 
     service.updateUser(mockUser).subscribe({
@@ -297,7 +297,7 @@ describe('JwtServiceService', () => {
       premium: false,
       id: 1, username: 'testUser', email: 'test@test.com', password: 'testPass',
       artist: { id: 1, name: 'New Artist', description: 'Description', image: 'Image' },
-      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [] };
+      created_at: new Date(), updated_at: new Date(), enabled: true, authorities: [], accountNonLocked: true, notifications: [], followers: [] };
 
     service.deleteMe().subscribe(response => {
       expect(response).toEqual(mockResponse);
@@ -523,7 +523,7 @@ describe('JwtServiceService', () => {
     const testPassword = 'newPassword';
     const mockResponse: User = {
       premium: false,
-      id: 1, email: testEmail, password: testPassword, username: 'testUser', artist:undefined, notifications: [] };
+      id: 1, email: testEmail, password: testPassword, username: 'testUser', artist:undefined, notifications: [], followers: [] };
     service.updatePassword(testEmail, testPassword).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -557,7 +557,7 @@ describe('JwtServiceService', () => {
     const testUsername = 'testUser';
     const mockResponse: User = {
       premium: false,
-      id: 1, email: 'testEmail', password: 'testPassword', username: 'testUser', artist:undefined, notifications: [] };
+      id: 1, email: 'testEmail', password: 'testPassword', username: 'testUser', artist:undefined, notifications: [], followers: [] };
 
     service.deleteAccountByUsername(testUsername).subscribe(response => {
       expect(response).toEqual(mockResponse);
@@ -588,7 +588,7 @@ describe('JwtServiceService', () => {
   });
 
   it('should update user to premium (positive test)', () => {
-    const dummyUser: User = {email: "", notifications: [], password: "", id: 1, username: 'John Doe', premium: true };
+    const dummyUser: User = {email: "", notifications: [], password: "", id: 1, username: 'John Doe', premium: true, followers: [] };
 
     service.updateToPremium().subscribe(user => {
       expect(user).toEqual(dummyUser);
