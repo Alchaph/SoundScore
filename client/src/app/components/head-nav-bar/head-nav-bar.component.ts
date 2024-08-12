@@ -19,14 +19,11 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
-import {CommentComponent} from "../comment/comment.component";
-import {CommentService} from "../../services/CommentService/comment.service";
 
 @Component({
   selector: 'app-head-nav-bar',
   standalone: true,
   imports: [
-    CommentComponent,
     MatFormField,
     ReactiveFormsModule,
     MatAutocompleteTrigger,
@@ -57,7 +54,7 @@ import {CommentService} from "../../services/CommentService/comment.service";
 })
 export class HeadNavBarComponent implements OnInit {
 
-  constructor(private commentService: CommentService,protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtService) {
+  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtService) {
   }
 
   counter = 0;
@@ -126,11 +123,27 @@ export class HeadNavBarComponent implements OnInit {
 
 
   handleNotification(notification: Notification) {
+    console.log(notification)
     this.headerService.notificationService.markAsRead(notification).subscribe()
-    let navigation: string = "/home/post/" + (notification.post ?? notification.comment.post)["id"]
-    this.router.navigate([navigation])
-    if (notification.comment){
-         this.router.navigate([navigation + "/comment/" + notification.comment.id])
+    if(notification.comment) {
+      let navigation: string = "/home/post/" + notification.comment.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.post) {
+      let navigation: string = "/home/post/" + notification.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.likeOrDislike) {
+      let navigation: string = "/home/post/" + notification.likeOrDislike.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.tag) {
+      let navigation: string = "/home/post/" + notification.tag.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.userFollower) {
+      let navigation: string = "/home/userProfile/" + notification.userFollower.follower.id + "/0"
+      this.router.navigate([navigation])
     }
   }
 

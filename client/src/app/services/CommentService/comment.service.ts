@@ -4,8 +4,6 @@ import {Comment} from '../../models/Comment';
 import {from, map, Observable} from "rxjs";
 import {environment} from "../../../environments/environments";
 import {HttpService} from "../HttpService/http.service";
-import {HeaderService} from "../HeaderService/header.service";
-import {User} from "../../models/User";
 import {JwtService} from "../JwtService/jwt.service";
 
 @Injectable({
