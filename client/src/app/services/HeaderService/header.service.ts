@@ -75,6 +75,9 @@ export class HeaderService {
     if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
       text = notification.tag.taggedUser.username + " tagged you in post " + notification.tag.post.title
     }
+    if (notification.tag && notification.tag.taggedUser && notification.tag.comment.post) {
+      text = notification.tag.taggedUser.username + " tagged you in comment from post " + notification.tag.comment.post.title
+    }
     if (text.length > 35) {
       return text.substring(0, 35) + "..."
     } else {
@@ -98,6 +101,9 @@ export class HeaderService {
     }
     if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
       pic = notification.tag.post.image;
+    }
+    if (notification.tag && notification.tag.taggedUser && notification.tag.comment) {
+      pic = notification.tag.comment.post.image;
     }
     return pic;
   }
