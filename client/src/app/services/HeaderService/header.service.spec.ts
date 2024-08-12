@@ -92,6 +92,48 @@ describe('HeaderService', () => {
     expect(result).toBe('User3 replied to your comment Messa...');
   });
 
+  it('should create text for follow notification', () => {
+    const notification = {follow: {user: {username: 'User4'}}} as unknown as Notification;
+    const result = service.createTextsToDisplay(notification);
+    expect(result).toBe('User4 followed you');
+  });
+
+  it('should create text for tag notification', () => {
+    const notification = {tag: {user: {username: 'User5'}, post: {title: 'Post5'}}} as unknown as Notification;
+    const result = service.createTextsToDisplay(notification);
+    expect(result).toBe('User5 tagged you in a post Post5');
+  });
+
+  it('should create pic for like notification', () => {
+    const notification = { likeOrDislike: { like: true, user: { username: 'User1' } }, post: { title: 'Post1', image: 'image' } } as Notification;
+    const result = service.createPicToDisplay(notification);
+    expect(result).toBe(notification.post!.image);
+  });
+
+  it('should create pic for comment notification', () => {
+    const notification = { comment: { user: { username: 'User2' }, message: 'Message' }, post: { title: 'Post2', image: 'image' } } as Notification;
+    const result = service.createPicToDisplay(notification);
+    expect(result).toBe(notification.comment.post!.image);
+  });
+
+  it('should create pic for reply notification', () => {
+    const notification = { comment: { user: { username: 'User3' }, message: 'Message' }, post: {title: 'Post1', image: 'imgae'} } as Notification;
+    const result = service.createPicToDisplay(notification);
+    expect(result).toBe(notification.comment.post!.image);
+  });
+
+  it('should create pic for follow notification', () => {
+    const notification = {follow: {user: {username: 'User4'}}} as unknown as Notification;
+    const result = service.createPicToDisplay(notification);
+    expect(result).toBe('https://imgs.search.brave.com/Abe_xPL2DUo6HGGWygjUD0PwXWeFg7kQJHFKpcbkEOo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzcxLzQ3Lzc4/LzM2MF9GXzc3MTQ3/NzgyM19NRnFmTXpt/TjlseEdZWHdoeXJJ/Y2x3RXAzZlk0VFpi/dS5qcGc');
+  });
+
+  it('should create pic for tag notification', () => {
+    const notification = {tag: {user: {username: 'User5'}, post: {title: 'Post5', image: 'image'}}} as unknown as Notification;
+    const result = service.createPicToDisplay(notification);
+    expect(result).toBe(notification.tag.post!.image);
+  });
+
   it('should truncate long text', () => {
     const notification = { comment: { user: { username: 'User4' }, message: 'A very long message that exceeds thirty-five characters' }, post: { title: 'Post4' } } as Notification;
     const result = service.createTextsToDisplay(notification);

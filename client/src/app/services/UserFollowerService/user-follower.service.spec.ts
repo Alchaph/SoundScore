@@ -66,8 +66,8 @@ describe('UserFollowerService', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(environment.url + '/followers/unfollow');
-    expect(req.request.method).toBe('POST');
+    const req = httpMock.expectOne(environment.url + '/followers/unfollow/1');
+    expect(req.request.method).toBe('DELETE');
     req.flush(mockResponse);
   });
 
@@ -83,8 +83,8 @@ describe('UserFollowerService', () => {
       }
     );
 
-    const req = httpMock.expectOne(environment.url + '/followers/unfollow');
-    expect(req.request.method).toBe('POST');
+    const req = httpMock.expectOne(environment.url + '/followers/unfollow/1');
+    expect(req.request.method).toBe('DELETE');
     req.flush(null, mockError);
   });
 });
