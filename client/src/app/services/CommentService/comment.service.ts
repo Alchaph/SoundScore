@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable, QueryList} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Comment} from '../../models/Comment';
 import {from, map, Observable} from "rxjs";
@@ -37,17 +37,36 @@ export class CommentService {
     );
   }
 
+  validMessage(message: string): boolean {
+    //check if message contains html tags
+    const htmlRegex = /<[^>]*>/;
+    return !htmlRegex.test(message);
+  }
+
+  stripHtmlTags(content: string): string {
+    const div = document.createElement('div');
+    div.innerHTML = content;
+    return div.textContent || div.innerText || '';
+  }
+
   createComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions());
+    if (this.validMessage(comment.message)){
+      return this.http.post<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions());
+    } else {
+      throw new Error('HTML tags are not allowed in comments');
+    }
   }
 
   updateComment(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions())
+    if (this.validMessage(comment.message)){
+      return this.http.put<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions());
+    } else {
+      throw new Error('HTML tags are not allowed in comments');
+    }
   }
 
   deleteComment(id: number): Observable<Comment> {
     return this.http.delete<Comment>(environment.url + '/comments/' + id, this.httpService.getHttpOptions());
-
   }
 
   getCommentsOfPost(postId: number): Observable<Comment[]> {

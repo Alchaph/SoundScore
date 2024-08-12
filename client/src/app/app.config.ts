@@ -17,7 +17,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([LoadingInterceptor])), provideAnimationsAsync(), LanguageService,
+  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([LoadingInterceptor])), provideAnimationsAsync(),
               importProvidersFrom(TranslateModule.forRoot({
                 loader: {
                   provide: TranslateLoader,

@@ -16,6 +16,7 @@ export const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', canActivate: [loginGuard], component: HomeComponent},
   {path: 'home/post/:postId', canActivate: [loginGuard], component: PostComponent},
+  {path: 'home/post/:postId/comment/:commentId', canActivate: [loginGuard], component: PostComponent},
   {path: 'home/addPost/:postType', canActivate: [loginGuard], component: AddEditPostComponent},
   {path: 'home/editPost/:postId', canActivate: [loginGuard], component: AddEditPostComponent},
   {path: 'home/leaderBoard', canActivate: [loginGuard], component: LeaderBoardComponent},

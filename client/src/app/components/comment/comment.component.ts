@@ -1,5 +1,4 @@
-// comment.component.ts
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Comment} from '../../models/Comment';
 import {User} from '../../models/User';
 import {CommentService} from '../../services/CommentService/comment.service';
@@ -34,25 +33,21 @@ export class CommentComponent implements OnInit{
   @Input() protected postId: number = 0;
   protected baseId = 0;
 
+
   constructor(private commentService: CommentService, protected languageService: LanguageService, private jwtService: JwtService, private router : Router) {
   }
   ngOnInit(): void {
     // this.comment.message = await this.commentService.processCommentContent(this.comment.message);
     this.commentService.processCommentContent(this.comment.message).subscribe((message) => {
       this.comment.message = message;
-      console.log(this.comment.message)
+      // console.log(this.comment.message)
     });
   }
 
-
-  navigateToUserProfile(userId: number): void {
-    this.router.navigate([`/userProfile/${userId}/0`]);
-  }
-
-
   setEditComment(comment: Comment): void {
     this.commentService.currentAction = 'Edit your';
-    this.commentService.newComment = {...comment};
+    const strippedMessage = this.commentService.stripHtmlTags(comment.message);
+    this.commentService.newComment = { ...comment, message: strippedMessage };
   }
 
   setReplyComment(comment: Comment): void {
@@ -82,5 +77,6 @@ export class CommentComponent implements OnInit{
       })
     }
   }
+
 
 }

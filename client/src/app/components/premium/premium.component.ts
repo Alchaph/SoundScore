@@ -3,13 +3,12 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
-import {Form, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {PayPalAccessToken} from "../../models/PayPalAccessToken";
-import {TransactionDetails} from "../../models/TransactionDetails";
-import {takeUntil} from "rxjs";
+
 
 @Component({
   selector: 'app-premium',

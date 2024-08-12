@@ -19,11 +19,14 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
+import {CommentComponent} from "../comment/comment.component";
+import {CommentService} from "../../services/CommentService/comment.service";
 
 @Component({
   selector: 'app-head-nav-bar',
   standalone: true,
   imports: [
+    CommentComponent,
     MatFormField,
     ReactiveFormsModule,
     MatAutocompleteTrigger,
@@ -54,7 +57,7 @@ import { UserInformationService } from '../../services/UserInformationService/us
 })
 export class HeadNavBarComponent implements OnInit {
 
-  constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtService) {
+  constructor(private commentService: CommentService,protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtService) {
   }
 
   counter = 0;
@@ -126,6 +129,9 @@ export class HeadNavBarComponent implements OnInit {
     this.headerService.notificationService.markAsRead(notification).subscribe()
     let navigation: string = "/home/post/" + (notification.post ?? notification.comment.post)["id"]
     this.router.navigate([navigation])
+    if (notification.comment){
+         this.router.navigate([navigation + "/comment/" + notification.comment.id])
+    }
   }
 
   updateColors(): void {

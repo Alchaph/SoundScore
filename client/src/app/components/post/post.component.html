@@ -44,8 +44,8 @@
   </div>
   <div class="comments-section">
     <h2>{{ 'POST.COMMENTS' | translate }}</h2>
-    @for (comment of commentService.comments; track comment) {
-      @if (commentService.comments.length !== 0) {
+    @for (comment of this.commentService.comments; track comment) {
+      @if (this.commentService.comments.length !== 0) {
       <app-comment [comment]="comment" [activeUser]="activeUser"></app-comment>
       } @else {
       <p>{{ 'POST.NO_COMMENTS' | translate }}</p>

@@ -52,6 +52,7 @@ import {JwtService} from "../../services/JwtService/jwt.service";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
 import {ArtistService} from "../../services/ArtistService/artist.service";
 import {Artist} from "../../models/Artist";
+import {CommentComponent} from "../comment/comment.component";
 
 export interface TreeNode {
   name: string;
@@ -111,7 +112,7 @@ export interface TreeNode {
     MatOption,
     TranslateModule,
     HomeMobileComponent,
-    LikeOrDislikeComponent
+    LikeOrDislikeComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

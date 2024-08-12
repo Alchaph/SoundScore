@@ -28,22 +28,29 @@ public class CommentService {
     }
 
     public Comment createComment(Comment comment, User currentUser) {
-        System.out.println("can print");
+//        System.out.println("can print");
         Comment newComment = commentRepository.save(comment);
+
+        Set<String> matchUser = Arrays.stream(comment.getMessage().split(" "))
+                .filter(word -> word.startsWith("@") && word.indexOf("@") == 0)
+                .collect(Collectors.toSet())
+                .stream().map(word -> word.substring(1))
+                .collect(Collectors.toSet());
+
+//        System.out.println(matchUser);
+
+        for (String username : matchUser) {
+//            System.out.println(username);
+
+
+            userRepository.findByUsername(username).ifPresent(user -> {
+//                System.out.println(user.getId());
+                userNotificationsRepository.save(new UserNotifications(user, comment.getUser(), null, newComment, null));
+            });
+        }
+
         if (comment.getParent() != null) {
             userNotificationsRepository.save(new UserNotifications(comment.getParent().getUser(), currentUser, null, newComment, null));
-
-            Set<String> matchUser = Arrays.stream(comment.getMessage().split(" "))
-                    .filter(word -> word.startsWith("@"))
-                    .collect(Collectors.toSet());
-
-            System.out.println(matchUser);
-
-            for (String username : matchUser) {
-                userRepository.findByUsername(username).ifPresent(user -> {
-                    userNotificationsRepository.save(new UserNotifications(user, comment.getUser(), null, newComment, null));
-                });
-            }
         } else {
             userNotificationsRepository.save(new UserNotifications(comment.getPost().getUser(), currentUser, comment.getPost(), newComment, null));
         }

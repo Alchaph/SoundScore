@@ -84,6 +84,34 @@ export class PostComponent implements OnInit {
     if (this.postId) {
       this.loadComponentData();
     }
+
+    this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
+      console.log(comments);
+      this.commentService.comments = this.commentService.buildCommentTree(comments);
+
+      const commentId = Number(this.route.snapshot.paramMap.get('commentId'));
+      // console.log(commentId);
+
+      if (commentId) {
+        this.commentService.comments = [this.commentService.comments.find(comment => comment.id === commentId)!];
+        console.log(this.commentService.comments);
+
+      //   for(let comment  of this.comments) {
+      //     console.log(comment.id);
+      //     // console.log(commentId);
+      //     console.log(comment.id == commentId);
+      //     this.comments = []
+      //     if (comment.id == commentId) {
+      //       this.comments.push(comment);
+      //     }
+      //   }
+      //   console.log(this.comments);
+      }
+    });
+
+    // console.log(Number(this.route.snapshot.paramMap.get('commentId')));
+
+
   }
 
   handleAction(): void {
