@@ -123,9 +123,28 @@ export class HeadNavBarComponent implements OnInit {
 
 
   handleNotification(notification: Notification) {
+    console.log(notification)
     this.headerService.notificationService.markAsRead(notification).subscribe()
-    let navigation: string = "/home/post/" + (notification.post ?? notification.comment.post)["id"]
-    this.router.navigate([navigation])
+    if(notification.comment) {
+      let navigation: string = "/home/post/" + notification.comment.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.post) {
+      let navigation: string = "/home/post/" + notification.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.likeOrDislike) {
+      let navigation: string = "/home/post/" + notification.likeOrDislike.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.tag) {
+      let navigation: string = "/home/post/" + notification.tag.post.id
+      this.router.navigate([navigation])
+    }
+    if (notification.userFollower) {
+      let navigation: string = "/home/userProfile/" + notification.userFollower.follower.id + "/0"
+      this.router.navigate([navigation])
+    }
   }
 
   updateColors(): void {

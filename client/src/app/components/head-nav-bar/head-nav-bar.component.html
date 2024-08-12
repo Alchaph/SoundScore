@@ -97,7 +97,7 @@
               <p>{{ "HEADER.ALL_READ"|translate }}</p>
             </div>
           </div>
-          @for (notification of headerService.showReadNotifications ? headerService.user.notifications.reverse() : headerService.unreadNotifications.reverse(); track $index) {
+          @for (notification of headerService.showReadNotifications ? headerService.user.notifications : headerService.unreadNotifications; track $index) {
             <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
                     [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
               <div>
