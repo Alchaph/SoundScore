@@ -69,7 +69,7 @@ class CommentServiceTest {
 
     @Test
     void getCommentsByPostId() {
-        User user = new User("test", "test", "test", null);
+        User user = new User("test", "test", "test", null, false);
         user.setId(1L);
 
         Post post = new Post();
