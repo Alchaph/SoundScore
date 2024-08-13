@@ -61,19 +61,19 @@ export class HeaderService {
     if (notification.likeOrDislike && notification.post) {
       let likeOrDislike: string = notification.likeOrDislike.like ? " liked" : " disliked"
       text = notification.likeOrDislike.user.username + likeOrDislike + " your post " + notification.post.title
-    }
+    } else
     if (notification.post && notification.comment) {
       text = notification.comment.user.username + " commented on your post " + notification.post.title
-    }
+    } else
     if (notification.comment && !notification.post) {
       text = notification.comment.user.username + " replied to your comment with " + notification.comment.message
-    }
+    } else
     if (notification.userFollower && notification.userFollower.user) {
-      text = notification.userFollower.user.username + " followed you"
-    }
+      text = notification.userFollower.follower.username + " followed you"
+    } else
     if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
       text = notification.tag.taggedUser.username + " tagged you in post " + notification.tag.post.title
-    }
+    } else
     if (notification.tag && notification.tag.taggedUser && notification.tag.comment.post) {
       text = notification.tag.taggedUser.username + " tagged you in comment from post " + notification.tag.comment.post.title
     }
