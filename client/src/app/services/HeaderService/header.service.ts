@@ -57,7 +57,6 @@ export class HeaderService {
   }
 
   createTextsToDisplay(notification: Notification): string {
-    console.log(notification)
     let text: string = "";
     if (notification.likeOrDislike && notification.post) {
       let likeOrDislike: string = notification.likeOrDislike.like ? " liked" : " disliked"

@@ -22,13 +22,8 @@ export class UserInformationService {
   }
 
   setMessage(message: string) {
-    console.log(message);
     this.message.next(message);
     this.isMessage.next(true);
-    console.log(this.message.value);
-    console.log(this.isMessage);
-    console.log(this.isMessage.value);
-    console.log(this.isMessage.getValue());
   }
 
   getMessage() {
