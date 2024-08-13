@@ -122,7 +122,6 @@ describe('AddEditSongComponent', () => {
   it('should search for gifs and set the results', () => {
     component.gifSearchString = 'test';
     component.searchGif();
-    console.log(component.gifSearchResults);
     expect(component.gifSearchResults).toContain('testUrl');
   });
 

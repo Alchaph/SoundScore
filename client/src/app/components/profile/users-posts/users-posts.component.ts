@@ -97,7 +97,6 @@ export class UsersPostsComponent implements OnInit {
   updateFollowers() {
     this.jwtService.getUserById(this.userId).subscribe((user: User) => {
       this.postUser = user
-      console.log(user)
     });
   }
 }
