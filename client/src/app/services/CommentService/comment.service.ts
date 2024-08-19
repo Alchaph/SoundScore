@@ -1,7 +1,7 @@
 import {ElementRef, Injectable, QueryList} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Comment} from '../../models/Comment';
-import {catchError, from, map, Observable, of, switchMap} from "rxjs";
+import {catchError, forkJoin, from, map, Observable, of, switchMap} from "rxjs";
 import {environment} from "../../../environments/environments";
 import {HttpService} from "../HttpService/http.service";
 import {JwtService} from "../JwtService/jwt.service";
@@ -37,13 +37,16 @@ export class CommentService {
       })
     );
   }
-  getTaggedUser(comment: Comment): Observable<User | undefined> {
+  getTaggedUsers(comment: Comment): Observable<User[] | undefined> {
     if (comment.message.includes('@')) {
-      const match = comment.message.match(/@(\w+)/);
-      const taggedUsername = match ? match[1] : undefined;
-      if (taggedUsername) {
+      const match = comment.message.match(/@\w+/g);
+      const taggedUsernames = match?.map(match => match.substring(1));
+      console.log(taggedUsernames);
+      if (taggedUsernames) {
         return this.jwtService.getUsers().pipe(
-          map(users => users.find(user => user.username === taggedUsername))
+          map(users => {
+            return users.filter(user => taggedUsernames.includes(user.username));
+          })
         );
       }
     }
@@ -65,19 +68,23 @@ export class CommentService {
   createComment(comment: Comment): Observable<Comment> {
     if (this.validMessage(comment.message)) {
       return this.http.post<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions()).pipe(
-      switchMap(savedComment => {
-          return this.getTaggedUser(savedComment).pipe(
-            switchMap(taggedUser => {
-              if (taggedUser) {
-                const newTag: UserTag = {
-                  user: savedComment.user,
-                  taggedUser: taggedUser,
-                  post: undefined,
-                  comment: savedComment
-                };
-                return this.userTagService.createTag(newTag).pipe(
+        switchMap(savedComment => {
+          return this.getTaggedUsers(savedComment).pipe(
+            switchMap(taggedUsers => {
+              if (taggedUsers && taggedUsers.length > 0) {
+                const tagObservables = taggedUsers.map(taggedUser => {
+                  const newTag: UserTag = {
+                    user: savedComment.user,
+                    taggedUser: taggedUser,
+                    post: undefined,
+                    comment: savedComment
+                  };
+                  return this.userTagService.createTag(newTag);
+                });
+
+                return forkJoin(tagObservables).pipe(
                   switchMap(() => {
-                    console.log('Tag created');
+                    console.log('Tags created');
                     return of(savedComment); // Return the saved comment
                   })
                 );
@@ -97,18 +104,22 @@ export class CommentService {
     if (this.validMessage(comment.message)) {
       return this.http.put<Comment>(environment.url + '/comments', comment, this.httpService.getHttpOptions()).pipe(
         switchMap(savedComment => {
-          return this.getTaggedUser(savedComment).pipe(
-            switchMap(taggedUser => {
-              if (taggedUser) {
-                const newTag: UserTag = {
-                  user: savedComment.user,
-                  taggedUser: taggedUser,
-                  post: undefined,
-                  comment: savedComment
-                };
-                return this.userTagService.createTag(newTag).pipe(
+          return this.getTaggedUsers(savedComment).pipe(
+            switchMap(taggedUsers => {
+              if (taggedUsers && taggedUsers.length > 0) {
+                const tagObservables = taggedUsers.map(taggedUser => {
+                  const newTag: UserTag = {
+                    user: savedComment.user,
+                    taggedUser: taggedUser,
+                    post: undefined,
+                    comment: savedComment
+                  };
+                  return this.userTagService.createTag(newTag);
+                });
+
+                return forkJoin(tagObservables).pipe(
                   switchMap(() => {
-                    console.log('Tag updated');
+                    console.log('Tags created');
                     return of(savedComment); // Return the saved comment
                   })
                 );

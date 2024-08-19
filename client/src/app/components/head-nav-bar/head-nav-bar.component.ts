@@ -125,7 +125,7 @@ export class HeadNavBarComponent implements OnInit {
   handleNotification(notification: Notification) {
     this.headerService.notificationService.markAsRead(notification).subscribe()
     if(notification.comment) {
-      let navigation: string = "/home/post/" + notification.comment.post.id
+      let navigation: string = "/home/post/" + notification.comment.post.id + "/comment/" + notification.comment.id
       this.router.navigate([navigation])
     }
     if (notification.post) {

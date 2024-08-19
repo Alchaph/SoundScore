@@ -37,10 +37,8 @@ export class CommentComponent implements OnInit{
   constructor(private commentService: CommentService, protected languageService: LanguageService, private jwtService: JwtService, private router : Router) {
   }
   ngOnInit(): void {
-    // this.comment.message = await this.commentService.processCommentContent(this.comment.message);
     this.commentService.processCommentContent(this.comment.message).subscribe((message) => {
       this.comment.message = message;
-      // console.log(this.comment.message)
     });
   }
 
