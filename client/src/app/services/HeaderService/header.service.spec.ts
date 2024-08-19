@@ -131,7 +131,7 @@ describe('HeaderService', () => {
   it('should create pic for tag notification', () => {
     const notification = {tag: {user: {username: 'User5'}, post: {title: 'Post5', image: 'image'}}} as unknown as Notification;
     const result = service.createPicToDisplay(notification);
-    expect(result).toBe(notification.tag.post!.image);
+    expect(result).toBe(notification.userTag.post!.image);
   });
 
   it('should truncate long text', () => {

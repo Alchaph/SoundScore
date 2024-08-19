@@ -18,8 +18,9 @@ public class UserTagService {
     }
 
     public UserTag create(UserTag userTag) {
-        userNotificationsRepository.save(new UserNotifications(userTag.getTaggedUser(), userTag.getUser(), null, null, null, null, userTag));
-        return userTagRepository.save(userTag);
+        UserTag savedUserTag = userTagRepository.save(userTag);
+        userNotificationsRepository.save(new UserNotifications(savedUserTag.getTaggedUser(), savedUserTag.getUser(), null, null, null, null, savedUserTag));
+        return savedUserTag;
     }
 
     public void delete(Integer id) {

@@ -4,10 +4,9 @@ import {Comment} from "./Comment";
 
 
 export interface UserTag {
-  id: number;
+  id?: number;
   user: User;
   taggedUser: User;
-  post: Post;
-  comment: Comment;
-
+  post?: Post;
+  comment?: Comment;
 }

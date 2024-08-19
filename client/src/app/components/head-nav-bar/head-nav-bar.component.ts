@@ -137,9 +137,15 @@ export class HeadNavBarComponent implements OnInit {
       let navigation: string = "/home/post/" + notification.likeOrDislike.post.id
       this.router.navigate([navigation])
     }
-    if (notification.tag) {
-      let navigation: string = "/home/post/" + notification.tag.post.id
-      this.router.navigate([navigation])
+    if (notification.userTag) {
+      //either post or comment is null
+      if (notification.userTag.post) {
+        let navigation: string = "/home/post/" + notification.userTag.post.id
+        this.router.navigate([navigation])
+      } else {
+        let navigation: string = "/home/post/" + notification.userTag.comment.post.id +"/comment/" + notification.userTag.comment.id
+        this.router.navigate([navigation])
+      }
     }
     if (notification.userFollower) {
       let navigation: string = "/home/userProfile/" + notification.userFollower.follower.id + "/0"

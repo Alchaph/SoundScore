@@ -40,11 +40,12 @@ export class HeaderService {
   }
 
   updateUser() {
-    this.jwtService.getMe().subscribe(data => {
-      if (data && data.id) {
-        this.userId = data.id!;
-        this.user = data;
-        this.unreadNotifications = data.notifications.filter(n => !n.read);
+    this.jwtService.getMe().subscribe(user => {
+      if (user && user.id) {
+        this.userId = user.id!;
+        this.user = user;
+        this.unreadNotifications = user.notifications.filter(n => !n.read);
+        // console.log(this.unreadNotifications)
       }
     });
   }
@@ -57,7 +58,7 @@ export class HeaderService {
   }
 
   createTextsToDisplay(notification: Notification): string {
-    console.log(notification)
+    // console.log(notification.tag)
     let text: string = "";
     if (notification.likeOrDislike && notification.post) {
       let likeOrDislike: string = notification.likeOrDislike.like ? " liked" : " disliked"
@@ -72,11 +73,11 @@ export class HeaderService {
     if (notification.userFollower && notification.userFollower.user) {
       text = notification.userFollower.user.username + " followed you"
     }
-    if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
-      text = notification.tag.taggedUser.username + " tagged you in post " + notification.tag.post.title
+    if (notification.userTag && notification.userTag.taggedUser && notification.userTag.post) {
+      text = notification.userTag.user.username + " mentioned you in a post"
     }
-    if (notification.tag && notification.tag.taggedUser && notification.tag.comment.post) {
-      text = notification.tag.taggedUser.username + " tagged you in comment from post " + notification.tag.comment.post.title
+    if (notification.userTag && notification.userTag.taggedUser && notification.userTag.comment.post) {
+      text = notification.userTag.user.username + " mentioned you  in a comment"
     }
     if (text.length > 35) {
       return text.substring(0, 35) + "..."
@@ -97,13 +98,13 @@ export class HeaderService {
       pic = notification.comment.post.image;
     }
     if (notification.userFollower && notification.userFollower.user) {
-      pic = 'https://imgs.search.brave.com/Abe_xPL2DUo6HGGWygjUD0PwXWeFg7kQJHFKpcbkEOo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzcxLzQ3Lzc4/LzM2MF9GXzc3MTQ3/NzgyM19NRnFmTXpt/TjlseEdZWHdoeXJJ/Y2x3RXAzZlk0VFpi/dS5qcGc'
+      pic = 'https://c.tenor.com/lkcr4ohzg0MAAAAd/tenor.gif';
     }
-    if (notification.tag && notification.tag.taggedUser && notification.tag.post) {
-      pic = notification.tag.post.image;
+    if (notification.userTag && notification.userTag.taggedUser && notification.userTag.post) {
+      pic = notification.userTag.post.image;
     }
-    if (notification.tag && notification.tag.taggedUser && notification.tag.comment) {
-      pic = notification.tag.comment.post.image;
+    if (notification.userTag && notification.userTag.taggedUser && notification.userTag.comment) {
+      pic = notification.userTag.comment.post.image;
     }
     return pic;
   }

@@ -33,4 +33,9 @@ public interface UserNotificationsRepository extends JpaRepository<UserNotificat
     @Modifying
     @Query("delete UserNotifications u where u.likeOrDislike = :likeOrDislike")
     void deleteAllByLikeOrDislike(LikeOrDislike likeOrDislike);
+
+    @Transactional
+    @Modifying
+    @Query("delete UserNotifications u where u.userTag.comment = :comment")
+    void deleteAllByUserTagOfComment(Comment comment);
 }

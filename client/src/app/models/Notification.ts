@@ -14,5 +14,5 @@ export interface Notification {
   likeOrDislike: LikeOrDislike,
   read: boolean,
   userFollower: Follow,
-  tag: Tag
+  userTag: Tag
 }
