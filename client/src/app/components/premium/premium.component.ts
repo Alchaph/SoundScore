@@ -24,7 +24,7 @@ import {PayPalAccessToken} from "../../models/PayPalAccessToken";
   templateUrl: './premium.component.html',
   styleUrl: './premium.component.scss'
 })
-export class PremiumComponent implements OnInit {
+export class PremiumComponent {
 
   protected readonly TranslateModule = TranslateModule;
   payGroup: FormGroup<{
@@ -42,12 +42,6 @@ export class PremiumComponent implements OnInit {
   creditCard: boolean = false;
 
   constructor(protected userInformationService: UserInformationService, private jwtService: JwtService, private router: Router) {
-  }
-
-  ngOnInit() {
-    this.jwtService.getPayPalAccessToken().subscribe((data: PayPalAccessToken) => {
-      localStorage.setItem('paypal_access_token', data.access_token);
-    });
   }
 
   pay() {
