@@ -46,7 +46,6 @@ export class PremiumComponent implements OnInit {
 
   ngOnInit() {
     this.jwtService.getPayPalAccessToken().subscribe((data: PayPalAccessToken) => {
-      console.log(data);
       localStorage.setItem('paypal_access_token', data.access_token);
     });
   }
@@ -65,8 +64,4 @@ export class PremiumComponent implements OnInit {
   }
 
   protected readonly window = window;
-
-  suck() {
-    console.log("suiii")
-  }
 }
