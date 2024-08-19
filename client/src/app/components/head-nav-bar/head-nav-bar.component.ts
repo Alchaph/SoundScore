@@ -123,7 +123,6 @@ export class HeadNavBarComponent implements OnInit {
 
 
   handleNotification(notification: Notification) {
-    console.log(notification)
     this.headerService.notificationService.markAsRead(notification).subscribe()
     if(notification.comment) {
       let navigation: string = "/home/post/" + notification.comment.post.id

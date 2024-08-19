@@ -144,7 +144,7 @@ export class JwtService {
       }
     }).then(response => response.json())
       .then(data => {
-        console.log(data);
+
         return data;
       });
     return [];
