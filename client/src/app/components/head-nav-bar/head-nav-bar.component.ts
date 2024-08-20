@@ -165,6 +165,7 @@ export class HeadNavBarComponent implements OnInit {
     }
     document.documentElement.style.setProperty('--first-color', this.color1.value);
     document.documentElement.style.setProperty('--second-color', this.color2.value);
+    // Set cookie for 51 weeks
     this.cookieService.setCookie('color1', this.color1.value, 51 * 7 * 24 * 60 * 60 * 1000);
     this.cookieService.setCookie('color2', this.color2.value, 51 * 7 * 24 * 60 * 60 * 1000);
     this.cookieService.setCookie('textColor', getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim(), 51 * 7 * 24 * 60 * 60 * 1000);

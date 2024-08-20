@@ -102,6 +102,7 @@ export class JwtService {
       tap((isVerified) => {
         if (isVerified) {
           const name = '2fa_verified' + username;
+          // Set cookie for 24 hours
           this.cookieService.setCookie(name, 'true', 24 * 60 * 60 * 1000);
         }
       })
