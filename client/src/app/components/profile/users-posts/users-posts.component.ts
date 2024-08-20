@@ -80,19 +80,17 @@ export class UsersPostsComponent implements OnInit {
     this.router.navigate(['/home/post/', postId])
   }
 
-  follow(user: User) {
-    this.userFollowService.followUser(user).subscribe(() => {
-      this.updateFollowers()
-      this.followed = true;
+  toggleFollow(user: User, shouldFollow: boolean) {
+    const followAction = shouldFollow
+      ? this.userFollowService.followUser(user)
+      : this.userFollowService.unfollowUser(user);
+
+    followAction.subscribe(() => {
+      this.updateFollowers();
+      this.followed = shouldFollow;
     });
   }
 
-  deFollow(user: User) {
-    this.userFollowService.unfollowUser(user).subscribe(() => {
-      this.updateFollowers()
-      this.followed = false;
-    });
-  }
 
   updateFollowers() {
     this.jwtService.getUserById(this.userId).subscribe((user: User) => {

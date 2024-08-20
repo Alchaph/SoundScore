@@ -1,6 +1,6 @@
 @if (postUser.id !== user.id) {
 <div id="pbContainer">
-  <div class="tooltip-container" (click)="followed ? deFollow(postUser) : follow(postUser)">
+  <div class="tooltip-container" (click)="followed ? toggleFollow(postUser, false) : toggleFollow(postUser, true)">
     <span class="tooltip">{{ postUser.followers ? postUser.followers.length + ' Follower' : 0 + ' Follower' }}</span>
     <span class="text">
     <svg
