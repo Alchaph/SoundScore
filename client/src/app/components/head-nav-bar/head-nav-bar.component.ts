@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -19,6 +19,7 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -52,12 +53,19 @@ import { UserInformationService } from '../../services/UserInformationService/us
   templateUrl: './head-nav-bar.component.html',
   styleUrl: './head-nav-bar.component.scss'
 })
-export class HeadNavBarComponent implements OnInit {
+export class HeadNavBarComponent implements OnInit, OnDestroy {
 
   constructor(protected headerService: HeaderService, protected router: Router, private cookieService: CookieService, private loaderService: LoaderService, private jwtService: JwtService) {
   }
 
   counter = 0;
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
 
   user: User = {email: "", notifications: [], password: "", premium: false, username: "", followers: []};
 
@@ -80,7 +88,7 @@ export class HeadNavBarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.jwtService.getMe().subscribe(user => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe(user => {
       this.user = user;
     });
     this.headerService.isLoading = this.loaderService.getIsLoading();
@@ -123,7 +131,7 @@ export class HeadNavBarComponent implements OnInit {
 
 
   handleNotification(notification: Notification) {
-    this.headerService.notificationService.markAsRead(notification).subscribe()
+    this.headerService.notificationService.markAsRead(notification).pipe(takeUntil(this.$destroy)).subscribe()
     if(notification.comment) {
       let navigation: string = "/home/post/" + notification.comment.post.id + "/comment/" + notification.comment.id
       this.router.navigate([navigation])

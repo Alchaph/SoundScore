@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {User} from "../../models/User";
 import {PostService} from "../../services/PostService/post.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {Post} from "../../models/Post";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-like-or-dislike',
@@ -17,7 +17,7 @@ import {Observable} from "rxjs";
   templateUrl: './like-or-dislike.component.html',
   styleUrl: './like-or-dislike.component.scss'
 })
-export class LikeOrDislikeComponent {
+export class LikeOrDislikeComponent implements OnDestroy{
   likeProcessing: boolean = false;
   @Input("post")
   post: Post = {} as Post;
@@ -25,6 +25,13 @@ export class LikeOrDislikeComponent {
   activeUser: User = {} as User
 
   constructor(protected postService: PostService) {
+  }
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
   }
 
   postLiked(post: Post): boolean {
@@ -39,11 +46,11 @@ export class LikeOrDislikeComponent {
     this.likeProcessing = true;
     this.postDisliked(post) ? this.dislike(post).subscribe((data) => {
       this.handleLikeDislikeResponse(data, false, post)
-      this.like(post).subscribe(data => {
+      this.like(post).pipe(takeUntil(this.$destroy)).subscribe(data => {
         this.handleLikeDislikeResponse(data, true, post)
         this.likeProcessing = false;
       })
-    }) : this.like(post).subscribe(data => {
+    }) : this.like(post).pipe(takeUntil(this.$destroy)).subscribe(data => {
       this.handleLikeDislikeResponse(data, true, post)
       this.likeProcessing = false;
     })
@@ -51,13 +58,13 @@ export class LikeOrDislikeComponent {
 
   dislikePost(post: Post): void {
     this.likeProcessing = true;
-    this.postLiked(post) ? this.like(post).subscribe((data) => {
+    this.postLiked(post) ? this.like(post).pipe(takeUntil(this.$destroy)).subscribe((data) => {
       this.handleLikeDislikeResponse(data, true, post)
       this.dislike(post).subscribe(data => {
         this.handleLikeDislikeResponse(data, false, post)
         this.likeProcessing = false;
       })
-    }) : this.dislike(post).subscribe(data => {
+    }) : this.dislike(post).pipe(takeUntil(this.$destroy)).subscribe(data => {
       this.handleLikeDislikeResponse(data, false, post)
       this.likeProcessing = false;
     })

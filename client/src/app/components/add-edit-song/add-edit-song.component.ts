@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButton} from "@angular/material/button";
 import {Location} from "@angular/common";
@@ -17,6 +17,7 @@ import {User} from "../../models/User";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-add-edit-song',
@@ -39,7 +40,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
   templateUrl: './add-edit-song.component.html',
   styleUrl: './add-edit-song.component.scss'
 })
-export class AddEditSongComponent implements OnInit, AfterViewInit {
+export class AddEditSongComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('uploadedImage')
   uploadedImage: ElementRef | undefined;
   imageHeight: number = 0
@@ -73,12 +74,19 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
   ) {
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   goBack() {
     this.location.back();
   }
 
   ngOnInit() {
-    this.genreService.getGenres().subscribe(data => this.allGenres = data)
+    this.genreService.getGenres().pipe(takeUntil(this.$destroy)).subscribe(data => this.allGenres = data)
     this.songService.getSong(Number(this.route.snapshot.paramMap.get('songId'))).subscribe(data => {
       if (data) {
         this.song = data
@@ -88,7 +96,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
         this.formGroup.controls.genre.setValue(data.genre)
       }
     })
-    this.jwtService.getMe().subscribe(data => this.user = data)
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe(data => this.user = data)
   }
 
   ngAfterViewInit() {
@@ -101,7 +109,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
 
   searchGif() {
     if (this.gifSearchString !== "") {
-      this.gifService.searchGif(this.gifSearchString).subscribe(data => {
+      this.gifService.searchGif(this.gifSearchString).pipe(takeUntil(this.$destroy)).subscribe(data => {
         if (data.results) {
           if (data.results.map(result => result.media_formats.gif.url).length > 0) {
             this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
@@ -127,7 +135,7 @@ export class AddEditSongComponent implements OnInit, AfterViewInit {
         genre: this.formGroup.controls.genre.value as Genre,
         artist: this.user?.artist
       }
-      this.songService.createEditSong(song).subscribe((data) => {
+      this.songService.createEditSong(song).pipe(takeUntil(this.$destroy)).subscribe((data) => {
         this.router.navigate(['/home/userProfile/' + this.user?.id?.toString() + '/'  + '1'])
       });
     } else {

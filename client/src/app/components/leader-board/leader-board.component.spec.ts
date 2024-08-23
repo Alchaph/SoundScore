@@ -46,6 +46,10 @@ describe('LeaderBoardComponent', () => {
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   it('should fetch and populate leaderboards on init (positive test)', () => {
     const posts: Post[] = [{ id: 1, title: 'Post 1', content: 'Content 1', image: 'Image 1', user: {
         id: 1, username: 'User 1', email: 'Email 1', password: 'Password 1', notifications: [],
@@ -60,6 +64,11 @@ describe('LeaderBoardComponent', () => {
     leaderBoardService.getLeaderBoardByArtist.and.returnValue(of(artists));
     leaderBoardService.getLeaderBoardBySong.and.returnValue(of(songs));
     leaderBoardService.getLeaderBoardByGenre.and.returnValue(of(genres));
+
+    component.overallLeaderBoard = [];
+    component.artistLeaderBoard = [];
+    component.songLeaderBoard = [];
+    component.genreLeaderBoard = [];
 
     component.ngOnInit();
 

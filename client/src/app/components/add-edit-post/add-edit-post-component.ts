@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -20,6 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatOption} from "@angular/material/autocomplete";
 import {GifService} from "../../services/GifService/gif.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {BehaviorSubject, take, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-add-post',
@@ -45,7 +46,7 @@ import {TranslateModule} from "@ngx-translate/core";
   templateUrl: './add-edit-post-component.html',
   styleUrl: './add-edit-post-component.scss'
 })
-export class AddEditPostComponent implements AfterViewInit, OnInit {
+export class AddEditPostComponent implements AfterViewInit, OnInit, OnDestroy {
   protected allGenres: Genre[] = [];
   protected allArtists: Artist[] = [];
   protected allSongs: Song[] = [];
@@ -73,6 +74,12 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
     songOrGenreOrArtist: new FormControl<Song | Artist | Genre | null>(null, [Validators.required])
   });
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
 
   constructor(private songService: SongService,
               private genreService: GenreService,
@@ -83,9 +90,9 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
               private route: ActivatedRoute,
               private location: Location,
               private gifService: GifService) {
-    this.songService.getSongs().subscribe(data => this.allSongs = data)
-    this.genreService.getGenres().subscribe(data => this.allGenres = data)
-    this.artistService.getArtists().subscribe(data => this.allArtists = data)
+    this.songService.getSongs().pipe(takeUntil(this.$destroy)).subscribe(data => this.allSongs = data)
+    this.genreService.getGenres().pipe(takeUntil(this.$destroy)).subscribe(data => this.allGenres = data)
+    this.artistService.getArtists().pipe(takeUntil(this.$destroy)).subscribe(data => this.allArtists = data)
     this.postDefaultType = this.route.snapshot.paramMap.get('postType') as string;
     this.showedType = this.postDefaultType as 'Song' | 'Artist' | 'Genre'
   }
@@ -93,7 +100,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get('postId')) {
-      this.postService.getPost(Number(this.route.snapshot.paramMap.get('postId'))).subscribe(params => {
+      this.postService.getPost(Number(this.route.snapshot.paramMap.get('postId'))).pipe(takeUntil(this.$destroy)).subscribe(params => {
         this.post = params;
         if (this.post) {
           this.formGroup.controls.title.setValue(this.post.title)
@@ -136,7 +143,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
   }
 
   searchGif(): void {
-    this.gifService.searchGif(this.gifSearchString).subscribe(data => {
+    this.gifService.searchGif(this.gifSearchString).pipe(takeUntil(this.$destroy)).subscribe(data => {
       if (data && data.results && data.results.length > 0) {
         this.gifSearchResults = data.results.map(result => result.media_formats.gif.url)
         this.formGroup.controls.imageUrl.setValue(data.results[0].media_formats.gif.url);
@@ -146,7 +153,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
 
 
   savePost(): void {
-    this.jwtService.getMe().subscribe(data => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe(data => {
       if (data) {
         let newPost: Post = {
           id: this.post ? this.post.id : undefined,
@@ -158,7 +165,7 @@ export class AddEditPostComponent implements AfterViewInit, OnInit {
           user: this.post ? this.post.user : data,
           [this.showedType.toLowerCase()]: this.formGroup.controls.songOrGenreOrArtist.value
         }
-        this.post ? this.postService.updatePost(newPost).subscribe(() => this.router.navigate(['/home/post/' + newPost.id])) : this.postService.createPost(newPost).subscribe((data) => this.router.navigate(['/home/post/' + data.id]))
+        this.post ? this.postService.updatePost(newPost).pipe(takeUntil(this.$destroy)).subscribe(() => this.router.navigate(['/home/post/' + newPost.id])) : this.postService.createPost(newPost).subscribe((data) => this.router.navigate(['/home/post/' + data.id]))
       }
     })
   }

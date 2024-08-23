@@ -1,5 +1,5 @@
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AfterViewInit, Component, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -15,6 +15,7 @@ import {NgClass} from "@angular/common";
 import {DataTranfer} from "../../models/DataTranfer";
 import {CookieService} from "../../services/CookieService/cookie.service";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements AfterViewInit, OnInit {
+export class LoginComponent implements AfterViewInit, OnInit, OnDestroy {
   protected hide: boolean = true;
   isRegister: boolean = false;
   TwoFA: boolean = false;
@@ -74,6 +75,13 @@ export class LoginComponent implements AfterViewInit, OnInit {
   constructor(private jwtService: JwtService, private router: Router, private cookieService: CookieService, private userInformationService: UserInformationService) {
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   ngOnInit() {
     localStorage.clear();
   }
@@ -85,9 +93,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
 
   register() {
-    this.jwtService.usernameExists(this.registerForm.controls.username.value).subscribe( (data) => {
+    this.jwtService.usernameExists(this.registerForm.controls.username.value).pipe(takeUntil(this.$destroy)).subscribe( (data) => {
       if (!data) {
-        this.jwtService.emailExists(this.registerForm.controls.email.value).subscribe( (data) => {
+        this.jwtService.emailExists(this.registerForm.controls.email.value).pipe(takeUntil(this.$destroy)).subscribe( (data) => {
           if (!this.isUsernameLike(this.registerForm.controls.username.value)) {
             if (!this.registerForm.controls.username.valid) {
               this.userInformationService.setMessage('Username is not valid');
@@ -96,7 +104,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
             } else if (!this.registerForm.controls.password.valid || this.registerForm.controls.repeatPassword.value !== this.registerForm.controls.password.value) {
               this.userInformationService.setMessage('Passwords do not match');
             } else if (!data) {
-              this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).subscribe(
+              this.jwtService.register(this.registerForm.controls.email.value, this.registerForm.controls.password.value, this.registerForm.controls.username.value).pipe(takeUntil(this.$destroy)).subscribe(
                 (data) => {
                   this.TwoFA2 = true;
                   this.login();
@@ -124,22 +132,26 @@ export class LoginComponent implements AfterViewInit, OnInit {
     } else if (!this.registerForm.controls.password.valid) {
       this.userInformationService.setMessage('Password is not valid');
     } else  {
-      this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).subscribe((data) => {
-        const name = '2fa_verified' + this.registerForm.controls.username.value;
-        if (this.cookieService.getCookie(name) === null) {
-          this.username = this.registerForm.controls.username.value;
-          this.token = data.token;
-          this.jwtService.getEMailByUsername(this.username).subscribe((data) => {
-            this.email = data.data;
-            this.jwtService.authenticate(this.email).subscribe((data) => {
-              this.isRegister = false;
-              this.TwoFA = true;
-              this.TwoFA2 = true;
+      this.jwtService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value).pipe(takeUntil(this.$destroy)).subscribe((data) => {
+        if (data && data.token) {
+          const name = '2fa_verified' + this.registerForm.controls.username.value;
+          if (this.cookieService.getCookie(name) === null) {
+            this.username = this.registerForm.controls.username.value;
+            this.token = data.token;
+            this.jwtService.getEMailByUsername(this.username).pipe(takeUntil(this.$destroy)).subscribe((data) => {
+              this.email = data.data;
+              this.jwtService.authenticate(this.email).pipe(takeUntil(this.$destroy)).subscribe((data) => {
+                this.isRegister = false;
+                this.TwoFA = true;
+                this.TwoFA2 = true;
+              });
             });
-          });
+          } else {
+            localStorage.setItem('token', data.token);
+            this.router.navigate(['/home']);
+          }
         } else {
-          localStorage.setItem('token', data.token);
-          this.router.navigate(['/home']);
+          this.userInformationService.setMessage('Username or password is not correct');
         }
       }, (error) => {
         this.userInformationService.setMessage('Username or password is not correct');
@@ -148,7 +160,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   verifyOtp() {
-    this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).subscribe((data) => {
+    this.jwtService.verify(this.email, this.username, this.registerForm.controls.otp.value).pipe(takeUntil(this.$destroy)).subscribe((data) => {
       if (data && this.TwoFA2 && this.TwoFA) {
         localStorage.setItem('token', this.token);
         this.router.navigate(['/home']);
@@ -156,7 +168,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
         this.TwoFA = false;
         this.newPassword = true;
       } else if (this.Otp && data){
-        this.jwtService.deleteAccountByUsername(this.username).subscribe((data) => {
+        this.jwtService.deleteAccountByUsername(this.username).pipe(takeUntil(this.$destroy)).subscribe((data) => {
           this.userInformationService.setMessage('Account could not be created');
         });
       } else {
@@ -166,9 +178,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   verifyEmail() {
-    this.jwtService.authenticate(this.registerForm.controls.email.value).subscribe((data) => {
+    this.jwtService.authenticate(this.registerForm.controls.email.value).pipe(takeUntil(this.$destroy)).subscribe((data) => {
        if (data) {
-        this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).subscribe((data: DataTranfer) => {
+        this.jwtService.getUsernameByEMail(this.registerForm.controls.email.value).pipe(takeUntil(this.$destroy)).subscribe((data: DataTranfer) => {
           if (data && data.data) {
             this.email = this.registerForm.controls.email.value;
             this.forgotPasswordEmail = false
@@ -187,7 +199,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   resendOtp() {
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Enter') {
-        this.jwtService.authenticate(this.email).subscribe((data) => {
+        this.jwtService.authenticate(this.email).pipe(takeUntil(this.$destroy)).subscribe((data) => {
           if (data) {
             this.userInformationService.setMessage('OTP was resent');
           } else {
@@ -200,9 +212,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   changePassword() {
     if (this.registerForm.controls.password.value === this.registerForm.controls.repeatPassword.value) {
-      this.jwtService.updatePassword(this.email, this.registerForm.controls.password.value).subscribe((data) => {
+      this.jwtService.updatePassword(this.email, this.registerForm.controls.password.value).pipe(takeUntil(this.$destroy)).subscribe((data) => {
         if (data && data.id) {
-          this.jwtService.login(this.username, this.registerForm.controls.password.value).subscribe((data) => {
+          this.jwtService.login(this.username, this.registerForm.controls.password.value).pipe(takeUntil(this.$destroy)).subscribe((data) => {
             if (data) {
               localStorage.setItem('token', data.token);
               this.router.navigate(['/home']);

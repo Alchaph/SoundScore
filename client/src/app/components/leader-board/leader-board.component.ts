@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Post} from "../../models/Post";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -13,6 +13,7 @@ import {Genre} from "../../models/Genre";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeService} from "../../services/HomeService/home.service";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-leader-board',
@@ -31,7 +32,7 @@ import { UserInformationService } from '../../services/UserInformationService/us
   templateUrl: './leader-board.component.html',
   styleUrl: './leader-board.component.scss'
 })
-export class LeaderBoardComponent implements OnInit{
+export class LeaderBoardComponent implements OnInit, OnDestroy{
   overallLeaderBoard: (Post | undefined)[] = [];
   artistLeaderBoard:(Artist | undefined)[] = [];
   songLeaderBoard: (Song | undefined)[] = [];
@@ -40,17 +41,24 @@ export class LeaderBoardComponent implements OnInit{
   constructor(private leaderBoardService: LeaderBoardService, private homeService: HomeService, private userInformationService: UserInformationService) {
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   ngOnInit(): void {
-    this.leaderBoardService.getLeaderBoard().subscribe((data: Post[]) => {
+    this.leaderBoardService.getLeaderBoard().pipe(takeUntil(this.$destroy)).subscribe((data: Post[]) => {
       this.overallLeaderBoard = data;
     });
-    this.leaderBoardService.getLeaderBoardByArtist().subscribe((data: Artist[]) => {
+    this.leaderBoardService.getLeaderBoardByArtist().pipe(takeUntil(this.$destroy)).subscribe((data: Artist[]) => {
       this.artistLeaderBoard = Array.from(new Set(data));
     });
-    this.leaderBoardService.getLeaderBoardBySong().subscribe((data: Song[]) => {
+    this.leaderBoardService.getLeaderBoardBySong().pipe(takeUntil(this.$destroy)).subscribe((data: Song[]) => {
       this.songLeaderBoard = Array.from(new Set(data));
     });
-    this.leaderBoardService.getLeaderBoardByGenre().subscribe((data: Genre[]) => {
+    this.leaderBoardService.getLeaderBoardByGenre().pipe(takeUntil(this.$destroy)).subscribe((data: Genre[]) => {
       this.genreLeaderBoard = Array.from(new Set(data));
     });
   }

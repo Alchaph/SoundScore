@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PostService} from "../../../services/PostService/post.service";
 import {Post} from '../../../models/Post';
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
@@ -8,7 +8,7 @@ import {User} from "../../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {TranslateModule} from "@ngx-translate/core";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, takeUntil} from "rxjs";
 import {UserInformationService} from "../../../services/UserInformationService/user-information.service";
 import {UserFollowerService} from "../../../services/UserFollowerService/user-follower.service";
 import {AsyncPipe} from "@angular/common";
@@ -29,7 +29,7 @@ import {AsyncPipe} from "@angular/common";
   templateUrl: './users-posts.component.html',
   styleUrl: './users-posts.component.scss'
 })
-export class UsersPostsComponent implements OnInit {
+export class UsersPostsComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   protected userId: number = Number(this.route.snapshot.paramMap.get('id'));
   localUserId: number = 0;
@@ -41,17 +41,24 @@ export class UsersPostsComponent implements OnInit {
   constructor(protected postService: PostService, private jwtService: JwtService, private router: Router, private route: ActivatedRoute, private userInformationService: UserInformationService, private userFollowService: UserFollowerService) {
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   ngOnInit() {
-    this.postService.getPosts().subscribe((posts) => {
+    this.postService.getPosts().pipe(takeUntil(this.$destroy)).subscribe((posts) => {
       if (posts) {
         this.posts = posts.filter((post) => post.user.id === this.userId)
       }
     });
-    this.jwtService.getMe().subscribe((user: User) => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe((user: User) => {
       if (user && user.id) {
         this.localUserId = user.id;
         this.user = user;
-        this.jwtService.getUserById(this.userId).subscribe((user: User) => {
+        this.jwtService.getUserById(this.userId).pipe(takeUntil(this.$destroy)).subscribe((user: User) => {
           if (user.followers !== null) {
             for (let i = 0; i < user.followers.length; i++) {
               if (user.followers[i].id === this.user.id) {
@@ -67,7 +74,7 @@ export class UsersPostsComponent implements OnInit {
 
   deletePost(post: Post) {
     if (post.id) {
-      this.postService.deletePost(post.id).subscribe(() => {
+      this.postService.deletePost(post.id).pipe(takeUntil(this.$destroy)).subscribe(() => {
         this.posts = this.posts.filter((p) => p.id !== post.id);
       });
     }
@@ -93,7 +100,7 @@ export class UsersPostsComponent implements OnInit {
 
 
   updateFollowers() {
-    this.jwtService.getUserById(this.userId).subscribe((user: User) => {
+    this.jwtService.getUserById(this.userId).pipe(takeUntil(this.$destroy)).subscribe((user: User) => {
       this.postUser = user
     });
   }

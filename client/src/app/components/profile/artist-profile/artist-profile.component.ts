@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {JwtService} from "../../../services/JwtService/jwt.service";
 import {User} from "../../../models/User";
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
@@ -14,6 +14,7 @@ import {Artist} from "../../../models/Artist";
 import {Location} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {MatBadge} from "@angular/material/badge";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -35,7 +36,7 @@ import {MatBadge} from "@angular/material/badge";
   templateUrl: './artist-profile.component.html',
   styleUrl: './artist-profile.component.scss'
 })
-export class ArtistProfileComponent {
+export class ArtistProfileComponent implements OnDestroy{
   protected user: User | undefined;
   artist: Artist | undefined;
   artistSongs: Song[] = [];
@@ -51,6 +52,13 @@ export class ArtistProfileComponent {
     this.init()
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   openLink(link: string | undefined) {
     if (link) {
       window.open(link, '_blank');
@@ -59,22 +67,22 @@ export class ArtistProfileComponent {
 
 
   deleteSong(id: number) {
-    this.songService.deleteSong(id).subscribe((data) => {
+    this.songService.deleteSong(id).pipe(takeUntil(this.$destroy)).subscribe((data) => {
       this.artistSongs = [];
       this.init();
     })
   }
 
   init() {
-    this.jwtService.getUserById(Number(this.route.snapshot.paramMap.get('id'))).subscribe((u: User) => {
+    this.jwtService.getUserById(Number(this.route.snapshot.paramMap.get('id'))).pipe(takeUntil(this.$destroy)).subscribe((u: User) => {
       if (u && u.id) {
         this.artistId = u.artist?.id;
-        this.jwtService.getMe().subscribe((u: User) => {
+        this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe((u: User) => {
           this.user = u;
-          this.songService.getSongs().subscribe((songs: Song[]) => {
+          this.songService.getSongs().pipe(takeUntil(this.$destroy)).subscribe((songs: Song[]) => {
             if (this.user) {
               if (this.artistId && this.artistId !== 0) {
-                this.artistService.getArtist(this.artistId).subscribe((a: Artist) => {
+                this.artistService.getArtist(this.artistId).pipe(takeUntil(this.$destroy)).subscribe((a: Artist) => {
                   this.artist = a;
                   this.artistSongs = songs.filter(song => song.artist.id === a.id);
                 });

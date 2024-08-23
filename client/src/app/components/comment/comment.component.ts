@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Comment} from '../../models/Comment';
 import {User} from '../../models/User';
 import {CommentService} from '../../services/CommentService/comment.service';
@@ -9,6 +9,7 @@ import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 import {LanguageService} from "../../services/languageService/language.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {Router, RouterLink} from "@angular/router";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-comment',
@@ -26,7 +27,7 @@ import {Router, RouterLink} from "@angular/router";
   ],
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit{
+export class CommentComponent implements OnInit, OnDestroy{
   @Input() comment: Comment = {} as Comment;
   @Input() activeUser: User = {} as User;
   @Input() protected level: number = 0;
@@ -36,8 +37,16 @@ export class CommentComponent implements OnInit{
 
   constructor(private commentService: CommentService, protected languageService: LanguageService, private jwtService: JwtService, private router : Router) {
   }
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   ngOnInit(): void {
-    this.commentService.processCommentContent(this.comment.message).subscribe((message) => {
+    this.commentService.processCommentContent(this.comment.message).pipe(takeUntil(this.$destroy)).subscribe((message) => {
       this.comment.message = message;
     });
   }
@@ -61,12 +70,12 @@ export class CommentComponent implements OnInit{
     if (comment.children && comment.children.length > 0) {
       comment.children.forEach(c => this.deleteComment(c))
     } else {
-      this.commentService.deleteComment(comment.id).subscribe(c => {
+      this.commentService.deleteComment(comment.id).pipe(takeUntil(this.$destroy)).subscribe(c => {
         if (comment.id !== this.baseId && comment.parent) {
           this.deleteComment(comment.parent)
         } else {
           if (comment.post && comment.post.id) {
-            this.commentService.getCommentsOfPost(comment.post.id).subscribe((comments) => {
+            this.commentService.getCommentsOfPost(comment.post.id).pipe(takeUntil(this.$destroy)).subscribe((comments) => {
                 this.commentService.comments = this.commentService.buildCommentTree(comments)
               }
             )

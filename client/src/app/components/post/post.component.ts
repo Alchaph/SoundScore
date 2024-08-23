@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -20,6 +20,7 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
 import {LanguageService} from "../../services/languageService/language.service";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-post',
@@ -50,7 +51,7 @@ import {LanguageService} from "../../services/languageService/language.service";
   styleUrl: './post.component.scss'
 })
 
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
   protected post: Post;
   protected activeUser: User;
   protected postId: number = Number(this.route.snapshot.paramMap.get('postId'));
@@ -66,6 +67,13 @@ export class PostComponent implements OnInit {
     this.commentService.newComment = {} as Comment;
     this.activeUser = {} as User;
     this.postId = Number(this.route.snapshot.paramMap.get('postId'))
+  }
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
   }
 
 
@@ -85,7 +93,7 @@ export class PostComponent implements OnInit {
       this.loadComponentData();
     }
 
-    this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
+    this.commentService.getCommentsOfPost(this.postId).pipe(takeUntil(this.$destroy)).subscribe(comments => {
       console.log(comments);
       this.commentService.comments = this.commentService.buildCommentTree(comments);
 
@@ -133,24 +141,24 @@ export class PostComponent implements OnInit {
   }
 
   addComment(): void {
-    this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
-      this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+    this.commentService.createComment(this.commentService.newComment).pipe(takeUntil(this.$destroy)).subscribe(comment =>
+      this.commentService.getCommentsOfPost(this.postId).pipe(takeUntil(this.$destroy)).subscribe(comments =>
         this.commentService.comments = this.commentService.buildCommentTree(comments)
       )
     );
   }
 
   replyToComment(): void {
-    this.commentService.createComment(this.commentService.newComment).subscribe(comment =>
-      this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+    this.commentService.createComment(this.commentService.newComment).pipe(takeUntil(this.$destroy)).subscribe(comment =>
+      this.commentService.getCommentsOfPost(this.postId).pipe(takeUntil(this.$destroy)).subscribe(comments =>
         this.commentService.comments = this.commentService.buildCommentTree(comments)
       )
     );
   }
 
   editComment(): void {
-    this.commentService.updateComment(this.commentService.newComment).subscribe(updatedComment => {
-      this.commentService.getCommentsOfPost(this.postId).subscribe(comments =>
+    this.commentService.updateComment(this.commentService.newComment).pipe(takeUntil(this.$destroy)).subscribe(updatedComment => {
+      this.commentService.getCommentsOfPost(this.postId).pipe(takeUntil(this.$destroy)).subscribe(comments =>
         this.commentService.comments = this.commentService.buildCommentTree(comments)
       )
     });
@@ -167,14 +175,14 @@ export class PostComponent implements OnInit {
   protected readonly localStorage = localStorage;
 
   loadComponentData() {
-    this.postService.getPost(this.postId).subscribe(post => {
+    this.postService.getPost(this.postId).pipe(takeUntil(this.$destroy)).subscribe(post => {
       this.post = post;
-      this.jwtService.getMe().subscribe(user => {
+      this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe(user => {
         this.activeUser = user;
       });
     })
 
-    this.commentService.getCommentsOfPost(this.postId).subscribe(comments => {
+    this.commentService.getCommentsOfPost(this.postId).pipe(takeUntil(this.$destroy)).subscribe(comments => {
       this.commentService.comments = this.commentService.buildCommentTree(comments);
     });
   }

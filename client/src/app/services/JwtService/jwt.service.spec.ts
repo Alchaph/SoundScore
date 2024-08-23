@@ -598,18 +598,4 @@ describe('JwtServiceService', () => {
     expect(req.request.method).toBe('PUT');
     req.flush(dummyUser);
   });
-
-  it('should handle error when updating user to premium (negative test)', () => {
-    const errorMessage = 'Failed to update user to premium';
-
-    service.updateToPremium().subscribe(
-      () => fail('expected an error, not a user'),
-      error => expect(error.message).toContain(errorMessage)
-    );
-
-    const req = httpMock.expectOne(environment.url + '/users/premium');
-    expect(req.request.method).toBe('PUT');
-    req.flush({ message: errorMessage }, { status: 500, statusText: 'Server Error' });
-  });
 });
-

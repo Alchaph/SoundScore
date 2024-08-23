@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
@@ -8,6 +8,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {PayPalAccessToken} from "../../models/PayPalAccessToken";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -24,7 +25,7 @@ import {PayPalAccessToken} from "../../models/PayPalAccessToken";
   templateUrl: './premium.component.html',
   styleUrl: './premium.component.scss'
 })
-export class PremiumComponent {
+export class PremiumComponent implements OnDestroy{
 
   protected readonly TranslateModule = TranslateModule;
   payGroup: FormGroup<{
@@ -39,13 +40,20 @@ export class PremiumComponent {
     cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')])
   });
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   creditCard: boolean = false;
 
   constructor(protected userInformationService: UserInformationService, private jwtService: JwtService, private router: Router) {
   }
 
   pay() {
-    this.jwtService.updateToPremium().subscribe((data: User) => {
+    this.jwtService.updateToPremium().pipe(takeUntil(this.$destroy)).subscribe((data: User) => {
       if (data && data.id) {
         this.userInformationService.setMessage('Payment successful');
         this.router.navigate(['/home']);

@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {LanguageService} from "../languageService/language.service";
 import {Router} from "@angular/router";
 import {JwtService} from "../JwtService/jwt.service";
@@ -6,14 +6,14 @@ import {LoaderService} from "../LoaderService/loader.service";
 import {NotificationService} from "../NotificationService/notification.service";
 import {User} from "../../models/User";
 import {Notification} from "../../models/Notification";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, takeUntil} from "rxjs";
 import {FormControl, Validators} from "@angular/forms";
 import {Language} from '../../enums/language';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HeaderService {
+export class HeaderService implements OnDestroy{
   public readonly sessionStorage: Storage = sessionStorage;
   public readonly window: Window = window;
   public langs: (keyof typeof Language)[] = this.service.getLanguages()
@@ -39,13 +39,19 @@ export class HeaderService {
     this.unreadNotifications = [];
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   updateUser() {
     this.jwtService.getMe().subscribe(user => {
       if (user && user.id) {
         this.userId = user.id!;
         this.user = user;
         this.unreadNotifications = user.notifications.filter(n => !n.read);
-        // console.log(this.unreadNotifications)
       }
     });
   }
@@ -58,7 +64,6 @@ export class HeaderService {
   }
 
   createTextsToDisplay(notification: Notification): string {
-    // console.log(notification.tag)
     let text: string = "";
     if (notification.likeOrDislike && notification.post) {
       let likeOrDislike: string = notification.likeOrDislike.like ? " liked" : " disliked"
@@ -112,7 +117,7 @@ export class HeaderService {
 
 
   markAllAsRead() {
-    this.notificationService.markAllAsRead(this.user).subscribe(
+    this.notificationService.markAllAsRead(this.user).pipe(takeUntil(this.$destroy)).subscribe(
       () => {
         this.unreadNotifications.forEach(n => n.read = true)
         this.unreadNotifications = []

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatChipListbox, MatChipOption} from "@angular/material/chips";
@@ -23,7 +23,7 @@ import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {SongService} from "../../services/SongService/song.service";
 import {ArtistService} from "../../services/ArtistService/artist.service";
-import {forkJoin} from "rxjs";
+import {BehaviorSubject, forkJoin} from "rxjs";
 import {HomeService} from "../../services/HomeService/home.service";
 
 type CombinedType = Artist | Song | User | Post;
@@ -61,7 +61,7 @@ type CombinedType = Artist | Song | User | Post;
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   users: User[] = [];
   songs: Song[] = [];
@@ -79,6 +79,13 @@ export class SearchComponent implements OnInit {
               private route: ActivatedRoute,) {
     this.search();
 
+  }
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButtonToggle} from "@angular/material/button-toggle";
 import {MatIcon} from "@angular/material/icon";
@@ -44,7 +44,7 @@ import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeMobileComponent} from "./home-mobile/home-mobile.component";
 import {HomeService} from "../../services/HomeService/home.service";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, takeUntil} from "rxjs";
 import {Post} from "../../models/Post";
 import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
@@ -119,7 +119,7 @@ export interface TreeNode {
   encapsulation: ViewEncapsulation.None
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   isMobile: boolean = false;
   protected readonly window: Window = window;
@@ -131,6 +131,14 @@ export class HomeComponent implements OnInit {
   constructor(protected jwtService: JwtService, protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService) {
 
   }
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   ngOnInit() {
     this.breakpointObserver.observe(
       [
@@ -141,7 +149,7 @@ export class HomeComponent implements OnInit {
         this.isMobile = result.matches;
       }
     });
-    this.jwtService.getMe().subscribe(data => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe(data => {
       this.activeUser = data
       this.homeService.loadPosts();
     })

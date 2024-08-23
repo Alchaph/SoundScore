@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButton} from "@angular/material/button";
@@ -16,6 +16,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {NgClass, NgIf} from "@angular/common";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-artist-register',
@@ -42,7 +43,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
   templateUrl: './artist-register-edit.component.html',
   styleUrl: './artist-register-edit.component.scss'
 })
-export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
+export class ArtistRegisterEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('uploadedImage')
   uploadedImage: ElementRef | undefined;
   imageHeight: number = 0
@@ -64,12 +65,19 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
   protected explode: boolean = false;
   protected disabled: boolean = false;
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   constructor(protected artistService: ArtistService, private jwtService: JwtService, protected route: ActivatedRoute, private router: Router, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('artistId'))
-    this.artistService.getArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).subscribe((a: Artist) => {
+    this.artistService.getArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).pipe(takeUntil(this.$destroy)).subscribe((a: Artist) => {
       this.artist = a;
       if (this.artist) {
         this.formGroup.controls.artistName.setValue(this.artist.name)
@@ -77,7 +85,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         this.formGroup.controls.artistImage.setValue(this.artist.image)
       }
     })
-    this.jwtService.getMe().subscribe((u: User) => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe((u: User) => {
       this.user = u;
     })
   }
@@ -100,12 +108,12 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
       }
       this.artist ? artist.id = this.artist.id : null
       this.artist ?
-        this.artistService.updateArtist(artist).subscribe(
+        this.artistService.updateArtist(artist).pipe(takeUntil(this.$destroy)).subscribe(
           () => {this.updateUser(artist)
         this.router.navigate(['home/userProfile/' + this.user?.id + '/1'])
           }
     ) :
-        this.artistService.createArtist(artist).subscribe(
+        this.artistService.createArtist(artist).pipe(takeUntil(this.$destroy)).subscribe(
           (a) => {
             this.router.navigate(['home/userProfile/' + this.user?.id + '/1'])
           }
@@ -141,7 +149,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
           nuke.style.visibility = 'hidden';
           this.explode = true;
           setTimeout(() => {
-            this.artistService.deleteArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).subscribe();
+            this.artistService.deleteArtist(parseInt(this.route.snapshot.paramMap.get('artistId') ?? '0')).pipe(takeUntil(this.$destroy)).subscribe();
             this.router.navigate(['/home']);
           }, 500);
         }, 2000);
@@ -156,7 +164,7 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit {
         name: artist?.name!,
         description: artist?.description!,
         image: artist?.image!,
-      }).subscribe(
+      }).pipe(takeUntil(this.$destroy)).subscribe(
         () => {
 
         }

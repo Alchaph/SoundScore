@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatExpansionPanel, MatExpansionPanelHeader} from "@angular/material/expansion";
@@ -11,7 +11,7 @@ import {HomeService} from "../../../services/HomeService/home.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {TranslateModule} from "@ngx-translate/core";
 import {Post} from "../../../models/Post";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, takeUntil} from "rxjs";
 import {User} from "../../../models/User";
 import {PostService} from "../../../services/PostService/post.service";
 import {JwtService} from "../../../services/JwtService/jwt.service";
@@ -43,13 +43,20 @@ import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annota
   templateUrl: './home-mobile.component.html',
   styleUrl: './home-mobile.component.scss'
 })
-export class HomeMobileComponent implements OnInit {
+export class HomeMobileComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;
   selectedFilters?: 'genre' | 'song' | 'artist';
   protected likeProcessing: boolean = false;
   activeUser: User = {} as User
 
   constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService, protected jwtService: JwtService) {
+  }
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
   }
 
   ngOnInit() {
@@ -59,7 +66,7 @@ export class HomeMobileComponent implements OnInit {
     ]).subscribe(result => {
       this.isMobile = result.matches;
     });
-    this.jwtService.getMe().subscribe(data => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe(data => {
       this.activeUser = data
       this.homeService.loadPosts();
     })

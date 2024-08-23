@@ -206,7 +206,7 @@ describe('LoginComponent', () => {
       });
 
       it('should show error if login fails', () => {
-        spyOn(jwtService, 'login').and.returnValue(throwError({}));
+        spyOn(jwtService, 'login').and.returnValue(of(undefined) as unknown as Observable<{ token: string, expiresIn: number }>);
         spyOn(userInformationService, 'setMessage');
 
         component.registerForm.controls.username.setValue('testuser');

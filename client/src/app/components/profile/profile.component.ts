@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {ArtistProfileComponent} from "./artist-profile/artist-profile.component";
@@ -7,6 +7,7 @@ import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -23,8 +24,16 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit, OnDestroy{
   selectedTab: string | undefined;
+
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   constructor(private location: Location,private route: ActivatedRoute, private router: Router) {}
   goBack() {
     this.router.navigate(['home']);

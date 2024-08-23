@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {User} from "../../models/User";
 import {JwtService} from '../../services/JwtService/jwt.service';
@@ -15,6 +15,7 @@ import {NgClass} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CookieService} from "../../services/CookieService/cookie.service";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
+import {BehaviorSubject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-settings',
@@ -40,7 +41,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
   userForm: FormGroup<{
     oldPassword: FormControl;
     password: FormControl;
@@ -68,8 +69,15 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  ngOnDestroy(): void {
+    this.$destroy.next(true);
+    this.$destroy.complete();
+  }
+
   ngOnInit(): void {
-    this.jwtService.getMe().subscribe((user: User) => {
+    this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe((user: User) => {
       if (user) {
         this.userForm.patchValue({
           email: user.email,
@@ -98,21 +106,21 @@ export class SettingsComponent implements OnInit {
       this.userInformationService.setMessage('Passwords do not match');
       return;
     }
-    this.jwtService.verifyPassword(this.username, this.userForm.value.oldPassword).subscribe((response) => {
+    this.jwtService.verifyPassword(this.username, this.userForm.value.oldPassword).pipe(takeUntil(this.$destroy)).subscribe((response) => {
       if (response === false) {
         this.userInformationService.setMessage('Old password is incorrect');
         return;
       }
-      this.jwtService.authenticate(this.userForm.value.email).subscribe((data) => {
+      this.jwtService.authenticate(this.userForm.value.email).pipe(takeUntil(this.$destroy)).subscribe((data) => {
         if (data) {
-          this.jwtService.getMe().subscribe((user: User) => {
+          this.jwtService.getMe().pipe(takeUntil(this.$destroy)).subscribe((user: User) => {
             user.email = this.userForm.value.email;
             user.username = this.userForm.value.username;
             user.password = this.userForm.value.password;
-            this.jwtService.updateUser(user).subscribe((data) =>
+            this.jwtService.updateUser(user).pipe(takeUntil(this.$destroy)).subscribe((data) =>
             {
               localStorage.clear();
-              this.jwtService.login(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe((response) => {
+              this.jwtService.login(this.userForm.controls.username.value, this.userForm.controls.password.value).pipe(takeUntil(this.$destroy)).subscribe((response) => {
                 localStorage.setItem('token', response.token);
                 this.userForm.controls.oldPassword.setValue('');
                 this.userForm.controls.password.setValue('');
@@ -158,7 +166,7 @@ export class SettingsComponent implements OnInit {
           nuke.style.visibility = 'hidden';
           this.explode = true;
           setTimeout(() => {
-            this.jwtService.deleteMe().subscribe((data) => {
+            this.jwtService.deleteMe().pipe(takeUntil(this.$destroy)).subscribe((data) => {
               this.cookieService.deleteCookie('2fa_verified' + data.username);
               this.router.navigate(['']);
               localStorage.clear();
