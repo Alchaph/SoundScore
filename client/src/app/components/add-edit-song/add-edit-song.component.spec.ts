@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AddEditSongComponent} from './add-edit-song.component';
-import {of} from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {GifService} from '../../services/GifService/gif.service';
@@ -63,6 +63,12 @@ describe('AddEditSongComponent', () => {
     fixture = TestBed.createComponent(AddEditSongComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should initialize the component and load song data', () => {

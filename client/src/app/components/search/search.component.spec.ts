@@ -6,7 +6,7 @@ import { SongService } from '../../services/SongService/song.service';
 import { ArtistService } from '../../services/ArtistService/artist.service';
 import { HomeService } from '../../services/HomeService/home.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { of, throwError } from 'rxjs';
+import {BehaviorSubject, of, throwError } from 'rxjs';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
@@ -71,6 +71,12 @@ describe('SearchComponent', () => {
     artistService = TestBed.inject(ArtistService) as jasmine.SpyObj<ArtistService>;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
     breakpointObserver = TestBed.inject(BreakpointObserver) as jasmine.SpyObj<BreakpointObserver>;
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should create', () => {

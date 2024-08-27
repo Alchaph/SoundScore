@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfileComponent } from './profile.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -53,7 +53,14 @@ describe('ProfileComponent', () => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
   });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
+  });
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

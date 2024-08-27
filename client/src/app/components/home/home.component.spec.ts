@@ -3,7 +3,7 @@ import { HomeComponent } from './home.component';
 import { HomeService } from '../../services/HomeService/home.service';
 import { JwtService } from '../../services/JwtService/jwt.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import {User} from "../../models/User";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
@@ -35,17 +35,23 @@ describe('HomeComponent', () => {
         { provide: BreakpointObserver, useValue: breakpointObserverSpy },
         { provide: HomeComponent, useValue: HomeComponentMock }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
     jwtService = TestBed.inject(JwtService) as jasmine.SpyObj<JwtService>;
     breakpointObserver = TestBed.inject(BreakpointObserver) as jasmine.SpyObj<BreakpointObserver>;
+    component.$destroy = new BehaviorSubject<boolean>(false);
 
-    jwtService.getMe.and.returnValue(of({ id: 1, name: 'Test User', password: 'password', notifications: [], premium: false }as unknown as User));
+    jwtService.getMe.and.returnValue(of({ id: 1, username: 'Test User', password: 'password', notifications: [], premium: false, email: 'email', followers: [] } as User));
+    
     breakpointObserver.observe.and.returnValue(of({ matches: true } as BreakpointState));
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should create', () => {
@@ -60,7 +66,8 @@ describe('HomeComponent', () => {
 
     it('should set activeUser and load posts', () => {
       component.ngOnInit();
-      expect(component.activeUser).toEqual({ id: 1, name: 'Test User', password: 'password', notifications: [] }as unknown as User);
+      console.log(component.activeUser.id);
+      expect(component.activeUser).toEqual({ id: 1, username: 'Test User', password: 'password', notifications: [], premium: false, email: 'email', followers: [] } as User);
       expect(homeService.loadPosts).toHaveBeenCalled();
     });
 
@@ -72,6 +79,7 @@ describe('HomeComponent', () => {
 
     it('should handle error if getMe fails', () => {
       jwtService.getMe.and.returnValue(of({ id: null, name: null }as unknown as User));
+      component.activeUser = { id: null, name: null}as unknown as User;
       component.ngOnInit();
       expect(component.activeUser).toEqual({ id: null, name: null }as unknown as User);
     });

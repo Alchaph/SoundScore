@@ -4,7 +4,7 @@ import { HomeService } from '../../../services/HomeService/home.service';
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 import { PostService } from '../../../services/PostService/post.service';
 import { JwtService } from '../../../services/JwtService/jwt.service';
-import { of, throwError } from 'rxjs';
+import {BehaviorSubject, of, throwError } from 'rxjs';
 import { User } from '../../../models/User';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
@@ -64,6 +64,12 @@ describe('HomeMobileComponent', () => {
     fixture = TestBed.createComponent(HomeMobileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should create', () => {

@@ -1,12 +1,12 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { LeaderBoardComponent } from './leader-board.component';
-import { LeaderBoardService } from '../../services/LeaderBoardService/leader-board.service';
-import { HomeService } from '../../services/HomeService/home.service';
-import { of, throwError } from 'rxjs';
-import { Post } from '../../models/Post';
-import { Artist } from '../../models/Artist';
-import { Song } from '../../models/Song';
-import { Genre } from '../../models/Genre';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {LeaderBoardComponent} from './leader-board.component';
+import {LeaderBoardService} from '../../services/LeaderBoardService/leader-board.service';
+import {HomeService} from '../../services/HomeService/home.service';
+import {BehaviorSubject, of} from 'rxjs';
+import {Post} from '../../models/Post';
+import {Artist} from '../../models/Artist';
+import {Song} from '../../models/Song';
+import {Genre} from '../../models/Genre';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TranslateModule} from "@ngx-translate/core";
 import {HttpClientModule} from "@angular/common/http";
@@ -44,10 +44,13 @@ describe('LeaderBoardComponent', () => {
     component = fixture.componentInstance;
     leaderBoardService = TestBed.inject(LeaderBoardService) as jasmine.SpyObj<LeaderBoardService>;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
+    component.$destroy = new BehaviorSubject<boolean>(false);
   });
 
   afterEach(() => {
     fixture.destroy();
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should fetch and populate leaderboards on init (positive test)', () => {

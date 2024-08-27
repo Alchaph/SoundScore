@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddEditPostComponent } from './add-edit-post-component';
-import { of, throwError } from 'rxjs';
+import {BehaviorSubject, of, throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GifService } from '../../services/GifService/gif.service';
@@ -56,9 +56,16 @@ describe('AddEditPostComponent', () => {
       ]
     }).compileComponents();
 
+
     fixture = TestBed.createComponent(AddEditPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should initialize the component and load post data', () => {

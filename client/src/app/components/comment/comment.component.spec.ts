@@ -4,7 +4,7 @@ import { CommentService } from '../../services/CommentService/comment.service';
 import { LanguageService } from '../../services/languageService/language.service';
 import { Comment } from '../../models/Comment';
 import { User } from '../../models/User';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 
 describe('CommentComponent', () => {
   let component: CommentComponent;
@@ -30,8 +30,14 @@ describe('CommentComponent', () => {
 
     fixture = TestBed.createComponent(CommentComponent);
     component = fixture.componentInstance;
+    component.$destroy = new BehaviorSubject<boolean>(false);
   });
 
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
+  });
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

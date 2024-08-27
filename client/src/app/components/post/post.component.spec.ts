@@ -4,7 +4,7 @@ import { PostService } from '../../services/PostService/post.service';
 import { CommentService } from '../../services/CommentService/comment.service';
 import { JwtService } from '../../services/JwtService/jwt.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -78,6 +78,12 @@ describe('PostComponent', () => {
     fixture = TestBed.createComponent(PostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+  
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   afterEach(() => {

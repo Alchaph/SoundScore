@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable, of, throwError } from 'rxjs';
+import {BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
 import { JwtService } from '../../services/JwtService/jwt.service';
 import { CookieService } from '../../services/CookieService/cookie.service';
@@ -74,8 +74,14 @@ describe('LoginComponent', () => {
     cookieService = TestBed.inject(CookieService);
     translateService = TestBed.inject(TranslateService);
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
   });
 
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
+  });
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

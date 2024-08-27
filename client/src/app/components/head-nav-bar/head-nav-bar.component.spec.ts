@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { HeadNavBarComponent } from './head-nav-bar.component';
 import { HeaderService } from '../../services/HeaderService/header.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import { Notification } from '../../models/Notification';
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -62,8 +62,14 @@ describe('HeadNavBarComponent', () => {
 
     fixture = TestBed.createComponent(HeadNavBarComponent);
     component = fixture.componentInstance;
+    component.$destroy = new BehaviorSubject<boolean>(false);
   });
 
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
+  });
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

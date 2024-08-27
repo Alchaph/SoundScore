@@ -3,7 +3,7 @@ import { PremiumComponent } from './premium.component';
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
 import { JwtService } from '../../services/JwtService/jwt.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { of, throwError } from 'rxjs';
+import {BehaviorSubject, of, throwError } from 'rxjs';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -62,6 +62,12 @@ describe('PremiumComponent', () => {
     fixture = TestBed.createComponent(PremiumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should create the component', () => {

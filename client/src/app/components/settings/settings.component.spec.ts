@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsComponent } from './settings.component';
 import { JwtService } from '../../services/JwtService/jwt.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { of, throwError } from 'rxjs';
+import {BehaviorSubject, of, throwError } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../models/User';
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
@@ -59,6 +59,12 @@ describe('SettingsComponent', () => {
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should create', () => {

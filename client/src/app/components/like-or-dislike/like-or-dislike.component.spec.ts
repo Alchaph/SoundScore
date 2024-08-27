@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import { LikeOrDislikeComponent } from './like-or-dislike.component';
 import { PostService } from '../../services/PostService/post.service';
 import { User } from '../../models/User';
@@ -44,8 +44,14 @@ describe('LikeOrDislikeComponent', () => {
       likes: [],
       dislikes: []
     } as unknown as Post;
+    component.$destroy = new BehaviorSubject<boolean>(false);
   });
 
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
+  });
+  
   it('should check if post is liked', () => {
     component.post.likes.push({ user: { id: 1 } as User, post: component.post, like: true });
     expect(component.postLiked(component.post)).toBe(true);

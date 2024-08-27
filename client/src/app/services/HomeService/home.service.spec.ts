@@ -4,7 +4,7 @@ import { PostService } from '../PostService/post.service';
 import { LeaderBoardService } from '../LeaderBoardService/leader-board.service';
 import { Router } from '@angular/router';
 import { JwtService } from '../JwtService/jwt.service';
-import { of, throwError } from 'rxjs';
+import {BehaviorSubject, of, throwError } from 'rxjs';
 import {Post} from "../../models/Post";
 import {Song} from "../../models/Song";
 import {Genre} from "../../models/Genre";
@@ -74,8 +74,14 @@ describe('HomeService', () => {
     leaderBoardService = TestBed.inject(LeaderBoardService);
     router = TestBed.inject(Router);
     jwtService = TestBed.inject(JwtService);
+    service.$destroy = new BehaviorSubject<boolean>(false);
   });
 
+  afterEach(() => {
+    service.$destroy.next(true);
+    service.$destroy.complete();
+  });
+  
   it('should return available posts', () => {
     service.posts = mockPosts;
     expect(service.getPosts()).toEqual(mockPosts);

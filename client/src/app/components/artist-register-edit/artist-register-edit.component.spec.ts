@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import {BehaviorSubject, Observable, of } from 'rxjs';
 import { ArtistRegisterEditComponent } from './artist-register-edit.component';
 import { ArtistService } from '../../services/ArtistService/artist.service';
 import { JwtService } from '../../services/JwtService/jwt.service';
@@ -67,6 +67,12 @@ describe('ArtistRegisterEditComponent', () => {
     fixture = TestBed.createComponent(ArtistRegisterEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should create', () => {

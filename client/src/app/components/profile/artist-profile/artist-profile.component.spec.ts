@@ -4,7 +4,7 @@ import { JwtService } from "../../../services/JwtService/jwt.service";
 import { SongService } from "../../../services/SongService/song.service";
 import { ArtistService } from "../../../services/ArtistService/artist.service";
 import { ActivatedRoute } from "@angular/router";
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import { User } from '../../../models/User';
 import { Artist } from '../../../models/Artist';
 import { Song } from '../../../models/Song';
@@ -73,6 +73,12 @@ describe('ArtistProfileComponent', () => {
     fixture = TestBed.createComponent(ArtistProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    component.$destroy.next(true);
+    component.$destroy.complete();
   });
 
   it('should open a new tab with the given link', () => {

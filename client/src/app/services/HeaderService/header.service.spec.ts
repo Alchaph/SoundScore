@@ -4,7 +4,7 @@ import { LanguageService } from '../languageService/language.service';
 import { JwtService } from '../JwtService/jwt.service';
 import { LoaderService } from '../LoaderService/loader.service';
 import { NotificationService } from '../NotificationService/notification.service';
-import { of } from 'rxjs';
+import {BehaviorSubject, of } from 'rxjs';
 import { User } from '../../models/User';
 import { Notification } from '../../models/Notification';
 
@@ -43,6 +43,12 @@ describe('HeaderService', () => {
     });
 
     service = TestBed.inject(HeaderService);
+    service.$destroy = new BehaviorSubject<boolean>(false);
+  });
+
+  afterEach(() => {
+    service.$destroy.next(true);
+    service.$destroy.complete();
   });
 
   it('should be created', () => {
