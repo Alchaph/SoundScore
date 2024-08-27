@@ -5,6 +5,8 @@ import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.repositories.CommentRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
+import ch.sbb.soundscore.SoundScore.repositories.UserTagRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,12 +21,14 @@ class CommentServiceTest {
     private CommentRepository commentRepository;
     private CommentService commentService;
     private UserNotificationsRepository userNotificationsRepository;
+    private UserRepository userRepository;
+    private UserTagRepository userTagRepository;
 
     @BeforeEach
     void setUp() {
         commentRepository = mock(CommentRepository.class);
         userNotificationsRepository = mock(UserNotificationsRepository.class);
-        commentService = new CommentService(commentRepository, userNotificationsRepository);
+        commentService = new CommentService(commentRepository, userNotificationsRepository, userRepository, userTagRepository);
     }
 
     @Test
