@@ -5,10 +5,9 @@ export default defineConfig({
   timeout: 30000,
   retries: 1,
   use: {
-    baseURL: 'https://soundscore.chlarc.ch',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:8888',
     extraHTTPHeaders: {
       'Content-Type': 'application/json',
-      'Origin': 'https://soundscore.chlarc.ch',
     },
   },
 });

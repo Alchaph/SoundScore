@@ -92,8 +92,8 @@ cloudflared/*.json
 *.swo
 *~
 .SONIC_PID
+import*.sql
+import*.sh
+import*.py
+save_dump.sh
 dump.sql
-
-# Playwright e2e test artifacts
-/test-results/
-/playwright-report/

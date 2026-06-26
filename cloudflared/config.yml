@@ -1,7 +1,8 @@
 # Cloudflare Tunnel configuration
-# TLS is handled by Cloudflare edge → HTTP inside the tunnel
+# For use with the --profile tunnel Docker Compose override
+# Replace <your-tunnel-id> with your Cloudflare Tunnel UUID
 
-tunnel: 8e20f0f1-e3dc-466e-9b44-e4c84cd5cdce
+tunnel: <your-tunnel-id>
 no-autoupdate: true
 
 ingress:

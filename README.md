@@ -41,9 +41,9 @@ All settings are in `.env`:
 | `MAIL_USERNAME` | *(empty)* | SMTP username |
 | `MAIL_PASSWORD` | *(empty)* | SMTP password (empty = OTP logged to console) |
 | `SEEDING_ENABLED` | `true` | Auto-seed test data on first run |
-| `CORS_ALLOWED_ORIGINS` | `https://soundscore.chlarc.ch,http://localhost:4200,http://localhost:8888` | Comma-separated CORS origins |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:4200,http://localhost:8888` | Comma-separated CORS origins |
 | `APP_PORT` | `8888` | Public HTTP port |
-| `CLOUDFLARE_TUNNEL_TOKEN` | *(empty)* | Tunnel token (for standalone tunnel — leave empty if using shared tunnel) |
+| `CLOUDFLARE_TUNNEL_TOKEN` | *(empty)* | Cloudflare Tunnel token for public access |
 | `RATE_LIMIT_REQUESTS_PER_MINUTE` | `120` | API rate limit per IP |
 
 ## Seeding
@@ -78,37 +78,36 @@ docker compose logs backend | grep "DEV MODE"
 
 ## Cloudflare Tunnel (public access)
 
-SoundScore pairs with a shared Cloudflare Tunnel serving multiple services. Add this entry to your `cloudflared` config:
+To expose SoundScore publicly via Cloudflare Tunnel:
 
-```yaml
-# In ~/.cloudflared/config.yml
-ingress:
-  - hostname: soundscore.chlarc.ch
-    service: http://caddy:8888
+```bash
+# 1. Get your tunnel token from Cloudflare Zero Trust dashboard
+# 2. Add it to .env:
+#    CLOUDFLARE_TUNNEL_TOKEN=<your-token>
+# 3. Start with tunnel profile
+docker compose --profile tunnel up -d
 ```
 
-Make sure the cloudflared container is connected to the `soundscore_default` Docker network:
+You can also add SoundScore to an existing shared Cloudflare Tunnel by adding this to your `cloudflared` ingress config:
 
 ```yaml
-# In your cloudflared compose.yaml
-networks:
-  - soundscore_default
+- hostname: your-domain.com
+  service: http://caddy:8888
 ```
 
-Once configured, SoundScore is available at:
-- **Local:** http://localhost:8888
-- **Public:** https://soundscore.chlarc.ch
+Make sure the cloudflared container can reach the `caddy` hostname on the Docker network.
 
-The app forces HTTPS via `Content-Security-Policy: upgrade-insecure-requests` header and uses `https://soundscore.chlarc.ch/api` as the absolute API URL in production builds.
+The app uses `Content-Security-Policy: upgrade-insecure-requests` to enforce HTTPS when served through a tunnel. Update `environments.prod.ts` and `CORS_ALLOWED_ORIGINS` with your public domain.
 
 ## E2E Tests
 
 ```bash
 cd client
-npx playwright test
+npm install --legacy-peer-deps
+PLAYWRIGHT_BASE_URL=http://localhost:8888 npx playwright test
 ```
 
-Tests cover auth endpoints, CORS, HTTPS enforcement, and frontend serving. Requires the app to be running at `https://soundscore.chlarc.ch`.
+Tests cover auth endpoints, CORS, frontend serving, and security headers.
 
 ## Local development (no Docker)
 
@@ -118,8 +117,7 @@ docker compose up -d db
 
 # Terminal 2 — backend (Java 21 required)
 cd server
-JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home \
-  MAIL_PASSWORD=dummy ./mvnw spring-boot:run
+./mvnw spring-boot:run
 
 # Terminal 3 — frontend
 cd client
@@ -136,20 +134,13 @@ Browser → Caddy (:8888) → /api/* → backend (:8080) → MariaDB
                          → /*     → frontend (:80, nginx)
 ```
 
-With Cloudflare Tunnel:
-
-```
-Internet → Cloudflare Edge → cloudflared → Caddy (:8888) → ...
-```
-
 ## Security
 
 - All secrets managed via `.env` (never committed)
-- JWT Bearer token authentication with configurable secret
+- JWT Bearer token authentication
 - Rate limiting (120 req/min per IP by default)
 - Security headers via Caddy: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `cross-origin-opener-policy`, `upgrade-insecure-requests`
 - Passwords hashed with BCrypt
 - OTP codes expire after 5 minutes, max 5 attempts
 - CSRF disabled (API uses stateless JWT, no cookies)
 - CORS restricted to configured origins
-- HTTPS enforced via CSP `upgrade-insecure-requests`

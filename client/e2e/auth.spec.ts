@@ -1,24 +1,24 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://soundscore.chlarc.ch';
+const BASE = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:8888';
 
 test.describe('SoundScore Auth Flow', () => {
 
-  test('homepage loads over HTTPS', async ({ request }) => {
+  test('homepage loads', async ({ request }) => {
     const res = await request.get(`${BASE}/`);
     expect(res.status()).toBe(200);
     const ct = res.headers()['content-type'] || '';
     expect(ct).toContain('text/html');
   });
 
-  test('username-exists endpoint works over HTTPS', async ({ request }) => {
-    const res = await request.get(`${BASE}/api/auth/username-exists/1@1`);
+  test('username-exists endpoint works', async ({ request }) => {
+    const res = await request.get(`${BASE}/api/auth/username-exists/alice`);
     expect(res.status()).toBe(200);
     const body = await res.json();
     expect(typeof body).toBe('boolean');
   });
 
-  test('email-exists endpoint works over HTTPS', async ({ request }) => {
+  test('email-exists endpoint works', async ({ request }) => {
     const res = await request.get(`${BASE}/api/auth/email-exists/nonexistent@test.com`);
     expect(res.status()).toBe(200);
     const body = await res.json();
@@ -28,11 +28,11 @@ test.describe('SoundScore Auth Flow', () => {
   test('login with valid credentials returns JWT', async ({ request }) => {
     const res = await request.post(`${BASE}/api/auth/login`, {
       data: {
-        username: '1@1',
-        password: '123',
+        username: 'alice',
+        password: 'password123',
       },
     });
-    // Should get 401 (bad creds) or 200 with token
+    // Should get 200 with token, or 401 if account doesn't exist
     expect([200, 401]).toContain(res.status());
     if (res.status() === 200) {
       const body = await res.json();
@@ -41,7 +41,7 @@ test.describe('SoundScore Auth Flow', () => {
     }
   });
 
-  test('login with empty body returns 500', async ({ request }) => {
+  test('login with empty body returns error', async ({ request }) => {
     const res = await request.post(`${BASE}/api/auth/login`, {
       data: {},
     });
@@ -54,14 +54,7 @@ test.describe('SoundScore Auth Flow', () => {
     expect(await res.json()).toBe(false);
   });
 
-  test('HTTP endpoint is not directly reachable (should go through HTTPS tunnel)', async ({ request }) => {
-    const res = await request.get(`http://soundscore.chlarc.ch/api/auth/username-exists/1@1`);
-    // HTTP may fail or be redirected - just log what happens
-    console.log(`HTTP request status: ${res.status()}`);
-    // The important thing is that HTTPS works (tested above)
-  });
-
-  test('frontend serves Angular app', async ({ request }) => {
+  test('frontend serves Angular app with CSP header', async ({ request }) => {
     const res = await request.get(`${BASE}/`);
     const html = await res.text();
     expect(html).toContain('app-root');
@@ -71,14 +64,11 @@ test.describe('SoundScore Auth Flow', () => {
   test('CORS headers present on API responses', async ({ request }) => {
     const res = await request.get(`${BASE}/api/auth/username-exists/test`, {
       headers: {
-        'Origin': 'https://soundscore.chlarc.ch',
+        'Origin': BASE,
       },
     });
     expect(res.status()).toBe(200);
-    // Spring should allow the origin
-    const acao = res.headers()['access-control-allow-origin'];
-    console.log(`Access-Control-Allow-Origin: ${acao}`);
-    expect(acao).toBeDefined();
+    expect(res.headers()['access-control-allow-origin']).toBeDefined();
   });
 
 });

@@ -53,7 +53,7 @@ CORS_ALLOWED_ORIGINS=http://localhost:4200
 APP_PORT=8888
 
 # ── Cloudflare Tunnel (optional) ─────────────────────
-# Get token: cloudflared tunnel token 8e20f0f1-e3dc-466e-9b44-e4c84cd5cdce
+# Get your tunnel token from Cloudflare Zero Trust dashboard
 CLOUDFLARE_TUNNEL_TOKEN=
 EOF
 
@@ -69,7 +69,6 @@ COMPOSE_ARGS="up -d --build"
 if [ -n "${CLOUDFLARE_TUNNEL_TOKEN:-}" ]; then
     COMPOSE_ARGS="--profile tunnel up -d --build"
     echo "[+] Cloudflare Tunnel token found — public access enabled"
-    echo "    → https://soundscore.chlarc.ch"
 else
     echo "[i] No CLOUDFLARE_TUNNEL_TOKEN set — local-only mode"
     echo "    → http://localhost:${APP_PORT:-8888}"
@@ -84,12 +83,7 @@ docker compose ${COMPOSE_ARGS}
 echo ""
 echo "========================================"
 echo "  SoundScore is running!"
-if [ -n "${CLOUDFLARE_TUNNEL_TOKEN:-}" ]; then
-    echo "  Local : http://localhost:${APP_PORT:-8888}"
-    echo "  Public: https://soundscore.chlarc.ch"
-else
-    echo "  → http://localhost:${APP_PORT:-8888}"
-fi
+echo "  → http://localhost:${APP_PORT:-8888}"
 echo "========================================"
 echo ""
 echo "  Default test accounts (when seeded):"
