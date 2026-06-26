@@ -2,7 +2,7 @@
 # For use with the --profile tunnel Docker Compose override
 # Replace <your-tunnel-id> with your Cloudflare Tunnel UUID
 
-tunnel: <your-tunnel-id>
+tunnel: 8e20f0f1-e3dc-466e-9b44-e4c84cd5cdce
 no-autoupdate: true
 
 ingress:
