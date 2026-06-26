@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {JwtService} from "../../../services/JwtService/jwt.service";
 import {User} from "../../../models/User";
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
@@ -18,23 +18,23 @@ import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
-  selector: 'app-artist-profile',
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardContent,
-    MatCardTitle,
-    MatButton,
-    RouterLink,
-    MatIcon,
-    MatLine,
-    MatIconButton,
-    HeadNavBarComponent,
-    TranslateModule,
-    MatBadge,
-  ],
-  templateUrl: './artist-profile.component.html',
-  styleUrl: './artist-profile.component.scss'
+    selector: 'app-artist-profile',
+    imports: [
+        MatCard,
+        MatCardContent,
+        MatCardTitle,
+        MatButton,
+        RouterLink,
+        MatIcon,
+        MatLine,
+        MatIconButton,
+        HeadNavBarComponent,
+        TranslateModule,
+        MatBadge,
+    ],
+    templateUrl: './artist-profile.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './artist-profile.component.scss'
 })
 export class ArtistProfileComponent implements OnDestroy{
   protected user: User | undefined;

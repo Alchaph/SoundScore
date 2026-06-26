@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatExpansionPanel, MatExpansionPanelHeader} from "@angular/material/expansion";
@@ -16,32 +16,31 @@ import {User} from "../../../models/User";
 import {PostService} from "../../../services/PostService/post.service";
 import {JwtService} from "../../../services/JwtService/jwt.service";
 import {LikeOrDislikeComponent} from "../../like-or-dislike/like-or-dislike.component";
-import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/common";
 
 @Component({
-  selector: 'app-home-mobile',
-  standalone: true,
-  imports: [
-    HeadNavBarComponent,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatFabButton,
-    MatIcon,
-    MatList,
-    MatListItem,
-    MatMenu,
-    MatMenuItem,
-    RouterLink,
-    MatMenuTrigger,
-    TranslateModule,
-    LikeOrDislikeComponent
-  ],
-  templateUrl: './home-mobile.component.html',
-  styleUrl: './home-mobile.component.scss'
+    selector: 'app-home-mobile',
+    imports: [
+        HeadNavBarComponent,
+        MatCard,
+        MatCardContent,
+        MatCardHeader,
+        MatCardTitle,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatFabButton,
+        MatIcon,
+        MatList,
+        MatListItem,
+        MatMenu,
+        MatMenuItem,
+        RouterLink,
+        MatMenuTrigger,
+        TranslateModule,
+        LikeOrDislikeComponent
+    ],
+    templateUrl: './home-mobile.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './home-mobile.component.scss'
 })
 export class HomeMobileComponent implements OnInit, OnDestroy {
   isMobile: boolean = false;

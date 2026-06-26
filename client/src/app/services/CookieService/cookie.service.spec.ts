@@ -1,6 +1,7 @@
+import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CookieService } from './cookie.service';
-import { DOCUMENT } from '@angular/common';
+
 
 describe('CookieService', () => {
   let service: CookieService;

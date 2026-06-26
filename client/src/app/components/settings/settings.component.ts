@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {User} from "../../models/User";
 import {JwtService} from '../../services/JwtService/jwt.service';
@@ -18,28 +18,28 @@ import {UserInformationService} from "../../services/UserInformationService/user
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-  selector: 'app-settings',
-  standalone: true,
-  imports: [
-    HeadNavBarComponent,
-    ReactiveFormsModule,
-    MatIcon,
-    MatFormField,
-    MatInput,
-    MatButton,
-    MatLabel,
-    MatHint,
-    MatTabGroup,
-    MatTab,
-    MatIconModule,
-    MatSuffix,
-    ArtistRegisterEditComponent,
-    RouterLink,
-    NgClass,
-    TranslateModule
-  ],
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+    selector: 'app-settings',
+    imports: [
+        HeadNavBarComponent,
+        ReactiveFormsModule,
+        MatIcon,
+        MatFormField,
+        MatInput,
+        MatButton,
+        MatLabel,
+        MatHint,
+        MatTabGroup,
+        MatTab,
+        MatIconModule,
+        MatSuffix,
+        ArtistRegisterEditComponent,
+        RouterLink,
+        NgClass,
+        TranslateModule
+    ],
+    templateUrl: './settings.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   userForm: FormGroup<{

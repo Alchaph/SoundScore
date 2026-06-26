@@ -16,7 +16,7 @@
         @if (artistSongs.length !== 0) {
         <div class="post-card" mat-line>
           @if (song.image) {
-            <img (click)="openLink(song?.link)" [src]="song.image" alt="{{song.title}}" class="post-image">
+            <img (click)="openLink($safeNavigationMigration(song?.link))" [src]="song.image" alt="{{song.title}}" class="post-image">
           }
           <div class="post-content">
             <h3 >{{ song.title }}

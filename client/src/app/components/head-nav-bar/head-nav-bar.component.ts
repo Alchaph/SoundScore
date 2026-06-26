@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -9,7 +9,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {AsyncPipe, NgClass, NgForOf, NgOptimizedImage, NgStyle} from "@angular/common";
+import { AsyncPipe, NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatBadge} from "@angular/material/badge";
 import {HeaderService} from "../../services/HeaderService/header.service";
@@ -22,9 +22,8 @@ import { UserInformationService } from '../../services/UserInformationService/us
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-  selector: 'app-head-nav-bar',
-  standalone: true,
-  imports: [
+    selector: 'app-head-nav-bar',
+    imports: [
     MatFormField,
     ReactiveFormsModule,
     MatAutocompleteTrigger,
@@ -40,7 +39,6 @@ import {Subject, takeUntil} from "rxjs";
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    NgForOf,
     NgOptimizedImage,
     TranslateModule,
     AsyncPipe,
@@ -49,9 +47,10 @@ import {Subject, takeUntil} from "rxjs";
     FormsModule,
     MatMenuContent,
     NgClass
-  ],
-  templateUrl: './head-nav-bar.component.html',
-  styleUrl: './head-nav-bar.component.scss'
+],
+    templateUrl: './head-nav-bar.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './head-nav-bar.component.scss'
 })
 export class HeadNavBarComponent implements OnInit, OnDestroy {
 

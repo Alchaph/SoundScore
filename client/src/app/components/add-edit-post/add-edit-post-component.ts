@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardImage} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -23,28 +23,28 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Subject, take, takeUntil} from "rxjs";
 
 @Component({
-  selector: 'app-add-post',
-  standalone: true,
-  imports: [
-    HeadNavBarComponent,
-    MatCard,
-    MatCardContent,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatButton,
-    MatCardHeader,
-    MatSelect,
-    MatOption,
-    FormsModule,
-    ReactiveFormsModule,
-    AsyncPipe,
-    MatCardImage,
-    NgStyle,
-    TranslateModule
-  ],
-  templateUrl: './add-edit-post-component.html',
-  styleUrl: './add-edit-post-component.scss'
+    selector: 'app-add-post',
+    imports: [
+        HeadNavBarComponent,
+        MatCard,
+        MatCardContent,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        MatButton,
+        MatCardHeader,
+        MatSelect,
+        MatOption,
+        FormsModule,
+        ReactiveFormsModule,
+        AsyncPipe,
+        MatCardImage,
+        NgStyle,
+        TranslateModule
+    ],
+    templateUrl: './add-edit-post-component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './add-edit-post-component.scss'
 })
 export class AddEditPostComponent implements AfterViewInit, OnInit, OnDestroy {
   protected allGenres: Genre[] = [];

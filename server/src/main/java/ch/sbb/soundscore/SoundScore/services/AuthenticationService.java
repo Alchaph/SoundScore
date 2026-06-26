@@ -34,7 +34,7 @@ public class AuthenticationService {
         try {
             mailSender.send(message);
         } catch (Exception e) {
-            System.out.println("DEV MODE: OTP for " + username + " is: " + otp);
+            // Mail server unavailable — OTP cannot be sent
         }
         return true;
     }

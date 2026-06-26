@@ -5,5 +5,5 @@ export const environment: {
   languages: (keyof typeof Language)[],
 } = {
   url: '/api',
-  languages: ['de', 'en', 'fr', 'zh', 'pt', 'Zch', 'e', 'es'],
+  languages: ['de', 'en', 'fr', 'zh', 'pt', 'es'],
 };

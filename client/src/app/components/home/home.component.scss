@@ -38,13 +38,13 @@ main {
   }
 }
 ::ng-deep .mat-form-field.appearance-outline .mat-form-field-outline {
-  --mdc-outlined-text-field-outline-color: var(--text-color);
-  --mdc-outlined-text-field-hover-outline-color: var(--text-color);
-  --mdc-outlined-text-field-focus-hover-outline-color: var(--text-color);
-  --mdc-outlined-text-field-focus-outline-color: var(--text-color);
-  --mdc-outlined-text-field-error-outline-color: var(--text-color);
-  --mdc-outlined-text-field-error-hover-outline-color: var(--text-color);
-  --mdc-outlined-text-field-error-focus-outline-color: var(--text-color);
+  --mat-form-field-outlined-outline-color: var(--text-color);
+  --mat-form-field-outlined-hover-outline-color: var(--text-color);
+  --mat-form-field-outlined-focus-hover-outline-color: var(--text-color);
+  --mat-form-field-outlined-focus-outline-color: var(--text-color);
+  --mat-form-field-outlined-error-outline-color: var(--text-color);
+  --mat-form-field-outlined-error-hover-outline-color: var(--text-color);
+  --mat-form-field-outlined-error-focus-outline-color: var(--text-color);
   outline-color: var(--text-color);
 }
 

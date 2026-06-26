@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {LanguageService} from "./services/languageService/language.service";
 import {Language} from "./models/Language";
@@ -9,11 +9,11 @@ import {UserInformationComponent} from "./components/user-information/user-infor
 
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, LoaderComponent, UserInformationComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [RouterOutlet, LoaderComponent, UserInformationComponent],
+    templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
   title = 'client';

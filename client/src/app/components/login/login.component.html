@@ -1,15 +1,15 @@
 <body>
 <canvas id="bg" class="card-container"></canvas>
-  <div [ngClass]="{'card-container3': Otp || forgotPasswordEmail || newPassword || TwoFA, 'card-container2': !forgotPasswordEmail && !Otp && !newPassword && !TwoFA}">
+  <div [class.card-container3]="Otp || forgotPasswordEmail || newPassword || TwoFA" [class.card-container2]="!forgotPasswordEmail && !Otp && !newPassword && !TwoFA">
   <mat-card id="card">
     <mat-card-header>
       <mat-card-title id="title">Sound score</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-      <mat-card-content [ngClass]="{'extra': isRegister}">
+      <mat-card-content [class.extra]="isRegister">
         @if (isRegister || forgotPasswordEmail) {
           <div class="input-group">
-            <input required="" type="text" formControlName="email" name="text" autocomplete="off" [ngClass]="{'input': registerForm.controls.email.valid, 'input-invalid': registerForm.controls.email.invalid}">
+            <input required="" type="text" formControlName="email" name="text" autocomplete="off" [class.input]="registerForm.controls.email.valid" [class.input-invalid]="registerForm.controls.email.invalid">
             <label class="user-label">{{ 'LOGIN.FORM.EMAIL' | translate }}</label>
           </div>
         }

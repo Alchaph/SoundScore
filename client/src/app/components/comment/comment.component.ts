@@ -1,9 +1,9 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren, ChangeDetectionStrategy} from '@angular/core';
 import {Comment} from '../../models/Comment';
 import {User} from '../../models/User';
 import {CommentService} from '../../services/CommentService/comment.service';
 import {MatIcon} from "@angular/material/icon";
-import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
+import { AsyncPipe, NgStyle } from "@angular/common";
 import {MatCard} from "@angular/material/card";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 import {LanguageService} from "../../services/languageService/language.service";
@@ -12,20 +12,18 @@ import {Router, RouterLink} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  standalone: true,
-  imports: [
+    selector: 'app-comment',
+    templateUrl: './comment.component.html',
+    imports: [
     MatIcon,
-    NgForOf,
-    NgIf,
     NgStyle,
     MatCard,
     GenericLanguagePipe,
     AsyncPipe,
     RouterLink
-  ],
-  styleUrls: ['./comment.component.scss']
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit, OnDestroy{
   @Input() comment: Comment = {} as Comment;
