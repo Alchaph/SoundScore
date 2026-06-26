@@ -4,6 +4,6 @@ export const environment: {
   url: string,
   languages: (keyof typeof Language)[],
 } = {
-  url: '/api',
+  url: 'https://soundscore.chlarc.ch/api',
   languages: ['de', 'en', 'fr', 'zh', 'pt', 'Zch', 'e', 'es'],
 };

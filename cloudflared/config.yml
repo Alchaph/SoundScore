@@ -1,0 +1,9 @@
+# Cloudflare Tunnel configuration
+# TLS is handled by Cloudflare edge → HTTP inside the tunnel
+
+tunnel: 8e20f0f1-e3dc-466e-9b44-e4c84cd5cdce
+no-autoupdate: true
+
+ingress:
+  # All traffic → Caddy on the Docker network
+  - service: http://caddy:8888

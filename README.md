@@ -2,25 +2,57 @@
 
 Music social platform — share posts about songs, rate tracks, follow artists, climb the leaderboard.
 
-## Start
+## Quick Start (Self-Hosted)
 
 ```bash
+./setup.sh
+```
+
+Open **http://localhost:8888**.
+
+The script generates a secure `.env` with random passwords and JWT secret, then starts everything with Docker.
+
+## Manual Start
+
+```bash
+# 1. Copy and configure environment
+cp .env.example .env
+# Edit .env — at minimum set DB_ROOT_PASSWORD and JWT_SECRET_KEY
+
+# 2. Generate secrets (run these and paste into .env)
+openssl rand -base64 32 | tr -d '/+' | head -c 24   # DB password
+openssl rand -base64 64                                # JWT secret
+
+# 3. Start
 docker compose up -d
 ```
 
-Open **http://localhost**.
+## Configuration
 
-## Local network access
+All settings are in `.env`:
 
-Others on the same WiFi can reach it at **http://mcair.local** (your Mac's Bonjour hostname). For a friendlier URL, rename your Mac in _System Settings → General → About → Name_ to `soundscore` — then it's **http://soundscore.local**.
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DB_ROOT_PASSWORD` | *(required)* | MariaDB root password |
+| `DB_NAME` | `sound` | Database name |
+| `JWT_SECRET_KEY` | *(required)* | JWT signing secret (base64) |
+| `MAIL_HOST` | `smtp.gmail.com` | SMTP server |
+| `MAIL_PORT` | `587` | SMTP port |
+| `MAIL_USERNAME` | *(empty)* | SMTP username |
+| `MAIL_PASSWORD` | *(empty)* | SMTP password (empty = OTP logged to console) |
+| `SEEDING_ENABLED` | `true` | Auto-seed test data on first run |
+| `CORS_ALLOWED_ORIGINS` | `https://soundscore.chlarc.ch,http://localhost:4200,http://localhost:8888` | Comma-separated CORS origins |
+| `APP_PORT` | `8888` | Public HTTP port |
+| `CLOUDFLARE_TUNNEL_TOKEN` | *(empty)* | Tunnel token (for standalone tunnel — leave empty if using shared tunnel) |
+| `RATE_LIMIT_REQUESTS_PER_MINUTE` | `120` | API rate limit per IP |
 
 ## Seeding
 
 The database auto-seeds with 8 test users, artists, songs, posts, and likes on first start. To disable:
 
-```yaml
-# docker-compose.yml
-SEEDING_ENABLED: "false"
+```env
+# .env
+SEEDING_ENABLED=false
 ```
 
 Then `docker compose down -v && docker compose up -d` for a blank database.
@@ -35,6 +67,48 @@ Then `docker compose down -v && docker compose up -d` for a blank database.
 | diana | password123 |
 
 All eight users use `password123`.
+
+## Mail / OTP
+
+When `MAIL_PASSWORD` is empty, OTP codes are printed to the backend container logs instead of being emailed:
+
+```bash
+docker compose logs backend | grep "DEV MODE"
+```
+
+## Cloudflare Tunnel (public access)
+
+SoundScore pairs with a shared Cloudflare Tunnel serving multiple services. Add this entry to your `cloudflared` config:
+
+```yaml
+# In ~/.cloudflared/config.yml
+ingress:
+  - hostname: soundscore.chlarc.ch
+    service: http://caddy:8888
+```
+
+Make sure the cloudflared container is connected to the `soundscore_default` Docker network:
+
+```yaml
+# In your cloudflared compose.yaml
+networks:
+  - soundscore_default
+```
+
+Once configured, SoundScore is available at:
+- **Local:** http://localhost:8888
+- **Public:** https://soundscore.chlarc.ch
+
+The app forces HTTPS via `Content-Security-Policy: upgrade-insecure-requests` header and uses `https://soundscore.chlarc.ch/api` as the absolute API URL in production builds.
+
+## E2E Tests
+
+```bash
+cd client
+npx playwright test
+```
+
+Tests cover auth endpoints, CORS, HTTPS enforcement, and frontend serving. Requires the app to be running at `https://soundscore.chlarc.ch`.
 
 ## Local development (no Docker)
 
@@ -53,4 +127,29 @@ npm install --legacy-peer-deps
 npx ng serve
 ```
 
-Frontend runs on **http://localhost:4200**, backend on **http://localhost:8080**. The dev build uses `localhost:8080/api` directly (no Caddy proxy).
+Frontend runs on **http://localhost:4200**, backend on **http://localhost:8080**.
+
+## Architecture
+
+```
+Browser → Caddy (:8888) → /api/* → backend (:8080) → MariaDB
+                         → /*     → frontend (:80, nginx)
+```
+
+With Cloudflare Tunnel:
+
+```
+Internet → Cloudflare Edge → cloudflared → Caddy (:8888) → ...
+```
+
+## Security
+
+- All secrets managed via `.env` (never committed)
+- JWT Bearer token authentication with configurable secret
+- Rate limiting (120 req/min per IP by default)
+- Security headers via Caddy: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `cross-origin-opener-policy`, `upgrade-insecure-requests`
+- Passwords hashed with BCrypt
+- OTP codes expire after 5 minutes, max 5 attempts
+- CSRF disabled (API uses stateless JWT, no cookies)
+- CORS restricted to configured origins
+- HTTPS enforced via CSP `upgrade-insecure-requests`

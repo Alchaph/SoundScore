@@ -3,12 +3,12 @@ services:
     image: mariadb:10.11
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: root
-      MARIADB_DATABASE: sound
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME:-sound}
     volumes:
       - mariadb_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-proot"]
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-p${DB_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -20,12 +20,16 @@ services:
       db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/sound
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/${DB_NAME:-sound}
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      JWT_SECRET_KEY: ed0tu+zBs0IDz6qlnpbOQDFdh/W5TKiZwD727lnlNLQZrke8FA7mTJ+FJQ0xJsNn0tamMP17tARr4KlZLo4rOA==
-      MAIL_PASSWORD: dummy
-      SEEDING_ENABLED: "true"  # set to "false" to skip seeding
+      SPRING_DATASOURCE_PASSWORD: ${DB_ROOT_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      SEEDING_ENABLED: ${SEEDING_ENABLED:-true}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
 
   frontend:
     build: ./client
@@ -37,12 +41,26 @@ services:
     image: caddy:alpine
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "${APP_PORT:-8888}:8888"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
       - frontend
       - backend
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    volumes:
+      - ./cloudflared/config.yml:/etc/cloudflared/config.yml:ro
+    depends_on:
+      - caddy
+    # Disable cloudflared if token is empty
+    profiles:
+      - tunnel
 
 volumes:
   mariadb_data:

@@ -1,11 +1,23 @@
-# Accept any hostname on the local network — HTTP only (no HTTPS for .local domains)
-:80 {
-    # Proxy /api to backend
+# SoundScore — self-hosted on localhost (HTTP only)
+:8888 {
+    # ── Security headers (relaxed enough for YouTube embeds) ─
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        X-Permitted-Cross-Domain-Policies "none"
+        Cross-Origin-Opener-Policy "same-origin-allow-popups"
+        Content-Security-Policy "upgrade-insecure-requests"
+        # Remove server identification
+        -Server
+    }
+
+    # ── API routes → backend ──────────────────────────
     handle /api/* {
         reverse_proxy backend:8080
     }
 
-    # Everything else to frontend
+    # ── Everything else → frontend ────────────────────
     handle {
         reverse_proxy frontend:80
     }
