@@ -1,0 +1,12 @@
+# Accept any hostname on the local network — HTTP only (no HTTPS for .local domains)
+:80 {
+    # Proxy /api to backend
+    handle /api/* {
+        reverse_proxy backend:8080
+    }
+
+    # Everything else to frontend
+    handle {
+        reverse_proxy frontend:80
+    }
+}

@@ -2,15 +2,13 @@ services:
   db:
     image: mariadb:10.11
     restart: unless-stopped
-    ports:
-      - "3306:3306"
     environment:
       MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: sound
     volumes:
       - mariadb_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-proot"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -18,8 +16,6 @@ services:
   backend:
     build: ./server
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
@@ -29,13 +25,23 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
       JWT_SECRET_KEY: ed0tu+zBs0IDz6qlnpbOQDFdh/W5TKiZwD727lnlNLQZrke8FA7mTJ+FJQ0xJsNn0tamMP17tARr4KlZLo4rOA==
       MAIL_PASSWORD: dummy
+      SEEDING_ENABLED: "true"  # set to "false" to skip seeding
 
   frontend:
     build: ./client
     restart: unless-stopped
-    ports:
-      - "4200:80"
     depends_on:
+      - backend
+
+  caddy:
+    image: caddy:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - frontend
       - backend
 
 volumes:

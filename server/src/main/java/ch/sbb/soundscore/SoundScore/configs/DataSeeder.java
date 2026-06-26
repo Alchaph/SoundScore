@@ -2,6 +2,7 @@ package ch.sbb.soundscore.SoundScore.configs;
 
 import ch.sbb.soundscore.SoundScore.entities.*;
 import ch.sbb.soundscore.SoundScore.repositories.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,9 @@ import java.util.List;
 @Component
 @Profile("!test")
 public class DataSeeder implements CommandLineRunner {
+
+    @Value("${app.seeding.enabled:true}")
+    private boolean seedingEnabled;
 
     private final UserRepository userRepo;
     private final ArtistRepository artistRepo;
@@ -42,6 +46,10 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (!seedingEnabled) {
+            System.out.println("Seeding disabled (app.seeding.enabled=false).");
+            return;
+        }
         if (userRepo.count() > 0) {
             System.out.println("DB already seeded — skipping.");
             return;
