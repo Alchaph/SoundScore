@@ -43,12 +43,16 @@
               <div [routerLink]="'/home/post/'+post.id" class="post-image-container">
                 <img [src]="post.image">
               </div>
+              @if (post.user) {
               <div class="post-meta">
                 <p>{{ 'HOME.POSTED_BY' | translate }}  {{ post.user.username }}</p>
                 <app-like-or-dislike [post]="post" [user]="activeUser"></app-like-or-dislike>
               </div>
+              }
               <div [routerLink]="'/home/post/'+post.id">
+                @if (post.user) {
                 <p>{{ post.user.followers ? post.user.followers.length : 0 }} {{ 'HOME.FOLLOWERS' | translate }}  </p>
+                }
                 <p>{{ post.content }}</p>
                 @if (post.genre || post.artist || post.song) {
                   <div class="post-tags">
