@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatChipListbox, MatChipOption} from "@angular/material/chips";
@@ -29,37 +29,37 @@ import {HomeService} from "../../services/HomeService/home.service";
 type CombinedType = Artist | Song | User | Post;
 
 @Component({
-    selector: 'app-search',
-    imports: [
-        HeadNavBarComponent,
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatCardTitle,
-        MatChipListbox,
-        MatChipOption,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatFabButton,
-        MatIcon,
-        MatList,
-        MatListItem,
-        MatMenu,
-        MatMenuItem,
-        MatSidenav,
-        MatSidenavContainer,
-        MatSidenavContent,
-        TranslateModule,
-        RouterLink,
-        FormsModule,
-        MatMenuTrigger,
-        MatFormField,
-        MatInput,
-        MatCheckbox
-    ],
-    templateUrl: './search.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './search.component.scss'
+  selector: 'app-search',
+  standalone: true,
+  imports: [
+    HeadNavBarComponent,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatChipListbox,
+    MatChipOption,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatFabButton,
+    MatIcon,
+    MatList,
+    MatListItem,
+    MatMenu,
+    MatMenuItem,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent,
+    TranslateModule,
+    RouterLink,
+    FormsModule,
+    MatMenuTrigger,
+    MatFormField,
+    MatInput,
+    MatCheckbox
+  ],
+  templateUrl: './search.component.html',
+  styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit, OnDestroy {
   posts: Post[] = [];

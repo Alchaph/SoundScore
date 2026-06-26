@@ -190,13 +190,13 @@ mat-form-field {
   min-width: 100px;
   font-size: 12px; // example
   margin-top: 20px;
-  --mat-form-field-outlined-outline-color: $text-color;
-  --mat-form-field-outlined-hover-outline-color: $text-color;
-  --mat-form-field-outlined-focus-hover-outline-color: $text-color;
-  --mat-form-field-outlined-focus-outline-color: $text-color;
-  --mat-form-field-outlined-error-outline-color: $text-color;
-  --mat-form-field-outlined-error-hover-outline-color: $text-color;
-  --mat-form-field-outlined-error-focus-outline-color: $text-color;
+  --mdc-outlined-text-field-outline-color: $text-color;
+  --mdc-outlined-text-field-hover-outline-color: $text-color;
+  --mdc-outlined-text-field-focus-hover-outline-color: $text-color;
+  --mdc-outlined-text-field-focus-outline-color: $text-color;
+  --mdc-outlined-text-field-error-outline-color: $text-color;
+  --mdc-outlined-text-field-error-hover-outline-color: $text-color;
+  --mdc-outlined-text-field-error-focus-outline-color: $text-color;
 
 }
 

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
@@ -12,18 +12,18 @@ import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
-    selector: 'app-premium',
-    imports: [
-        TranslateModule,
-        MatButton,
-        RouterLink,
-        HeadNavBarComponent,
-        FormsModule,
-        ReactiveFormsModule
-    ],
-    templateUrl: './premium.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './premium.component.scss'
+  selector: 'app-premium',
+  standalone: true,
+  imports: [
+    TranslateModule,
+    MatButton,
+    RouterLink,
+    HeadNavBarComponent,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  templateUrl: './premium.component.html',
+  styleUrl: './premium.component.scss'
 })
 export class PremiumComponent implements OnDestroy{
 

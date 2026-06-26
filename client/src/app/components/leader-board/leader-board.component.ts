@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Post} from "../../models/Post";
 import {LeaderBoardService} from "../../services/LeaderBoardService/leader-board.service";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -16,21 +16,21 @@ import { UserInformationService } from '../../services/UserInformationService/us
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-    selector: 'app-leader-board',
-    imports: [
-        MatTabGroup,
-        MatTab,
-        HeadNavBarComponent,
-        MatList,
-        MatListItem,
-        MatLine,
-        MatDivider,
-        RouterLink,
-        TranslateModule
-    ],
-    templateUrl: './leader-board.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './leader-board.component.scss'
+  selector: 'app-leader-board',
+  standalone: true,
+  imports: [
+    MatTabGroup,
+    MatTab,
+    HeadNavBarComponent,
+    MatList,
+    MatListItem,
+    MatLine,
+    MatDivider,
+    RouterLink,
+    TranslateModule
+  ],
+  templateUrl: './leader-board.component.html',
+  styleUrl: './leader-board.component.scss'
 })
 export class LeaderBoardComponent implements OnInit, OnDestroy{
   overallLeaderBoard: (Post | undefined)[] = [];

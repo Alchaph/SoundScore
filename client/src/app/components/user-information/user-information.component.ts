@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 import {AsyncPipe} from "@angular/common";
 
 @Component({
-    selector: 'app-user-information',
-    imports: [
-        AsyncPipe
-    ],
-    templateUrl: './user-information.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './user-information.component.scss'
+  selector: 'app-user-information',
+  standalone: true,
+  imports: [
+    AsyncPipe
+  ],
+  templateUrl: './user-information.component.html',
+  styleUrl: './user-information.component.scss'
 })
 export class UserInformationComponent implements OnInit, OnDestroy {
 

@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
-import {HttpClient, provideHttpClient, withFetch, withInterceptors, withXhr} from "@angular/common/http";
+import {HttpClient, provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {LanguageService} from "./services/languageService/language.service";
@@ -17,7 +17,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withXhr(), withInterceptors([LoadingInterceptor])), provideAnimationsAsync(),
+  providers: [provideRouter(routes), provideHttpClient(withFetch()), provideAnimations(), provideHttpClient(withInterceptors([LoadingInterceptor])), provideAnimationsAsync(),
               importProvidersFrom(TranslateModule.forRoot({
                 loader: {
                   provide: TranslateLoader,

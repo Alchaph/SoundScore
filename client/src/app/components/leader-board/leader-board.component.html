@@ -5,7 +5,7 @@
       @for (entry of overallLeaderBoard; track $index) {
         <mat-divider></mat-divider>
         <mat-list-item>
-          <h4 mat-line [routerLink]="['/home/post/',$safeNavigationMigration(entry?.id)]">{{ $index + 1 }}. {{ entry?.title }}
+          <h4 mat-line [routerLink]="['/home/post/',entry?.id]">{{ $index + 1 }}. {{ entry?.title }}
             by {{ entry?.user?.username }}</h4>
         </mat-list-item>
       }
@@ -16,7 +16,7 @@
       @for (song of songLeaderBoard; track $index) {
         <mat-divider></mat-divider>
         <mat-list-item>
-          <h4 mat-line (click)="openLink($safeNavigationMigration(song?.link))">{{ $index + 1 }}. {{ song?.title }}
+          <h4 mat-line (click)="openLink(song?.link)">{{ $index + 1 }}. {{ song?.title }}
             by {{ song?.artist?.name }}</h4>
         </mat-list-item>
       }
@@ -27,7 +27,7 @@
       @for (artist of artistLeaderBoard; track $index) {
         <mat-divider></mat-divider>
         <mat-list-item>
-          <h4 mat-line (click)="gotoArtist($safeNavigationMigration(artist?.id))">{{ $index + 1 }}. {{ artist?.name }}</h4>
+          <h4 mat-line (click)="gotoArtist(artist?.id)">{{ $index + 1 }}. {{ artist?.name }}</h4>
         </mat-list-item>
       }
     </mat-list>

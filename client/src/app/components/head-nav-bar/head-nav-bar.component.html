@@ -99,7 +99,7 @@
           </div>
           @for (notification of headerService.showReadNotifications ? headerService.user.notifications : headerService.unreadNotifications; track $index) {
             <button (click)="handleNotification(notification);" class="menu-button" mat-menu-item
-                    [style.border-left]="notification.read ? '10px solid #d3d3d3' : '10px solid #8ecae6'">
+                    [ngStyle]="notification.read ?  {'border-left': '10px solid #d3d3d3 '} :{'border-left': '10px solid #8ecae6'}">
               <div>
                 <img class="notification-image" [src]="this.headerService.createPicToDisplay(notification)">
                 <p class="menu-text">

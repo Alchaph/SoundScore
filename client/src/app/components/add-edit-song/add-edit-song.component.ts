@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButton} from "@angular/material/button";
 import {Location} from "@angular/common";
@@ -20,25 +20,25 @@ import {UserInformationService} from "../../services/UserInformationService/user
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-    selector: 'app-add-edit-song',
-    imports: [
-        HeadNavBarComponent,
-        MatButton,
-        MatCardHeader,
-        MatCardContent,
-        ReactiveFormsModule,
-        MatFormField,
-        MatSelect,
-        MatOption,
-        FormsModule,
-        MatLabel,
-        MatInput,
-        MatCardImage,
-        TranslateModule
-    ],
-    templateUrl: './add-edit-song.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './add-edit-song.component.scss'
+  selector: 'app-add-edit-song',
+  standalone: true,
+  imports: [
+    HeadNavBarComponent,
+    MatButton,
+    MatCardHeader,
+    MatCardContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    FormsModule,
+    MatLabel,
+    MatInput,
+    MatCardImage,
+    TranslateModule
+  ],
+  templateUrl: './add-edit-song.component.html',
+  styleUrl: './add-edit-song.component.scss'
 })
 export class AddEditSongComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('uploadedImage')

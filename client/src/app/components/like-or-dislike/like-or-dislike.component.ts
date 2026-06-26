@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {User} from "../../models/User";
@@ -8,14 +8,14 @@ import {Post} from "../../models/Post";
 import {Subject, Observable, takeUntil} from "rxjs";
 
 @Component({
-    selector: 'app-like-or-dislike',
-    imports: [
-        MatButton,
-        MatIcon
-    ],
-    templateUrl: './like-or-dislike.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './like-or-dislike.component.scss'
+  selector: 'app-like-or-dislike',
+  standalone: true,
+  imports: [
+    MatButton,
+    MatIcon
+  ],
+  templateUrl: './like-or-dislike.component.html',
+  styleUrl: './like-or-dislike.component.scss'
 })
 export class LikeOrDislikeComponent implements OnDestroy{
   likeProcessing: boolean = false;

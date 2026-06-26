@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PostService} from "../../../services/PostService/post.service";
 import {Post} from '../../../models/Post';
 import {HeadNavBarComponent} from "../../head-nav-bar/head-nav-bar.component";
@@ -14,20 +14,20 @@ import {UserFollowerService} from "../../../services/UserFollowerService/user-fo
 import {AsyncPipe} from "@angular/common";
 
 @Component({
-    selector: 'app-users-posts',
-    imports: [
-        HeadNavBarComponent,
-        RouterLink,
-        MatIcon,
-        MatCard,
-        MatCardContent,
-        MatCardTitle,
-        TranslateModule,
-        AsyncPipe
-    ],
-    templateUrl: './users-posts.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './users-posts.component.scss'
+  selector: 'app-users-posts',
+  standalone: true,
+  imports: [
+    HeadNavBarComponent,
+    RouterLink,
+    MatIcon,
+    MatCard,
+    MatCardContent,
+    MatCardTitle,
+    TranslateModule,
+    AsyncPipe
+  ],
+  templateUrl: './users-posts.component.html',
+  styleUrl: './users-posts.component.scss'
 })
 export class UsersPostsComponent implements OnInit, OnDestroy {
   posts: Post[] = [];

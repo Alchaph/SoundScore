@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {Post} from "../../models/Post";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -10,7 +10,7 @@ import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import { AsyncPipe, NgStyle } from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 import {CommentComponent} from "../comment/comment.component";
@@ -23,8 +23,9 @@ import {LanguageService} from "../../services/languageService/language.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-    selector: 'app-post',
-    imports: [
+  selector: 'app-post',
+  standalone: true,
+  imports: [
     HeadNavBarComponent,
     FormsModule,
     MatIconButton,
@@ -35,6 +36,8 @@ import {Subject, takeUntil} from "rxjs";
     TranslateModule,
     AsyncPipe,
     GenericLanguagePipe,
+    NgIf,
+    NgForOf,
     NgStyle,
     CommentComponent,
     MatButtonToggleGroup,
@@ -42,11 +45,10 @@ import {Subject, takeUntil} from "rxjs";
     MatSlideToggle,
     MatFormField,
     MatInput,
-    LikeOrDislikeComponent
-],
-    templateUrl: './post.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './post.component.scss'
+    LikeOrDislikeComponent,
+  ],
+  templateUrl: './post.component.html',
+  styleUrl: './post.component.scss'
 })
 
 export class PostComponent implements OnInit, OnDestroy {

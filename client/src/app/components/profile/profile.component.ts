@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {ArtistProfileComponent} from "./artist-profile/artist-profile.component";
@@ -10,19 +10,19 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Subject} from "rxjs";
 
 @Component({
-    selector: 'app-profile',
-    imports: [
-        HeadNavBarComponent,
-        MatTab,
-        ArtistProfileComponent,
-        UsersPostsComponent,
-        MatTabGroup,
-        MatButton,
-        TranslateModule
-    ],
-    templateUrl: './profile.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './profile.component.scss'
+  selector: 'app-profile',
+  standalone: true,
+  imports: [
+    HeadNavBarComponent,
+    MatTab,
+    ArtistProfileComponent,
+    UsersPostsComponent,
+    MatTabGroup,
+    MatButton,
+    TranslateModule
+  ],
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit, OnDestroy{
   selectedTab: string | undefined;

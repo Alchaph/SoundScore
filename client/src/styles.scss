@@ -8,20 +8,19 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.elevation-classes();
-@include mat.app-background();
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$client-primary: mat.m2-define-palette(mat.$m2-purple-palette, 900);
-$client-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
-$client-warn: mat.m2-define-palette(mat.$m2-red-palette);
+$client-primary: mat.define-palette(mat.$purple-palette, 900);
+$client-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$client-warn: mat.define-palette(mat.$red-palette);
 
-$client-theme: mat.m2-define-light-theme((
+$client-theme: mat.define-light-theme((
   color: (
-    primary: mat.m2-define-palette((
+    primary: mat.define-palette((
       100: var(--button-color),
       200: var(--button-color),
       300: var(--button-color),
@@ -42,13 +41,14 @@ $client-theme: mat.m2-define-light-theme((
     accent: $client-accent,
     warn: $client-warn,
   ),
-  typography: mat.m2-define-typography-config(),
+  typography: mat.define-typography-config(),
   density: 0
 ));
 
 @include mat.all-component-themes($client-theme);
 
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body { height: 100%; scrollbar-width: none }
 

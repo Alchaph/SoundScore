@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HeadNavBarComponent} from "../head-nav-bar/head-nav-bar.component";
 import {MatButton} from "@angular/material/button";
@@ -14,13 +14,14 @@ import {User} from "../../models/User";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import { NgClass } from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-    selector: 'app-artist-register',
-    imports: [
+  selector: 'app-artist-register',
+  standalone: true,
+  imports: [
     FormsModule,
     HeadNavBarComponent,
     MatButton,
@@ -36,11 +37,11 @@ import {Subject, takeUntil} from "rxjs";
     TranslateModule,
     MatTabGroup,
     MatTab,
-    NgClass
-],
-    templateUrl: './artist-register-edit.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './artist-register-edit.component.scss'
+    NgClass,
+    NgIf
+  ],
+  templateUrl: './artist-register-edit.component.html',
+  styleUrl: './artist-register-edit.component.scss'
 })
 export class ArtistRegisterEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('uploadedImage')
