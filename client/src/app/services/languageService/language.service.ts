@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environments";
 import {TranslateService} from "@ngx-translate/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable, pipe, switchMap} from "rxjs";
+import {catchError, map, Observable, of, pipe, switchMap} from "rxjs";
 import {CookieService} from "../CookieService/cookie.service";
 import {Language} from "../../enums/language";
 
@@ -12,7 +12,7 @@ import {Language} from "../../enums/language";
 export class LanguageService {
   translate: boolean = JSON.parse(localStorage.getItem('translate') || 'false');
   private detectApiUrl: string = 'https://ws.detectlanguage.com/0.2/detect';
-  private translateApiUrl: string = 'http://localhost:5000/translate';
+  private translateApiUrl: string = '/translate';
   private detectHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': 'Bearer 6eaddab8e75f4cba4d49499427ebce8e'
   });
@@ -62,7 +62,9 @@ export class LanguageService {
       source: source,
       target: target,
       q: text
-    })
+    }).pipe(
+      catchError(() => of({ translatedText: text }))
+    )
   }
 
   private initializeTranslationSettings() {

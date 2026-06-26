@@ -12,6 +12,11 @@
         -Server
     }
 
+    # ── Translate → LibreTranslate ──────────────────
+    handle /translate* {
+        reverse_proxy translate:5000
+    }
+
     # ── API routes → backend ──────────────────────────
     handle /api/* {
         reverse_proxy backend:8080

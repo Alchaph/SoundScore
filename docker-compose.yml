@@ -37,6 +37,13 @@ services:
     depends_on:
       - backend
 
+  translate:
+    image: libretranslate/libretranslate:latest
+    restart: unless-stopped
+    command: --host 0.0.0.0
+    depends_on:
+      - frontend
+
   caddy:
     image: caddy:alpine
     restart: unless-stopped
