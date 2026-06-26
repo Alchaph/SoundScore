@@ -14,7 +14,7 @@ import {Artist} from "../../../models/Artist";
 import {Location} from '@angular/common';
 import {TranslateModule} from "@ngx-translate/core";
 import {MatBadge} from "@angular/material/badge";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -52,10 +52,10 @@ export class ArtistProfileComponent implements OnDestroy{
     this.init()
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

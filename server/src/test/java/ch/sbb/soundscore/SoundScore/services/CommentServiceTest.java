@@ -28,6 +28,8 @@ class CommentServiceTest {
     void setUp() {
         commentRepository = mock(CommentRepository.class);
         userNotificationsRepository = mock(UserNotificationsRepository.class);
+        userRepository = mock(UserRepository.class);
+        userTagRepository = mock(UserTagRepository.class);
         commentService = new CommentService(commentRepository, userNotificationsRepository, userRepository, userTagRepository);
     }
 

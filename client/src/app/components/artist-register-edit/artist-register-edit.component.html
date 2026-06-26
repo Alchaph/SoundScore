@@ -25,7 +25,7 @@
                 <input [formControl]="formGroup.controls.artistImage" matInput required>
               </mat-form-field>
               <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
-              <button [disabled]="formGroup.invalid" color="primary"
+              <button type="submit" [disabled]="formGroup.invalid" color="primary"
                       mat-raised-button>{{ artist ? ('ARTIST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('ARTIST_FORM.SUBMIT_BUTTON_SAVE' | translate) }}
               </button>
             </form>
@@ -85,7 +85,7 @@
             <input [formControl]="formGroup.controls.artistImage" matInput required>
           </mat-form-field>
           <img #uploadedImage [src]="formGroup.controls.artistImage.value" alt="" mat-card-image>
-          <button [disabled]="formGroup.invalid" color="primary"
+          <button type="submit" [disabled]="formGroup.invalid" color="primary"
                   mat-raised-button>{{ artist ? ('ARTIST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('ARTIST_FORM.SUBMIT_BUTTON_SAVE' | translate) }}
           </button>
         </form>

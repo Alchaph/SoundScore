@@ -1,7 +1,6 @@
 package ch.sbb.soundscore.SoundScore.Controller;
 
 import ch.sbb.soundscore.SoundScore.entities.Comment;
-import ch.sbb.soundscore.SoundScore.entities.Post;
 import ch.sbb.soundscore.SoundScore.entities.User;
 import ch.sbb.soundscore.SoundScore.services.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,11 +11,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -35,13 +37,19 @@ public class CommentControllerTest {
 
 
     @Test
-    @WithMockUser(username = "user1", password = "test")
     @Transactional
     @DirtiesContext
     void shouldCreateNewComment() throws Exception {
-        Comment comment = new Comment("message", new User("user1", "test", "test", null, false), null, null);
+        User mockUser = new User("user1", "test@test.com", "test", null, false);
+        mockUser.setId(1L);
+        Comment comment = new Comment("message", null, null, null);
         comment.setId(1L);
         when(commentService.createComment(any(Comment.class), any(User.class))).thenReturn(comment);
+
+        // Set up SecurityContext with the app's User entity (not Spring Security's User)
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(mockUser, null, Collections.emptyList()));
+
         mockMvc.perform(post("/api/comments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(comment)))

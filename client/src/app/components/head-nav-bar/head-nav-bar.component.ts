@@ -19,7 +19,7 @@ import {LoaderService} from "../../services/LoaderService/loader.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-head-nav-bar',
@@ -60,10 +60,10 @@ export class HeadNavBarComponent implements OnInit, OnDestroy {
 
   counter = 0;
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

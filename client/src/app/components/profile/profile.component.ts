@@ -7,7 +7,7 @@ import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -27,10 +27,10 @@ import {BehaviorSubject} from "rxjs";
 export class ProfileComponent implements OnInit, OnDestroy{
   selectedTab: string | undefined;
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

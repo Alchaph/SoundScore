@@ -8,7 +8,7 @@ import {UserInformationService} from "../../services/UserInformationService/user
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {PayPalAccessToken} from "../../models/PayPalAccessToken";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -40,10 +40,10 @@ export class PremiumComponent implements OnDestroy{
     cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')])
   });
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

@@ -53,7 +53,7 @@ describe('ProfileComponent', () => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

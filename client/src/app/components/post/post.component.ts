@@ -20,7 +20,7 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {LikeOrDislikeComponent} from "../like-or-dislike/like-or-dislike.component";
 import {LanguageService} from "../../services/languageService/language.service";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-post',
@@ -69,10 +69,10 @@ export class PostComponent implements OnInit, OnDestroy {
     this.postId = Number(this.route.snapshot.paramMap.get('postId'))
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

@@ -74,7 +74,7 @@ describe('HomeService', () => {
     leaderBoardService = TestBed.inject(LeaderBoardService);
     router = TestBed.inject(Router);
     jwtService = TestBed.inject(JwtService);
-    service.$destroy = new BehaviorSubject<boolean>(false);
+    service.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

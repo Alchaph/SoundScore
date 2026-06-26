@@ -74,7 +74,7 @@ describe('LoginComponent', () => {
     cookieService = TestBed.inject(CookieService);
     translateService = TestBed.inject(TranslateService);
     fixture.detectChanges();
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

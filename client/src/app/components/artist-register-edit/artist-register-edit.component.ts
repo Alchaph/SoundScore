@@ -16,7 +16,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {NgClass, NgIf} from "@angular/common";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-artist-register',
@@ -65,10 +65,10 @@ export class ArtistRegisterEditComponent implements OnInit, AfterViewInit, OnDes
   protected explode: boolean = false;
   protected disabled: boolean = false;
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

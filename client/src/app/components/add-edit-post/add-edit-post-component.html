@@ -98,7 +98,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <button [disabled]="formGroup.invalid" color="primary"
+      <button type="submit" [disabled]="formGroup.invalid" color="primary"
               mat-raised-button>{{ post ? ('POST_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('POST_FORM.SUBMIT_BUTTON_CREATE' | translate) }}
       </button>
     </form>

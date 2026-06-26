@@ -62,7 +62,7 @@ describe('HeadNavBarComponent', () => {
 
     fixture = TestBed.createComponent(HeadNavBarComponent);
     component = fixture.componentInstance;
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

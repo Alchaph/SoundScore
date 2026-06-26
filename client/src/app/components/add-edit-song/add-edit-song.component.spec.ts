@@ -63,7 +63,7 @@ describe('AddEditSongComponent', () => {
     fixture = TestBed.createComponent(AddEditSongComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

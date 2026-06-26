@@ -71,7 +71,7 @@ describe('SearchComponent', () => {
     artistService = TestBed.inject(ArtistService) as jasmine.SpyObj<ArtistService>;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
     breakpointObserver = TestBed.inject(BreakpointObserver) as jasmine.SpyObj<BreakpointObserver>;
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

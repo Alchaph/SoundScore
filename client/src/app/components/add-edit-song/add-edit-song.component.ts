@@ -17,7 +17,7 @@ import {User} from "../../models/User";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-add-edit-song',
@@ -74,10 +74,10 @@ export class AddEditSongComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

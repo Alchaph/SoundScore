@@ -64,7 +64,7 @@ describe('HomeMobileComponent', () => {
     fixture = TestBed.createComponent(HomeMobileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

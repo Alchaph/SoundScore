@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { LoaderService } from './loader.service';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 describe('LoaderService', () => {
   let service: LoaderService;

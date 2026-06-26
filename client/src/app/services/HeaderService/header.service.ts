@@ -6,7 +6,7 @@ import {LoaderService} from "../LoaderService/loader.service";
 import {NotificationService} from "../NotificationService/notification.service";
 import {User} from "../../models/User";
 import {Notification} from "../../models/Notification";
-import {BehaviorSubject, Observable, takeUntil} from "rxjs";
+import {Subject, Observable, takeUntil} from "rxjs";
 import {FormControl, Validators} from "@angular/forms";
 import {Language} from '../../enums/language';
 
@@ -39,10 +39,10 @@ export class HeaderService implements OnDestroy{
     this.unreadNotifications = [];
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

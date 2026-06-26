@@ -1,26 +1,90 @@
-# Compiled class file
+# =====================
+# Java / Maven
+# =====================
+target/
+build/
 *.class
-.idea/*
-./client/node_modules/*
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
 *.nar
 *.ear
-*.zip
-*.tar.gz
-*.rar
+*.ctxt
+.mtj.tmp/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Maven wrapper (keep the jar, ignore the rest is in server/.gitignore)
+!.mvn/wrapper/maven-wrapper.jar
+
+# =====================
+# Node / Angular
+# =====================
+node_modules/
+dist/
+/out-tsc
+/.angular/cache
+.sass-cache/
+/connect.lock
+/libpeerconnection.log
+testem.log
+/typings
+
+# =====================
+# IDE & Editors
+# =====================
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.factorypath
+.settings/
+.springBeans
+.sts4-cache
+.apt_generated
+.c9/
+*.launch
+*.sublime-workspace
+.history/
+
+# =====================
+# OS generated files
+# =====================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =====================
+# Logs & Runtime
+# =====================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/coverage
+*.pid
+*.seed
+*.pid.lock
+
+# =====================
+# Environment & Secrets
+# =====================
+.env
+.env.local
+.env.*.local
+*.env
+application-local.properties
+
+# =====================
+# Misc
+# =====================
+*.tmp
+*.swp
+*.swo
+*~
+.SONIC_PID

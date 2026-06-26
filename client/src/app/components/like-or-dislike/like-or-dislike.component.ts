@@ -5,7 +5,7 @@ import {User} from "../../models/User";
 import {PostService} from "../../services/PostService/post.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {Post} from "../../models/Post";
-import {BehaviorSubject, Observable, takeUntil} from "rxjs";
+import {Subject, Observable, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-like-or-dislike',
@@ -27,10 +27,10 @@ export class LikeOrDislikeComponent implements OnDestroy{
   constructor(protected postService: PostService) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

@@ -23,7 +23,7 @@ import {JwtService} from "../../services/JwtService/jwt.service";
 import {User} from "../../models/User";
 import {SongService} from "../../services/SongService/song.service";
 import {ArtistService} from "../../services/ArtistService/artist.service";
-import {BehaviorSubject, forkJoin} from "rxjs";
+import {Subject, forkJoin} from "rxjs";
 import {HomeService} from "../../services/HomeService/home.service";
 
 type CombinedType = Artist | Song | User | Post;
@@ -81,10 +81,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

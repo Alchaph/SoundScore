@@ -62,7 +62,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <button color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ song ? ('SONG_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('SONG_FORM.SUBMIT_BUTTON_CREATE' | translate) }}</button>
+      <button type="submit" color="primary" mat-raised-button [disabled]="formGroup.invalid">{{ song ? ('SONG_FORM.SUBMIT_BUTTON_EDIT' | translate) : ('SONG_FORM.SUBMIT_BUTTON_CREATE' | translate) }}</button>
     </form>
   </mat-card-content>
 </div>

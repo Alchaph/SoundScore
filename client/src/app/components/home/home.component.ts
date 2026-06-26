@@ -44,7 +44,7 @@ import {MatSelect} from "@angular/material/select";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeMobileComponent} from "./home-mobile/home-mobile.component";
 import {HomeService} from "../../services/HomeService/home.service";
-import {BehaviorSubject, Observable, takeUntil} from "rxjs";
+import {Subject, Observable, takeUntil} from "rxjs";
 import {Post} from "../../models/Post";
 import {PostService} from "../../services/PostService/post.service";
 import {User} from "../../models/User";
@@ -132,10 +132,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

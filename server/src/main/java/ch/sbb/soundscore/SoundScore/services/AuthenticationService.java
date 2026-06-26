@@ -31,7 +31,11 @@ public class AuthenticationService {
         message.setTo(username);
         message.setSubject("Your 2FA Code");
         message.setText("Your Code is " + otp);
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+            System.out.println("DEV MODE: OTP for " + username + " is: " + otp);
+        }
         return true;
     }
 

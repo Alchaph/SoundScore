@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 import {JwtService} from "../JwtService/jwt.service";
 import {User} from "../../models/User";
 import {UserInformationService} from "../UserInformationService/user-information.service";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +23,10 @@ export class HomeService implements OnDestroy {
   constructor(private postService: PostService, private leaderBoardService: LeaderBoardService, private router: Router, private jwtService: JwtService, private userInformationService: UserInformationService) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

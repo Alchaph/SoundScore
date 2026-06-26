@@ -2,6 +2,7 @@ package ch.sbb.soundscore.SoundScore.services;
 
 import ch.sbb.soundscore.SoundScore.entities.Artist;
 import ch.sbb.soundscore.SoundScore.entities.User;
+import ch.sbb.soundscore.SoundScore.repositories.UserFollowerRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserNotificationsRepository;
 import ch.sbb.soundscore.SoundScore.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,12 +34,15 @@ public class UserServiceTest {
     private UserNotificationsRepository userNotificationsRepository;
 
     @Mock
+    private UserFollowerRepository userFollowerRepository;
+
+    @Mock
     private UserDetails userDetails;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        userService = new UserService(userRepository, passwordEncoder, userNotificationsRepository);
+        userService = new UserService(userRepository, passwordEncoder, userNotificationsRepository, userFollowerRepository);
 
         when(userDetails.getUsername()).thenReturn("testuser");
     }

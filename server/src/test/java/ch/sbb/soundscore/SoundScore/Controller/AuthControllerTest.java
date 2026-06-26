@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class AuthControllerTest {
 
-    @Indddddd jectMocks
+    @InjectMocks
     private AuthenticationController authenticationController;
 
     @Mock

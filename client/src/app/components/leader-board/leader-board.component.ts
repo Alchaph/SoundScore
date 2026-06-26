@@ -13,7 +13,7 @@ import {Genre} from "../../models/Genre";
 import {TranslateModule} from "@ngx-translate/core";
 import {HomeService} from "../../services/HomeService/home.service";
 import { UserInformationService } from '../../services/UserInformationService/user-information.service';
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-leader-board',
@@ -41,10 +41,10 @@ export class LeaderBoardComponent implements OnInit, OnDestroy{
   constructor(private leaderBoardService: LeaderBoardService, private homeService: HomeService, private userInformationService: UserInformationService) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

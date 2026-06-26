@@ -11,7 +11,7 @@ import {HomeService} from "../../../services/HomeService/home.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {TranslateModule} from "@ngx-translate/core";
 import {Post} from "../../../models/Post";
-import {BehaviorSubject, Observable, takeUntil} from "rxjs";
+import {Subject, Observable, takeUntil} from "rxjs";
 import {User} from "../../../models/User";
 import {PostService} from "../../../services/PostService/post.service";
 import {JwtService} from "../../../services/JwtService/jwt.service";
@@ -52,10 +52,10 @@ export class HomeMobileComponent implements OnInit, OnDestroy {
   constructor(protected homeService: HomeService, private breakpointObserver: BreakpointObserver, protected postService: PostService, protected jwtService: JwtService) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

@@ -44,7 +44,7 @@ describe('LeaderBoardComponent', () => {
     component = fixture.componentInstance;
     leaderBoardService = TestBed.inject(LeaderBoardService) as jasmine.SpyObj<LeaderBoardService>;
     homeService = TestBed.inject(HomeService) as jasmine.SpyObj<HomeService>;
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

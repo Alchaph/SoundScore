@@ -20,7 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatOption} from "@angular/material/autocomplete";
 import {GifService} from "../../services/GifService/gif.service";
 import {TranslateModule} from "@ngx-translate/core";
-import {BehaviorSubject, take, takeUntil} from "rxjs";
+import {Subject, take, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-add-post',
@@ -74,10 +74,10 @@ export class AddEditPostComponent implements AfterViewInit, OnInit, OnDestroy {
     songOrGenreOrArtist: new FormControl<Song | Artist | Genre | null>(null, [Validators.required])
   });
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

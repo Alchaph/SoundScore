@@ -44,7 +44,7 @@ describe('LikeOrDislikeComponent', () => {
       likes: [],
       dislikes: []
     } as unknown as Post;
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

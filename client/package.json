@@ -33,7 +33,7 @@
     "ngx-mat-intl-tel-input-v16": "^16.0.3",
     "rxj": "^0.0.0-alpha.0",
     "rxjs": "~7.8.0",
-    "three.js": "^0.77.1",
+    "three": "^0.170.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

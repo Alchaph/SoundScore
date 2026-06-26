@@ -8,7 +8,7 @@ import {User} from "../../../models/User";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {TranslateModule} from "@ngx-translate/core";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {UserInformationService} from "../../../services/UserInformationService/user-information.service";
 import {UserFollowerService} from "../../../services/UserFollowerService/user-follower.service";
 import {AsyncPipe} from "@angular/common";
@@ -41,10 +41,10 @@ export class UsersPostsComponent implements OnInit, OnDestroy {
   constructor(protected postService: PostService, private jwtService: JwtService, private router: Router, private route: ActivatedRoute, private userInformationService: UserInformationService, private userFollowService: UserFollowerService) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

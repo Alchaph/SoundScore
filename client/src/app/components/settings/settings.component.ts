@@ -15,7 +15,7 @@ import {NgClass} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {CookieService} from "../../services/CookieService/cookie.service";
 import {UserInformationService} from "../../services/UserInformationService/user-information.service";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-settings',
@@ -69,10 +69,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

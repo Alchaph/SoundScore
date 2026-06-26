@@ -43,7 +43,7 @@ describe('HeaderService', () => {
     });
 
     service = TestBed.inject(HeaderService);
-    service.$destroy = new BehaviorSubject<boolean>(false);
+    service.$destroy = new Subject<void>();
   });
 
   afterEach(() => {

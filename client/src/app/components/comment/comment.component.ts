@@ -9,7 +9,7 @@ import {GenericLanguagePipe} from "../../pipes/genericLanguage.pipe";
 import {LanguageService} from "../../services/languageService/language.service";
 import {JwtService} from "../../services/JwtService/jwt.service";
 import {Router, RouterLink} from "@angular/router";
-import {BehaviorSubject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-comment',
@@ -38,10 +38,10 @@ export class CommentComponent implements OnInit, OnDestroy{
   constructor(private commentService: CommentService, protected languageService: LanguageService, private jwtService: JwtService, private router : Router) {
   }
 
-  $destroy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  $destroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
-    this.$destroy.next(true);
+    this.$destroy.next();
     this.$destroy.complete();
   }
 

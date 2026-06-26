@@ -73,7 +73,7 @@ describe('ArtistProfileComponent', () => {
     fixture = TestBed.createComponent(ArtistProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.$destroy = new BehaviorSubject<boolean>(false);
+    component.$destroy = new Subject<void>();
   });
 
   afterEach(() => {
